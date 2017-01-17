@@ -1,12 +1,30 @@
-Android app build instructions
+Install NodeJS.
+Install Cordova.
 
-Download and install nodejs, cordova, android SDK and java.
-Create a new cordova project.
-Add the following plugins
-	file
-	recorder
-	camera
-Add scripts from git repo
-Add school build from web console to the /www/school/ directory.
-Execute "Cordova build android"
-Manually install apk or use make_ext4fs command on linux to create and flash userdata.img
+> cordova create schoolHouse com.CCI.schoolHouse schoolHouse
+> cd schoolHouse
+> cordova platform add android --save
+> cordova plugin add cordova-plugin-camera
+> cordova plugin add cordova-plugin-audio-recorder-api
+> cordova plugin add cordova-plugin-file
+
+Empty schoolHouse/www/ folder.
+Clone schoolHouse repo into schoolHouse/www/ folder.
+Add one of our premade schools to the schoolHouse/www/school/ folder.
+	(Premade schools are in the supplemental folder on box)
+
+OR
+
+Add a newly created school (download from console, extract zip files to schoolHouse/www/school/ folder).
+
+> cordova build android
+	(takes 15 minutes depending)
+
+	
+Use android make_ext4fs command on linux machine to build userdata.img for fastboot flash.
+
+OR
+
+Connect tablet, tranfer APK.
+On tablet, allow instalation of apps from unknown sources.
+Install APK.
