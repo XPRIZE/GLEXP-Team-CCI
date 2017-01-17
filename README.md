@@ -2,7 +2,7 @@
 
 Pubbly: A Rapid Production System of Publishing Engaging, Interactive, Educational Materials
 
-The pubbly system consists of three main projects. The Desktop design tools, the Web console, and the Cordova school house application.
+The pubbly system consists of three main projects. The Desktop design tools, the Web console, and the Cordova school house application. Build instructions for each are in the coresponding subfolders.
 
 
 DESIGN TOOLS
@@ -12,8 +12,6 @@ The Desktop design tools are a cross platform suite of tools written in livecode
 These assets are completed by adding the interactive layer. This is the behind-the-scenes creativity where instructional designers will spend most of their time. In most cases, designers begin this work by tracing areas on each page to create hotspots or ”links,” and then adding ”targets” to them. When triggered (touched or clicked by the student), the targets provide an engaging educational experience. Some examples of targets include playing audio files, flashing images, highlighting text, automated drawing, and running animations.
 
 It is through this system of links, triggers, and targets that Pubbly designers create rich and engaging interactivity. For the newcomer, even the addition of just a few audio targets can produce valuable interactive learning experiences, and designers can upload or “publish” any content asset to the cloud directly from the authoring system. Doing so generates a URL that can be accessed by Internet-connected learners anywhere in the world. Nothing more is required. For GLEXP, we also developed the capability to run content assets locally, without an Internet connection and to arrange those assets into specific learning pathways. For those who want to go further, Pubbly offers much, much more while never requiring any coding or complex computer skills.
-
-Build instructions for the standalone are inside the "Desktop design tools" subfolder"
 
 ____
 
@@ -32,12 +30,10 @@ Finally, units are then created using the console’s stitch app to combine page
 
 They serve as a reward, an incentive, and a way for academic designers to teach through non-traditional methods. Once completed, a virtual school can be downloaded, tested and deployed on mobile devices through an APK installer or other processes.
 
-Build instructions can be found in the Web console subfolder.
 
 ____
 
 
 CORDOVA SCHOOL HOUSE APP
-
 
 
