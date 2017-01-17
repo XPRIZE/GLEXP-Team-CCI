@@ -1,6 +1,5 @@
 Desktop design tools build instructions
 
-
 Download version 7.1.1 of the Livecode Community Edition (free) for your platform at:
       http://downloads.livecode.com/livecode/ 
 Open the enclosed "Pubbly.livecode" from within Livecode Community Edition.
