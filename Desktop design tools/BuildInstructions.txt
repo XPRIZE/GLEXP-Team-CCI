@@ -1,0 +1,23 @@
+Desktop design tools build instructions
+
+
+1)  Download version 7.1.1 of the Livecode Community Edition (free) for your platform at:
+      http://downloads.livecode.com/livecode/ 
+
+2)  Open the enclosed "Pubbly.livecode" from within Livecode Community Edition.
+
+3)  Click on File and choose Standalone Application Settings.
+
+4)  Use the buttons at the top of the window to choose your platform (Windows or Mac).
+
+5)  Check the top left button labeled "Build for" and close this window.
+
+6)  Click on File and choose "Save as Standalone Application".
+
+7)  Quit the program.
+
+8)  Duplicate the enclosed Tools.pbly file to the Pubbly folder now on your desktop.
+
+9)  Duplicate the enclosed Support folder to the Pubbly folder now on your desktop.
+
+10)  Double-click the Pubbly application to open and test your build.
