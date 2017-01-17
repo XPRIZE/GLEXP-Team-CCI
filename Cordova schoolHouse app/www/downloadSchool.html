@@ -1,0 +1,41 @@
+<html>
+    <head>
+	<title>Cordova Download Unzip Display Sample</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<script src="cordova.js"></script>
+	<script src="js/webix.js"></script>
+	<link rel="stylesheet" href="css/webix.css" />
+	<link rel="stylesheet" href="css/downloader.css" />
+	<script src="js/debugLog.js"></script>
+	<script>
+	    function output(what, type) {
+		if (!type) {
+		    type = "log";
+		}
+		var id = $("#outputLog p").length;
+		$("#outputLog p").first().before("<p class=" + type + " id=" + id + " >" + what + "</p>");
+		var elem = $("#outputLog p#" + id);
+		window.setTimeout(function () {
+		    $(elem).animate({"opacity": 1}, 100);
+		}, 1);
+	    }
+
+	</script>
+	<script src="js/jquery.js"></script>
+	<script src="js/zipDownload.js"></script>
+    </head>
+
+    <body>
+	<img id="imgPlace" />
+	<div id="outputCont">
+	    <div id="outputLog">
+		<h2>Output log</h2>
+		<hr>
+		<p></p>
+	    </div>
+	</div>
+
+
+    </body>
+</html>

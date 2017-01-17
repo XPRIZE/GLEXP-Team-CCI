@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pubbly Console</title>
+  <link rel="styleSheet" href="../css/webixPersonalModifications.css" />
+  <style>
+    .rename {
+      width: 100px;
+      text-align: center;
+      font-weight: bold;
+      float: right;
+      background-color: #444;
+      color: white;
+      border-radius: 3px;
+    }
+
+    .largeEntries {
+      width: calc(100% - 60px);
+      display: inline-block;
+    }
+
+    .itemValue, .itemColor, .itemFont, .itemSize {
+      width: calc(25% - 13px);
+      margin: 0 5px;
+      padding: 0;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .boldCheck, .underlineCheck {
+      display: inline-block;
+    }
+
+    .boldCheck *, .underlineCheck * {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+  </style>
+  <link rel="stylesheet" href="../includes/webix/webix.css"/>
+  <script src="../includes/jquery.js"></script>
+  <script src="../includes/webix/webix_debug.js"></script>
+  <script src="../includes/dropzone.js"></script>
+  <link rel="stylesheet" href="../includes/dropzone.css"></link>
+</head>
+<body>
+<script>
+  window.uploadParentDropzoneAttached = false;
+  window.reuploadParentDropzoneAttached = false;
+  window.newSeriesTimeout = false;
+  window.xmlData = false;
+
+  var header = {
+    view: "toolbar",
+    height: 55,
+    autoWidth: true,
+    cols: [
+      {
+        view: "button", value: "Home", width: 80, on: {
+        onItemClick: function () {
+          window.location.href = "../index.php";
+        }
+      }
+      },
+      {
+        view: "button", value: "Utilities", width: 80, on: {
+        onItemClick: function () {
+          window.location.href = "index.php";
+        }
+      }
+      },
+      {
+        view: "label",
+        template: "<p class='toolbarCenterLabel'>Text to image</p>"
+      },
+      {type: "spacer", width: 80},
+      {
+        view: "button", value: "Logout", width: 80, on: {
+        onItemClick: function () {
+          window.location.href = "../logout.php";
+        }
+      }
+      }
+    ]
+  };
+
+  textToImageListsObj = [];
+  textToImageListsObj.push({
+    "id": 1,
+    "name": "Swahili reading Level 1",
+    "length": 5,
+  });
+  textToImageListsObj.push({
+    "id": 2,
+    "name": "Swahili reading Level 2",
+    "length": 8,
+  });
+
+  function updateNode(elem) {
+    var elemClass = elem.classList[0];
+    var nodeID = Number($(elem).parent().parent().attr("nodeid"));
+    var checkFailed = false;
+    var nodeName = "";
+    var newValue = elem.value;
+    if (elemClass == "itemValue") {
+      nodeName = "value";
+    } else if (elemClass == "itemColor") {
+      nodeName = "color";
+      if (elem.value.split(",").length == 3) {
+        var RGB = elem.value.split(",");
+        if (typeof (RGB[0] + 1 - 1) == "NaN" || typeof (RGB[1] + 1 - 1) == "NaN" || typeof (RGB[2] + 1 - 1) == "NaN") {
+          webix.message("Color must be three comma seperated numbers");
+          checkFailed = true;
+        } else {
+          // Check passed
+        }
+      } else {
+        webix.message('Colors must be in "R,G,B" format');
+        checkFailed = true;
+      }
+    } else if (elemClass == "itemFont") {
+      nodeName = "font";
+    } else if (elemClass == "itemSize") {
+      nodeName = "size";
+    } else if (elemClass == "itemBold") {
+      nodeName = "underlined";
+      newValue = elem.checked;
+    } else if (elemClass == "itemUnderlined") {
+      nodeName = "bold";
+      newValue = elem.checked;
+    }
+
+    if (!checkFailed) {
+      console.log("ajax call of update textToImageList xml file '" + 1 +
+          "', item number '" + nodeID + "', node '" + nodeName +
+          "' with value '" + newValue + "'.");
+    }
+  }
+
+
+  var listItemTemplate = "" +
+      "<div class=itemCont nodeID=#nodeID#>" +
+      "<div class=largeEntries>" +
+      "<input type=text class='itemValue' value='#value#' onblur='updateNode(this)'></input>" +
+      "<input class='itemColor' style='color:RGB(#color#);' value='#color#' onblur='updateNode(this)'></input>" +
+      "<select class='itemFont' style='font-family:#font#, #font#;' onchange='updateNode(this)'>" +
+      "<option selected>#font#</option>" +
+      "<option>Times</option>" +
+      "<option>Arial</option>" +
+      "<option>Helvatica</option>" +
+      "<option>Something else</option>" +
+      "</select>" +
+      "<input class='itemSize' type=number value=#size# onblur='updateNode(this)' onchange='updateNode(this)'/>" +
+      "</div>" +
+      "<div class='boldCheck'>" +
+      "<span><b>B</b></span>" +
+      "<input type=checkbox class='itemBold' value='' #bold# onchange='updateNode(this)'>" +
+      "</div>" +
+      "<div class='underlineCheck'>" +
+      "<span><u>U</u></span>" +
+      "<input type=checkbox class='itemUnderlined' value='' #underlined# onchange='updateNode(this)'>" +
+      "</div>" +
+      "</div>" +
+      "";
+
+  var elem = {
+    view: "scrollview",
+    width: "100%",
+    body: {
+      type: "space",
+      rows: [
+        header,
+        {
+          cols: [
+            {
+              view: "list", width: 250,
+              template: "#name#",
+              select: "multiselect",
+              on: {
+                onItemClick: function (id) {
+                  if (window.xmlData) {
+                    var arr = [];
+                    for (var d = 0; d < window.xmlData.length; d++) {
+                      arr.push(window.xmlData[d].id);
+                    }
+                    $$("textList").remove(arr);
+                  }
+                  var stamp = Date.now();
+                  $$("textList").add({"value": "Loading...", "id": stamp});
+
+                  $$("textList").load("textToImageLists/Swahili reading.xml", "xml", {
+                    error: function (text, data, http_request) {
+                      $$("textList").remove([stamp]);
+                      $$("textList").add({"value": "Error: Can't find list!", "id": "0000"});
+                      return false; // don't highlight row
+                    },
+                    success: function (text, data, http_request) {
+                      $$("textList").remove([stamp]);
+                      if (data) {
+                        window.xmlData = data.xml().textToImage.list.item;
+                        for (var d = 0; d < window.xmlData.length; d++) {
+                          if (window.xmlData[d].bold == "" || window.xmlData[d].bold == "false") {
+                            window.xmlData[d].bold = "";
+                          } else {
+                            window.xmlData[d].bold = "checked";
+                          }
+                          if (window.xmlData[d].underlined == "" || window.xmlData[d].underlined == "false") {
+                            window.xmlData[d].underlined = "";
+                          } else {
+                            window.xmlData[d].underlined = "checked";
+                          }
+                        }
+                        console.log(window.xmlData);
+                        $$("textList").parse(xmlData, "json");
+                        return true; // highlight row
+                      }
+                    }
+                  });
+                }
+              },
+              data: textToImageListsObj
+            },
+            {
+              rows: [
+                {
+                  height: 50, width: "100%", cols: [
+                  {},
+                  {
+                    view: "button", value: "Close", css: "delete", width: 80, on: {
+                    onItemClick: function () {
+                      $$("textList")
+                    }
+                  }
+                  },
+                  {},
+                  {view: "button", value: "Rename", css: "", width: 80},
+                  {},
+                ]
+                },
+                {
+                  view: "list",
+                  id: "textList",
+                  template: listItemTemplate,
+                  select: "multiselect",
+                  on: {
+                    onItemClick: function () {
+                      return false;
+                    }
+                  },
+                  data: [],
+                },
+              ]
+            }
+          ]
+        }
+      ],
+    }
+  };
+  webix.ui(elem);
+
+  /*
+   $$("textList").load("textToImageLists/Swahili reading.xml", "xml", function(text, data, http_request){
+   console.log(text);console.log(data),console.log(http_request)
+   });t
+   */
+
+
+</script>
+</body>
+</html>

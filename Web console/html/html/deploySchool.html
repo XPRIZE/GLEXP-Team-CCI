@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<title>Deploy School</title>
+	<link rel="stylesheet" href="http://cdn.webix.com/edge/webix.css" type="text/css">
+	<script src="http://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
+	<script src="../includes/sha512.js"></script>
+	<script src="../includes/jquery.js"></script>
+	<link rel="styleSheet" href="../css/webixPersonalModifications.css"/>
+	<style>
+	    .schoolPreview {
+		background-image: url('../assets/tabletBorder.png');
+		background-size: 100% 100%;
+		z-index: -1;
+	    }
+
+	    .schoolPreview .webix_view {
+		background-color: RGBA(0, 0, 0, 0) !important;
+		border-color: RGBA(0, 0, 0, 0) !important;
+	    }
+
+	    .tabletBG {
+		background-size: cover;
+	    }
+
+	    #avatar {
+		display: block;
+		margin: auto;
+		height: 100%;
+	    }
+
+	    .solid {
+		margin: 0;
+		height: calc(100% - 10px);
+		width: calc(100% - 10px);
+		background-color: RGBA(20, 20, 20, 0.2);
+	    }
+
+	    .subject {
+		/* HTML5 fuck yeah */
+		position: relative;
+		top: 50%;
+		left: 50%;
+		transform: translateY(-50%) translateX(-50%);
+	    }
+
+	    h2 {
+		text-align: center;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	    }
+
+	    #subjectGrid {
+		height: 100%;
+		width: 100%;
+		background-color: RGBA(255, 255, 255, 0.5);
+	    }
+
+
+	</style>
+
+
+	<style>
+	    .grid {
+		height: 100%;
+		width: 100%;
+		border: 2px solid red;
+	    }
+
+	    .grid:hover {
+		background-color: RGBA(0, 0, 0, 0.25);
+		cursor: pointer;
+	    }
+
+	    .grid h2 {
+		color: black;
+		position: relative;
+		top: 50%;
+		left: 50%;
+		transform: translateY(-50%) translateX(-50%);
+		margin: 0 !important;
+	    }
+
+	    .grid[subject=""] h2 {
+		color: #666;
+	    }
+
+	    .grid.picture h2 {
+		display: none;
+	    }
+
+	    .grid.text img {
+		display: none;
+	    }
+
+	    .grid img {
+		max-height: 100%;
+		max-width: 100%;
+		position: relative;
+		top: 50%;
+		left: 50%;
+		transform: translateY(-50%) translateX(-50%);
+	    }
+	</style>
+	<style>
+	    #tutorialSchoolElem, #scrapbookSchoolElem {
+		display:none!important;
+	    }
+	    #tutorialSchoolElem h2, #scrapbookSchoolElem h2 {
+		position: relative;
+		top: 50%;
+		left: 50%;
+		transform: translateY(-50%) translateX(-50%);
+		margin: 0 !important;
+		color: #666;
+	    }
+
+	    #tutorialSchoolElem.picture h2, #scrapbookSchoolElem.picture h2 {
+		display: none;
+	    }
+
+	    #tutorialSchoolElem img, #scrapbookSchoolElem img {
+		max-height: 100%;
+		max-width: 100%;
+		position: relative;
+		top: 50%;
+		left: 50%;
+		transform: translateY(-50%) translateX(-50%);
+	    }
+	</style>
+
+    </head>
+    <body>
+	<script>
+
+	    function noCacheExt() {
+		return "?" + Math.round(Math.random() * 100000);
+	    }
+
+	    function getValByTag(node, tag) {
+		if (node && node.getElementsByTagName(tag).length && node.getElementsByTagName(tag)[0].innerHTML) {
+		    return node.getElementsByTagName(tag)[0].innerHTML
+		} else {
+		    return false;
+		}
+	    }
+
+	    window.curSchoolXML = false;
+
+	    function setupSchool(callback) {
+		function getXML() {
+		    $.ajax({
+			type: "GET",
+			url: "" + window.selectedSchool + "/school.xml?" + noCacheExt(),
+			dataType: "xml",
+			success: parseXml,
+			error: makeXml,
+		    });
+		}
+		getXML();
+
+		function makeXml() {
+		    $.ajax({
+			type: "GET",
+			url: "../ajax/create/createSchoolXML.php?school=" + window.selectedSchool,
+			success: getXML,
+			error: function (ret) {
+			    console.log(ret);
+			    alert("Couldn't find XML, couldn't make XML.");
+			},
+		    })
+		}
+		function parseXml(xml) {
+		    window.curSchoolXML = xml;
+		    if (xml) {
+			var totCols = getValByTag(xml, "colCount");
+			var totRows = getValByTag(xml, "rowCount");
+			var avatar = getValByTag(xml, "avatar");
+			if (avatar) {
+			    $("#avatar").attr("src", window.selectedSchool + "/icons/" + avatar);
+			}
+			var bgSrc = getValByTag(xml, "schoolBG");
+			if (bgSrc) {
+			    $(".tabletBG").css({"background-image": "url('" + window.selectedSchool + "/icons/" + bgSrc + "')"});
+			}
+			var tutorialXML = xml.getElementsByTagName("tutorial")[0];
+			var tutorialActive = getValByTag(tutorialXML, "active");
+			if (tutorialActive) {
+			    $("#tutorialSchoolElem").css({"display": "block"});
+			    window.ignoreTutorialToggle = true;
+			    // $$("toggleTutorial").setValue(1);
+			    var tutorialIcon = getValByTag(tutorialXML, "icon");
+			    if (tutorialIcon) {
+				$("#tutorialSchoolElem").find("img").attr("src", window.selectedSchool + "/icons/" + tutorialIcon);
+				$("#tutorialSchoolElem").addClass("picture");
+				$("#tutorialSchoolElem").removeClass("text");
+			    } else {
+				$("#tutorialSchoolElem").find("img").attr("src", "");
+				$("#tutorialSchoolElem").removeClass("picture");
+				$("#tutorialSchoolElem").addClass("text");
+			    }
+			} else {
+			    // $$("toggleTutorial").setValue(0);
+			}
+
+			var scrapbookXML = xml.getElementsByTagName("scrapbook")[0];
+			var scrapbookActive = getValByTag(scrapbookXML, "active");
+			if (scrapbookActive) {
+			    $("#scrapbookSchoolElem").css({"display": "block"});
+			    window.ignoreScrapbookToggle = true;
+			    // $$("toggleScrapbook").setValue(1);
+			    var scrapbookIcon = getValByTag(scrapbookXML, "icon");
+			    if (scrapbookIcon) {
+				$("#scrapbookSchoolElem").find("img").attr("src", window.selectedSchool + "/icons/" + scrapbookIcon);
+				$("#scrapbookSchoolElem").addClass("picture");
+				$("#scrapbookSchoolElem").removeClass("text");
+			    } else {
+				$("#scrapbookSchoolElem").find("img").attr("src", "");
+				$("#scrapbookSchoolElem").removeClass("picture");
+				$("#scrapbookSchoolElem").addClass("text");
+			    }
+			} else {
+			    // $$("toggleTutorial").setValue(0);
+			}
+
+			var translationXML = xml.getElementsByTagName("translations")[0];
+			var tutVal = getValByTag(translationXML, "tutorial") || "tutorial";
+			var unlockVal = getValByTag(translationXML, "unlock") || "unlock";
+			var gameVal = getValByTag(translationXML, "game") || "game";
+			var levelVal = getValByTag(translationXML, "level") || "level";
+			$$("translationTable").data.pull[1].translation = tutVal;
+			$$("translationTable").data.pull[2].translation = unlockVal;
+			$$("translationTable").data.pull[3].translation = gameVal;
+			$$("translationTable").data.pull[4].translation = levelVal;
+			$$("translationTable").refresh();
+
+			var subjects = xml.getElementsByTagName("subject");
+			for (var r = subjectRowNum; r > 1; r--) {
+			    modifySubjectGrid(0, 1, 1);
+			}
+			for (var c = subjectColNum; c > 1; c--) {
+			    modifySubjectGrid(0, 0, 1);
+			}
+			for (var c = 1; c < totCols; c++) {
+			    modifySubjectGrid(1, 0, 1);
+			}
+			for (var t = 1; t < totRows; t++) {
+			    modifySubjectGrid(1, 1, 1);
+			}
+			for (var s = 0; s < subjects.length; s++) {
+			    var subject = subjects[s];
+			    var cur = {};
+			    cur.name = getValByTag(subject, "name");
+			    cur.row = getValByTag(subject, "row");
+			    cur.col = getValByTag(subject, "col");
+			    cur.icon = getValByTag(subject, "icon");
+			    cur.iconHover = getValByTag(subject, "iconHover");
+			    cur.iconDown = getValByTag(subject, "iconDown");
+			    // Assign subjects to their prop places (subs[0].row and shit)
+			    var elem = $(document.querySelector('[view_id="grid_r' + cur.row + 'c' + cur.col + '"]')).find(".grid")[0];
+			    $(elem).find("h2").html(cur.name);
+			    $(elem).attr("subject", cur.name);
+			    if (cur.icon) {
+				$(elem).find("img").attr("src", window.selectedSchool + "/" + cur.name + "/icons/" + cur.icon);
+				$(elem).addClass("picture");
+				$(elem).removeClass("text");
+			    } else {
+				$(elem).removeClass("picture");
+				$(elem).addClass("text");
+			    }
+			}
+		    } else {
+		    }
+		    callback();
+		}
+	    }
+
+
+	    var header = {
+		view: "toolbar",
+		height: 55,
+		autoWidth: true,
+		cols: [
+		    {
+			view: "button", value: "Home", width: 80, on: {
+			    onItemClick: function () {
+				window.location.href = "../index.php";
+			    }
+			}
+		    },
+		    {
+			view: "button", value: "Help", width: 80, on: {
+			    onItemClick: function () {
+				window.location.href = "help.php";
+			    }
+			}
+		    },
+		    {
+			view: "label",
+			template: "<p class='toolbarCenterLabel'>Deploy school</p>"
+		    },
+		    {width: 80},
+		    {
+			view: "button", value: "Logout", width: 80, on: {
+			    onItemClick: function () {
+				window.location.href = "../logout.php";
+			    }
+			}
+		    }
+		]
+	    };
+	    var schoolDropdown = {
+		id: "schoolDropdown",
+		gravity: 1,
+		view: "richselect",
+		label: "School: ",
+		value: 0,
+		options: [],
+		disabled: true,
+		on: {
+		    onChange: function (e) {
+			$$(this).enable();
+			window.selectedSchool = $$("schoolDropdown").getList().data.pull[e].value;
+			if (window.selectedSchool == "-- Choose --") {
+			    $$("subjectDropdown").disable();
+			    $$("prepSchool").disable();
+			    $$('uploadSubjectIcon').disable();
+			    $$('translationTable').disable();
+			    $$("translationTable").data.pull[1].translation = "tutorial";
+			    $$("translationTable").data.pull[2].translation = "unlock";
+			    $$("translationTable").data.pull[3].translation = "game";
+			    $$("translationTable").data.pull[4].translation = "level";
+			    $$("translationTable").refresh();
+			    $$('subjectAccentPreview').disable();
+			    $$('subjectColorPicker').disable();
+			    $$('uploadSubjectHoverIcon').disable();
+			    $$('uploadSubjectDownIcon').disable();
+			} else {
+			    $.ajax("../ajax/get/getSubjects.php?school=" + window.selectedSchool).done(
+				    function (ret) {
+					setupSchool(function () {
+					    ret = window.eval(ret);
+					    var nameToColor = {};
+					    var subjects = curSchoolXML.getElementsByTagName("subject");
+					    for (var s = 0; s < subjects.length; s++) {
+						var subject = subjects[s];
+						var name = getValByTag(subject, "name");
+						nameToColor[name] = getValByTag(subject, "color") || "#0070BB";
+					    }
+					    var arr = [];
+					    arr.push({id: 1, dbid: 0, value: "-- Choose --"});
+					    for (var s = 0; s < ret.length; s++) {
+						var name = ret[s].name;
+						arr.push({id: s + 2, dbid: ret[s].ID, value: name, color: nameToColor[name]});
+					    }
+
+					    var list = $$("subjectDropdown").getPopup().getList();
+					    list.clearAll(); //delete old data
+					    list.parse(arr); //you can use load() method as well
+
+					    $$("uploadDefaultAvatar").enable();
+					    $$("uploadDefaultAvatar").data.upload = "../ajax/upload/uploadDefaultAvatar.php?" +
+						    "school=" + window.selectedSchool;
+
+					    $$("uploadDefaultBG").enable();
+					    $$("uploadDefaultBG").data.upload = "../ajax/upload/uploadSchoolBG.php?" +
+						    "school=" + window.selectedSchool;
+					    /*
+					     $$("toggleTutorial").enable();
+					     $$("uploadTutorialIcon").data.upload = "../ajax/upload/uploadTutorialIcon.php?" +
+					     "school=" + window.selectedSchool;
+
+					     $$("toggleScrapbook").enable();
+					     $$("uploadScrapbookIcon").data.upload = "../ajax/upload/uploadScrapbookIcon.php?" +
+					     "school=" + window.selectedSchool;
+					     */
+					    $$("subjectDropdown").setValue(1);
+					    $$("subjectDropdown").enable();
+					    $$("subjectDropdown").refresh();
+					    $$("prepSchool").enable();
+					    $$('translationTable').enable();
+					});
+				    }
+			    )
+			}
+		    }
+		}
+	    };
+	    var subjectDropdown = {
+		id: "subjectDropdown",
+		gravity: 1,
+		view: "richselect",
+		label: "Subject: ",
+		value: 1,
+		options: [{id: 1, dbid: 0, value: "-- Choose --"}, {id: 2, dbid: 0, value: "Math"}, {
+			id: 3,
+			dbid: 0,
+			value: "Writing"
+		    }],
+		disabled: true,
+		on: {
+		    onChange: function (e) {
+			var elem = $$("subjectDropdown").getList().data.pull[e];
+			window.selectedSubject = elem.value;
+			if (window.selectedSubject == "-- Choose --") {
+			    window.selectedSubject = false;
+			    $$('uploadSubjectIcon').disable();
+			    $$('subjectAccentPreview').disable();
+			    $$('subjectColorPicker').disable();
+			    $$('subjectAccentPreview').disable();
+			    $$('uploadSubjectHoverIcon').disable();
+			    $$('uploadSubjectDownIcon').disable();
+			} else {
+			    $$('uploadSubjectIcon').data.upload = "../ajax/upload/uploadSubjectIcon.php?" +
+				    "school=" + window.selectedSchool +
+				    "&subject=" + window.selectedSubject
+			    $$('uploadSubjectIcon').enable();
+
+			    $$('uploadSubjectHoverIcon').data.upload = "../ajax/upload/uploadSubjectIcon.php?" +
+				    "school=" + window.selectedSchool +
+				    "&subject=" + window.selectedSubject +
+				    "&state=hover";
+			    $$('uploadSubjectHoverIcon').enable();
+
+			    $$('uploadSubjectDownIcon').data.upload = "../ajax/upload/uploadSubjectIcon.php?" +
+				    "school=" + window.selectedSchool +
+				    "&subject=" + window.selectedSubject +
+				    "&state=down";
+			    $$('uploadSubjectDownIcon').enable();
+
+			    $$("subjectColorPicker").ignoreChange = true; // keep from triggering ajax
+			    $$('subjectColorPicker').setValue(elem.color);
+			    $$('subjectColorPicker').enable();
+			    $$('subjectAccentPreview').enable();
+			}
+		    }
+		}
+	    };
+
+	    var prepBtn = {id: "prepSchool", view: "button", value: "Prep School", width: 100, on: {onItemClick: function () {
+			window.location.href = "prep.php?school=" + window.selectedSchool;
+		    }},
+		disabled: true, };
+
+	    var tabletBorderMarginRatioVert = 0.1;
+	    var tabletBorderMarginRatioHori = 0.07143;
+	    var schoolPreview = {
+		css: "schoolPreview",
+		height: 641,
+		width: 1000,
+		rows: [
+		    {gravity: tabletBorderMarginRatioVert}, // Top margin
+		    {
+			cols: [
+			    {gravity: tabletBorderMarginRatioHori}, // left margin
+			    {
+				css: "tabletBG",
+				gravity: 1,
+				rows: [
+				    {
+					gravity: 1,
+					cols: [
+					    {
+						type: "spacer",
+						gravity: 1,
+						template: "<div id=tutorialSchoolElem class=solid><h2>Tutorial</h2><img></div>"
+					    },
+					    {
+						type: "spacer",
+						gravity: 2,
+						template: "<img id='avatar' />"
+					    },
+					    {
+						type: "spacer",
+						gravity: 1,
+						template: "<div id=scrapbookSchoolElem class=solid><h2>Scrapbook</h2><img></div>"
+					    },
+					]
+				    },
+				    {
+					gravity: 2, template: "<div id=subjectGrid />",
+				    },
+				]
+			    },
+			    {gravity: tabletBorderMarginRatioHori}, // right margin
+			]
+		    },
+		    {gravity: tabletBorderMarginRatioVert}, // bottom margin
+		]
+	    };
+
+	    var addRow = {
+		view: "button", id: "addSubjectRow", css: "add", value: "Add row", on: {
+		    onItemClick: function () {
+			modifySubjectGrid(1, 1)
+		    }
+		}
+	    };
+	    var addCol = {
+		view: "button", id: "addSubjectCol", css: "add", value: "Add column", on: {
+		    onItemClick: function () {
+			modifySubjectGrid(1, 0)
+		    }
+		}
+	    };
+	    var minRow = {
+		view: "button", id: "removeSubjectRow", css: "remove", value: "Remove row", on: {
+		    onItemClick: function () {
+			modifySubjectGrid(0, 1)
+		    }
+		}
+	    };
+	    var minCol = {
+		view: "button", id: "removeSubjectCol", css: "remove", value: "Remove column", on: {
+		    onItemClick: function () {
+			modifySubjectGrid(0, 0)
+		    }
+		}
+	    };
+
+	    var toggleScrapbook = {
+		cols: [
+		    {
+			view: "checkbox",
+			id: "toggleScrapbook",
+			label: "Scrapbook",
+			disabled: true,
+			value: 0,
+			on: {
+			    onChange: function (newv, oldv) {
+				function changeSubElements(val) {
+				    if (val == 1) {
+					$$("uploadScrapbookIcon").enable();
+					$$("assignScrapbook").enable();
+					$("#scrapbookSchoolElem").css({"display": "block"});
+				    } else {
+					$$("uploadScrapbookIcon").disable();
+					$$("assignScrapbook").disable();
+					$("#scrapbookSchoolElem").css({"display": "none"});
+				    }
+				}
+				if (window.ignoreScrapbookToggle) {
+				    changeSubElements(newv);
+				    window.ignoreScrapbookToggle = false;
+				} else {
+				    $.ajax("../ajax/set/setScrapbookActive.php?school=" + window.selectedSchool +
+					    "&toggle=" + newv).done(
+					    function (ret) {
+						if (ret == "done") {
+						    changeSubElements(newv);
+						    webix.message("Preference saved");
+						} else {
+						    document.body.innerHTML = ret;
+						}
+					    }
+				    );
+				}
+
+			    }
+			}
+		    },
+		]
+	    };
+	    var assignScrapbook = {
+		id: "assignScrapbook", "view": "button", "value": "Assign scrapbook", on: {
+		    onItemClick: function () {
+			$$("unitPicker").show();
+		    },
+		},
+		disabled: true,
+	    };
+	    var uploadScrapbookIcon = {
+		view: "form",
+		id: "uploadScrapbookIconForm",
+		rows: [
+		    {
+			view: "uploader",
+			id: "uploadScrapbookIcon",
+			value: "Upload Scrapbook image",
+			link: "uploadScrapbookIconList",
+			upload: "",
+			datatype: "json",
+			disabled: true,
+			on: {
+			    onUploadComplete: function (ret) {
+				var ret = window.eval(ret);
+				var scrapbookSrc = ret.src;
+				$("#scrapbookSchoolElem").find("img").attr("src", window.selectedSchool + scrapbookSrc);
+				$("#scrapbookSchoolElem").removeClass("text");
+				$("#scrapbookSchoolElem").addClass("picture");
+				removeLastListItem("uploadScrapbookIconList");
+
+			    },
+			    onFileUploadError: function (err, msg) {
+				document.body.innerHTML = err.xhr.response;
+				console.error(err);
+				console.error(msg);
+			    }
+			}
+		    },
+		    {
+			view: "list",
+			id: "uploadScrapbookIconList",
+			type: "uploader",
+			autoheight: true,
+			borderless: true
+		    }
+		]
+	    };
+
+
+	    var toggleTutorial = {
+		cols: [
+		    {
+			view: "checkbox",
+			id: "toggleTutorial",
+			label: "Tutorial",
+			disabled: true,
+			value: 0,
+			on: {
+			    onChange: function (newv, oldv) {
+				function changeSubElements(val) {
+				    if (val == 1) {
+					$$("uploadTutorialIcon").enable();
+					$$("assignTutorial").enable();
+					$("#tutorialSchoolElem").css({"display": "block"});
+
+				    } else {
+					$$("uploadTutorialIcon").disable();
+					$$("assignTutorial").disable();
+					$("#tutorialSchoolElem").css({"display": "none"});
+				    }
+				}
+				if (window.ignoreTutorialToggle) {
+				    changeSubElements(newv);
+				    window.ignoreTutorialToggle = false;
+				} else {
+				    $.ajax("../ajax/set/setTutorialActive.php?school=" + window.selectedSchool +
+					    "&toggle=" + newv).done(
+					    function (ret) {
+						if (ret == "done") {
+						    changeSubElements(newv);
+						    webix.message("Preference saved");
+						} else {
+						    document.body.innerHTML = ret;
+						}
+					    }
+				    );
+				}
+			    }
+			}
+		    },
+		]
+	    };
+	    var assignTutorial = {
+		id: "assignTutorial", "view": "button", "value": "Assign tutorial", on: {
+		    onItemClick: function () {
+			$$("unitPicker").show();
+		    },
+		},
+		disabled: true,
+	    };
+	    var uploadTutorialIcon = {
+		view: "form",
+		id: "uploadTutorialIconForm",
+		rows: [
+		    {
+			view: "uploader",
+			id: "uploadTutorialIcon",
+			value: "Upload Tutorial Icon",
+			link: "uploadTutorialIconList",
+			upload: "",
+			datatype: "json",
+			disabled: true,
+
+			on: {
+			    onUploadComplete: function (ret) {
+				console.log(ret);
+				var ret = window.eval(ret);
+				var tutorialSrc = ret.src;
+				$("#tutorialSchoolElem").find("img").attr("src", window.selectedSchool + tutorialSrc);
+				$("#tutorialSchoolElem").removeClass("text");
+				$("#tutorialSchoolElem").addClass("picture");
+				removeLastListItem("uploadTutorialIconList");
+			    },
+			    onFileUploadError: function (err, msg) {
+				document.body.innerHTML = err.xhr.response;
+				console.error(err);
+				console.error(msg);
+			    }
+			}
+		    },
+		    {
+			view: "list",
+			id: "uploadTutorialIconList",
+			type: "uploader",
+			autoheight: true,
+			borderless: true
+		    }
+		]
+	    };
+
+	    var uploadDefaultAvatar = {
+		view: "form",
+		id: "uploadDefaultAvatarForm",
+		rows: [
+		    {
+			view: "uploader",
+			id: "uploadDefaultAvatar",
+			value: "Upload default avatar",
+			link: "uploadDefaultAvatarList",
+			upload: "",
+			datatype: "json",
+			disable: true,
+			on: {
+			    onUploadComplete: function (ret) {
+				var ret = window.eval(ret);
+				var avatarSrc = ret.src;
+				// Assign image this source, put it in the thing do the stuff and crap.
+				webix.message("Upload complete!");
+				$("#avatar").attr("src", window.selectedSchool + avatarSrc);
+				removeLastListItem("uploadDefaultAvatarList");
+			    },
+			    onFileUploadError: function (err, msg) {
+				document.body.innerHTML = err.xhr.response;
+				console.error(err);
+				console.error(msg);
+			    }
+			}
+		    },
+		    {
+			view: "list",
+			id: "uploadDefaultAvatarList",
+			type: "uploader",
+			autoheight: true,
+			borderless: true
+		    }
+		]
+	    };
+	    var uploadDefaultBG = {
+		view: "form",
+		id: "uploadDefaultBGForm",
+		rows: [
+		    {
+			view: "uploader",
+			id: "uploadDefaultBG",
+			value: "Upload background image",
+			link: "uploadDefaultBGList",
+			upload: "",
+			datatype: "json",
+			disable: true,
+			on: {
+			    onUploadComplete: function (ret) {
+				var ret = window.eval(ret);
+				var bgSrc = ret.src;
+				// Assign image this source, put it in the thing do the stuff and crap.
+				webix.message("Upload complete!");
+				console.log(window.selectedSchool + bgSrc);
+				$(".tabletBG").css({"background-image": "url('" + window.selectedSchool + bgSrc + "')"});
+				removeLastListItem("uploadDefaultBGList");
+			    },
+			    onFileUploadError: function (err, msg) {
+				document.body.innerHTML = err.xhr.response;
+				console.error(err);
+				console.error(msg);
+			    }
+			}
+		    },
+		    {
+			view: "list",
+			id: "uploadDefaultBGList",
+			type: "uploader",
+			autoheight: true,
+			borderless: true
+		    }
+		]
+	    };
+
+	    // Subject icons
+	    var uploadSubjectIcon = {
+		view: "form",
+		id: "uploadSubjectIconForm",
+		rows: [
+		    {
+			view: "uploader",
+			id: "uploadSubjectIcon",
+			value: "Upload subject static icon",
+			link: "uploadSubjectIconList",
+			upload: "",
+			datatype: "json",
+			disable: true,
+			on: {
+			    onUploadComplete: function (ret) {
+				var ret = window.eval(ret);
+				var subjectSrc = ret.src;
+				// Assign image this source, put it in the thing do the stuff and crap.
+				webix.message("Upload complete!");
+				var grid = $(document.querySelector('[subject="' + window.selectedSubject + '"]'));
+				var img = grid.find('img');
+				img.attr("src", window.selectedSchool + "/" + ret.src);
+				grid.addClass("picture");
+				grid.removeClass("text");
+				removeLastListItem("uploadSubjectIconList");
+			    },
+			    onFileUploadError: function (err, msg) {
+				document.body.innerHTML = err.xhr.response;
+				console.error(err);
+				console.error(msg);
+			    }
+			}
+		    },
+		    {
+			view: "list",
+			id: "uploadSubjectIconList",
+			type: "uploader",
+			autoheight: true,
+			borderless: true
+		    }
+		]
+	    };
+	    var uploadSubjectHoverState = {
+		view: "form",
+		id: "uploadSubjectHoverIconForm",
+		rows: [
+		    {
+			view: "uploader",
+			id: "uploadSubjectHoverIcon",
+			value: "Upload subject hover icon",
+			link: "uploadSubjectHoverIconList",
+			upload: "",
+			datatype: "json",
+			disable: true,
+			on: {
+			    onUploadComplete: function (ret) {
+				var ret = window.eval(ret);
+				var subjectSrc = ret.src;
+				webix.message("Upload complete!");
+				removeLastListItem("uploadSubjectHoverIconList");
+			    },
+			    onFileUploadError: function (err, msg) {
+				document.body.innerHTML = err.xhr.response;
+				console.error(err);
+				console.error(msg);
+			    }
+			}
+		    },
+		    {
+			view: "list",
+			id: "uploadSubjectHoverIconList",
+			type: "uploader",
+			autoheight: true,
+			borderless: true
+		    }
+		]
+	    };
+	    var uploadSubjectDownState = {
+		view: "form",
+		id: "uploadSubjectDownIconForm",
+		rows: [
+		    {
+			view: "uploader",
+			id: "uploadSubjectDownIcon",
+			value: "Upload subject down icon",
+			link: "uploadSubjectDownIconList",
+			upload: "",
+			datatype: "json",
+			disable: true,
+			on: {
+			    onUploadComplete: function (ret) {
+				var ret = window.eval(ret);
+				var subjectSrc = ret.src;
+				webix.message("Upload complete!");
+				removeLastListItem("uploadSubjectDownIconList");
+			    },
+			    onFileUploadError: function (err, msg) {
+				document.body.innerHTML = err.xhr.response;
+				console.error(err);
+				console.error(msg);
+			    }
+			}
+		    },
+		    {
+			view: "list",
+			id: "uploadSubjectDownIconList",
+			type: "uploader",
+			autoheight: true,
+			borderless: true
+		    }
+		]
+	    };
+
+	    function removeLastListItem(elemID) {
+		var itemID = $$(elemID).data.order[0];
+		window.setTimeout(function () {
+		    $$(elemID).remove(itemID);
+		}, 1000);
+	    }
+
+	    webix.ui({
+		type: "space",
+		rows: [
+		    header,
+		    {},
+		    {
+			cols: [
+			    {
+				rows: [
+				    {
+					height: 50,
+					cols: [
+					    {gravity: 0.1},
+					    schoolDropdown,
+					    {gravity: 0.1},
+					    subjectDropdown,
+					    {gravity: 0.1},
+					]
+				    },
+				    {
+					height: 61,
+					cols: [
+					    {gravity: 0.5}, addRow, {gravity: 0.5}, addCol, {gravity: 0.5}, minRow, {gravity: 0.5}, minCol, {gravity: 0.5},
+					]
+				    },
+				    schoolPreview,
+				]
+			    },
+			    {
+				gravity: 1,
+				rows: [
+				    {},
+				    {
+					cols: [
+					    {},
+					    prepBtn,
+					],
+				    }, // prep school
+				    {},
+				    {
+					cols: [
+					    uploadSubjectIcon,
+					    uploadSubjectHoverState,
+					    uploadSubjectDownState,
+					]
+				    }, // Upload static, hover, down states for subs
+				    {},
+				    {
+					cols: [
+					    {gravity: 0.5},
+					    {id: "subjectColorPicker", disabled: true, view: "colorpicker", editable: true, labelWidth: 100, label: "Accent color", value: "#0070BB", on: {
+						    onChange: function () {
+							if ($$("subjectColorPicker").ignoreChange) {
+							    delete $$("subjectColorPicker").ignoreChange;
+							} else {
+							    var val = $$("subjectColorPicker").getValue();
+							    $("#bgPreviewImg").css("background-color", val);
+							    var urlColor = val.substring(1);
+							    if (selectedSchool && selectedSubject) {
+								var url = "../ajax/set/setSubjectColor.php?school=" + window.selectedSchool + "&subject=" + window.selectedSubject + "&color=" + urlColor;
+								$.ajax(url).done(
+									function (ret) {
+									    if (ret == "done") {
+										webix.message("Color set");
+									    } else {
+										document.body.innerHTML = ret;
+									    }
+									});
+							    }
+							}
+						    }
+						}},
+					    {id: "subjectAccentPreview", disabled: true, view: "button", value: "Preview", on: {
+						    onItemClick: function () {
+							webix.ui({
+							    view: "window",
+							    id: "colorPreview",
+							    height: 515, width: 710,
+							    position: "center",
+							    move: true,
+							    head: {
+								view: "toolbar", margin: -4, cols: [
+								    {view: "label", label: "Color preview (names are off)"},
+								    {view: "icon", icon: "times-circle", css: "alter",
+									click: "$$('colorPreview').close();"}
+								]
+							    },
+							    body: {
+								view: "template",
+								template: "<img id='bgPreviewImg' height=495 width=700 style='Background-color:" +
+									$$("subjectColorPicker").getValue() +
+									"' src='../assets/colorPreview.png' />",
+
+							    }
+							}).show();
+
+						    }
+						}
+					    },
+					    {gravity: 0.5},
+					]
+				    }, // Accent color
+				    {},
+				    /*
+				     {
+				     cols: [
+				     toggleScrapbook,
+				     assignScrapbook,
+				     uploadScrapbookIcon,
+				     ]
+				     },
+				     {
+				     cols: [
+				     toggleTutorial,
+				     assignTutorial,
+				     uploadTutorialIcon,
+				     ]
+				     },
+				     */ // Old (Tutorial and shit)
+				    {cols: [
+					    {},
+					    {id: "translationTable", view: "datatable", autowidth: true, autoheight: true, disabled: true, columns: [
+						    {id: "name", header: "English name"},
+						    {id: "translation", editor: "text", header: "Translation"},
+						],
+						editable: true, data: [
+						    {id: 1, name: "tutorial", translation: "tutorial"},
+						    {id: 2, name: "unlock", translation: "unlock"},
+						    {id: 3, name: "game", translation: "game"},
+						    {id: 4, name: "level", translation: "level"},
+						],
+						on: {
+						    onAfterEditStop: function (e, id) {
+							var orig = false;
+							var translation = e.value;
+							if (id.row == 1) {
+							    orig = "tutorial";
+							} else if (id.row == 2) {
+							    orig = "unlock";
+							} else if (id.row == 3) {
+							    orig = "game";
+							} else if (id.row == 4) {
+							    orig = "level";
+							}
+							if (orig && translation && translation != e.old) {
+							    if (translation.search(/[^a-zA-Z]+/) === -1) {
+								var varString = "school=" + window.selectedSchool + "&orig=" + orig + "&translation=" + translation;
+								$.ajax("../ajax/set/setSchoolTranslation.php?" + varString).done(
+									function (ret) {
+									    if (ret == "done") {
+										webix.message("Rows modified");
+									    } else {
+										document.body.innerHTML = ret;
+									    }
+									}
+								);
+							    } else {
+								webix.message("Only regular characters allowed");
+							    }
+							}
+						    },
+						},
+					    },
+					    {},
+					]},
+				    {},
+				    {
+					cols: [
+					    uploadDefaultAvatar,
+					    uploadDefaultBG,
+					]
+				    }, // Default avatar and background img
+				    {},
+				]
+			    }
+			]
+		    },
+		    {},
+		]
+	    });
+
+	    var gridTemplate = "<div class='grid' subject='' onClick=assignSubject(this)><h2>Assign subject</h2><img /></div>";
+
+	    webix.ui({
+		id: "subjectGrid",
+		container: "subjectGrid",
+		rows: [
+		    {
+			id: "subjectGridRow1", css: "gridRow gridRow1", cols: [
+			    {
+				id: "grid_r1c1", "template": gridTemplate, on: {
+				    onItemClick: function () {
+					console.log(this);
+				    }
+				}
+			    },
+			    {id: "grid_r1c2", "template": gridTemplate},
+			]
+		    },
+		    {
+			id: "subjectGridRow2", css: "gridRow gridRow1", cols: [
+			    {id: "grid_r2c1", "template": gridTemplate},
+			    {id: "grid_r2c2", "template": gridTemplate},
+			]
+		    },
+		]
+	    });
+	    webix.ui({
+		view: "window",
+		id: "unitPicker",
+		head: "My Window",
+		width: 500,
+		height: 500,
+		position: "center",
+		head: {
+		    view: "toolbar", margin: -4, cols: [
+			{view: "label", label: "Select book"},
+			{
+			    view: "icon", icon: "times-circle", css: "alter",
+			    click: "$$('unitPicker').hide();"
+			}
+		    ]
+		},
+		body: {
+		    width: 500,
+		    cols: [
+			{width: 25},
+			{
+			    rows: [
+				{label: "Select book", view: "label", align: "center", },
+				{
+				    cols: [
+					{
+					    id: "bookList",
+					    view: "richselect",
+					    autoheight: true,
+					    value: 1,
+					    options: "../ajax/get/getBooks.php?return=richselect",
+					    on: {
+						onChange: function (e) {
+						    var unitName = $$("bookList").getList().data.pull[e].value;
+						    webix.message(unitName);
+
+						},
+					    }
+					},
+					{
+					    id: "selectBook",
+					    view: "button",
+					    type: "form",
+					    value: "Submit",
+					    width: 75,
+					    on: {
+						onItemClick: function () {
+						    $$('unitPicker').hide();
+						}
+					    }
+					}
+				    ]
+				}
+			    ]
+			},
+			{width: 25},
+		    ]
+		}
+	    });
+
+
+	    var subjectRowNum = 2;
+	    var subjectColNum = 2;
+	    function modifySubjectGrid(isAdd, isRow, noAjax) {
+		if (isAdd) {
+		    if (isRow) {
+			if (subjectRowNum >= 10) {
+			    webix.message("Come on man, make it work with 10 grid spaces will ya buddy?");
+			} else {
+			    subjectRowNum++;
+			    var newRow = {
+				id: "subjectGridRow" + subjectRowNum, css: "gridRow gridRow" + subjectRowNum, cols: [],
+			    }
+			    for (var c = 1; c <= subjectColNum; c++) {
+				newRow.cols.push({
+				    id: "grid_r" + subjectRowNum + "c" + c,
+				    "template": gridTemplate,
+				});
+			    }
+			    $$("subjectGrid").addView(newRow);
+			}
+		    } else {
+			if (subjectColNum >= 10) {
+			    webix.message("Come on man, make it work with 10 grid spaces will ya pal?");
+			} else {
+			    subjectColNum++;
+			    for (var r = 1; r <= subjectRowNum; r++) {
+				$$("subjectGridRow" + r).addView({
+				    id: "grid_r" + r + "c" + subjectColNum,
+				    "template": gridTemplate,
+				});
+			    }
+			}
+		    }
+		} else {
+		    if (isRow) {
+			if (subjectRowNum < 2) {
+			    webix.message("You have to have at least one, friend");
+			} else {
+			    $$("subjectGrid").removeView("subjectGridRow" + subjectRowNum);
+			    subjectRowNum--;
+			}
+
+		    } else {
+			if (subjectColNum < 2) {
+			    webix.message("You have to have at least one, guy");
+			} else {
+			    for (var r = 1; r <= subjectRowNum; r++) {
+				$$("subjectGridRow" + r).removeView("grid_r" + r + "c" + subjectColNum);
+			    }
+			    subjectColNum--;
+			}
+		    }
+		}
+
+		// Disable and enable where applicable
+		if (subjectRowNum == 1) {
+		    $$("removeSubjectRow").disable();
+		} else {
+		    $$("removeSubjectRow").enable();
+		}
+		if (subjectRowNum == 10) {
+		    $$("addSubjectRow").disable();
+		} else {
+		    $$("addSubjectRow").enable();
+		}
+		if (subjectColNum == 1) {
+		    $$("removeSubjectCol").disable();
+		} else {
+		    $$("removeSubjectCol").enable();
+		}
+		if (subjectColNum == 10) {
+		    $$("addSubjectCol").disable();
+		} else {
+		    $$("addSubjectCol").enable();
+		}
+
+		if (!noAjax) {
+		    $.ajax("../ajax/set/setSchoolRowAndColCount.php?school=" + window.selectedSchool + "&rows=" + subjectRowNum + "&cols=" + subjectColNum).done(
+			    function (ret) {
+				if (ret == "done") {
+				    webix.message("Rows modified");
+				} else {
+				    // document.body.innerHTML = ret;
+				}
+			    });
+
+		}
+	    }
+
+	    function loadSchools() {
+		$.ajax("../ajax/get/getSchools.php").done(
+			function (ret) {
+			    ret = window.eval(ret);
+			    var arr = [];
+			    arr.push({id: 1, dbid: 0, value: "-- Choose --"});
+			    for (var i = 0; i < ret.length; i++) {
+				arr.push({id: i + 2, dbid: ret[i].ID, value: ret[i].name});
+			    }
+			    var list = $$("schoolDropdown").getPopup().getList();
+			    list.clearAll(); //delete old data
+			    list.parse(arr); //you can use load() method as well
+			    $$("schoolDropdown").setValue(1);
+			    $$("schoolDropdown").refresh();
+			}
+		);
+	    }
+	    loadSchools();
+
+	    function assignSubject(elem, noAjax) {
+		var id = $(elem).parent().parent().attr("view_id").split("grid_");
+		id.shift();
+		id = id[0].split("r");
+		id.shift();
+		id = id[0].split("c");
+		var row = id[0];
+		var col = id[1];
+		// shutup it works
+		if ($(elem).attr("subject") == "") {
+		    for (var g = 0; g < $(".grid").length; g++) {
+			var grid = $(".grid")[g];
+			if ($(grid).attr("subject") == window.selectedSubject) {
+			    $(grid).find("h2").html("Assign subject");
+			    $(grid).find("img").attr("src", "");
+			    $(grid).removeClass("text");
+			    $(grid).removeClass("picture");
+			    $(grid).attr("subject", "");
+			}
+		    }
+		    if (window.selectedSubject) {
+			var curImg = false;
+
+			// Check for subject icon on server
+			$(elem).attr("subject", window.selectedSubject);
+
+			if (window.curSchoolXML) {
+			    var subjects = window.curSchoolXML.getElementsByTagName("subject");
+			    for (var s = 0; s < subjects.length; s++) {
+				var sub = subjects[s];
+				if (getValByTag(sub, "name") == window.selectedSubject) {
+				    var icon = getValByTag(sub, "icon");
+				    if (icon) {
+					curImg = window.selectedSchool + "/" + window.selectedSubject + "/icons/" + icon;
+				    }
+				}
+			    }
+			}
+			if (curImg) {
+			    $(elem).find("img").attr("src", curImg);
+			    $(elem).addClass("picture");
+			    $(elem).removeClass("text");
+			} else {
+			    $(elem).find("h2").html(window.selectedSubject);
+			    $(elem).addClass("text");
+			    $(elem).removeClass("picture");
+			}
+
+			$.ajax("../ajax/set/setSubjectRowAndCol.php?school=" + window.selectedSchool +
+				"&subject=" + window.selectedSubject +
+				"&row=" + row +
+				"&col=" + col).done(
+				function (ret) {
+				    if (ret == "done") {
+					webix.message("Subject assigned to r:" + row + " c:" + col);
+				    } else {
+					document.body.innerHTML = ret;
+				    }
+				}
+			);
+		    } else {
+			webix.message("No subject selected!");
+		    }
+		} else {
+		    $(elem).find("img").attr("src", "");
+		    $(elem).attr("subject", "");
+		    $(elem).find("h2").html("Assign subject");
+		    $(elem).removeClass("picture");
+		    $(elem).removeClass("text");
+		    $.ajax("../ajax/set/setSubjectRowAndCol.php?school=" + window.selectedSchool +
+			    "&subject=" + window.selectedSubject +
+			    "&row=" +
+			    "&col=").done(
+			    function (ret) {
+				if (ret == "done") {
+				    webix.message("Subject removed");
+				}
+			    }
+		    );
+		}
+	    }
+	</script>
+    </body>
+</html>
+

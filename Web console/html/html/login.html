@@ -1,0 +1,160 @@
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="includes/webix/webix.css" type="text/css">
+  <script src="includes/webix/webix.js"></script>
+  <script src="includes/sha512.js"></script>
+  <style>
+    #login {
+      width: 302px;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      text-align: center;
+      width: 100%;
+    }
+
+    .toolbarCenterLabel {
+      font-size: 19px;
+      line-height: 42px;
+      text-align: center;
+      width: 100%;
+      margin: 0;
+      padding: 0
+    }
+
+  </style>
+</head>
+<body>
+<div>
+  <script>
+    function initCaps(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    var header = {
+      view: "toolbar",
+      height: 55,
+      autoWidth: true,
+      cols: [
+        {},
+        {
+          view: "label",
+          template: "<p class='toolbarCenterLabel'>Pubbly Console</p>"
+        },
+        {}
+      ]
+    };
+    var loginCont = {
+      type: "space", rows: [
+        header,
+        {},
+        {
+          cols: [
+            {},
+            {
+              id: "loginForm",
+              view: "form", scroll: false, elements: [
+              {name: "username", view: "text", value: '', label: "Username"},
+              {
+                name: "password", view: "text", type: 'password', value: '', label: "Password",
+                on: {
+                  onKeyPress: function (e) {
+                    if (e == 13) {
+                      $$(this).blur();
+                      login();
+                    }
+                  }
+                }
+              },
+              {
+                id: "loginError",
+                view: "label",
+                label: "",
+                align: "center",
+                css: {"color": "red", "transition": "0.5s"},
+                height: 0
+              },
+              {
+                margin: 10, cols: [
+                {
+                  view: "button", value: "Register", on: {
+                  onItemClick: function () {
+                    window.location.href = "register.php";
+                  }
+                }
+                },
+                {
+                  view: "button", value: "Login", id: "loginButton", type: "form",
+                  on: {
+                    onItemClick: function () {
+                      login();
+                    }
+                  }
+                },
+              ]
+              }
+            ]
+            },
+            {},
+          ]
+        },
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+      ]
+    };
+    webix.ui(loginCont);
+
+    function login() {
+      var data = $$("loginForm").getValues();
+      var post = {};
+      post.password = hex_sha512(data.password);
+      post.username = data.username;
+      webix.ajax().post("ajax/login.php", post, function (ret) {
+        if (!ret) {
+          ret = "error: Bad ajax call";
+        }
+        if (ret.split(":")[0] == "error") {
+          if ($$("loginError").config.height == 0) {
+            $$("loginError").setValue(initCaps(ret));
+            $$("loginError").define("height", 40);
+            $$("loginError").refresh();
+            $$("loginError").resize();
+          } else {
+            $$("loginError").setValue(initCaps(ret));
+            blink($$("loginError"), 3);
+          }
+        } else if (ret === "true") {
+          window.location.href = "index.php";
+        }
+      });
+    }
+    function blink(elem, num) {
+      var val = elem.getValue();
+      var i = 0;
+      var blinkFunc = function () {
+        i++;
+        if (i > (num * 2)) {
+          window.clearInterval(blinkInt);
+        } else {
+          if (i % 2) {
+            elem.setValue("");
+            elem.refresh();
+          } else {
+            elem.setValue(val);
+            elem.refresh();
+          }
+        }
+      };
+      blinkFunc();
+      var blinkInt = window.setInterval(blinkFunc, 100);
+    }
+  </script>
+</div>
+</body>
+</html>

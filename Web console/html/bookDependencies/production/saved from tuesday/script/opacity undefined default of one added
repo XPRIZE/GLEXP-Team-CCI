@@ -1,0 +1,11 @@
+btx.restore();
+if (typeof curObj.opacity == "undefined") {
+	btx.globalAlpha = 1;
+}	else	{
+	btx.globalAlpha = curObj.opacity;
+}
+try {
+	btx.drawImage(curElem, curObj.left + offsets[0], curObj.top + offsets[1], curObj.width, curObj.height);
+}
+catch (e) {
+}

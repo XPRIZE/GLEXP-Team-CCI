@@ -1,0 +1,41 @@
+#loadContVertCenter {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 0;
+}
+
+#loadCont {
+    position: relative;
+    width: 80%;
+    max-width: 1200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#load-letters-cont {
+    position: absolute;
+    left: 50%;
+}
+#load-logo {
+    position: relative;
+}
+#cansCont {
+    visibility: hidden;
+    overflow: hidden;
+    position: absolute;
+}
+.loadCan {
+    float: left;
+    background-color: RGB(255, 255, 255);
+}
+.load-letter:hover {
+    cursor: hand;
+}
+#load-water {
+    position: absolute;
+}
+#loadText {
+    margin-top: 15px;
+    color: #91BD49;
+}

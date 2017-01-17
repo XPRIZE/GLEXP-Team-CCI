@@ -1,0 +1,74 @@
+h1, h2, h3, h4 {
+    width: 100%;
+    text-align: center;
+}
+
+.toolbarCenterLabel {
+    font-size: 19px;
+    line-height: 42px;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding: 0
+}
+
+.white * {
+    background: white;
+}
+
+.delete button {
+    background-color: #B70000 !important;
+    border-color: #B70000 !important;
+}
+
+.delete button:hover {
+    background-color: #9E0000 !important;
+    border-color: #9E0000 !important;
+}
+
+.delete.webix_disabled_view button {
+    background-color: #834A4A !important;
+    color:#aaa !important;
+}
+
+.remove button {
+    background-color: #b177b7 !important;
+    border-color: #b177b7 !important;
+}
+.remove button:hover {
+    background-color: #875b8c !important;
+    border-color: #875b8c !important;
+}
+.remove.webix_disabled_view button {
+    background-color: #73527b !important;
+    color:#aaa !important;
+}
+
+.add button {
+    background-color: #2fb79f !important;
+    border-color: #2fb79f !important;
+}
+.add button:hover {
+    background-color: #25907d !important;
+    border-color: #25907d !important;
+}
+.add.webix_disabled_view button {
+    background-color: #398375 !important;
+    color:#aaa !important;
+}
+
+/* Make this better */
+.submit button {
+    background-color: #00B709 !important;
+    border-color: #00B709 !important;
+}
+
+.submit button:hover {
+    background-color: #229E0E !important;
+    border-color: #229E0E !important;
+}
+
+.submit.webix_disabled_view button {
+    background-color: #4D8348 !important;
+    color:#aaa !important;
+}

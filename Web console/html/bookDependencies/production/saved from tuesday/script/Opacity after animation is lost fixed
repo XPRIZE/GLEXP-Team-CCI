@@ -1,0 +1,16 @@
+Animations were getting stuck at the last leg. Thought that was a bug, it was a workaround for "saving animations in their last state".
+Had to get rid of that, so I set the anim.AT to false in the sequence, now you can drag animated objects.
+
+BUT WAIT!!
+
+What about animations that finish with an opacity, and need to keep it?
+
+Well, now when an animation ends, the animation data is copied over to the actual data, problem solved.
+
+BUT WAIT, regular objects don't have opacity!!
+
+Added opacity to regular objects.
+
+PROBLEM SOLVED MOTHERS!!!
+
+Changes made in sequence (animation end, copy all last leg values to object) and load (all objects get an opacity prop, redraw function accounts for object opacity)
