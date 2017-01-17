@@ -1,0 +1,17 @@
+on mouseUp
+   put "C:/Users/RayAc/Desktop/SampleText.wav" into srcFile
+   put "C:/Users/RayAc/Desktop/NewSampleText.wav" into desFile
+   put folderPath("Support") into soxPath
+   if the platform = "MacOS" then
+      put "SoxMac/sox" after soxPath
+   else put "SoxWin/sox" after soxPath
+   put ""&numToChar(34)&" "&numToChar(34)&"" into quotedSpace
+   replace space with quotedSpace in soxPath
+   replace space with quotedSpace in srcFile
+   replace space with quotedSpace in desFile
+   put shell(""&soxPath&" "&srcFile&" -c 1 "&desFile&" speed 0.5") into myReturn        -- change speed and pitch
+   put shell(""&soxPath&" "&srcFile&" -c 1 "&desFile&" tempo 0.5") into myReturn       -- change speed only
+   put removeExtensions(desFile) into desFile
+   put ".png" after desFile   
+   put shell(""&soxPath&" "&srcFile&" -n spectrogram -o "&desFile&"") into myReturn    -- create a png of the wave
+end mouseUp
