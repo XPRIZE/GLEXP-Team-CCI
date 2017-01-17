@@ -36,4 +36,4 @@ ____
 
 CORDOVA SCHOOL HOUSE APP
 
-
+The School House is the final product of the Pubbly system where students take a picture of themselves, create an account, and log in.  After logging in students choose a subject, a level, and finally a unit.  At the end of each unit students are typically offered educational games corresponding to the subject matter covered by the unit.  Each unit must be opened in order to unlock the next so as to guide students through the units sequentially.
