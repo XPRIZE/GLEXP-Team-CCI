@@ -1,4 +1,0 @@
-
-Be sure to open the appropriate installer folder for your system, i.e. either Windows or Mac.
-
-Regarding the two files inside each installer folder, there is no difference between the package installers and the .zip files.  It's merely a personal preferfence which method you use to install Pubbly's Design Tools.
