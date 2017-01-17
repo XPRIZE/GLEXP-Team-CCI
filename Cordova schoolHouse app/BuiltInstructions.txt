@@ -1,0 +1,12 @@
+Android app build instructions
+
+Download and install nodejs, cordova, android SDK and java.
+Create a new cordova project.
+Add the following plugins
+	file
+	recorder
+	camera
+Add scripts from git repo
+Add school build from web console to the /www/school/ directory.
+Execute "Cordova build android"
+Manually install apk or use make_ext4fs command on linux to create and flash userdata.img
