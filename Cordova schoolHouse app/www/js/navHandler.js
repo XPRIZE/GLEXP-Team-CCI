@@ -1,8 +1,8 @@
 window.navPressed = false;
 function navHandler() {
     var road = {
-	index: "exit",
-	login: "exit", // change to index if you ever want that front end bullshit back.
+	welcome: "exit",
+	login: "welcome", // change to index if you ever want that front end bullshit back.
 	school: "login",
 	subject: "school",
     };
@@ -16,16 +16,18 @@ function navHandler() {
 		cur = cur.split(".")[0];
 		if (road[cur] == "exit") {
 		    if (navigator.app) {
-			navigator.app.exitApp();
+			// navigator.app.exitApp();
+			window.location.href = window.location.href;
 		    } else if (navigator.device) {
-			navigator.device.exitApp();
+			// navigator.device.exitApp();
+			window.location.href = window.location.href;
 		    } else {
 			window.close();
 		    }
 		} else if (road[cur]) {
 		    window.location.href = road[cur] + ".html";
 		} else {
-		    window.location.href = "login.html";
+		    window.location.href = "welcome.html";
 		}
 	    } else {
 		console.log("Dpublicate nav presses");

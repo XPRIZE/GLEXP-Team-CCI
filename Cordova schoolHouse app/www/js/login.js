@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 function getValByTag(node, tag) {
     if (node && node.getElementsByTagName(tag).length && node.getElementsByTagName(tag)[0].innerHTML) {
 	return node.getElementsByTagName(tag)[0].innerHTML;
@@ -61,28 +62,6 @@ document.addEventListener("deviceready", function () {
 		    initTutorial = getValByTag(tuts[t], "name");
 		}
 	    }
-	    // Check for first launch, if first launch, check for preview, if not, go tutorial
-	    if (initTutorial) {
-		readFile("firstLaunch.txt", function (ret) {
-		    if (ret === false) {
-			createFile("firstLaunch.txt", function () {
-			    writeFile("firstLaunch.txt", "true", function () {
-				readFile("skip", function (ret) {
-				    ret = true;
-				    if (ret) {
-					window.location.href = schoolLoc + "/" + initTutorial + "_Tutorial/index.html";
-				    } else {
-					console.log("Once prepared for deployment, initial launches will go to tutorial '" + initTutorial + "'");
-				    }
-				});
-			    });
-			});
-		    }
-		});
-	    } else {
-		console.log("No initial tutorial found in XML, no initial launch");
-	    }
-
 	},
 	error: function () {
 	    console.error("School xml did not load");
@@ -162,6 +141,9 @@ document.addEventListener("deviceready", function () {
 		avatarID = "defaultAvatar";
 		user.level = "0";
 		user.id = "0";
+	    }
+	    if (user.picture == "default") {
+		user.picture = "img/defaultAvatar.png";
 	    }
 	    ret = {id: "userBlock_" + user.id, css: "userBlock", rows: []};
 	    ret.rows.push({maxHeight: 125, template: "<div class=center><span class=middle></span><img id='" + avatarID + "' src='" + user.picture + "' /></div>"});

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+
+	    LAST MINUTE ADDITION PAGE
+
+	    NY team is worried the kids will be too stupid to figure out the camera on their own, so we're adding a page that will give them the choice between the tutorial and the regular school. Kids that have already seen the tutorial will just go to the school, kids that haven't will hopefully choose the tutorial. This also gets rid of the "Play tutorial but only on first launch", which may well be a test launch and the judges don't ever see the tutorial to begin with.
+
+	    Ideally, this would be build into the XML. But I've got 2 days so I'll just do this custome and worry later.
+-->
+<html>
+    <head>
+	<script>
+	    window.history.pushState('popstateListener', null, window.location.href);
+	    window.addEventListener("popstate", function (e) {
+		e.preventDefault();
+	    });
+	</script>
+	<script src="js/navHandler.js"></script>
+	<title>Welcome</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<script src="cordova.js"></script>
+	<script src="js/debugLog.js"></script>
+	<link rel="stylesheet" href='css/webix.css' />
+	<link rel="stylesheet" href='css/all.css' />
+	<script src="js/jquery.js"></script>
+	<script src="js/webix.js"></script>
+	<script src="js/getAbsLoc.js"></script>
+	<script src="js/viewWelcome.js"></script>
+	<script>
+	    document.addEventListener("deviceready", function () {
+		cordova.plugins.autoStart.enable();
+
+		function getValByTag(node, tag) {
+		    if (node && node.getElementsByTagName(tag).length && node.getElementsByTagName(tag)[0].innerHTML) {
+			return node.getElementsByTagName(tag)[0].innerHTML;
+		    } else {
+			return false;
+		    }
+		}
+
+
+		$("#tutorial").click(function () {
+		    gotoTutorial();
+		});
+		$("#promptLeft").click(function () {
+		    gotoTutorial();
+		});
+		$("#login").click(function () {
+		    gotoLogin();
+		});
+		$("#promptRight").click(function () {
+		    gotoLogin();
+		});
+
+		function gotoLogin() {
+		    window.location.href = "login.html";
+		}
+
+		function gotoTutorial() {
+		    $.ajax({
+			type: "GET",
+			url: schoolLoc + "/school.xml", // not modified, who cares, just getting bg image
+			dataType: "xml",
+			success: function (xml) {
+			    window.schoolXML = xml;
+			    var bgSrc = getValByTag(xml, "schoolBG");
+			    var initTutorial = "";
+			    var tuts = schoolXML.getElementsByTagName("tutorial");
+			    for (var t = 0; t < tuts.length; t++) {
+				var tut = tuts[t];
+				if (getValByTag(tuts[t], "type") == "app") {
+				    initTutorial = getValByTag(tuts[t], "name");
+				}
+			    }
+			    if (initTutorial) {
+				window.location.href = schoolLoc + "/" + initTutorial + "_Tutorial/index.html";
+			    } else {
+				console.log("No initial tutorial found in XML, no initial launch");
+				window.location.href = "login.html";
+			    }
+
+			},
+			error: function () {
+			    console.error("School xml did not load");
+			}
+		    });
+		}
+	    });
+	</script>
+	<style>
+	    body {
+		margin:0;
+		background-color:black;
+	    }
+	    img {
+		height:50%;
+		width:50%;
+		float:left;
+	    }
+	</style>
+    </head>
+    <body>
+	<img id='tutorial' src='img/welcomeTutorial.png' />
+	<img id='login' src='img/welcomeLogin.png' />
+	<img id='promptLeft' src='img/welcomePromptLeft.png' />
+	<img id='promptRight' src='img/welcomePromptRight.png' />
+    </body>
+</html>

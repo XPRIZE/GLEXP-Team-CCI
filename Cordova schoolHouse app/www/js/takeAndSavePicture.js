@@ -20,7 +20,8 @@ document.addEventListener("deviceready", function () {
 	function capturePhoto() {
 	    sessionStorage.removeItem('imagepath');
 	    // Take picture using device camera and retrieve image as base64-encoded string
-	    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50, destinationType: Camera.DestinationType.FILE_URI});
+	    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50, destinationType: Camera.DestinationType.FILE_URI, cameraDirection: 1});
+	    // Github says "Any cameraDirection value results in a back-facing photo". So fuck.
 	}
 
 	function onPhotoDataSuccess(imageURI) {
@@ -42,17 +43,19 @@ document.addEventListener("deviceready", function () {
 	    movePic(imageURI);
 	}
 
-// Called if something bad happens.
-//
+	// Called if something bad happens.
 	function onFail(message) {
-	    alert('Failed because: ' + message);
+	    // use default bunny pic
+	    //
+	    // DOESN'T WORK, because something something fucked up with the user.xml
+	    // THIS.callback("default");
 	}
 
 	function movePic(file) {
 	    window.resolveLocalFileSystemURI(file, resolveOnSuccess, resOnError);
 	}
 
-//Callback function when the file system uri has been resolved
+	//Callback function when the file system uri has been resolved
 	function resolveOnSuccess(entry) {
 	    //new file name
 	    var newFileName = THIS.fileName + ".jpg";
@@ -62,16 +65,16 @@ document.addEventListener("deviceready", function () {
 		// console.log("request granted");
 		//The folder is created if doesn't exist
 		fileSys.root.getDirectory(myFolderApp,
-			{create: true, exclusive: false},
-			function (directory) {
-			    entry.moveTo(directory, newFileName, successMove, resOnError);
-			},
-			resOnError);
+		  {create: true, exclusive: false},
+		  function (directory) {
+		      entry.moveTo(directory, newFileName, successMove, resOnError);
+		  },
+		  resOnError);
 	    },
-		    resOnError);
+	      resOnError);
 	}
 
-//Callback function when the file has been moved successfully - inserting the complete path
+	//Callback function when the file has been moved successfully - inserting the complete path
 	function successMove(entry) {
 	    // console.log("good move");
 	    //Store imagepath in session for future use

@@ -10,7 +10,7 @@ document.addEventListener("deviceready", function () {
     readFile("skip", function (ret) {
 	ret = true;
 	if (ret) {
-	    window.location.href = "login.html";
+	    window.location.href = "welcome.html";
 	} else {
 	    webix.ui({
 		rows: [

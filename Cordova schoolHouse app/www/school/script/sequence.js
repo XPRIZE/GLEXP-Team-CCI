@@ -467,9 +467,8 @@ function sequence(list, elem, linkName, relPos, triggerType) {
 			} else if (targDest == "HomeWebPage") {
 			    // window.location.href = "about:home"; // not working
 			    window.location.href = "cdvfile://localhost/index.html";
-			    if (isCordova) {
-
-			    }
+			} else if (targDest == "LoginPage") {
+			    window.location.href = "../../login.html";
 			} else {
 			    // same tab, new tab, new window, nothing special
 			    if (targAction == "same tab") {
