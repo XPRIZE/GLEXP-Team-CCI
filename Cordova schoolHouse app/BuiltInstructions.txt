@@ -7,6 +7,7 @@ Install Cordova.
 > cordova plugin add cordova-plugin-camera
 > cordova plugin add cordova-plugin-audio-recorder-api
 > cordova plugin add cordova-plugin-file
+> cordova plugin add cordova-plugin-autostart
 
 Empty schoolHouse/www/ folder.
 Clone schoolHouse repo into schoolHouse/www/ folder.
