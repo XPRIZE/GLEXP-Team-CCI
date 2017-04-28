@@ -1,3 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
 var unitSize = 79;
 document.addEventListener("deviceready", function () {
     var cover = document.createElement("div");
