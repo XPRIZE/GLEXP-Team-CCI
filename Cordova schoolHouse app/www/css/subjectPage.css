@@ -76,6 +76,20 @@ h2, h3, h4 {
     font-size:24px;
     padding:8px 0px;
 }
+#subjectHeader img {
+    display:inline-block;
+    vertical-align:middle;
+}
+#subjectHeader h2 {
+    display:inline-block;
+    vertical-align:middle;
+    margin-top:-6px;
+}
+#subjectHeader span {
+    vertical-align: middle;
+    height: 100%;
+    display: inline-block;
+}
 .unitsToGamesLine {
     width:100%;
     height:20px;
