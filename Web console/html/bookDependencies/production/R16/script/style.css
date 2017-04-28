@@ -28,11 +28,11 @@
     font-weight: large;
     font-size: x-large;
     src: local('?'),
-	url("../fonts/caf.oft") format("openstyle"),
-	url("../fonts/caf.woff") format("woff"),
-	url("../fonts/caf.eot") format("embedded-opentype"),
-	url("../fonts/caf.ttf") format("truetype"),
-	url("../fonts/caf.svg#caf") format("svg");
+        url("../fonts/caf.oft") format("openstyle"),
+        url("../fonts/caf.woff") format("woff"),
+        url("../fonts/caf.eot") format("embedded-opentype"),
+        url("../fonts/caf.ttf") format("truetype"),
+        url("../fonts/caf.svg#caf") format("svg");
 }
 
 @font-face {
@@ -41,11 +41,11 @@
     font-weight: normal;
     font-size: large;
     src: local('?'),
-	url("../fonts/vag.oft") format("openstyle"),
-	url("../fonts/vag.woff") format("woff"),
-	url("../fonts/vag.eot") format("embedded-opentype"),
-	url("../fonts/vag.ttf") format("truetype"),
-	url("../fonts/vag.svg#vag") format("svg");
+        url("../fonts/vag.oft") format("openstyle"),
+        url("../fonts/vag.woff") format("woff"),
+        url("../fonts/vag.eot") format("embedded-opentype"),
+        url("../fonts/vag.ttf") format("truetype"),
+        url("../fonts/vag.svg#vag") format("svg");
 }
 
 .noSelect {
@@ -65,8 +65,8 @@ body {
 
 #backgroundImg {
     /*background-image:url("../presets/blueMetal.jpg");*/
-    background-image: url("../presets/cloud-snapshot.jpg");
-    background-size: 100% 100%;
+    background-image: url("../presets/PubblyBackground.png");
+    background-size: cover;
     height: 100%;
     width: 100%;
 }
@@ -92,8 +92,9 @@ body {
 #mainC {
     /*background-image: url(../presets/blackMetal.jpg);
     background-color:#99ccff;*/
+    background-color:RGB(34,34,34);
     position: relative;
-    border: 1px solid white;
+    border: 1px solid RGB(34,34,34);
     border-radius: 10px;
     overflow: hidden;
 }
@@ -135,6 +136,36 @@ body {
     margin-right: 7px;
     background-color: black;
     display: none;
+}
+
+#closeC div {
+    text-align: right;
+    position:absolute;
+    color:green;
+    margin-top:-35px;
+    margin-right:15px;
+    height: 26px;
+    width: 26px;
+    background-color:RGBA(60,60,60,0);
+    border-radius:20px;
+    border:2px solid RGBA(120,120,120,0);
+    right:0;
+    transition:0.5s;
+}
+#closeC div:hover {
+    background-color:RGBA(60,60,60,1);
+    border-color:RGBA(120,120,120,1);
+    cursor:pointer;
+}
+#closeC div span {
+    text-align:center;
+    width: 27px;
+    height:18px;
+    display: block;
+    margin-top:4px;
+    color:#8768AE;
+    font-family: sans-serif;
+    font-weight: bold;
 }
 
 #textC {

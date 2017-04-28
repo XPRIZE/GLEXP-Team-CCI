@@ -26,14 +26,14 @@ function loader(placement) {
       '</div>' +
       '<div id="load-letters-cont">' +
       '<img id="load-logo"/>' +
-          /*
-           '<img class="load-letter" id="load-letter-p" letter="p" src="' + dependenciesLoc + 'presets/letters/p_plain.png" />' +
-           '<img class="load-letter" id="load-letter-u" letter="u" src="' + dependenciesLoc + 'presets/letters/u_plain.png" />' +
-           '<img class="load-letter" id="load-letter-b1" letter="b1" src="' + dependenciesLoc + 'presets/letters/b1_plain.png" />' +
-           '<img class="load-letter" id="load-letter-b2" letter="b2" src="' + dependenciesLoc + 'presets/letters/b2_plain.png" />' +
-           '<img class="load-letter" id="load-letter-l" letter="l" src="' + dependenciesLoc + 'presets/letters/l_plain.png" />' +
-           '<img class="load-letter" id="load-letter-y" letter="y" src="' + dependenciesLoc + 'presets/letters/y_plain.png" />' +
-           */
+      /*
+       '<img class="load-letter" id="load-letter-p" letter="p" src="' + dependenciesLoc + 'presets/letters/p_plain.png" />' +
+       '<img class="load-letter" id="load-letter-u" letter="u" src="' + dependenciesLoc + 'presets/letters/u_plain.png" />' +
+       '<img class="load-letter" id="load-letter-b1" letter="b1" src="' + dependenciesLoc + 'presets/letters/b1_plain.png" />' +
+       '<img class="load-letter" id="load-letter-b2" letter="b2" src="' + dependenciesLoc + 'presets/letters/b2_plain.png" />' +
+       '<img class="load-letter" id="load-letter-l" letter="l" src="' + dependenciesLoc + 'presets/letters/l_plain.png" />' +
+       '<img class="load-letter" id="load-letter-y" letter="y" src="' + dependenciesLoc + 'presets/letters/y_plain.png" />' +
+       */
       '</div>' +
       '</div>' +
       '<p id=loadText>0%</p>' +
@@ -74,11 +74,11 @@ function loader(placement) {
     this.loadText = document.getElementById('loadText');
     var canColors = [
         'RGB(136,103,172)', // P
-        'RGB(57,77,129)',   // U
-        'RGB(226,98,35)',   // B
-        'RGB(179,36,42)',   // B
-        'RGB(91,173,198)',  // L
-        'RGB(145,188,72)',  // Y
+        'RGB(57,77,129)', // U
+        'RGB(226,98,35)', // B
+        'RGB(179,36,42)', // B
+        'RGB(91,173,198)', // L
+        'RGB(145,188,72)', // Y
     ];
     this.cans = [];
     var cans = document.getElementsByClassName("loadCan");
@@ -174,5 +174,12 @@ function spinner(placement) {
     this.spinner = this.contID.getElementsByClassName('load-spinner')[0];
     this.kill = function () {
         this.contID.innerHTML = '';
+        if (book.checkWhenLoaded) {
+            book.checkWhenLoaded = false;
+			console.log("Checking open page links");
+			window.setTimeout(function() {
+				checkOpenPageLinks();
+			},300);
+        }
     }
 }
