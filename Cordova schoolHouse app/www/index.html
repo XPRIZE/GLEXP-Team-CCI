@@ -1,52 +1,22 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-	<title>School house development home page</title>
+	<head>
+	<script>
+	    window.history.pushState('popstateListener', null, window.location.href);
+	    window.addEventListener("popstate", function (e) {
+		e.preventDefault();
+	    });
+	</script>
+	<script src="js/navHandler.js"></script>
+	<title>Pubbly</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
 	<script src="cordova.js"></script>
-	<script src="js/webix.js"></script>
-	<script src="js/jquery.js"></script>
-	<script src="js/getAbsLoc.js"></script>
-	<script src="js/readWrite.js"></script>
-	<script src="js/version.js"></script>
-	<script src="js/openURL.js"></script>
-	<script src="js/debugLog.js"></script>
-	<script src="js/readWrite.js"></script>
-	<script src="js/devHome.js"></script>
-	<script src="js/clearDirectory.js"></script>
-	<script src="js/clearCache.js"></script>
-	<script src="js/downloadSchool.js"></script>
-	<link rel="stylesheet" href="css/webix.css" />
-	<link rel="stylesheet" href="css/downloadProgressBar.css" />
-	<link rel="stylesheet" href='css/all.css' />
+	<script src="js/viewIndex.js"></script>
 	<style>
+		body {
+			background-color:black;
+		}
 	</style>
-	<style>
-	    h2, p {
-		text-align:center;
-	    }
-	    .green button  {
-		background-color:rgba(0, 128, 0, 0.87)!important;
-	    }
-	    .green:hover button {
-		background-color:green!important;
-	    }
-
-	    .red button {
-		background-color:rgba(255, 0, 0, 0.67)!important;
-	    }
-	    .red:hover button {
-		background-color:red!important;
-	    }
-	</style>
-    </head>
-    <body>
-    </body>
+	</head>
+	<body></body>
 </html>
-
