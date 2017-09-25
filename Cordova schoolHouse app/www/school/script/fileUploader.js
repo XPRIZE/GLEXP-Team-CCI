@@ -49,7 +49,7 @@ function FileUploader() {
 
 		    THIS.refreshObj.elem.src = "images/tmp/" + imgName + noCacheExt();
 		    THIS.refreshObj.elem.onerror = function (e, meg) {
-			book.bugs.log("Snapshot did not load, please try again");
+			console.warn("Bug: " + "Snapshot did not load, please try again");
 		    }
 		    THIS.refreshObj.elem.onload = function () {
 			book[curPage - 1].redraw();
@@ -60,7 +60,7 @@ function FileUploader() {
 		}
 	    });
 	} else {
-	    book.bugs.log("Error: only JPGs and PNGs allowed");
+	    console.warn("Error: " + "only JPGs and PNGs allowed");
 	}
     });
 

@@ -78,7 +78,7 @@ function animPlate(mod) {
             $("#bookDisabled").css("width", "0");
         }, animTime);
     } else {
-        book.bugs.log('Unknown mod of <b>' + mod + '</b> in animPlate function call');
+        console.warn("Bug: " + 'Unknown mod of <b>' + mod + '</b> in animPlate function call');
     }
 }
 
@@ -144,19 +144,23 @@ function workspaceCheck(page, pos) {
     return ret;
 }
 function addUserControl() {
-    // ipad speeds
+    book.analytics.add({type: "fl"});
 
+    mxStr = "clientX";
+    myStr = "clientY";
     // Check for tablet first, because it could be chrome on a pad
-    if (isPad) {
-        mxStr = "pageX";
-        myStr = "pageY";
-    } else if (isChrome) {
-        mxStr = "x";
-        myStr = "y";
-    } else {
-        mxStr = "clientX";
-        myStr = "clientY";
-    }
+    /*
+     if (isPad) {
+     mxStr = "pageX";
+     myStr = "pageY";
+     } else if (isChrome) {
+     mxStr = "x";
+     myStr = "y";
+     } else {
+     mxStr = "clientX";
+     myStr = "clientY";
+     }
+     */
     var selectFnc = function (event) {
         if (event) {
             if (pDisplay == 'Single') {
@@ -190,7 +194,11 @@ function addUserControl() {
     // working on ipads
     window.downHoldingForInterruptTimeout = false;
     var downFnc = function (event) {
-        if (mMode && !book.dialog.open) {
+        // event.preventDefault();
+        if (book.isRecording) {
+            // stopRecording();
+            // recording stopped on mouse up.
+        } else if (mMode && !book.dialog.open) {
             var pos;
             if (isPad) {
                 pos = [event.touches[0][mxStr], event.touches[0][myStr]];
@@ -198,19 +206,23 @@ function addUserControl() {
                 pos = [event[mxStr] + scrollOffsets[1], event[myStr] + scrollOffsets[0] - vertCenteredOffset];
             }
             var page = selectFnc(event);
-            event.preventDefault();
             var noDrop = false;
+            var curInterruptTime = book[curPage - 1].interruptTime;
+            if (!curInterruptTime) {
+                curInterruptTime = book.interruptTime;
+            }
             window.downHoldingForInterruptTimeout = window.setTimeout(function () {
                 if (curSequence) {
                     curSequence.end();
                 }
-            }, book.interruptTime);
+            }, curInterruptTime);
             if (book.curField.name) {
                 deselectEditableField();
             }
             if (page) {
                 var absPos = offsetCalc(page, pos[0], pos[1]);
-                var pts = {x: absPos[0], y: absPos[1]};
+                var pts = {x: Math.round(absPos[0]), y: Math.round(absPos[1])};
+                book.analytics.add({type: "ut", page: curPage, pt: pts});
                 var lineRet = lineCheck(page, absPos);
                 var dragRet = dragCheck(page, pos[0], pos[1], true);
                 var workspaceRet = workspaceCheck(page, absPos);
@@ -234,7 +246,7 @@ function addUserControl() {
                     hoverMouse("crosshair");
                     mMode = "line";
                 } else if (workspaceRet) {
-                    if (!curSequence || book.interruptTime == 0) {
+                    if (!curSequence || curInterruptTime == 0) {
                         hoverMouse("drawingTool");
                         book.drawingTools.curWorkspace = workspaceRet;
                         workspaceDraw(workspaceRet, pts);
@@ -250,9 +262,11 @@ function addUserControl() {
                 }
             }
         }
+        return false;
     };
 // working on ipads (slowly)
     var moveFnc = function (event) {
+        // event.preventDefault();
         if (mMode) {
             var pos;
             if (isPad) {
@@ -260,7 +274,6 @@ function addUserControl() {
             } else {
                 pos = [event[mxStr] + scrollOffsets[1], event[myStr] + scrollOffsets[0] - vertCenteredOffset];
             }
-            event.preventDefault();
             var page = selectFnc(event);
             absPos = offsetCalc(page, pos[0], pos[1]);
             var pts = {x: absPos[0], y: absPos[1]};
@@ -271,7 +284,8 @@ function addUserControl() {
                         leaveFnc();
                     } else if (curDrag) {
                         if (page == lastDragPage) {
-                            dragObj(curDrag[0], curDrag[1], offsetCalc(page, pos[0], pos[1]), page, curDrag[2]);
+                            console.log(absPos)
+                            dragObj(curDrag[0], curDrag[1], absPos, page, curDrag[2]);
                         } else {
                             dragEnd();
                         }
@@ -330,12 +344,19 @@ function addUserControl() {
                 leaveFnc();
             }
         }
+        return false;
     };
-// working on ipads
     var upFnc = function (event) {
+        logSecStamp("upFnc called");
+        // event.preventDefault();
         window.clearTimeout(window.downHoldingForInterruptTimeout);
-        // if user is turning the page
-        if (pageDir) {
+        if (mMode == 'draw') {
+            book.drawingTools.lastPos = false;
+            saveDrawings(curPage - 1);
+        }
+        if (book.isRecording) {
+            stopRecording();
+        } else if (pageDir) {
             if (!pageAnimInt && mMode == "down") {
                 mMode = "nav";
                 hoverMouse(false);
@@ -349,8 +370,8 @@ function addUserControl() {
                     var page, posX, posY;
                     if (isPad) {
                         var page = selectFnc(event);
-                        var posX = event.changedTouches[0].pageX;
-                        var posY = event.changedTouches[0].pageY;
+                        var posX = event.changedTouches[0][mxStr];
+                        var posY = event.changedTouches[0][myStr];
                     } else {
                         var page = selectFnc(event);
                         var posX = event[mxStr];
@@ -366,11 +387,9 @@ function addUserControl() {
                 }
             }
         }
-        if (mMode == 'down' || mMode == 'draw') {
-            book.drawingTools.lastPos = false;
-            mMode = "nav";
-        }
+        mMode = "nav";
         curDrag = false;
+        return false;
     };
     prevStr = function (fromSequence) {
         if (!pageAnimInt && !pageDir && curPage > 1 && !book.dialogUp) {
@@ -396,6 +415,19 @@ function addUserControl() {
             }
         }
     };
+    var navBack = function () {
+        if (window.usertype == "admin") {
+            window.close();
+        } else {
+            if (document.referrer) {
+                window.location.href = document.referrer;
+            } else {
+                window.back();
+            }
+        }
+
+
+    }
     var closeGoto = function () {
     };
     $(window).blur(function () {
@@ -409,28 +441,28 @@ function addUserControl() {
      var gutterPrev = $("#gutterPrev");
      var gutterNext = $("#gutterNext");
      */
-    var fieldType = function (e) {
-        var val = $(book.textEntryHidden).val();
-        var badKeys = [33, 34, 35, 36, 37, 38, 39, 40, 45, 46];
-        if (badKeys.indexOf(e.keyCode) !== -1 || val.length > 499) {
-            e.preventDefault(); // NO MOVEMENT!
-        } else {
-            var page = book.curField.page;
-            var name = book.curField.name;
-            window.setTimeout(function () {
-                // No timeout, and the val is missing the last letter. This is keydown, not keyup
-                book[page - 1].objs[name].contents = $(book.textEntryHidden).val();
-                // window.clearInterval(book.curField.insertionPoint);
-                blinkInsertionPoint(true);
-                book[page - 1].redraw();
-            }, 1);
-        }
-    }
     window.setTimeout(function () {
         book.loader.kill();
         delete book.loader;
         $("#shade").css("height", "0");
-        $(book.textEntryHidden).keydown(fieldType);
+        $(book.textEntryHidden).on('keyup', function (e) {
+            var val = $(book.textEntryHidden).val();
+            var badKeys = [33, 34, 35, 36, 37, 38, 39, 40, 45, 46];
+            if (badKeys.indexOf(e.keyCode) !== -1 || val.length > 499) {
+                e.preventDefault(); // NO MOVEMENT!
+            } else {
+                var page = book.curField.page;
+                var name = book.curField.name;
+                window.setTimeout(function () {
+                    // No timeout, and the val is missing the last letter. This is keydown, not keyup
+                    book[page - 1].objs[name].contents = $(book.textEntryHidden).val();
+                    // window.clearInterval(book.curField.insertionPoint);
+                    blinkInsertionPoint(true);
+                    book[page - 1].redraw();
+                }, 1);
+            }
+        })
+
         if (isPad) {
             window.setTimeout(function () {
                 /*
@@ -454,6 +486,7 @@ function addUserControl() {
                 bookC.addEventListener("touchend", upFnc);
                 next[0].addEventListener("touchend", nextStr);
                 prev[0].addEventListener("touchend", prevStr);
+                closeC.addEventListener("touchend", navBack);
                 // book.drawingTools.selector.addEventListener("touchend", book.drawingTools.toggleTool);
                 // gutterNext[0].addEventListener("touchend", nextStr);
                 // gutterPrev[0].addEventListener("touchend", prevStr);
@@ -518,16 +551,15 @@ function addUserControl() {
              */
             prev[0].addEventListener("mousedown", prevStr);
             next[0].addEventListener("mousedown", nextStr);
+            closeC.addEventListener("mousedown", navBack);
             $(window).scroll(function () {
                 scrollOffsets = [];
                 scrollOffsets.push($(window).scrollTop());
                 scrollOffsets.push($(window).scrollLeft());
             });
         }
-		window.setTimeout(function() {
-			checkNormallyPlayingOnPage(curPage - 1);
-			checkOpenPageLinks();
-		},300);
+        checkNormallyPlayingOnPage(curPage - 1);
+        checkOpenPageLinks();
         mMode = 'nav';
     }, 1);
 }
@@ -570,7 +602,6 @@ function deselectEditableField() {
     $("#textEntryHidden").blur();
     blinkInsertionPoint(false); // Get rid of insertion point
     window.clearInterval(book.curField.insertionPoint);
-//     console.log("blurred");
     book[curPage - 1].redraw();
     book.curField.name = false;
 }
@@ -591,7 +622,6 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
             hoverButton.off();
         }
         var pos = offsetCalc(page, mX, mY);
-        //if (!isHover) {console.log(pos)}
         var pt = {};
         pt.x = pos[0];
         pt.y = pos[1];
@@ -699,6 +729,8 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
             mMode = "nav";
         }
         if (actionArr[hit]) {
+            book.analytics.add({type: "lt", linkname: actionArr[hit].name});
+
             if (actionArr[hit].name !== "Keypad" && page.objs.Keypad) {
                 page.objs.Keypad.hover = false;
             }
@@ -773,8 +805,10 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
                         $(book.textEntryHidden).focus(function () {
                             var $htmlOrBody = $('html, body');
                             $htmlOrBody.scrollTop(0);
-
                         });
+                        window.setTimeout(function () {
+                            $(book.textEntryHidden).focus();
+                        }, 100);
                         book.curField.name = actionArr[hit].name;
                         book.curField.page = page.ident;
                         blinkInsertionPoint(true);
@@ -889,7 +923,7 @@ function keypadEvent(x, y, keypad, page, eventType) {
         var height = cur.height * dimMod.height;
         var width = cur.width * dimMod.width;
         if (x > left && x < left + width &&
-          y > top && y < top + height) {
+                y > top && y < top + height) {
             hit = cur;
         }
     }
@@ -926,7 +960,7 @@ function keypadEvent(x, y, keypad, page, eventType) {
                     } else if (o == "/") {
                         answer = n1 / n2;
                     } else {
-                        console.log("What the hell kind of question is this?");
+                        console.warn("Bug: " + "Unknown math question.");
                     }
                     // ugh
                     var mathRight, mathWrong;
@@ -941,20 +975,20 @@ function keypadEvent(x, y, keypad, page, eventType) {
                         if (mathRight) {
                             curSequence = new sequence(mathRight.targets, page, "Page", [maxDim[0] / 2, maxDim[1] / 2], "math right");
                         } else {
-                            console.log("answer right, but no events!");
+                            console.warn("Bug: " + "Answer right, but no events!");
                         }
                     } else {
                         if (mathWrong) {
                             curSequence = new sequence(mathWrong.targets, page, "Page", [maxDim[0] / 2, maxDim[1] / 2], "math wrong");
                         } else {
-                            console.log("answer wrong, but no events!");
+                            console.warn("Bug: " + "Answer wrong, but no events!");
                         }
                     }
                     if (curSequence) {
                         curSequence.start();
                     }
                 } else {
-                    console.log("Haven't asked the question yet");
+                    console.warn("Bug: " + "Keypad entry before question asked");
                 }
             } else if (hit.val == "back") { // Delete last number
                 if (curVal == "-0") {
@@ -1016,14 +1050,19 @@ function workspaceDraw(which, where) {
         // Tool init setup
         var ctx = book[which.pageInBook].DRAW.getContext('2d');
         if (tool == "chalk") {
-            ctx.fillStyle = "rgba(" + book.drawingTools.curColor + ",0.5)";
-            ctx.strokeStyle = 'rgba(' + book.drawingTools.curColor + ',' + (0.4 + Math.random() * 0.2) + ')';
+            if (book.drawingTools.curColor.length == 4)
+                book.drawingTools.curColor.pop();
+            var color = book.drawingTools.curColor.join(",");
+            ctx.fillStyle = "rgba(" + book.drawingTools.curColor.join(",") + ",0.5)";
+            ctx.strokeStyle = 'rgba(' + book.drawingTools.curColor.join(",") + ',' + (0.4 + Math.random() * 0.2) + ')';
             ctx.lineWidth = book.drawingTools.chalk.diameter;
             ctx.lineCap = 'round';
         } else if (tool == "pencil") {
-            ctx.lineWidth = 5;
-            ctx.fillStyle = "rgba(" + book.drawingTools.curColor + ",1)";
-            ctx.strokeStyle = "rgba(" + book.drawingTools.curColor + ",1)";
+            ctx.lineWidth = (book.drawingTools.width) ? book.drawingTools.width : 5;
+            if (!book.drawingTools.curColor[3])
+                book.drawingTools.curColor[3] = 1;
+            ctx.fillStyle = "rgba(" + book.drawingTools.curColor.join(",") + ")";
+            ctx.strokeStyle = "rgba(" + book.drawingTools.curColor.join(",") + ")";
             ctx.lineCap = 'round';
         }
     }
@@ -1038,39 +1077,6 @@ function workspaceDraw(which, where) {
 function erase(x, y, page) {
     var eraserDims = [50, 40];
     var ctx = book[page].DRAW.getContext('2d');
-    // This was supposed to take into account all the missed mouse move events on a fast swipe... but it never really worked.
-    /*
-     var startX = book.drawingTools.lastPos.x;
-     var startY = book.drawingTools.lastPos.y;
-     var endX = x - 0.5;
-     var endY = y - 0.5;
-     var rect = []; // [left, top, width, height] // I know, but it's what clearRect uses.
-     if (endX > startX) {
-     rect[0] = startX;
-     rect[2] = Math.max((endX - startX) + eraserDims[1], eraserDims[1]);
-     } else {
-     rect[0] = endX;
-     rect[2] = Math.max((startX - endX) + eraserDims[1], eraserDims[1]);
-     }
-     if (endY > startY) {
-     rect[1] = startY;
-     rect[3] = Math.max((endY - startY) + eraserDims[0], eraserDims[0]);
-     } else {
-     rect[1] = endY;
-     rect[3] = Math.max((startY - endY) + eraserDims[0], eraserDims[0]);
-     }
-     console.log(rect);
-     var path = [];
-     var xRepsMissed = Math.ceil(rect[2] / eraserDims[1]);
-     var yRepsMissed = Math.ceil(rect[3] / eraserDims[0]);
-     var repCount = Math.max(xRepsMissed, yRepsMissed);
-     var xInt = (rect[2] - rect[0]) / repCount;
-     var yInt = (rect[3] - rect[1]) / repCount;
-     for (var r = 0; r < repCount; r++) {
-     path.push()
-     }
-     ctx.clearRect(rect[0], rect[1], rect[2], rect[3]);
-     */
     ctx.clearRect(x + 5, y - 2, eraserDims[1] + 5, eraserDims[0] + 2);
     book[page].redraw();
 }
@@ -1078,7 +1084,11 @@ function drawChalk(x, y, page) {
     var brushDiameter = book.drawingTools.chalk.diameter;
     var last = book.drawingTools.lastPos;
     var ctx = book[page].DRAW.getContext('2d');
-    ctx.strokeStyle = 'rgba(' + book.drawingTools.curColor + ',' + (0.4 + Math.random() * 0.2) + ')';
+    var color = book.drawingTools.curColor.split(",");
+    if (color.length == 4) {
+        color.pop();
+    }
+    ctx.strokeStyle = 'rgba(' + color.join(",") + ',' + (0.4 + Math.random() * 0.2) + ')';
     ctx.beginPath();
     ctx.moveTo(last.x, last.y);
     ctx.lineTo(x, y);
@@ -1098,12 +1108,15 @@ function drawChalk(x, y, page) {
     book.drawingTools.lastPos = {x: x, y: y};
     book[page].redraw();
 }
-;
 function drawPencil(x, y, page) {
     var brushDiameter = book.drawingTools.chalk.diameter;
     var last = book.drawingTools.lastPos;
     var ctx = book[page].DRAW.getContext('2d');
-    ctx.strokeStyle = "rgba(" + book.drawingTools.curColor + ",1)";
+
+    ctx.lineWidth = (book.drawingTools.width) ? book.drawingTools : 5;
+    if (!book.drawingTools.curColor[3])
+        book.drawingTools.curColor[3] = 1;
+    ctx.strokeStyle = "rgba(" + book.drawingTools.curColor.join(",") + ")";
     ctx.beginPath();
     ctx.moveTo(last.x, last.y);
     ctx.lineTo(x, y);
@@ -1120,31 +1133,25 @@ function checkOpenPageLinks() {
         tPage++;
     }
     var noneHit = true;
-    var loaded = true;
-    while (tPage < curPage && book[tPage] && noneHit && loaded) {
-        if (!book[tPage].loaded) {
-            loaded = false;
-            book.checkWhenLoaded = true;
-        } else {
-            for (var i = 0; i < book[tPage].pageOpens.length; i++) {
-                if (noneHit) {
-                    var linkHit = book[tPage].pageOpens[i];
-                    if (linkHit.action == "Open Page First Time" || linkHit.action == "Open Page") {
-                        noneHit = false;
-                        if (linkHit.targets) {
-                            curSequence = new sequence(linkHit.targets, book[tPage], linkHit.name, [maxDim[0] / 2, maxDim[1] / 2], "openPage");
-                            curSequence.start();
-                        } else {
-                            book.bugs.log("Open page link has no targets.");
-                        }
-                        if (linkHit.action == "Open Page First Time") {
-                            book[tPage].pageOpens.splice(i, i + 1);
-                        }
+    while (tPage < curPage && book[tPage] && noneHit) {
+        for (var i = 0; i < book[tPage].pageOpens.length; i++) {
+            if (noneHit) {
+                var linkHit = book[tPage].pageOpens[i];
+                if (linkHit.action == "Open Page First Time" || linkHit.action == "Open Page") {
+                    noneHit = false;
+                    if (linkHit.targets) {
+                        curSequence = new sequence(linkHit.targets, book[tPage], linkHit.name, [maxDim[0] / 2, maxDim[1] / 2], "openPage");
+                        curSequence.start();
+                    } else {
+                        console.warn("Bug: " + "Open page link has no targets.");
+                    }
+                    if (linkHit.action == "Open Page First Time") {
+                        book[tPage].pageOpens.splice(i, i + 1);
                     }
                 }
             }
-            tPage++;
         }
+        tPage++;
     }
 }
 function checkLogicLinks() {
@@ -1164,22 +1171,27 @@ function checkLogicLinks() {
             var action = cur.action.replace(" " + comparitor + " ", comparitor);
             var p = action.split(comparitor)[0].toString().toLowerCase();
 
-            var q = action.split(comparitor)[1];
-            if (p == "page points") {
-                q = Number(q);
-                var pts = book[curPage - 1].points;
-                if ((comparitor == "=" && pts == q) || (comparitor == "greaterThan" && pts > q) || (comparitor == "lessThan" && pts < q)) {
-                    matchedArr.push(l);
+            var q = Number(action.split(comparitor)[1]);
+
+            var pts = book[curPage - 1].points;
+            for (var point in book[curPage - 1].points) {
+                if (p == book[curPage - 1].points[point].name) {
+                    var pt = book[curPage - 1].points[point];
+                    if ((comparitor == "=" && pt.value == q) || (comparitor == "greaterThan" && pt.value > q) || (comparitor == "lessThan" && pt.value < q)) {
+                        // Prevents point conditional triggers from being met every time (eg. page points still = 3, trigger happens every time points are checked)
+                        if (pt.changed) {
+                            matchedArr.push(l);
+                        }
+                    }
                 }
-            } else {
-                book.bugs.log("Unknown check of <b>" + action.split("=")[0].toString() + "</b>. For the time, only Page Points are supported");
             }
         } else {
-            book.bugs.log("Unknown conditional of <b>" + action + "</b>. For the time, only '=' is supported");
+            console.warn("Bug: " + "Unknown conditional of <b>" + action + "</b>. For the time, only '=' is supported");
         }
     }
     if (matchedArr.length > 1) {
-        book.bugs.log("Number of conditions met are more than one. We haven't talked about this yet");
+        console.log("Bug: " + "Number of conditions met are more than one. We haven't talked about this yet");
+        // Ray is combining targets from both and playing at once. THIS WON'T WORK. We have to somehow determine which sequence takes precedence.
     } else if (matchedArr.length > 0) {
         var ref = book[curPage - 1].logics[matchedArr[0]];
         if (curSequence && curSequence.isRunning) {
@@ -1187,6 +1199,10 @@ function checkLogicLinks() {
         }
         curSequence = new sequence(ref.targets, book[curPage - 1], "logic", [maxDim[0] / 2, maxDim[1] / 2], "logic");
         curSequence.start(true);
+    }
+    for (var point in book[curPage - 1].points) {
+        // Only check those who have changed.
+        book[curPage - 1].points[point].changed = false;
     }
 }
 
@@ -1340,6 +1356,7 @@ function dragCheck(page, mX, mY, create) {
                     page.objKey.splice(objectDragging[3], 0, cloneName);
                 }
                 page.objs[objName].dropped = function () {
+                    logSecStamp(objName + ".dropped called");
                     dragObj.dragging = false;
                     curDrag = false;
                     lastDragPage = false;
@@ -1358,29 +1375,49 @@ function dragCheck(page, mX, mY, create) {
                     var animLegCount = 20;
                     var animAt = 0;
                     if (curTop && curLeft) {
-                        objSelf.dragAnim = window.setInterval(function () {
-                            if (animAt < animLegCount) {
-                                animAt++;
-                                var percentDone = Math.abs((animAt / animLegCount) - 1);
-                                objSelf.top = targTop + percentDone * animTopDif;
-                                objSelf.left = targLeft + percentDone * animLeftDif;
-                                page.redraw();
-                                hoverMouse(false);
-                            } else {
-                                window.clearInterval(objSelf.dragAnim);
-                                if (page.cloneID) {
-                                    // this is not working dont know why
-                                    delete page.objs[objSelf.name];
-                                    for (key in page.objKey) {
-                                        if (page.objKey[key] == objSelf.name) {
-                                            page.objKey.splice(key, 1);
-                                        }
-                                    }
-                                } else {
-                                    objSelf.animating = false;
+                        /*
+                         objSelf.dragAnim = window.setInterval(function () {
+                         if (animAt < animLegCount) {
+                         animAt++;
+                         var percentDone = Math.abs((animAt / animLegCount) - 1);
+                         objSelf.top = targTop + percentDone * animTopDif;
+                         objSelf.left = targLeft + percentDone * animLeftDif;
+                         page.redraw();
+                         hoverMouse(false);
+                         } else {
+                         window.clearInterval(objSelf.dragAnim);
+                         if (page.cloneID) {
+                         // this is not working dont know why
+                         delete page.objs[objSelf.name];
+                         for (key in page.objKey) {
+                         if (page.objKey[key] == objSelf.name) {
+                         page.objKey.splice(key, 1);
+                         }
+                         }
+                         } else {
+                         objSelf.animating = false;
+                         }
+                         }
+                         }, animSpeed);
+                         */
+                        console.log(animSpeed);
+                        percentDone = 1;
+                        objSelf.top = this.initTop;
+                        objSelf.left = this.initLeft;
+
+                        if (page.cloneID) {
+                            // this is not working dont know why
+                            delete page.objs[objSelf.name];
+                            for (key in page.objKey) {
+                                if (page.objKey[key] == objSelf.name) {
+                                    page.objKey.splice(key, 1);
                                 }
                             }
-                        }, animSpeed);
+                        } else {
+                            objSelf.animating = false;
+                        }
+
+                        page.redraw();
                     }
                 };
                 if (page.objs[objName].dragAnim) {
@@ -1393,7 +1430,6 @@ function dragCheck(page, mX, mY, create) {
             curDrag = false;
         }
     } else {
-        // console.log("Click not on page");
     }
     return tmpReturn;
 }
@@ -1443,27 +1479,54 @@ function leaveFnc() {
 }
 function offsetCalc(page, mX, mY) {
     if (page) {
-        var blueLeftOffset = ((window.innerWidth - parseInt(main.style.width)) / 2);
-        if (blueLeftOffset < 0) {
-            blueLeftOffset = 0
-        }
-        var pageLeftOffset = (bookMarginLeft + parseInt(page.DIV.style.left));
-        if ((pDisplay == "BlockSpread") && (curPage == 1 || (curPage == bookLength && !book.lastPageDouble))) {
-            pageLeftOffset -= pUnit / 2; // Ray's measuring click links from the left of the margin, NOT the left of the visible page.
-        }
-        var jQuerryOffsetSub = blueLeftOffset + pageLeftOffset;
-
-        // extra 10 for black border offset
-        returnX = mX - jQuerryOffsetSub - 10;
-        var difBetweenDivAndMain = $("#mainC").offset().top - $(book[0].DIV).offset().top;
-        returnY = mY + difBetweenDivAndMain;
 
         if (isCordova) {
-            returnX = mX - parseInt($(page.DIV).offset().left);
-            returnY = mY - parseInt($(page.DIV).offset().top);
-        }
+            return [Math.round(mX), Math.round(mY)];
+        } else {
+            var blueLeftOffset = ((window.innerWidth - parseInt(main.style.width)) / 2);
+            if (blueLeftOffset < 0) {
+                blueLeftOffset = 0
+            }
+            var pageLeftOffset = (bookMarginLeft + parseInt(page.DIV.style.left));
+            if ((pDisplay == "BlockSpread") && (curPage == 1 || (curPage == bookLength && !book.lastPageDouble))) {
+                pageLeftOffset -= pUnit / 2; // Ray's measuring click links from the left of the margin, NOT the left of the visible page.
+            }
+            var jQuerryOffsetSub = blueLeftOffset + pageLeftOffset;
 
-        return [returnX, returnY];
+            // extra 10 for black border offset
+            returnX = mX - jQuerryOffsetSub - 10;
+            //returnX = mX - parseInt($(page.DIV).offset().left);
+            //returnY = mY - parseInt($(page.DIV).offset().top);
+            //
+
+            returnY = mY - 38;
+
+            return [returnX, returnY];
+            /*
+             if (page) {
+             var blueLeftOffset = ((window.innerWidth - parseInt(main.style.width)) / 2);
+             if (blueLeftOffset < 0) {
+             blueLeftOffset = 0
+             }
+             var pageLeftOffset = (bookMarginLeft + parseInt(page.DIV.style.left));
+             if ((pDisplay == "BlockSpread") && (curPage == 1 || (curPage == bookLength && !book.lastPageDouble))) {
+             pageLeftOffset -= pUnit / 2; // Ray's measuring click links from the left of the margin, NOT the left of the visible page.
+             }
+             var jQuerryOffsetSub = blueLeftOffset + pageLeftOffset;
+             
+             // extra 10 for black border offset
+             returnX = mX - jQuerryOffsetSub - 10;
+             var difBetweenDivAndMain = $("#mainC").offset().top - $(book[0].DIV).offset().top;
+             returnY = mY + difBetweenDivAndMain;
+             
+             if (isCordova) {
+             returnX = mX - parseInt($(page.DIV).offset().left);
+             returnY = mY - parseInt($(page.DIV).offset().top);
+             }
+             
+             return [returnX, returnY];
+             */
+        }
     } else {
         return false;
     }
@@ -1627,6 +1690,7 @@ function setPageAnimInt(lastX, start, end, speedNumMult) {
                 book[curPage - 1].reload();
             }
             curPage += pageManip;
+            book.analytics.add({type: "pt", page: curPage});
             if (curSequence) {
                 curSequence.end();
             }
@@ -1656,7 +1720,7 @@ function setPageAnimInt(lastX, start, end, speedNumMult) {
             }
             if (pageManip != 0) {
                 newBuffer();
-                arrangePages();
+                // arrangePages();
                 checkOpenPageLinks();
                 if (pDisplay == 'Single' || pDisplay == 'BlockSpread') {
                     gotoAct.selectedIndex = curPage - 1;
@@ -1992,8 +2056,8 @@ function turnBlockSpread(direction, percent) {
 function pointInPoly(poly, pt) {
     for (var c = false, i = -1, l = poly.length, j = l - 1; ++i < l; j = i)
         ((poly[i].y <= pt.y && pt.y < poly[j].y) || (poly[j].y <= pt.y && pt.y < poly[i].y))
-          && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x)
-          && (c = !c);
+                && (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x)
+                && (c = !c);
     return c;
 }
 function hoverMouse(type) {
@@ -2070,6 +2134,7 @@ function setGotoCover() {
     }
 }
 function gotoChange(page, ident) {
+
     var gotoPage;
     if (page) {
         gotoPage = parseFloat((page.childNodes[page.selectedIndex].value));
@@ -2082,11 +2147,67 @@ function gotoChange(page, ident) {
     if (curSequence) {
         curSequence.clear(true);
     }
-    curPage = gotoPage;
-    newBuffer();
-    arrangePages();
-    setGotoCover();
-    checkOpenPageLinks();
+
+
+
+    // ADDED for XPRize.
+    // The last three pages of some bookshelf books were games, and needed to have no interrupts. PLUS they were sluggish. So I spliced them out into their own seperate thing. game.html and index.html. Three new globals.
+    // switchToGameAt. The page when you switch. When negative, count backwards.
+    // startXmlAt. The "first" page in the XML doc.
+    // globalInterruptTime. An override of any xml or page specific interrupt time. Set in the index.html or game.html
+    var gameSwitch = false;
+    if (typeof switchToGameAt !== "undefined") {
+        if (switchToGameAt > 0) { // positive index, measure fowards
+            if (gotoPage > switchToGameAt) {
+                gameSwitch = true;
+            }
+        } else {
+            if (gotoPage > book.length + switchToGameAt) {
+                gameSwitch = true;
+            }
+        }
+    }
+    var performanceSwitch = false;
+    if (typeof urlVars !== "undefined") {
+        if (gotoPage > urlVars["end"] && gotoPage <= book.length) {
+            performanceSwitch = true;
+        } else if (gotoPage < urlVars["start"] && gotoPage >= 1) {
+            performanceSwitch = true;
+        }
+    }
+
+    if (gameSwitch) {
+        window.location.href = "game.html";
+    } else if (performanceSwitch) {
+        urlVars["cur"];
+        var newVars = "";
+        var newStart = 1;
+        while (newStart + 8 <= gotoPage) {
+            newStart += 8;
+        }
+
+        newVars += "start=" + (newStart);
+        newVars += "&end=" + (newStart + 7);
+        newVars += "&cur=" + (gotoPage);
+
+        window.location.href = window.location.href.split("?")[0] + "?" + newVars;
+    } else {
+        if (gotoPage > bookLength) {
+            gotoPage = 1;
+        } else if (gotoPage < 0) {
+            gotoPage = bookLength;
+        }
+        if (gotoPage - curPage == 1) {
+            nextStr(true);
+        } else if (curPage - gotoPage == 1) {
+            prevStr(true);
+        } else {
+            curPage = gotoPage;
+            newBuffer();
+            arrangePages();
+            setGotoCover();
+        }
+    }
 }
 function hideNav() {
     book.noNav = true;
@@ -2103,11 +2224,11 @@ function vertCenterBook() {
     var workHeight = (middle * 2) - deviceTopBar;
     if (isPad && !isAndroid) {
         if (window.orientation == 90 || window.orientation == -90) {
-            //workHeight = (screenWidth - deviceTopBar) / viewportScale;
+//workHeight = (screenWidth - deviceTopBar) / viewportScale;
         } else if (window.orientation != undefined) {
-            //workHeight = (screenHeight - deviceTopBar) / viewportScale;
+//workHeight = (screenHeight - deviceTopBar) / viewportScale;
         } else {
-            //workHeight = 0;
+//workHeight = 0;
         }
     }
     if (workHeight > bookHeight) {

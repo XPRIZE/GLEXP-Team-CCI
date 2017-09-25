@@ -17,7 +17,7 @@ function FontHandler() {
 	    this.list[name].src = "fonts/" + file + ".ttf";
 	    this.addElem(name);
 	    this.addStyle(file, name);
-	    book[curPage - 1].redraw();
+	    // book[curPage - 1].redraw(); // why?
 	}
     }
     this.addElem = function (name) {

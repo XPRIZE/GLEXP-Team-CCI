@@ -1,8 +1,13 @@
 var curSequence = false, minimumHighlightTimerAct;
 
+if (window.testing) {
+    showsequence = true;
+}
 function sequence(list, elem, linkName, relPos, triggerType) {
+    logSecStamp("sequence constructor called");
+    book.analytics.add({type: "st", linkname: linkName});
     if (showsequence) {
-        console.log("New sequence -- " + linkName + " type " + triggerType);
+        console.log("Sequence log: " + "New sequence -- " + linkName + " type " + triggerType);
     }
     var THIS = this;
     this.running = true;
@@ -13,29 +18,24 @@ function sequence(list, elem, linkName, relPos, triggerType) {
     // Increment for sequence list,
     this.listNum = -1;
     // List array
-    // VEEEEEEEEEEEEERY IMPOIRTANT THING RIGHT HERE
     this.listArr = JSON.parse(JSON.stringify(list)); // break any link to original ref
-    //
-    //
-    //
-    //
-    //
-    //
     // Any opened animation intervals, for clearing or waiting for "animation ended" event
     // NOTE Can switch to array if needed, but for the time being, the books only support one animation at a time.
     this.openAnims = 0;
     this.objectsAnimating = [];
     // Any opened and ticking waits, CAN ONLY HAVE ONE AT A TIME
     this.openWait = false;
+    // Override for clearing sequence, only used for enabling recorder.
+    this.holdClear = false;
     this.triggerType = triggerType;
     this.linkName = linkName;
 
 
     var triggerType, linkPos;
     try {
-        triggerType = THIS.pageElem.linkKey[THIS.linkName].type;
-        linkPos = THIS.pageElem.linkKey[THIS.linkName].pos;
-        THIS.linkActual = THIS.pageElem[triggerType][linkPos];
+        triggerType = this.pageElem.linkKey[this.linkName].type;
+        this.linkActual = this.pageElem[triggerType][linkPos];
+        linkPos = this.pageElem.linkKey[this.linkName].pos;
     } catch (e) {
 
     }
@@ -65,7 +65,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
     }, book.minLinkHighlightTime);
 
     if (this.listArr.length > 1000) {
-        book.bugs.log("Sequence problem: You can only have 1000 targets in a sequence. 201 and above will not play.");
+        console.warn("Bug: " + "Sequence problem: You can only have 1000 targets in a sequence. 201 and above will not play.");
         this.listArr[t].splice(1000, this.listArr[t].length);
     }
 
@@ -88,6 +88,12 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                         eventualLinkStatuses[mults[m]] = stat;
                     }
                 }
+            }
+        } else if (curTarg[0].toLowerCase() == "object" && curTarg[1].toLowerCase() == "reset" && curTarg[2].toLowerCase() == "page") {
+            for (var key in THIS.pageElem.linkKey) {
+                var link = THIS.pageElem.linkKey[key];
+                var origStatus = THIS.pageElem[link.type][link.pos].initEnabled;
+                eventualLinkStatuses[key] = origStatus;
             }
         } else if (curTarg[1].toLowerCase() == "send click to") {
             var sendLink = curTarg[2];
@@ -112,20 +118,26 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                     for (var t = 0; t < this.listArr.length; t++) {
                         var targ = this.listArr[t];
                         if (targ[1] == "send click to" && targ[2].isFunction &&
-                          (targ[2].functionType == "chooseAndRemove" || targ[2].functionType == "choose") &&
-                          arraysEqual(targ[2].initArgs, sendLink.initArgs)) {
+                                (targ[2].functionType == "chooseAndRemove" || targ[2].functionType == "choose") &&
+                                arraysEqual(targ[2].initArgs, sendLink.initArgs)) {
                             // THIS is the original link, and THIS is what we'll delete arguments from
                             pullTarg = targ[2];
                             t = this.listArr.length;
 
                             var sendClickLinkArr = [];
                             for (var tg = 0; tg < pullTarg.args.length; tg++) {
-                                var initStatus = THIS.pageElem.clicks[THIS.pageElem.linkKey[pullTarg.args[tg]].pos].enabled;
-                                if (initStatus && !(eventualLinkStatuses[pullTarg.args[tg]] === false)) {
-                                    // link enabled
+                                var curStatus = THIS.pageElem.clicks[THIS.pageElem.linkKey[pullTarg.args[tg]].pos].enabled;
+                                var linkEnabled = false;
+
+                                // If, for some stupid reason, we don't have an eventual status, use the init.
+                                if (typeof (eventualLinkStatuses[pullTarg.args[tg]]) == "undefined") {
+                                    linkEnabled = curStatus;
+                                } else { // otherwise, use eventual.
+                                    linkEnabled = eventualLinkStatuses[pullTarg.args[tg]];
+                                }
+
+                                if (linkEnabled) {
                                     sendClickLinkArr.push(pullTarg.args[tg]);
-                                } else {
-                                    // link disabled
                                 }
                             }
 
@@ -133,22 +145,25 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                             linkName = sendClickLinkArr[rand];
 
                             if (targ[2].functionType == "chooseAndRemove") {
-                                var targKey = targ[2].locKey;
-                                var name = targKey.linkName;
-                                var targPos = targKey.targPos * 1;
-                                var targPage = targKey.page;
-                                var linkPos = book[targPage].linkKey[name].pos * 1;
-                                var linkType = book[targPage].linkKey[name].type;
                                 // Remove choice from book master.
-                                if (book[targPage][linkType][linkPos].targets[targPos]) {
-                                    book[targPage][linkType][linkPos].targets[targPos][2].args.splice(rand, 1);
-                                    if (book[targPage][linkType][linkPos].targets[targPos][2].args.length == 0 && book.resetRandomRemovals) {
-                                        book[targPage][linkType][linkPos].targets[targPos][2].args = (book[targPage][linkType][linkPos].targets[targPos][2].initArgs).slice(0);
-                                    }
+                                targ[2].args.splice(rand, 1);
+                                if (targ[2].args.length == 0 && book.resetRandomRemovals) {
+                                    targ[2].args = (targ[2].initArgs).slice(0);
                                 }
                             }
                         }
                     }
+
+
+                    /*
+                     if (sendLink.functionType == "chooseAndRemove") {
+                     // Remove choice from book master.
+                     THIS.linkActual.targets[at][2].args.splice(rand, 1);
+                     if (curTarg[2].args.length == 0 && book.resetRandomRemovals) {
+                     curTarg[2].args = (curTarg[2].initArgs).slice(0);
+                     }
+                     }
+                     */
                 }
             } else {
                 linkName = sendLink;
@@ -157,7 +172,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             if (linkName) {
                 var linkInfo = THIS.pageElem.linkKey[linkName];
                 var linkAct = THIS.pageElem[linkInfo.type][linkInfo.pos];
-                if (linkAct.enabled || eventualLinkStatuses[sendLink]) {
+                if (linkAct.enabled || eventualLinkStatuses[linkName]) {
                     targetsToAdd = linkAct.targets;
                 }
 
@@ -197,16 +212,20 @@ function sequence(list, elem, linkName, relPos, triggerType) {
 //     console.log(this.listArr);
 
     this.finalLogicTargets = [];
+    this.addRecorder = false;
     var targetCount = 0;
     for (var t = 0; this.listArr[t]; t++) {
         targetCount++;
         if (targetCount > 1000) {
             t = -1; // break loop
-            book.bugs.log("Sequence problem: You can only have 1000 targets in a sequence. Problem probably because you have two sequences which send clicks to each other, infinite loop style.");
+            console.warn("Error: " + "Sequence problem: You can only have 1000 targets in a sequence. Problem probably because you have two sequences which send clicks to each other, infinite loop style.");
         } else {
             if (this.listArr[t][0]) {
                 if ((this.listArr[t][0].toLowerCase() == "logic" || this.listArr[t][0].toLowerCase() == "points")) {
                     this.finalLogicTargets.push(this.listArr[t]);
+                    this.hadLogicLinks = true;
+                } else if (this.listArr[t][1].toLowerCase().split(" ")[0] == "overwrite") {
+                    this.addRecorder = true;
                 }
             }
         }
@@ -230,8 +249,10 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                 var targType = curTarg[0].toLowerCase();
                 var targAction = curTarg[1].toLowerCase();
                 var targDest = curTarg[2];
+
+                // book.analytics.add({type: "target", target: {type: targType, action: targAction, destination: targDest}});
                 if (showsequence) {
-                    console.log(curTarg);
+                    console.log("Sequence log: " + curTarg);
                 }
                 var functionPass = true;
                 if (targDest.isFunction) {
@@ -256,7 +277,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                             // send click to being handled in pre-execution shit above.
                         }
                     } else {
-                        book.bugs.log("Sequence problem: Unknown function type of <b>" + targDest.functionType + "</b>. Event skipped");
+                        console.warn("Bug: " + "Sequence problem: Unknown function type of <b>" + targDest.functionType + "</b>. Event skipped");
                         functionPass = false;
                     }
                 }
@@ -283,7 +304,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                                 // playing a video
                                 playVideo(objLoc);
                             } else {
-                                book.bugs.log('Sequence problem: Unknown object type <b>' + objLoc.type + '</b> in object ' + objLoc.name);
+                                console.warn("Bug: " + 'Sequence problem: Unknown object type <b>' + objLoc.type + '</b> in object ' + objLoc.name);
                                 THIS.next();
                             }
                         } else if (targAction == "reset") {
@@ -302,7 +323,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                              // curSequence = new sequence(linkAct.targets, THIS.pageElem, sendLink, relPos, "click");
                              // curSequence.start();
                              } else {
-                             book.bugs.log("Sequence problem: Can't send a click to a disabled link.");
+                             console.warn("Bug: " + "Sequence problem: Can't send a click to a disabled link.");
                              }
                              } else {
                              // link doesn't exist.
@@ -343,11 +364,11 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                                             }
                                             THIS.next();
                                         } else {
-                                            book.bugs.log("Sequence problem: link <b>" + targDest + "</b> not found in <b>" + lnkType + "</b>");
+                                            console.warn("Bug: " + "Sequence problem: link <b>" + targDest + "</b> not found in <b>" + lnkType + "</b>");
                                             THIS.next();
                                         }
                                     } else {
-                                        book.bugs.log("Sequence problem: unknown link type <b>" + lnkType + "</b>");
+                                        console.warn("Bug: " + "Sequence problem: unknown link type <b>" + lnkType + "</b>");
                                         THIS.next();
                                     }
                                 } else if (typeof wkspInKey == "number") { // No link? Maybe it's a workspace
@@ -358,7 +379,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                                             THIS.pageElem.workspaces[wkspInKey].enabled = false;
                                         }
                                     } else {
-                                        book.bugs.log("Sequence problem: Workspace <b>" + targDest + "</b> not found on page");
+                                        console.warn("Bug: " + "Sequence problem: Workspace <b>" + targDest + "</b> not found on page");
                                     }
                                     THIS.next();
                                 } else { // No link or workspace? Maybe it's a comma del list of links
@@ -367,26 +388,31 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                                         for (var l = 0; l < links.length; l++) {
                                             var link = links[l];
                                             var lnkInKey = THIS.pageElem.linkKey[link];
-                                            var lnkType = lnkInKey.type;
-                                            var lnkPos = lnkInKey.pos;
-                                            var lnkTypeArr = THIS.pageElem[lnkType];
-                                            if (lnkTypeArr) {
-                                                var lnkAct = lnkTypeArr[lnkPos];
-                                                if (lnkAct) {
-                                                    // enable or disable
-                                                    if (targAction == 'enable') {
-                                                        lnkAct.enabled = true;
+                                            if (lnkInKey) {
+                                                var lnkType = lnkInKey.type;
+                                                var lnkPos = lnkInKey.pos;
+                                                var lnkTypeArr = THIS.pageElem[lnkType];
+                                                if (lnkTypeArr) {
+                                                    var lnkAct = lnkTypeArr[lnkPos];
+                                                    if (lnkAct) {
+                                                        // enable or disable
+                                                        if (targAction == 'enable') {
+                                                            lnkAct.enabled = true;
+                                                        } else {
+                                                            lnkAct.enabled = false;
+                                                        }
                                                     } else {
-                                                        lnkAct.enabled = false;
+                                                        console.warn("Bug: " + "Sequence problem: link <b>" + targDest + "</b> not found in <b>" + lnkType + "</b>");
                                                     }
-                                                } else {
-                                                    book.bugs.log("Sequence problem: link <b>" + targDest + "</b> not found in <b>" + lnkType + "</b>");
                                                 }
+                                            } else {
+                                                console.warn("Bug: " + "Sequence problem: No such link <b>" + targDest + "</b>");
                                             }
+
                                         }
                                         THIS.next();
                                     } else { // Not comma del? Fuck it man, I dunno
-                                        book.bugs.log("Sequence problem: link <b>" + targDest + "</b> not found on page");
+                                        console.warn("Bug: " + "Sequence problem: link <b>" + targDest + "</b> not found on page");
                                         THIS.next();
                                     }
                                 }
@@ -416,7 +442,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                                     THIS.pageElem.redraw();
                                     THIS.next();
                                 } else {
-                                    book.bugs.log("Sequence problem: Object <b>" + objName + "</b> not found on page");
+                                    console.warn("Bug: " + "Sequence problem: Object <b>" + objName + "</b> not found on page");
                                     THIS.next();
                                 }
                             } else if (splitTarg[0] == 'flash') {
@@ -430,7 +456,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                                 playGifInPlace(objName, targAction.split("|"));
                                 animateObject(objLoc, animName);
                             } else {
-                                book.bugs.log("Sequence problem: unknown split target action - <b>" + splitTarg[0] + "</b>");
+                                console.warn("Bug: " + "Sequence problem: unknown split target action - <b>" + splitTarg[0] + "</b>");
                             }
                         } else if (targAction.toLowerCase() == "reassign drop") {
                             var linkName = targDest.split(",")[0];
@@ -439,49 +465,56 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                             book[THIS.pageElem.ident - 1].drops[key.pos].requires = dropName;
                             THIS.next();
                         } else {
-                            book.bugs.log("Sequence problem: unknown action - <b>" + targAction + "</b>");
+                            console.warn("Bug: " + "Sequence problem: unknown action - <b>" + targAction + "</b>");
                         }
                     } else if (targType == "audio") {
-                        if (spriteKey) {
-                            if (!book.sprite.paused) {
-                                THIS.listNum--;
-                                wait('silence');
-                            } else {
-                                // play sounds
-                                playSound(targDest);
-                            }
+                        var checkRecord = targAction.split(" ")[0] == "overwrite";
+                        if (checkRecord) {
+                            record(curTarg);
                         } else {
-                            if (THIS.openAudio) {
-                                THIS.listNum--;
-                                wait('silence');
+                            if (spriteKey) {
+                                if (!book.sprite.paused) {
+                                    THIS.listNum--;
+                                    wait('silence');
+                                } else {
+                                    // play sounds
+                                    playSound(targDest);
+                                }
                             } else {
-                                playSound(targDest);
+                                if (THIS.openAudio) {
+                                    THIS.listNum--;
+                                    wait('silence');
+                                } else {
+                                    playSound(targDest);
+                                }
                             }
                         }
-
                     } else if (targType == "page") {
                         // goto page
                         gotoPage(targDest);
                     } else if (targType == "url") {
-                        if (targDest == "PreviousWebPage") {
+                        var url = targDest;
+                        if (targDest.substr(0, 14).toLowerCase() == "base64encoded(") {
+                            url = atob(targDest.substr(14, targDest.length - 15));
+                        }
+                        if (url == "PreviousWebPage") {
                             window.history.go(-1);
-                        } else if (targDest == "HomeWebPage") {
-                            // window.location.href = "about:home"; // not working
+                        } else if (url == "HomeWebPage") {
                             window.location.href = "cdvfile://localhost/index.html";
-                        } else if (targDest == "LoginPage") {
-                            window.location.href = "cdvfile://localhost/login.html";
+                        } else if (url == "BookShelf") {
+                            window.location.href = "cdvfile://localhost/books.html";
                         } else {
                             // same tab, new tab, new window, nothing special
                             if (targAction == "same tab") {
-                                same_tab(targDest, false);
+                                same_tab(url, false);
                             } else if (targAction == "new tab") {
-                                new_tab(targDest);
+                                new_tab(url);
                             } else if (targAction == "new window") {
-                                new_window(targDest);
+                                new_window(url);
                             } else {
-                                // book.bugs.log('unknown type of window <b>"' + targAction + '"</b> defaulting to new window');
+                                // console.warn("Bug: " + 'unknown type of window <b>"' + targAction + '"</b> defaulting to new window');
                                 console.warn('unknown type of window <b>"' + targAction + '"</b> defaulting to new window');
-                                new_window(targDest);
+                                new_window(url);
                             }
                         }
                     } else if (targType == "wait") {
@@ -496,10 +529,11 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                     } else if (targType == 'dialog') {
                         dialog(targAction.split(' ')[0], targDest);
                     } else if (targType == 'log') {
-                        console.log('"' + targAction + '"');
+                        console.log("Log event: " + '"' + targAction + '"');
                         THIS.next();
                     } else if (targType == "logic" || targType == "points") {
-                        logic(this.finalLogicTargets);
+                        logic(this.finalLogicTargets[0]);
+                        this.finalLogicTargets.shift();
                         THIS.next();
                     } else if (targType == "countdown") {
                         this.countdown(targAction, targDest);
@@ -512,11 +546,14 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                             var spt = targDest.split(",");
                             var tool = spt.shift();
                             if (tool == "pencil" || tool == "chalk") {
-                                var color = spt.join(",");
+                                var color = spt.splice(0, 4);
+                                color[3] /= 100;
+                                var width = spt[0];
                                 book.drawingTools.cur = tool;
                                 book.drawingTools.curColor = color;
+                                book.drawingTools.width = (width) ? width : 5;
                             } else {
-                                book.bugs.log("Sequence problem: Unknown drawing tool - <b>" + tool + "</b>");
+                                console.warn("Bug: " + "Sequence problem: Unknown drawing tool - <b>" + tool + "</b>");
                             }
                         }
                         THIS.next();
@@ -543,7 +580,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                             THIS.pageElem.redraw();
                             THIS.next();
                         } else {
-                            book.bugs.log("Sequence problem: unidentified generate type - <b>" + genType + "</b>");
+                            console.warn("Bug: " + "Sequence problem: unidentified generate type - <b>" + genType + "</b>");
                         }
                     } else if (targType == "image") {
                         if (targAction.split(" ")[0] == "overwrite") {
@@ -552,14 +589,12 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                             type = type.join(" ");
                             overwriteImage(targDest, type)
                         } else {
-                            book.bugs.log('unknown action of <b>"' + targAction + '"</b>');
+                            console.warn("Bug: " + 'unknown action of <b>"' + targAction + '"</b>');
                             THIS.next();
 
                         }
-                    } else if (targType == "skip") {
-                        THIS.next();
                     } else {
-                        book.bugs.log("Sequence problem: unidentified target type - <b>" + targType + "</b>");
+                        console.warn("Bug: " + "Sequence problem: unidentified target type - <b>" + targType + "</b>");
                         THIS.next();
                     }
                 } else {
@@ -570,7 +605,6 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             }
         }
     }
-    ;
 
 // Make sure action is lower case
     this.countdown = function (action, time) {
@@ -581,44 +615,17 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             } else if (time.split(" ")[1].toLowerCase() == "minutes") {
                 seconds *= 60;
             } else {
-                book.bugs.log("Countdown problem: Unknown time - <b>" + time + "</b>");
+                console.warn("Bug: " + "Countdown problem: Unknown time - <b>" + time + "</b>");
             }
         }
         var pNum = THIS.pageElem.ident - 1;
-
-        var start = function (num) {
-            if (!book[num].countdownInt) {
-                book[num].countdownInt = window.setInterval(function () {
-                    book[num].countdown--;
-                    book[num].redraw();
-                    if (book[num].countdown <= 0) {
-                        window.clearInterval(book[num].countdownInt);
-                        finish(num);
-                    }
-                }, 1000);
-            }
-        }
-
-        var finish = function (num) {
-            book[num].countdown = 0;
-            window.clearInterval(book[num].countdownInt);
-            book[num].countdownInt = false;
-            book[num].redraw();
-            if (book[num].countdowns[0]) {
-                var link = book[num].countdowns[0];
-                if (curSequence) {
-                    curSequence.end();
-                }
-                curSequence = new sequence(link.targets, book[num], sendLink, [0, 0], "countdownFinish");
-                curSequence.start();
-            }
-        }
 
         if (action == "set at") {
             THIS.pageElem.countdown = seconds;
         } else if (action == "start at") {
             THIS.pageElem.countdown = seconds;
-            start(pNum);
+            window.clearInterval(THIS.pageElem.countdownInt);
+            THIS.pageElem.countdownInt = window.setInterval(countdownInt, 1000);
         } else if (action == "add to") {
             THIS.pageElem.countdown += seconds;
         } else if (action == "subtract from") {
@@ -628,7 +635,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                 THIS.pageElem.countdown = 0;
                 // If there was an active countdown, trigger the finish event
                 if (THIS.pageElem.countdownInt) {
-                    finish(pNum);
+                    countdownInt();
                 }
             }
         } else if (action == "stop") {
@@ -640,10 +647,13 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             window.clearInterval(THIS.pageElem.countdownInt);
             THIS.pageElem.countdownInt = false;
         } else if (action == "finish") {
-            finish(pNum);
+            THIS.pageElem.countdown = 0;
+            countdownInt();
         } else if (action == "resume") {
-            start(pNum);
+            window.clearInterval(THIS.pageElem.countdownInt);
+            THIS.pageElem.countdownInt = window.setInterval(countdownInt, 1000);
         } else {
+            console.warn("Warning: " + "Unknown countdown action - " + action);
         }
 
         // finish(pNum);
@@ -654,7 +664,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
     this.endCheck = function () {
         if (THIS.openAnims || THIS.openFlash || THIS.openHighlight || THIS.openDrawing || THIS.openAudio || THIS.openWait || THIS.openVideo || THIS.openGif || THIS.listNum < THIS.listArr.length) {
             if (showsequence) {
-                console.log("endCheck false, something still going on");
+                console.log("Sequence log: " + "endCheck false, something still going on");
             }
         } else {
             if (curSequence) {
@@ -670,120 +680,125 @@ function sequence(list, elem, linkName, relPos, triggerType) {
     };
 
     this.end = function (completed) {
-        // console.log("done");
-        if (THIS.running || inSequence) {
-            THIS.running = false;
-            inSequence = false;
-            THIS.pageElem.redraw();
-            if (THIS.pageElem.ident == curPage) {
-                if (this.finalLogicTargets.length) {
-                    if (showsequence) {
-                        console.log(this.finalLogicTargets);
-                    }
-                    if (!this.logicDone) {
-                        // Sequence interruped before logic targets were taken care of, do it now.
-                        logic(this.finalLogicTargets);
+        if (!THIS.holdClear) {
+            if (THIS.running || inSequence) {
+                THIS.running = false;
+                inSequence = false;
+                THIS.pageElem.redraw();
+                if (THIS.pageElem.ident == curPage) {
+                    if (this.finalLogicTargets.length) {
+                        if (showsequence) {
+                            console.log("Warning: " + this.finalLogicTargets);
+                        }
+                        if (!this.logicDone) {
+                            // Sequence interruped before logic targets were taken care of, do it now.
+                            logic(this.finalLogicTargets, true);
+                        } else {
+                            // Logic targets already taken care of.
+                        }
+                    } else if (completed) {
+                        saveState(THIS.pageElem.ident - 1);
                     } else {
-                        // Logic targets already taken care of.
+                        // Wasn't a logical sequence, wasn't a completion, rather an interruption, don't save the state, reload the last good one.
                     }
-                } else if (completed) {
-                    saveState(THIS.pageElem.ident - 1);
                 } else {
-                    // Wasn't a logical sequence, wasn't a completion, rather an interruption, don't save the state, reload the last good one.
+                    // Abort! He turned the page, nothing should be happening anymore.
+                }
+                THIS.clear();
+                if (showsequence) {
+                    console.log("Sequence log: " + "sequence " + linkName + " ended and cleared");
                 }
             } else {
-                // Abort! He turned the page, nothing should be happening anymore.
+                if (showsequence) {
+                    console.log("Sequence log: " + "Already ended");
+                }
             }
-            THIS.clear();
-            if (showsequence) {
-                console.log("sequence " + linkName + " ended and cleared");
+            if (this.hadLogicLinks) {
+                checkLogicLinks();
             }
-        } else {
-            if (showsequence) {
-                console.log("Already ended");
-            }
-        }
-        if (this.finalLogicTargets.length) {
-            checkLogicLinks();
-        }
-        // If interrupted, check actionArr, then load state and refresh.
-        if (!completed) {
-            // end of sequence redraw
-            // THIS.pageElem.redraw();
-            // PROBLEM! Pinned links are reset on redraw. So if there was an animation with a pinned link, and the kid clicked the pinned link, the animation is stopped, the link is reset, THEN we check mouse click location and the link isn't there anymore.
-            // SOLUTION! Redraw after actionCheck. Global variable. Does what it says, reset to false in actioncheck.
-            window.redrawAfterActionCheck = true;
-            // Same problem with loadState, same solution
-            if (!this.finalLogicTargets.length) {
-                window.loadStateAfterActionCheck = true;
+            // If interrupted, check actionArr, then load state and refresh.
+            if (!completed) {
+                // end of sequence redraw
+                // THIS.pageElem.redraw();
+                // PROBLEM! Pinned links are reset on redraw. So if there was an animation with a pinned link, and the kid clicked the pinned link, the animation is stopped, the link is reset, THEN we check mouse click location and the link isn't there anymore.
+                // SOLUTION! Redraw after actionCheck. Global variable. Does what it says, reset to false in actioncheck.
+                window.redrawAfterActionCheck = true;
+                // Same problem with loadState, same solution
+                if (!this.finalLogicTargets.length) {
+                    window.loadStateAfterActionCheck = true;
+                }
             }
         }
     };
 
     this.clear = function () {
-        if (!book.sprite.paused) {
-            book.sprite.pause();
-            book.sprite.currentTime = spriteKey['page' + THIS.pageElem.ident].start;
-            if (book.sprite.startCheck) {
-                window.clearInterval(book.sprite.startCheck);
-                book.sprite.startCheck = false;
+        if (!THIS.holdClear) {
+            if (!book.sprite.paused) {
+                book.sprite.pause();
+                book.sprite.currentTime = spriteKey['page' + THIS.pageElem.ident].start;
+                if (book.sprite.startCheck) {
+                    window.clearInterval(book.sprite.startCheck);
+                    book.sprite.startCheck = false;
+                }
+                if (book.sprite.volSet) {
+                    window.clearTimeout(book.sprite.volSet);
+                    book.sprite.volSet = false;
+                }
+                if (book.sprite.endCheck) {
+                    window.clearTimeout(book.sprite.endCheck);
+                    book.sprite.endCheck = false;
+                }
+            } else if (THIS.openAudio) {
+                book.audChannel.pause();
             }
-            if (book.sprite.volSet) {
-                window.clearTimeout(book.sprite.volSet);
-                book.sprite.volSet = false;
+            if (THIS.openAnims) {
+                for (var a in THIS.objectsAnimating) {
+                    window.clearInterval(THIS.objectsAnimating[a].animInterval);
+                    window.clearTimeout(THIS.objectsAnimating[a].animTimeout);
+                }
+                THIS.openAnims = 0;
+                THIS.objectsAnimating = [];
             }
-            if (book.sprite.endCheck) {
-                window.clearTimeout(book.sprite.endCheck);
-                book.sprite.endCheck = false;
+            if (THIS.openWait) {
+                window.clearTimeout(THIS.openWait);
+                THIS.openWait = false;
             }
-        } else if (THIS.openAudio) {
-            book.audChannel.pause();
-        }
-        if (THIS.openAnims) {
-            for (var a in THIS.objectsAnimating) {
-                window.clearInterval(THIS.objectsAnimating[a].animInterval);
-                window.clearTimeout(THIS.objectsAnimating[a].animTimeout);
+            if (THIS.openVideo) {
+                if (isFirefox && isMac) {
+                    THIS.openVideo.Stop();
+                } else {
+                    THIS.openVideo.pause();
+                }
+                THIS.openVideo = false;
+                window.clearInterval(THIS.playCheck);
             }
-            THIS.openAnims = 0;
-            THIS.objectsAnimating = [];
-        }
-        if (THIS.openWait) {
-            window.clearTimeout(THIS.openWait);
-            THIS.openWait = false;
-        }
-        if (THIS.openVideo) {
-            if (isFirefox && isMac) {
-                THIS.openVideo.Stop();
-            } else {
-                THIS.openVideo.pause();
+            if (THIS.openFlash) {
+                window.clearInterval(THIS.flashInt);
+                THIS.openFlash = true;
             }
-            THIS.openVideo = false;
-            window.clearInterval(THIS.playCheck);
+            if (THIS.openHighlight) {
+                THIS.openHighlight.clear = true;
+                window.clearTimeout(THIS.openHighlight.nextTimeout);
+                THIS.openHighlight.vis = THIS.openHighlight.initVis;
+            }
+            if (THIS.parentHighlight) {
+                THIS.pageElem.objs[THIS.parentHighlight].parentMarker = 0;
+                THIS.parentHighlight = false;
+            }
+            if (THIS.minimumHighlightTimer) {
+                THIS.pageElem.highlightedLink = false;
+            }
+            if (THIS.openDrawing) {
+                window.clearTimeout(THIS.openDrawing.timeout);
+            }
+
+            book.analytics.add({type: "sf", linkname: THIS.linkName});
+
+            sequenceArr = [];
+            curSequence = false;
+            book.sprite.name = false;
+            book.sprite.loc = false;
         }
-        if (THIS.openFlash) {
-            window.clearInterval(THIS.flashInt);
-            THIS.openFlash = true;
-        }
-        if (THIS.openHighlight) {
-            THIS.openHighlight.clear = true;
-            window.clearTimeout(THIS.openHighlight.nextTimeout);
-            THIS.openHighlight.vis = THIS.openHighlight.initVis;
-        }
-        if (THIS.parentHighlight) {
-            THIS.pageElem.objs[THIS.parentHighlight].parentMarker = 0;
-            THIS.parentHighlight = false;
-        }
-        if (THIS.minimumHighlightTimer) {
-            THIS.pageElem.highlightedLink = false;
-        }
-        if (THIS.openDrawing) {
-            window.clearTimeout(THIS.openDrawing.timeout);
-        }
-        sequenceArr = [];
-        curSequence = false;
-        THIS = false; // fml
-        book.sprite.name = false;
-        book.sprite.loc = false;
     };
 
     function overwriteImage(objName, overwriteType) {
@@ -797,36 +812,47 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                 book.uploader.uploadImage(obj);
             }
         } else {
-            book.bugs.log("Cannot find object '" + objName + "' to overwrite");
+            console.warn("Bug: " + "Cannot find object '" + objName + "' to overwrite");
         }
     }
 
-    function logic(curTargs) {
+    function logic(curTargs, multi) {
+        if (!multi) {
+            curTargs = [curTargs];
+        }
         for (var t = 0; t < curTargs.length; t++) {
             var curTarg = curTargs[t];
             var action = curTarg[1];
-            var destination = curTarg[2];
+            var destination = curTarg[2].toLowerCase();
 
-            if (destination == "page points") {
+            var destIsPoints = false;
+            for (var pointName in THIS.pageElem.points) {
+                if (destination == pointName)
+                    destIsPoints = true;
+            }
+
+            if (destIsPoints) {
                 var mod = action.charAt(0);
                 var num = Number(action.substr(1, action.length));
+                book[curPage - 1].points[destination].changed = true;
                 if (mod == "+") {
-                    book[curPage - 1].points += num;
+                    book[curPage - 1].points[destination].value += num;
                 } else if (mod == "-") {
-                    book[curPage - 1].points -= num;
+                    book[curPage - 1].points[destination].value -= num;
                 } else if (mod == "=") {
-                    book[curPage - 1].points = num;
+                    book[curPage - 1].points[destination].value = num;
                 } else if (typeof Math.round(mod) == "number") {
                     // It's a set!
-                    book[curPage - 1].points = num;
+                    book[curPage - 1].points[destination].value = num;
                 } else {
-                    book.bugs.log("Sequence problem: Unknown action of <b>" + action + "</b>");
+                    book[curPage - 1].points[destination].changed = false;
+                    console.warn("Bug: " + "Sequence problem: Unknown action of <b>" + action + "</b>");
                 }
-                if (book[curPage - 1].points < 0 && !book[curPage - 1].allowNegativePoints) {
-                    book[curPage - 1].points = 0;
+                if (book[curPage - 1].points[destination].value < 0 && !book[curPage - 1].allowNegativePoints) {
+                    book[curPage - 1].points[destination].value = 0;
                 }
             } else {
-                book.bugs.log("Sequence problem: Unknown destination of <b>" + destination + "</b>");
+                console.warn("Bug: " + "Sequence problem: Unknown destination of <b>" + destination + "</b>");
             }
         }
         THIS.logicDone = true;
@@ -858,7 +884,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             startLoop(gif);
             // gif.startLoop();
         } else {
-            book.bugs.log("Sequence problem: Can't play gif <b>" + gifName + "</b>. Object not found");
+            console.warn("Bug: " + "Sequence problem: Can't play gif <b>" + gifName + "</b>. Object not found");
         }
         THIS.next();
     }
@@ -968,8 +994,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             }, animAct.data.length * 40);
             THIS.objectsAnimating.push(animObj);
         } else {
-            book.bugs.log("Sequence problem: Animation <b>'" + animName + "'</b> was not able to play on object. Check console for details.");
-            console.error("Sequence problem: Animation '" + animName + "' was not able to play on object.");
+            console.error("Error: " + "Sequence problem: Animation '" + animName + "' was not able to play on object.");
             console.error(animInfo);
         }
         if (animType == "play passive") {
@@ -982,7 +1007,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             var locInKey = book[THIS.pageElem.ident - 1].dialogKey['D 1'];
             book[THIS.pageElem.ident - 1].dialogs[locInKey].open();
         } else {
-            book.bugs.log('Sequence problem: Unknown dialog action <b>' + action + '</b>');
+            console.warn("Bug: " + 'Sequence problem: Unknown dialog action <b>' + action + '</b>');
         }
         THIS.next();
     }
@@ -1004,7 +1029,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                 }
             }
         } else {
-            book.bugs.log('Sequence problem: Highlighter triggered is not a parent highlighter, but a child. Even skipped');
+            console.warn("Bug: " + 'Sequence problem: Highlighter triggered is not a parent highlighter, but a child. Even skipped');
             THIS.next();
         }
 
@@ -1031,7 +1056,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
              Flash 3 times with curvis of hide means
              ON, OFF, ON, OFF, ON
              An interval is how much time it takes for 2 state changes, so flash 3 times at int of 2s takes 6s, not 12s.
-
+             
              That about sums it up.
              */
             flashNum *= 2;
@@ -1151,6 +1176,11 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             // THIS.next();
         } else {
             var playFunc = function () {
+                // global disable video controls
+                objLoc.elem.controls = false;
+
+                // show but only after started
+                $(objLoc.elem).css({"display": ""});
                 objLoc.elem.removeEventListener('playing', playFunc);
                 // THIS.next();
             };
@@ -1170,15 +1200,14 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                 window.clearTimeout(THIS.openWait);
                 THIS.openWait = false;
             }
+
             THIS.next();
         };
         objLoc.elem.addEventListener('ended', endFunc, false);
     }
 
     function playSound(soundElem, highlightObj) {
-        if (testing) {
-            console.log("aud - " + soundElem);
-        }
+        logSecStamp("playSound() called");
         if (soundElem == book.sprite.name) {
             if (highlightObj) {
                 highlightObj.start();
@@ -1191,7 +1220,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                 window.clearInterval(book.sprite.startCheck);
                 //var soundElem = soundElem.replace(/ /g, '');
                 var locInKey = spriteKey['page' + THIS.pageElem.ident];
-                if (locInKey && locInKey[soundElem]) {
+                if (locInKey && locInKey[soundElem] && !THIS.pageElem.recordings[soundElem]) {
                     THIS.openAudio = true;
                     book.sprite.name = soundElem;
                     book.sprite.loc = locInKey;
@@ -1261,14 +1290,14 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                              Because the pause needs a minute to actually do it's thing.
                              If you don't give it a tick, the next instance of play
                              (if that's the first item of the next sequence)
-                             will through a fit.
+                             will throw a fit.
                              "I wasn't ready, you just told me to pause, make up your mind, I need to change first".
                              Freaking... girlfriend of a media element. Jeeze.
                              */
                         }
                     }, 200);
                 } else {
-                    book.bugs.log("Sequence problem: Cannot find sound <b>" + soundElem + "</b>");
+                    console.warn("Bug: " + "Sequence problem: Cannot find sound <b>" + soundElem + "</b>");
                     if (highlightObj) {
                         highlightObj.start();
                     } else {
@@ -1278,13 +1307,34 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             } else {
                 var curElem = THIS.pageElem.auds[soundElem];
                 if (typeof curElem == "undefined") {
-                    book.bugs.log("Sequence problem: Can't find sound element <b>" + soundElem + "</b>");
+                    console.warn("Bug: " + "Sequence problem: Can't find sound element <b>" + soundElem + "</b>");
                     THIS.next();
                 } else {
                     THIS.openAudio = true;
-                    var src = THIS.pageElem.auds[soundElem].elem.getAttribute("src");
+                    var src;
+                    if (THIS.pageElem.recordings[soundElem]) {
+                        if (isCordova) {
+                            src = THIS.pageElem.recordings[soundElem];
+                            src += noCacheExt();
+                        } else {
+                            src = THIS.pageElem.recordings[soundElem].elem.getAttribute("src");
+                        }
+                    } else {
+                        var wetSrc = (THIS.pageElem.auds[soundElem].elem) ? THIS.pageElem.auds[soundElem].elem.getAttribute("src") : false;
+                        var drySrc = THIS.pageElem.auds[soundElem].drySrc;
+                        var backupSrc = "audio/" + soundElem + ".ogg";
+                        if (wetSrc) {
+                            src = wetSrc;
+                        } else if (drySrc) {
+                            src = drySrc;
+                        } else {
+                            src = backupSrc;
+                        }
+                        console.log("playing " + src);
+                    }
                     var now = Date.now();
                     if (THIS.openAudio) {
+                        book.audChannel.pause();
                         book.audChannel.currentTime = 0;
                         function audEnd() {
                             book.audChannel.removeEventListener('ended', audEnd);
@@ -1299,43 +1349,49 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                                 THIS.endCheck();
                             }
                         }
-                        ;
                         function audStarted() {
                             if (highlightObj) {
                                 highlightObj.start();
                             } else {
                                 THIS.next();
                             }
+                            logSecStamp("aud actually started playing called"); // AND THIS
                         }
-                        ;
                         function startAud() {
                             book.audChannel.play();
+                            logSecStamp("Aud.play called");
                         }
 
                         book.audChannel.addEventListener('ended', audEnd);
                         book.audChannel.addEventListener('playing', audStarted);
-                        book.audChannel.addEventListener('canplaythrough', startAud);
                         book.audChannel.addEventListener('error', function failed(e) {
                             switch (e.target.error.code) {
                                 case e.target.error.MEDIA_ERR_ABORTED:
-                                    console.log('You aborted the audio playback.');
+                                    console.error("Error: " + 'You aborted the audio playback.');
                                     break;
                                 case e.target.error.MEDIA_ERR_NETWORK:
-                                    console.log('A network error caused the audio download to fail.');
+                                    console.error("Error: " + 'A network error caused the audio download to fail.');
                                     break;
                                 case e.target.error.MEDIA_ERR_DECODE:
-                                    console.log('The audio playback was aborted due to a corruption problem or because the audio used features your browser did not support.');
+                                    console.error("Error: " + 'The audio playback was aborted due to a corruption problem or because the audio used features your browser did not support.');
                                     break;
                                 case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
-                                    console.log('The audio audio not be loaded, either because the server or network failed or because the format is not supported.');
-                                    console.log(book.audChannel.src);
+                                    console.error("Error: " + 'The audio audio not be loaded, either because the server or network failed or because the format is not supported.');
+                                    console.error(book.audChannel.src);
                                     break;
                                 default:
-                                    console.log('An unknown error occurred.');
+                                    console.error("Error: " + 'An unknown error occurred.');
                                     break;
                             }
+                            THIS.openAudio = false;
+                            THIS.next();
                         }, true);
-                        book.audChannel.src = src;
+
+                        // Maybe the delay is in replaying the same audio over itself... Maybe that fucks up event listneres
+                        if (src !== $(book.audChannel).attr("src")) {
+                            book.audChannel.src = src;
+                        }
+                        book.audChannel.play();
                     } else {
                         THIS.next();
                     }
@@ -1406,6 +1462,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                 if (THIS.pageElem.objs[objName].type == "drawing") {
                     THIS.pageElem.objs[objName].drawn = (THIS.pageElem.objs[objName].vis == "show") ? true : false;
                 }
+                // Video element reset in redraw function
                 THIS.pageElem.redraw();
 
             } else {
@@ -1417,7 +1474,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                         showHide(obj, setTo, false);
                     }
                 } else {
-                    book.bugs.log("Sequence problem: Image <b>" + objName + "</b> does not exist, skipping showhide");
+                    console.warn("Bug: " + "Sequence problem: Image <b>" + objName + "</b> does not exist, skipping showhide");
                 }
             }
         }
@@ -1441,14 +1498,14 @@ function sequence(list, elem, linkName, relPos, triggerType) {
         } else {
             if (pageTarg.toLowerCase() == 'next') {
                 if (curPage < bookLength) {
-                    nextStr(true);
+                    gotoChange(false, curPage+1);
                 } else {
                     gotoChange(false, 1);
                 }
                 THIS.end();
             } else if (pageTarg.toLowerCase() == 'previous') {
                 if (curPage > 1) {
-                    prevStr(true);
+                    gotoChange(false, curPage-1);
                 } else {
                     if (!singlePage && isEven(bookLength)) {
                         gotoChange(false, bookLength + 1);
@@ -1458,7 +1515,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                 }
                 THIS.end();
             } else {
-                book.bugs.log("Sequence problem: Unknown page targ of <b>" + pageTarg + "</b>");
+                console.warn("Bug: " + "Sequence problem: Unknown page targ of <b>" + pageTarg + "</b>");
                 return false;
             }
         }
@@ -1499,15 +1556,62 @@ function sequence(list, elem, linkName, relPos, triggerType) {
         }
     }
 
+    function record(targ) {
+        var spt = targ[1].split(" ");
+        var max = spt[1] * 1000;
+        THIS.recordingName = targ[2];
+        var recordingName = THIS.recordingName + "";
+        startRecording(recordingName);
+        THIS.maxRecordTime = window.setTimeout(function () {
+            if (THIS.recordingName == recordingName) {
+                stopRecording();
+                // THIS.next inside stopRecording function.
+            }
+        }, max);
+    }
+
     this.start = function sequenceStart() {
+        logSecStamp("sequence.start called");
         if (this.triggerType == "drop") {
             if (showsequence) {
-                console.log("State NOT saved, trigger type won't allow it");
+                console.log("Sequence log: " + "State NOT saved, trigger type won't allow it");
             }
         } else {
             window.saveState(this.pageElem.ident - 1);
         }
-        this.next();
+        book.analytics.add({type: "ss", linkname: THIS.linkName});
+        if (this.addRecorder && !window.recorderReady) {
+            this.holdClear = true; // click to "allow recording" interrupts sequence
+            initRecorder(function () {
+                THIS.holdClear = false;
+                THIS.next();
+            });
+        } else {
+            this.next();
+        }
     }
 }
 
+
+
+function countdownInt() {
+    var num = window.curPage - 1;
+    book[num].countdown--;
+    book[num].redraw();
+    if (book[num].countdown <= 0) {
+        // finish
+        window.clearInterval(book[num].countdownInt);
+        book[num].countdown = 0;
+        window.clearInterval(book[num].countdownInt);
+        book[num].countdownInt = false;
+        book[num].redraw();
+        if (book[num].countdowns[0]) {
+            var link = book[num].countdowns[0];
+            if (book.curSequence) {
+                book.curSequence.end();
+            }
+            book.curSequence = new sequence(link.targets, book[num], false, [0, 0], "countdownFinish");
+            book.curSequence.start();
+        }
+    }
+}

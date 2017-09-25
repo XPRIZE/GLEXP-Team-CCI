@@ -1,13 +1,153 @@
-window.testing = false;
-window.showsequence = false;
+// last last minute adding a nav handler for games only so they go back to shelf and not the previous book.
+
+// ideally, add this in game.html
+window.history.pushState('popstateListener', null, window.location.href);
+window.addEventListener("popstate", function (e) {
+    e.preventDefault();
+    if (typeof backLoc !== "undefined") {
+        window.location.href = backLoc;
+    } else {
+        window.location.href = dependenciesLoc + "school.html";
+    }
+});
+
+
+// last minute didn't want to change the index so I'm changin the load script added analytics stuff
+// ideally, add this in index.html and game.html
+function retStamp() {
+    return parseInt(Date.now() / 1000).toString().slice(2);
+}
+
+function Analytics() {
+    var self = this;
+    this.fName = false;
+    this.fullObj = {};
+
+    this.retStamp = function () {
+        var now = parseInt(Date.now() / 1000).toString().slice(2);
+        return now;
+
+        // to reverse
+        // "15" + 04202344 + "000"
+        // saves 5 chars per stamp, accurate to the second until 2020.
+    }
+    this.init = function (cb) {
+        var url = window.location.pathname.split("/");
+        url.pop(); // index.html
+        var book = url.pop();
+        var subject = url.pop();
+        login(function (uid) {
+            readFile("users/" + uid + "/analytics.json", function (ret) {
+                var name = uid + "-" + subject + "-" + book + "-analitics-" + self.retStamp() + "";
+                self.fName = "users/" + btoa(name) + ".json";
+                var bookOpenLoc = {type: "bo", recordLoc: self.fName};
+                var analyticsMain = JSON.parse(ret);
+                analyticsMain.records[self.retStamp()] = bookOpenLoc;
+                writeFile("users/" + uid + "/analytics.json", JSON.stringify(analyticsMain), function () {
+                    self.add({
+                        type: "book open",
+                        bookName: book,
+                        subjectName: subject,
+                        fName: self.fName,
+                    });
+                    if (cb)
+                        cb();
+                });
+            });
+        }, function (err) {
+            console.log(err);
+            var name = "anon" + "-" + subject + "-" + book + "-analitics-" + self.retStamp() + "";
+            self.fName = "users/" + btoa(name) + ".json";
+            self.add({
+                type: "book open",
+                bookName: book,
+                subjectName: subject,
+                fName: self.fName,
+            });
+            if (cb)
+                cb();
+        });
+
+    };
+
+    this.add = function (what, cb) {
+        var stamp = self.retStamp();
+        if (this.fullObj[stamp]) {
+            var num = 1;
+            while (this.fullObj[stamp + "-" + num]) {
+                num++;
+            }
+            this.fullObj[stamp + "-" + num] = what;
+        } else {
+            this.fullObj[stamp] = what;
+        }
+
+        this.save(function () {
+            if (cb)
+                cb();
+        });
+    };
+    this.save = function (cb) {
+        // maybe use overwrite?
+        console.log("writting");
+        writeFile(self.fName, JSON.stringify(self.fullObj), function (ret) {
+            if (ret) {
+                console.log("File written");
+            }
+            if (cb)
+                cb();
+        });
+    };
+    this.check = function () {
+        readFile(this.fName, function (file) {
+            console.log(file);
+        })
+    }
+
+
+    this.init();
+}
+
+window.addEventListener("popstate", function (e) {
+    e.preventDefault();
+    book.analytics.add({type: "bc"}, function () {
+        window.history.back();
+    });
+    window.setTimeout(function () {
+        window.history.back();
+    }, 2000);
+});
+
+
+
+
+
+// end analytics
+
+
+function afterLoadTester() {
+    // gets called once first page loads. Stick any (single testing things here
+    // TODO THIS
+}
+window.setTimeout(function () {
+    // gotoChange(false, 20);
+}, 2000);
+
+function logSecStamp(what) {
+    var what = (what) ? what : "NoComment";
+    var str = Date.now().toString();
+    var stamp = str.substring(8);
+    // console.log("||| " + stamp + " - " + what);
+}
+
+window.testing = true;
+window.showsequence = true;
 window.drawRects = false;
 window.redrawAfterActionCheck = false;
 
 if (window.testing) {
-    // isCordova = false;
-    // isPad = false;
     window.setTimeout(function () {
-        // console.clear();
+        //console.clear();
     }, 300);
 }
 
@@ -71,40 +211,78 @@ function fatalError(mesg) {
 //
 // Very first function will get xml, whether it be from a local .js included file, or from a server side .xml file.
 // EITHER WAY, the xml will be passed off, parsed and all, to xmlLoaded();
+
+if (isCordova) {
+    $.holdReady(true);
+    document.addEventListener("deviceready", function () {
+        window.readerName;
+        login(function (uid) {
+            window.readerName = uid;
+            $.holdReady(false);
+        }, function () {
+            window.readerName = "annon";
+            $.holdReady(false);
+        })
+    });
+}
+
 $(document).ready(function () {
-    var test = document.createElement('div');
-    test.setAttribute('id', 'screen-middle');
-    document.body.appendChild(test);
-    var xmlParsed = "";
-    if (typeof (xml) === "undefined") {
-        if (!window.xmlLoc) {
-            xmlLoc = window.assetsLoc + "MainXML.xml";
-        }
-        window.xmlLoc = window.xmlLoc + noCacheExt();
-        $.ajax({
-            type: "GET",
-            url: xmlLoc,
-            dataType: "xml",
-            timeout: 5000,
-            cache: false,
-            success: xmlLoaded,
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.error("ERROR - " + thrownError);
-                missingXML = true;
-                var id = window.location.pathname.split("/")[3];
-                var author = window.location.pathname.split("/")[2];
-                document.body.innerHTML = "<div class=fatalError>" +
-                  "<h2>Fatal error</h2>" +
-                  "<p>This book is missing the XML. Try reuploading.</p>" +
-                  "<p>If the problem persists, try reuploading, " +
-                  "<a href=http://" + window.location.hostname + "/phpscripts/Optimize.php?id=" + id + "&username=" + author + ">reoptimizing</a>" +
-                  " or contact support.</p>" +
-                  "</div>";
+    if (typeof Analytics == "undefined") {
+        book.analytics = {};
+        book.analytics.add = function (what, cb) {
+            console.error("analytics script did not load, please add in index.html");
+            if (cb) {
+                cb();
             }
-        });
+        }
+        triggerXMLload();
     } else {
-        xml = $.parseXML(xml);
-        xmlLoaded(xml);
+        book.analytics = new Analytics();
+        book.analytics.init(function () {
+            triggerXMLload();
+        })
+        // Catch back event ONLY if analytics are loaded, otherwise kids are locked in book.
+        window.history.pushState('popstateListener', null, window.location.href);
+        window.addEventListener("popstate", function (e) {
+            e.preventDefault();
+        });
+    }
+
+    function triggerXMLload() {
+        var test = document.createElement('div');
+        test.setAttribute('id', 'screen-middle');
+        document.body.appendChild(test);
+        var xmlParsed = "";
+        if (typeof (xml) === "undefined") {
+            if (!window.xmlLoc) {
+                xmlLoc = window.assetsLoc + "MainXML.xml";
+            }
+            window.xmlLoc = window.xmlLoc + noCacheExt();
+            $.ajax({
+                type: "GET",
+                url: xmlLoc,
+                dataType: "xml",
+                timeout: 5000,
+                cache: false,
+                success: xmlLoaded,
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.error("ERROR - " + thrownError);
+                    missingXML = true;
+                    var id = window.location.pathname.split("/")[3];
+                    var author = window.location.pathname.split("/")[2];
+                    document.body.innerHTML = "<div class=fatalError>" +
+                            "<h2>Fatal error</h2>" +
+                            "<p>This book is missing the XML. Try reuploading.</p>" +
+                            "<p>If the problem persists, try reuploading, " +
+                            "<a href=http://" + window.location.hostname + "/phpscripts/Optimize.php?id=" + id + "&username=" + author + ">reoptimizing</a>" +
+                            " or contact support.</p>" +
+                            "</div>";
+                }
+            });
+        } else {
+            xml = $.parseXML(xml);
+            xmlLoaded(xml);
+        }
     }
 });
 // At this point, I do not have to worry about whether this is a local view or a serverside view. ALL EVENTS are handled the same from here on out.
@@ -159,16 +337,66 @@ function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 function xmlLoaded(curXML) {
+    // WHAT IS THIS??
+    // This is a failsafe. I don't want the kids seenig a flashing white loader, only to see ANOTHER flashing white loader once the href kicks in
+    // BUT if something is wrong and the url never really loads, they should I'll re display the body. Just in case.
+    $("body").css("display", "none");
+    window.setTimeout(function () {
+        $("body").css("display", "block");
+    }, 4000); // 4 seconds should be plenty for a refresh or for the viewport meta to kick in. Either or.
+
+
+
+    var curInfo, curPages;
+
+    if (typeof startXmlAt !== "undefined") {
+        if (startXmlAt < 0) {
+            startXmlAt += curXML.getElementsByTagName("Pages")[0].children.length;
+        }
+        while (startXmlAt > 0) {
+            startXmlAt--;
+            curXML.getElementsByTagName("Pages")[0].removeChild(curXML.getElementsByTagName("Pages")[0].getElementsByTagName("Page")[0]);
+        }
+    }
+
+    // Splitting books into 8 page chunks (better performance)
+    window.urlVars = window.location.href.split("?")[1];
+    var tmp = [];
+    if (urlVars) {
+        urlVars = urlVars.split("&");
+        for (var v = 0; v < urlVars.length; v++) {
+            tmp[v] = urlVars[v].split("=");
+        }
+        urlVars = {};
+        for (var t = 0; t < tmp.length; t++) {
+            urlVars[tmp[t][0]] = tmp[t][1];
+        }
+    }
+    if (typeof urlVars == "undefined") {
+        window.location.href = window.location.href + "?start=1&end=8&cur=1";
+    } else {
+        if (urlVars["cur"]) {
+            urlVars["cur"] = parseInt(urlVars["cur"]);
+        }
+        if (urlVars["start"]) {
+            urlVars["start"] = parseInt(urlVars["start"]);
+        }
+        if (urlVars["end"]) {
+            urlVars["end"] = parseInt(urlVars["end"]);
+        }
+
+        window.curPage = parseInt(urlVars["cur"]);
+    }
+
+    book.analytics.add({type: "xl"});
+
     if (typeof (spriteKey) == "undefined") {
         spriteKey = false;
     }
 
-    var curInfo, curPages;
-
-    book.bugs = new BugHandler();
 
     book.fonts = new FontHandler();
-	
+
     if (typeof FileUploader !== "undefined") {
         book.uploader = new FileUploader();
     }
@@ -243,7 +471,10 @@ function xmlLoaded(curXML) {
         addElem(body, "div", [["id", "background"], ["class", "bgCenter"]]);
         addElem(document.getElementById("background"), "div", [["id", "backgroundImg"]]);
         addElem(body, "div", [["id", "main"], ["class", "bgCenter"]]);
+        addElem(document.getElementById("main"), "div", [["id", "closeC"]]);
+
         var main = addElem(document.getElementById("main"), "div", [["id", "mainC"]]);
+
         addElem(main, "div", [["id", "titleC"], ["class", "noSelect"]]);
         addElem(document.getElementById("titleC"), "div", [["id", "bullet"]]);
         addElem(document.getElementById("titleC"), "div", [["id", "textC"]], "<p id='textAct'></p>");
@@ -257,8 +488,9 @@ function xmlLoaded(curXML) {
          addElem(main, "div", [["id", "rightSideNav"], ["class", "sideNav"]], "<div class='VCmiddle'><div class='VCcenter' id='gutterNext'></div>");
          */
         var shade = addElem(bookC, "div", [["id", "shade"]]);
-        shade.innerHTML = '<div id=tapPromptCentered><img id=tapPromptAct src=' + dependenciesLoc + '/presets/ipadIcons/tap-prompt.png></img></div>';
+        shade.innerHTML = '<div id=tapPromptCentered><img id=tapPromptAct src=' + dependenciesLoc + 'presets/ipadIcons/tap-prompt.png></img></div>';
         navC = document.getElementById("navC");
+        closeC = document.getElementById("closeC");
     }
 
     elements1();
@@ -310,11 +542,11 @@ function xmlLoaded(curXML) {
          var subChoices = addElem(plateMax, "div", [["id", "subChoices"]]);
          var subCol1 = addElem(subChoices, "div", [["id", "subCol1"], ["class", "subCol"]]);
          var subCol2 = addElem(subChoices, "div", [["id", "subCol2"], ["class", "subCol"]]);
-
+         
          // pushed to production, drawing tools removed.
          //$("#plateCont").css({"display":"none","pointer-events":"none"});
-
-
+         
+         
          plateHeight = 'close';
          function togglePlate() {
          if (plateHeight == 'close') {
@@ -323,9 +555,9 @@ function xmlLoaded(curXML) {
          animPlate('close');
          }
          }
-
+         
          plateMin.addEventListener('mouseup', togglePlate);
-
+         
          book.drawingTools = {};
          book.drawingTools.status = false;
          book.drawingTools.cur = false;
@@ -335,7 +567,7 @@ function xmlLoaded(curXML) {
          this.displayName = displayName || name;
          this.choices = choices;
          this.subValues = subValues;
-
+         
          this.elem = addElem(plateMax, 'div', [['id', this.name], ['class', 'plateChoice']]);
          this.icon = addElem(this.elem, 'img', [['id', this.name + '-icon'], ['class', 'plateChoiceIcon'], ['src', dependenciesLoc + 'presets/icons/' + this.name + '.png']]);
          this.title = addElem(this.elem, 'p', [['id', this.name + '-title'], ['class', 'plateChoiceName']], this.displayName);
@@ -358,14 +590,14 @@ function xmlLoaded(curXML) {
          if (prevName == 'nuke') {
          $("#clearInputLeft").trigger("click");
          }
-
+         
          if (this.name == 'navigation' || this.name == 'nav') {
          book.drawingTools.cur = false;
          animPlate('close');
          } else {
          book.drawingTools.cur = this.name;
          }
-
+         
          if (prevTool) {
          prevTool.hoverLeave();
          }
@@ -380,7 +612,7 @@ function xmlLoaded(curXML) {
          $("#subChoices #opacity").css({"display": "none"});
          $("#subChoices #shape").css({"display": "none"});
          $("#subChoices #clear").css({"display": "none"});
-
+         
          var choice = this.choices;
          if (choice.left.length == 1) {
          $("#subCol1 > #" + choice.left[0]).css({"display": "inline-block"});
@@ -407,7 +639,7 @@ function xmlLoaded(curXML) {
          $(".shapeAct")[0].click();
          shapeValue = '50%';
          }
-
+         
          $('.colorSquare')[subValues.color].click();
          document.getElementById('thicknessSlider').value = subValues.thickness;
          document.getElementById('opacitySlider').value = subValues.opacity * 100;
@@ -443,7 +675,7 @@ function xmlLoaded(curXML) {
          THIS.select()
          });
          }
-
+         
          drawingTools = {
          pencil: {
          name: 'pencil',
@@ -463,7 +695,7 @@ function xmlLoaded(curXML) {
          opacity: 1,
          shape: 'circle',
          }
-
+         
          },
          pen: {
          name: 'pen',
@@ -556,7 +788,7 @@ function xmlLoaded(curXML) {
          html: '',
          }
          };
-
+         
          // inner html for sub choices
          // --COLOR
          var colorHTML = '';
@@ -568,20 +800,20 @@ function xmlLoaded(curXML) {
          colorHTML += firstHTML + c + secondHTML + colorArr[c] + closeHTML;
          }
          drawingToolsSubs.color.html = colorHTML;
-
+         
          // --THICKNESS
          drawingToolsSubs.thickness.html = '<div id=thicknessInputLeft class=thicknessTable><input type=range id=thicknessSlider min=3 max=80></input><p id=thicknessLabel>Thickness<p></div>';
-
+         
          // --CLEAR
          drawingToolsSubs.clear.html = '<input id=clearInputLeft type=button value="Clear Drawing" ></input>';
-
+         
          // --OPACITY
          drawingToolsSubs.opacity.html = '<div id=opacityInputLeft class=opacityTable><input type=range id=opacitySlider min=10 max=100></input><p id=opacityLabel>Opacity<p></div>';
-
+         
          // --SHAPE
          drawingToolsSubs.shape.html = '<div class=shapeAct id=circle-shape chosen=false></div><div class=shapeAct id=square-shape chosen=false></div><p id=shapeLabel>Shape</p>';
-
-
+         
+         
          for (var t in drawingTools) {
          var curTool = drawingTools[t];
          var curName = curTool.name;
@@ -595,11 +827,11 @@ function xmlLoaded(curXML) {
          addElem(subCol2, "div", [["id", curSub.name], ["class", "subChoice"], ["val", false]], curSub.html);
          }
          }
-
+         
          // --DISPLAY
          var subCol3 = addElem(subChoices, "div", [["id", "subCol3"], ["class", "subCol"]]);
          var choiceDisplay = addElem(subCol3, "div", [["id", "choiceDisplay"]]);
-
+         
          $(".colorSquare").mouseleave(function () {
          if (this.getAttribute('chosen') == 'false') {
          $(this).clearQueue();
@@ -624,8 +856,8 @@ function xmlLoaded(curXML) {
          $(this).animate({"background-color": "white", "opacity": 1}, 200);
          }
          });
-
-
+         
+         
          $(".colorSquare").click(function () {
          var colorSlot = this.getAttribute('slot');
          var colorCho = this.style.backgroundColor;
@@ -637,27 +869,27 @@ function xmlLoaded(curXML) {
          $(cur).css({"borderColor": "transparent"});
          }
          }
-
+         
          $(this).animate({"borderColor": "#303030"}, 400);
          this.parentNode.setAttribute('val', colorCho);
          this.setAttribute('chosen', 'true');
          $(choiceDisplay).css({"background-color": colorCho});
-
+         
          // set new value
          book.drawingTools[book.drawingTools.cur].subValues.color = colorSlot;
          });
          document.getElementById("thicknessSlider").addEventListener('change', function (e) {
          var thickVal = this.value;
          $(choiceDisplay).css({"height": thickVal, "width": thickVal, 'margin': (90 - this.value) / 2});
-
+         
          // set new value
          book.drawingTools[book.drawingTools.cur].subValues.thickness = thickVal;
          }, false);
          document.getElementById("opacitySlider").addEventListener('change', function (e) {
-
+         
          var opVal = this.value / 100;
          $(choiceDisplay).css({"opacity": opVal});
-
+         
          // set new value
          book.drawingTools[book.drawingTools.cur].subValues.opacity = opVal;
          }, false);
@@ -677,7 +909,7 @@ function xmlLoaded(curXML) {
          } else if (shapeCho == 'square') {
          $(choiceDisplay).css({"border-radius": '0%'});
          }
-
+         
          // set new value
          book.drawingTools[book.drawingTools.cur].subValues.shape = shapeCho;
          });
@@ -709,11 +941,32 @@ function xmlLoaded(curXML) {
 
     singleAudChannel();
 
+    function ambientChannel(src) {
+        this.src = src;
+        this.aud = new Audio();
+        this.loaded = false;
+        // TODO: make an array of all potential background audio files. Preload by page.		
+        this.onLoad = function () {
+            this.aud.play();
+        };
+        this.fade = function (time) {
+            var speeds = {
+                slow: 1000,
+                medium: 2000,
+                fast: 3000
+            };
+        };
+    }
+
+    // ambientChannel(); //todo
+
     function elements2() {
         //	LEVEL 2 ELEMENTS. [nav(Prev,Goto,Next),bookC(pages),audioDiv(controls)]
         addElem(navC, "div", [["id", "prev"], ["class", "bgCenter"]]);
         addElem(navC, "div", [["id", "goto"]], '<p id=gotoCover>1</p><select id=gotoAct name=goto style="background-color:white;" onchange=gotoChange(this);><option></option></select>');
         addElem(navC, "div", [["id", "next"], ["class", "bgCenter"]]);
+
+        addElem(closeC, "div", [["id", "closeAct"]], '<span>X</span>')
 
 
         if (isFirefox || isPad) {
@@ -739,6 +992,16 @@ function xmlLoaded(curXML) {
     }
 
     elements2();
+
+    function audioRecorderElems() {
+        var audRecCont = addElem(main, "div", [["id", "audioRecorderCont"], ["onclick", "toggleRecording()"]]);
+        var controls = addElem(audRecCont, "div", [["id", "controls"]]);
+        addElem(controls, "img", [["id", "record"], ["src", dependenciesLoc + "presets/blank.png"]]);
+        // addElem(controls, "a", [["id", "save"]], "Download recording");
+        addElem(controls, "div", [["id", "recorderPlaybackDiv"]]);
+
+    }
+    audioRecorderElems();
 
     function info() {
         // INFO
@@ -788,8 +1051,10 @@ function xmlLoaded(curXML) {
             book.interruptTime /= 60;
             book.interruptTime *= 1000;
         }
-        if (testing) {
-            book.interruptTime = 0;
+
+        book.fieldHighlightColor = getValue(curInfo, "FieldHighlightColor", true);
+        if (!book.fieldHighlightColor) {
+            book.fieldHighlightColor = "#23a0df";
         }
 
 
@@ -822,7 +1087,7 @@ function xmlLoaded(curXML) {
                 if ((getValue(curInfo, "CreatedWithVersion", false) || 0) > 3.21) {
                     if (pageNumberingStr[pageNumberingStr.length - 1].split("-").length > 1) {
                         book.lastPageDouble = true;
-                        book.bugs.log("Temporary fix for lastPageDouble, check load.js line " + thisLineNumber() + " for info.");
+                        console.warn("Warning: " + "Temporary fix for lastPageDouble, check load.js line " + thisLineNumber() + " for info.");
                         // No leftBG or rightBG image, so my old way of determine lastPageDouble is off
                         // I've put it a temporary fix that checks pageNumberingString (ver 3.22 and up) for a '-', but this won't work for custom page numbering.
                         // Ask Ray to fix this on his end and remove this messy fix.
@@ -833,8 +1098,27 @@ function xmlLoaded(curXML) {
     }
 
     info();
-
+    window.bookLength = curPages.length;
     for (var key = 0; key < curPages.length; key++) {
+        bufArr[key] = [];
+        bufArr[key + "load"] = false;
+        bufArr[key + 'at'] = 0;
+        bufArr.length++;
+
+        book[key] ={
+            "CAN":false,
+            "BUF":false,
+            "loaded":true,
+            redraw:function() {
+                return true;
+            },
+            reload:function() {
+                return true;
+            }
+        }
+    }
+    
+    for (var key = Math.max(urlVars["start"] - 2,0); key < Math.min(curPages.length, urlVars["end"] + 1); key++) {
         bufArr[key] = [];
         bufArr[key + "load"] = false;
         bufArr[key + 'at'] = 0;
@@ -851,9 +1135,9 @@ function xmlLoaded(curXML) {
             var curXmlObj = xmlObjArr[objKey];
             var objType = getValue(curXmlObj, "ObjType", true);
             if (objType == 'dialog') {
-                var tmpObj = new Dialog(curXmlObj, key);
+                new Dialog(curXmlObj, key);
             } else {
-                var tmpObj = new PObject(curXmlObj, key);
+                new PObject(curXmlObj, key);
             }
         }
         var xmlLnkArr = curPage.getElementsByTagName("Links")[0].getElementsByTagName("Link");
@@ -873,17 +1157,30 @@ function xmlLoaded(curXML) {
                 } else if (linkType == 'button') {
                     var tmpLnk = new Button(curXmlLnk, triggers, key);
                 } else {
-                    book.bugs.log('unknown link type <b>' + linkType + '</b>');
+                    console.warn("Bug: " + 'unknown link type <b>' + linkType + '</b>');
                 }
             }
             // Pushing all audio files into buffer arr
             //   NOTE do animation thing first.
         }
+        xmlObjArr = "";
+        xmlLnkArr = "";
+
+
+
+        if (book[key].workspaces.length) {
+            loadDrawings(key);
+        }
     }
 
     function elementSize() {
-        $(".pDiv").css("background-color", rgb2hex((getValue(curInfo, "BookBackgroundColor", true) || '255,255,255')));
-        $(".dup").css("background-color", rgb2hex((getValue(curInfo, "BookBackgroundColor", true) || '255,255,255')));
+        var defaultColor = "rgba(255,255,255,0)";
+        if (isCordova) {
+            defaultColor = "rgba(255,255,255,100)";
+        }
+
+        $(".pDiv").css("background-color", rgb2hex((getValue(curInfo, "BookBackgroundColor", true))) || defaultColor);
+        $(".dup").css("background-color", rgb2hex((getValue(curInfo, "BookBackgroundColor", true))) || defaultColor);
 
 
         // globals are faster than object properties
@@ -942,20 +1239,11 @@ function xmlLoaded(curXML) {
 
         bookHeight = tmpMainCTotHeight;
         bookWidth = tmpMainCTotWidth;
-
-        $("#main").css({"height": tmpMainCTotHeight + (15), "width": tmpMainCTotWidth + (20)});
-        $("#mainC").css({"height": tmpMainCTotHeight, "width": tmpMainCTotWidth, "left": 10});
-        $("#bookC").css({"height": maxDim[0], "width": maxDim[1] * 2});
-        $("#spriteStart").css({"font-size": spriteStartFontSize, "margin-top": spriteStartMargins});
-        $("#titleC").css({"width": tmpTitleTotWidth});
-        $("#textC").css({"width": tmpTextCTotWidth});
-
+        var bookCWidth = maxDim[1];
         if (pDisplay == 'Single') {
             maxDim[1] *= 2;
         }
-
         pUnit = maxDim[1];
-        bookOffsets = $('#bookC').offset();
 
         if (isPad) {
 
@@ -971,39 +1259,47 @@ function xmlLoaded(curXML) {
 
             $("#logoCont").css({'position': 'relative', 'float': 'right'});
             $("#navC").css({'position': 'relative', 'float': 'right', 'left': '0', 'margin-right': '9px'});
-            /*
-             addElem(body, "div", [["id", "leftGutter"], ["class", "gutter"]], '<div style="position:fixed;top:50%"><img src="presets/gutterLeft.png" height=55 width=55 id=leftGutterImage class=gutterImage></img></div>');
-             addElem(body, "div", [["id", "rightGutter"], ["class", "gutter"]], '<div style="position:fixed;top:50%"><img src="presets/gutterRight.png" height=55 width=55 id=leftGutterImage style="left:15;" class=gutterImage></img></div>');
-             $(".gutter").css({
-             'position': 'fixed',
-             'top': '0',
-             'height': '100%',
-             'width': '85px',
-             'opacity': 0,
-             'background-color': 'rgba(17,17,17,0.5)'
-             });
-             $("#leftGutter").css({'left': 0});
-             $("#rightGutter").css({'right': 0});
-             $(".gutterImage").css({'position': 'relative', 'top': '-27', 'left': '10', 'display': 'none'});
-             */
-
 
             if (document.head.firstChild.name != 'viewport') {
                 var viewport = document.createElement('meta');
                 viewport.name = 'viewport';
-                viewport.content = 'width=device-width,initital-scale=1,user=-scalable=no';
+                // viewport.content = 'width=device-width,initital-scale=1,user=-scalable=no';
+                viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0';
+
+                // may or may not fix screen unhinging
+                // did not. maybe useful in the future, but just slowed things down.
+//                var densityPort = document.createElement("meta");
+//                densityPort.content = "target-densitydpi=device-dpi";
+//                document.head.insertBefore(densityPort, document.head.firstChild);
+
                 document.head.insertBefore(viewport, document.head.firstChild);
             }
             window.addEventListener('orientationchange', rescale);
             rescale();
-        }
-        if (!isPad) {
+        } else {
             vertCenterBook(window.innerHeight);
         }
-        loadAssets();
+
+
+        $("#main").css({"height": tmpMainCTotHeight + (15), "width": tmpMainCTotWidth + (20)});
+        $("#mainC").css({"height": tmpMainCTotHeight, "width": tmpMainCTotWidth, "left": 10});
+        $("#bookC").css({"height": maxDim[0], "width": bookCWidth * 2});
+        $("#spriteStart").css({"font-size": spriteStartFontSize, "margin-top": spriteStartMargins});
+        $("#titleC").css({"width": tmpTitleTotWidth});
+        $("#textC").css({"width": tmpTextCTotWidth});
+        bookOffsets = $('#bookC').offset();
     }
 
     elementSize();
+
+    curInfo = "";
+    curXML = "";
+
+    window.setTimeout(function () {
+        // Should give enough time for the viewport meta to finally parse in the browser.
+        $("body").css("display", "block");
+        loadAssets();
+    }, 1);
 
     //tester();
 }
@@ -1377,11 +1673,6 @@ function Graphic(curXmlLnk, triggers, key) {
                     if (refObj) {
                         targDest.referenceObject = refObj
                     }
-                    targLocKey = {};
-                    targLocKey.page = key;
-                    targLocKey.linkName = this.name;
-                    targLocKey.targPos = targ;
-                    targDest.locKey = targLocKey;
                 }
                 var returnArr = [];
                 returnArr.push(targType);
@@ -1416,7 +1707,22 @@ function Graphic(curXmlLnk, triggers, key) {
 
     // finding which action array to push links into
     var linkArrayName = false;
-    splitReturn[0] = splitReturn[0].toLowerCase();
+    splitReturn[0] = splitReturn[0];
+
+    var triggerIsPoints = false;
+    var pointCheck = splitReturn[0].split(" ");
+    var pointName = [];
+    do {
+        pointName.push(pointCheck.shift());
+    } while (pointCheck[0] !== "=" && pointCheck[0] !== "greaterThan" && pointCheck[0] !== "lessThan" && pointCheck[0]);
+    pointName = pointName.join(" ");
+    for (var point in book[key].points) {
+        if (pointName == book[key].points[point].name) {
+            triggerIsPoints = true;
+            this.action = this.action.toLowerCase();
+        }
+    }
+
     if (splitReturn[0] == "click") {
         linkArrayName = "clicks";
     } else if (splitReturn[0] == "drop") {
@@ -1445,14 +1751,14 @@ function Graphic(curXmlLnk, triggers, key) {
         } else {
             linkArrayName = "pageOpens";
         }
-    } else if (splitReturn[0].split("=")[0] == "page points " || splitReturn[0].split("greaterthan")[0] == "page points " || splitReturn[0].split("lessthan")[0] == "page points ") {
+    } else if (triggerIsPoints) {
         linkArrayName = "logics";
     } else if (splitReturn[0] == "countdown finished" || splitReturn[0] == "countdown finish") {
         linkArrayName = "countdowns";
     } else if (splitReturn[0] == "math right" || splitReturn[0] == "math wrong") {
         linkArrayName = "maths";
     } else {
-        book.bugs.log("ERROR - unknown TriggerType (page " + key + ")  -- " + splitReturn[0]);
+        console.error("Bug: " + "- unknown TriggerType (page " + key + ")  -- " + splitReturn[0]);
     }
     // getting the length of said array
     var idInActionArr = 'unknown';
@@ -1483,6 +1789,14 @@ function Graphic(curXmlLnk, triggers, key) {
         }
     }
 
+    var recordings = [];
+    // slice out possibly recorded audio files
+    for (var t = 0; t < this.targets.length; t++) {
+        if (this.targets[t] && this.targets[t][1].toLowerCase().split(" ")[0] == "overwrite") {
+            this.addRecorder = true;
+            bufArr[key].push(this.targets[t][2] + ".recording");
+        }
+    }
 
     if (linkArrayName) {
         // Adding link to linkKey object, for easy lookup later
@@ -1495,9 +1809,22 @@ function Graphic(curXmlLnk, triggers, key) {
         book[key][linkArrayName].push(this);
     }
 }
+
+
+function writableUnitPath() {
+    var loc = window.location.pathname.replace(/[|&;$%@"/<>()+,.]/g, "");
+    return loc + "-" + window.readerName + "-";
+}
+function recAbsName(n, p) {
+    return "/sdcard/" + writableUnitPath() + "page" + p + "-" + n.split(" ").join("") + ".amr";
+}
+function drawAbsName(p) {
+    return "" + writableUnitPath() + "page" + p + "-drawing.datauri";
+}
+
 window.setTimeout(function () {
 //   console.clear();
-}, 1000)
+}, 1000);
 function Page(key, curXmlPage) {
     var divElem = document.createElement("div");
     var canElem = document.createElement("canvas");
@@ -1598,51 +1925,37 @@ function Page(key, curXmlPage) {
                     curObj.width = curObj.initWidth;
                     curObj.height = curObj.initHeight;
                     curObj.opacity = curObj.initOpacity || 1; // No init op
+
+                    if (curObj.type == "drawing") {
+                        curObj.drawn = false; // Reset drawings		
+                        // TO MY KNOWLEDGE, there are no "default drawn on page" drawings.		
+                        // If there are, or if we add them later, curObj.initDrawn		
+                    }
                 }
             }
         }
         for (lnk in this.clicks) {
             this.clicks[lnk].pts = this.clicks[lnk].origPts;
             this.clicks[lnk].enabled = this.clicks[lnk].initEnabled;
-            for (var t = 0; t < this.clicks[lnk].targets.length; t++) {
-                if (this.clicks[lnk].targets[t][2].functionType == "chooseAndRemove") {
-                    this.clicks[lnk].targets[t][2].args = [];
-                    for (var a = 0; a < this.clicks[lnk].targets[t][2].initArgs.length; a++) {
-                        this.clicks[lnk].targets[t][2].args.push(this.clicks[lnk].targets[t][2].initArgs[a]);
-                    }
-                }
-            }
         }
         for (lnk in this.drops) {
             this.drops[lnk].pts = this.drops[lnk].origPts;
             this.drops[lnk].enabled = this.drops[lnk].initEnabled;
-            for (var t = 0; t < this.drops[lnk].targets.length; t++) {
-                if (this.drops[lnk].targets[t][2].functionType == "chooseAndRemove") {
-                    this.drops[lnk].targets[t][2].args = [];
-                    for (var a = 0; a < this.drops[lnk].targets[t][2].initArgs.length; a++) {
-                        this.drops[lnk].targets[t][2].args.push(this.drops[lnk].targets[t][2].initArgs[a]);
-                    }
-                }
-            }
         }
         for (lnk in this.lineEnds) {
             this.lineEnds[lnk].pts = this.lineEnds[lnk].origPts;
             this.lineEnds[lnk].enabled = this.lineEnds[lnk].initEnabled;
-            for (var t = 0; t < this.lineEnds[lnk].targets.length; t++) {
-                if (this.lineEnds[lnk].targets[t][2].functionType == "chooseAndRemove") {
-                    this.lineEnds[lnk].targets[t][2].args = [];
-                    for (var a = 0; a < this.lineEnds[lnk].targets[t][2].initArgs.length; a++) {
-                        this.lineEnds[lnk].targets[t][2].args.push(this.lineEnds[lnk].targets[t][2].initArgs[a]);
-                    }
-                }
-            }
         }
 
-        this.points = 0;
+        for (var point in this.points) {
+            this.points[point].value = this.points[point].defaultValue;
+        }
+
         this.DRAW.height = this.DRAW.height;
         this.redraw();
     };
     this.redraw = function () {
+        // console.log("Redrawing");
         var pageElem = this;
         // Clear the buffer canvase
         this.BUF.width = this.BUF.width;
@@ -1653,9 +1966,7 @@ function Page(key, curXmlPage) {
         for (obj in this.objKey) {
             var curObj = this.objs[this.objKey[obj]];
             if (curObj.type == 'video') {
-                if (isPad) {
-                    curObj.elem.controls = true;
-                } else {
+                if (curObj.elem) {
                     curObj.elem.controls = false;
                 }
 
@@ -1664,7 +1975,7 @@ function Page(key, curXmlPage) {
                     "left": curObj.left,
                     "height": curObj.height,
                     "width": curObj.width,
-                    "visibility": curObj.vis
+                    "visibility": (curObj.vis == "hide") ? "hidden" : curObj.vis,
                 });
 
             } else if (curObj.type == 'highlighter' && curObj.vis == 'show') {
@@ -1815,12 +2126,12 @@ function Page(key, curXmlPage) {
 
                         try {
                             btx.drawImage(
-                              curElem,
-                              -1 * (curData.width / 2),
-                              -1 * (curData.height / 2),
-                              curData.width,
-                              curData.height
-                              );
+                                    curElem,
+                                    -1 * (curData.width / 2),
+                                    -1 * (curData.height / 2),
+                                    curData.width,
+                                    curData.height
+                                    );
                         } catch (e) {
                         }
                         btx.rotate(-1 * curData.rot);
@@ -1874,11 +2185,11 @@ function Page(key, curXmlPage) {
 
                         try {
                             btx.drawImage(
-                              curElem,
-                              (-1 * (curObj.width / 2)),
-                              (-1 * (curObj.height / 2)),
-                              width,
-                              height);
+                                    curElem,
+                                    (-1 * (curObj.width / 2)),
+                                    (-1 * (curObj.height / 2)),
+                                    width,
+                                    height);
                         } catch (e) {
                         }
 
@@ -1886,11 +2197,11 @@ function Page(key, curXmlPage) {
                     } else {
                         try {
                             btx.drawImage(
-                              curElem,
-                              left,
-                              top,
-                              width,
-                              height);
+                                    curElem,
+                                    left,
+                                    top,
+                                    width,
+                                    height);
                         } catch (e) {
                         }
                     }
@@ -1898,28 +2209,35 @@ function Page(key, curXmlPage) {
                     /*
                      Animations were getting stuck at the last leg. Thought that was a bug, it was a workaround for "saving animations in their last state".
                      Had to get rid of that, so I set the anim.AT to false in the sequence, now you can drag animated objects.
-
+                     
                      BUT WAIT!!
-
+                     
                      What about animations that finish with an opacity, and need to keep it?
-
+                     
                      Well, now when an animation ends, the animation data is copied over to the actual data, problem solved.
-
+                     
                      BUT WAIT, regular objects don't have opacity!!
-
+                     
                      Added opacity to regular objects.
-
+                     
                      TODO: Didn't get opacity for all regular objects. Don't want to screw with it today, so put an undefined default of 1 check up top. This will probably cause problems in the future, but who cares about future Jason, that guys lame!
-
+                     
                      PROBLEM SOLVED MOTHERS!!!
                      */
                 }
             }
         }
 
+        function justText(what) {
+            if (what.split) {
+                return what.split("**").join("");
+            } else {
+                console.log("error: " + what + " not a string");
+            }
+
+        }
+
         function getRowsFromMaxDims(rows, fontName, maxWidth, maxHeight) {
-            // THIS DOESN"T FUCKING WORK.
-            // Fuck text and fuck font. This is a bunch of nonsense. It's sort of kind of working and Im hungry and I have shit to do so fuck this whole god damn thing.
             if (rows) {
                 var ret = [];
                 var fontSize = 1;
@@ -1928,9 +2246,9 @@ function Page(key, curXmlPage) {
                     var maxRowFontSizeWidth = false;
                     var maxRowFontSizeHeight = false;
                     var underlineMod = maxHeight / rows.length / rows.length / 3; // Half of a p or a q will be under the maxHeight/rows.length. This takes care of it (about 10 lines below here)
-                    for (var f = 0; f < 1000; f++) {
+                    for (var f = 1; f < 1000; f++) {
                         btx.font = f + "px " + fontName;
-                        var curWidth = btx.measureText(row).width;
+                        var curWidth = btx.measureText(justText(row)).width;
                         if (curWidth > maxWidth && !maxRowFontSizeWidth) {
                             maxRowFontSizeWidth = f - 1;
                         }
@@ -1942,8 +2260,8 @@ function Page(key, curXmlPage) {
                             f = 1001;
                         }
                     }
-                    maxRowFontSizeWidth = Math.max(1, maxRowFontSizeWidth);
-                    maxRowFontSizeHeight = Math.max(1, maxRowFontSizeHeight);
+                    maxRowFontSizeWidth = Math.max(1, (maxRowFontSizeWidth) ? maxRowFontSizeWidth : curWidth);
+                    maxRowFontSizeHeight = Math.max(1, (maxRowFontSizeHeight) ? maxRowFontSizeHeight : curWidth);
                     ret.push({content: row, maxWidth: maxRowFontSizeWidth, maxHeight: maxRowFontSizeHeight});
                 }
                 var size = 1000;
@@ -1966,8 +2284,8 @@ function Page(key, curXmlPage) {
                     ret[r].which = which;
 
                     btx.font = size + "px " + fontName;
-                    var curWidth = btx.measureText(ret[r].content).width;
-                    ret[r].horiOffset = (maxWidth - curWidth) / 2;
+                    ret[r].measuredWidth = btx.measureText(justText(ret[r].content)).width;
+                    ret[r].horiOffset = (maxWidth - ret[r].measuredWidth) / 2;
 
                     if (which == "width") {
                         ret[r].vertOffset = (maxHeight - (ret.length * size)) / (ret.length + 1);
@@ -1984,24 +2302,50 @@ function Page(key, curXmlPage) {
         function drawText(curText) {
             btx.restore();
             btx.globalAlpha = 1;
+            btx.fillStyle = "black";
+            var fillColor = "black";
+
+
+
+            function drawTextAct(text, left, top) {
+                var swaps = text.split("**");
+                var leftMod = 0;
+                for (var s = 0; s < swaps.length; s++) {
+                    if (s >= 1) {
+                        if (fillColor == book.fieldHighlightColor) {
+                            fillColor = "black";
+                        } else {
+                            fillColor = book.fieldHighlightColor;
+                        }
+                        btx.fillStyle = fillColor;
+                    }
+                    btx.fillText(swaps[s], left + leftMod, top);
+                    leftMod += btx.measureText(justText(swaps[s])).width;
+                }
+            }
+
             if (curText.vis == "show") {
                 var contents = curText.contents;
+                if (curText.display == "points") {
+                    contents = pageElem.points[curText.whichPoints].value + "";
+                } else if (curText.display == "countdown") {
+                    contents = [pageElem.countdown + ""];
+                }
                 // Draw bg
                 if (curText.bg) {
                     btx.fillStyle = "rgb(" + curText.bg.join(",") + ")";
                     btx.fillRect(curText.left, curText.top, curText.width, curText.height);
                 }
-                btx.fillStyle = "black";
                 if (contents) {
                     contents = contents.toString().split(/\r\n|\r|\n/g);
                 }
-                if (curText.editable) {
+                if (curText.size !== "auto") {
                     var maxWidth = curText.width;
                     var lineHeight = curText.size;
                     var x = curText.left;
                     var y = curText.top + curText.size;
                     btx.font = curText.size + 'px ' + curText.fontName;
-                    var paragraphs = curText.contents.split(/\r\n|\r|\n/g);
+                    var paragraphs = (contents == "") ? [""] : contents;
 
                     var linesOfText = [];
                     for (var p = 0; p < paragraphs.length; p++) {
@@ -2015,11 +2359,11 @@ function Page(key, curXmlPage) {
 
                         for (var i = 0; i < words.length; i++) {
                             test = words[i];
-                            metrics = btx.measureText(test);
+                            metrics = btx.measureText(justText(test));
                             while (metrics.width > maxWidth) {
                                 // Determine how much of the word will fit
                                 test = test.substring(0, test.length - 1);
-                                metrics = btx.measureText(test);
+                                metrics = btx.measureText(justText(test));
                             }
                             if (words[i] != test) {
                                 words.splice(i + 1, 0, words[i].substr(test.length))
@@ -2027,10 +2371,26 @@ function Page(key, curXmlPage) {
                             }
 
                             test = line + words[i] + ' ';
-                            metrics = btx.measureText(test);
+                            metrics = btx.measureText(justText(test));
                             if (metrics.width > maxWidth && i > 0) {
                                 if (y < maxY) {
-                                    btx.fillText(line, x, y);
+                                    var lineWidth = btx.measureText(justText(line)).width;
+                                    var textLeft = x;
+                                    var xLeftAlign = curText.left;
+                                    var xRightAlign = curText.left + curText.width - lineWidth;
+                                    var xCenterAlign = xLeftAlign + ((xRightAlign - xLeftAlign) / 2);
+                                    if (curText.alignment == "left") {
+                                        textLeft = xLeftAlign;
+                                    } else if (curText.alignment == "right") {
+                                        textLeft = xRightAlign;
+                                    } else if (curText.alignment == "center") {
+                                        textLeft = xCenterAlign;
+                                    }
+                                    try {
+                                        // text,x,y,maxWidth
+                                        drawTextAct(line, textLeft, y);
+                                    } catch (e) {
+                                    }
                                     linesOfText.push(line);
                                 }
                                 line = words[i] + ' ';
@@ -2040,15 +2400,26 @@ function Page(key, curXmlPage) {
                             }
                         }
 
-
+                        var metrics = btx.measureText(justText(line)); // remeasure after word wrap
+                        var textLeft;
+                        var xLeftAlign = curText.left;
+                        var xRightAlign = curText.left + curText.width - metrics.width;
+                        var xCenterAlign = xLeftAlign + ((xRightAlign - xLeftAlign) / 2);
+                        if (curText.alignment == "left") {
+                            textLeft = xLeftAlign;
+                        } else if (curText.alignment == "right") {
+                            textLeft = xRightAlign;
+                        } else if (curText.alignment == "center") {
+                            textLeft = xCenterAlign;
+                        }
                         if (y < maxY) {
-                            btx.fillText(line, x, y);
+                            drawTextAct(line, textLeft, y);
                             linesOfText.push(line);
                         }
                         y += lineHeight;
                     }
                     book.curField.insertionClick = false;
-                    if (book.curField.name == curText.name && book.curField.insertionPointAlpha && y - lineHeight < maxY) {
+                    if (curText.editable && book.curField.name == curText.name && book.curField.insertionPointAlpha && y - lineHeight < maxY) {
                         if (clickPt) {
                             // webix.message("x:" + clickPt.x + ", y:" + clickPt.y)
                             var curLine = 0;
@@ -2060,7 +2431,7 @@ function Page(key, curXmlPage) {
                                 }
                             }
                             absChar -= linesOfText[curLine].length;
-                            var line = linesOfText[curLine].substring(0, linesOfText[curLine].length - 1);
+                            var line = justText(linesOfText[curLine].substring(0, linesOfText[curLine].length - 1));
                             var metrics = btx.measureText(line);
                             var prevChar = btx.measureText(line.substring(line.length - 1, line.length));
                             var curChar = 0;
@@ -2088,7 +2459,7 @@ function Page(key, curXmlPage) {
 
                         var charCount = 0;
                         for (var l = 0; l < linesOfText.length; l++) {
-                            var line = linesOfText[l];
+                            var line = justText(linesOfText[l]);
                             if (line.charAt(line.length - 1) == " ") {
                                 line = line.substring(0, line.length - 1);
                             }
@@ -2097,10 +2468,24 @@ function Page(key, curXmlPage) {
                                 yMod = l + 1;
                                 l = linesOfText.length;
                                 xMod = line.substring(0, line.length - (charCount - insertionAt));
+                            } else {
+                                charCount++; // because insertionAt counts returns as characters.
                             }
                         }
 
-                        insertionLoc.x = curText.left + btx.measureText(xMod).width;
+
+                        if (curText.alignment == "center") {
+                            var centerOfTextField = curText.left + (curText.width / 2);
+                            insertionLoc.x = centerOfTextField + (btx.measureText(xMod).width / 2);
+                        } else if (curText.alignment == "right") {
+                            var textRight = curText.left + curText.width;
+                            insertionLoc.x = textRight - btx.measureText(xMod).width;
+                        } else {
+                            var textLeft = curText.left;
+                            insertionLoc.x = textLeft + btx.measureText(xMod).width;
+                        }
+
+
                         insertionLoc.y = curText.top + (yMod * lineHeight); //  + (linesOfText.length * lineHeight)
                         btx.moveTo(insertionLoc.x + 2, insertionLoc.y - curText.size + 2);
                         btx.lineTo(insertionLoc.x + 2, insertionLoc.y + 2);
@@ -2108,11 +2493,8 @@ function Page(key, curXmlPage) {
                     }
 
                 } else {
-                    if (curText.display == "points") {
-                        contents = [pageElem.points + ""];
-                    } else if (curText.display == "countdown") {
-                        contents = [pageElem.countdown + ""];
-                    }
+                    // If we want to add this later...
+                    curText.singleLine = false;
                     if (curText.size == "auto") {
                         rows = getRowsFromMaxDims(contents, "Arial", curText.initWidth, curText.initHeight);
                         for (var r = 0; r < rows.length; r++) {
@@ -2128,23 +2510,41 @@ function Page(key, curXmlPage) {
                                 textLeft += row.horiOffset;
                             }
                             btx.fillStyle = curText.color;
+                            /*
+                             if (curText.alignment == "left") {
+                             textLeft = curText.left;
+                             } else if (curText.alignment == "right") {
+                             textLeft = curText.left + curText.width - row.measuredWidth;
+                             }
+                             */
+                            var textLeft;
+                            var xLeftAlign = curText.left;
+                            var xRightAlign = curText.left + curText.width - row.measuredWidth;
+                            var xCenterAlign = xLeftAlign + ((xRightAlign - xLeftAlign) / 2);
+                            if (curText.alignment == "left") {
+                                textLeft = xLeftAlign;
+                            } else if (curText.alignment == "right") {
+                                textLeft = xRightAlign;
+                            } else if (curText.alignment == "center") {
+                                textLeft = xCenterAlign;
+                            }
                             try {
                                 // text,x,y,maxWidth
-                                btx.fillText(row.content, textLeft, textTop);
+                                drawTextAct(row.content, textLeft, textTop);
                             } catch (e) {
                             }
                         }
-                    } else {
+                    } else if (curText.singleLine) {
                         for (var c = 0; c < contents.length; c++) {
                             btx.font = curText.size + "px " + curText.fontName;
                             var textLeft = curText.left;
                             var textTop = curText.top + 4 + (curText.size * (c + 1));
-                            var leftOffset = (curText.width - btx.measureText(contents[c]).width) / 2;
+                            var leftOffset = (curText.width - btx.measureText(justText(contents[c])).width) / 2;
                             var topOffset = 0;
                             btx.fillStyle = curText.color;
                             try {
                                 // text,x,y,maxWidth
-                                btx.fillText(contents[c], textLeft + leftOffset, textTop - topOffset);
+                                drawTextAct(contents[c], textLeft + leftOffset, textTop - topOffset);
                             } catch (e) {
                             }
                         }
@@ -2185,9 +2585,6 @@ function Page(key, curXmlPage) {
         }
     };
 
-    this.load = function () {}
-    this.unload = function () {}
-
     this.loadCont = loadCont;
     this.loaded = false;
     this.progressgraph = false;
@@ -2215,13 +2612,48 @@ function Page(key, curXmlPage) {
     this.linkKey = {};
     this.ident = key + 1;
 
+    this.interruptTime = getValue(curXmlPage, "TimeToInterrupt", true);
+    // global override
+    if (typeof globalInterruptTime !== "undefined") {
+        this.interruptTime = globalInterruptTime;
+    }
+
+    // duct tape. Last 3 pages of recordable readers need no interrupt, rest of book needs yes interrupt
+    if (typeof last3noInterrupt !== "undefined") {
+        if (window.bookLength - key <= 3) {
+            this.interruptTime = 60000;
+        } else {
+            this.interruptTime = 0;
+        }
+
+    }
+    if (this.interruptTime) {
+        this.interruptTime /= 60;
+        this.interruptTime *= 1000;
+    } else {
+        this.interruptTime = book.interruptTime;
+    }
+
+
+
+
+    this.recordings = {};
+
     this.leftBackgroundImage = getValue(curXmlPage, "LeftBackground", true);
     this.rightBackgroundImage = getValue(curXmlPage, "RightBackground", true);
     this.allowNegativePoints = (getValue(curXmlPage, "AllowPointsToGoNegative", true) == "true") ? true : false;
     this.resetWhenLeaving = (getValue(curXmlPage, "ResetWhenLeaving", true) == "true") ? true : false;
 
 
-    this.points = 0;
+    this.points = {};
+    this.points['page points'] = new Point('page points');
+    var customPoints = getValue(curXmlPage, "PointNames", true);
+    if (customPoints) {
+        customPoints = customPoints.toLowerCase().split("|");
+    }
+    for (var p = 0; p < customPoints.length; p++) {
+        this.points[customPoints[p]] = new Point(customPoints[p]);
+    }
     this.countdown = 0;
     this.countdownInt = false;
     if (book.pageNavigationDisabled) {
@@ -2229,16 +2661,13 @@ function Page(key, curXmlPage) {
     } else {
         this.pageNavigationEnabled = (getValue(curXmlPage, "DisallowPageNavigation", true) == "true") ? false : true;
     }
-    if (testing) {
-        this.pageNavigationEnabled = true;
-        book.pageNavigationDisabled = false;
-    }
 
     this.infinitelyLoopingGifs = {};
 
     this.dumped = [];
 
     this.objMovement = false;
+    delete curXmlPage;
 }
 function PObject(curXmlObj, key) {
     var tmpReturn = {};
@@ -2249,7 +2678,7 @@ function PObject(curXmlObj, key) {
     if (typeof badImages != 'undefined' && badImages[this.name]) {
         console.error("Object " + this.name + " not found, skipping");
     } else {
-        tmpFileName = getValue(curXmlObj, "ObjFileName", true) || this.name;
+        var tmpFileName = getValue(curXmlObj, "ObjFileName", true) || this.name;
         this.type = getValue(curXmlObj, "ObjType", true) || 'image';
         this.extension = getValue(curXmlObj, "ObjExt", true) || false;
         if (this.extension) {
@@ -2510,8 +2939,7 @@ function PObject(curXmlObj, key) {
                     if (curAnim.data[0]) {
                         curAnim.data[0].rot = 0;
                     } else {
-                        book.bugs.log("Problem with animation data on object <b>" + this.name + "</b>. Check console for details");
-                        console.warn("Problem with animation data on object " + this.name + ".");
+                        console.warn("Bug: " + "Problem with animation data on object " + this.name + ".");
                         console.warn(this);
                     }
                 }
@@ -2530,7 +2958,7 @@ function PObject(curXmlObj, key) {
                     this.sequenceFolderName = getValue(curXmlObj, "ObjImageSequenceFolder");
                     this.frameNames = [];
                     var xmlFramesOrderMessy = curXmlObj.getElementsByTagName("ObjImageSequenceOrder")[0].innerHTML;
-                    var xmlFramesTotMessy = curXmlObj.getElementsByTagName("ObjImageSequenceFrames")[0].childNodes;
+                    var xmlFramesTotMessy = curXmlObj.getElementsByTagName("ObjImageSequenceFrames")[0].getElementsByTagName("Frame");
                     var xmlFramesTot = [];
 
                     // Gets each ordered frame name out of the xml node and into a js arr.
@@ -2777,6 +3205,8 @@ function PObject(curXmlObj, key) {
 
             this.editable = getValue(curXmlObj, "AllowEditing", true) == "true" ? true : false;
             this.bg = getValue(curXmlObj, "FldTransparent", true) == "true" ? true : false;
+            this.alignment = getValue(curXmlObj, "TextAlign", true);
+            this.alignment = (this.alignment) ? this.alignment : "center";
             this.fontFile = getValue(curXmlObj, "TextFontFile");
             this.fontName = getValue(curXmlObj, "TextFont");
             if (this.fontFile && this.fontName) {
@@ -2809,8 +3239,15 @@ function PObject(curXmlObj, key) {
             } else {
                 this.display = getValue(curXmlObj, "FieldDisplay");
                 this.color = rgb2hex(getValue(curXmlObj, "TextColor"));
-                if (this.display.toLowerCase() == "page points" || this.display.toLowerCase() == "points") {
-                    this.contents = book[key].points;
+                var displayPoints = false;
+                for (var name in book[key].points) {
+                    if (this.display.toLowerCase() == book[key].points[name].name.toLowerCase()) {
+                        displayPoints = true;
+                    }
+                }
+                if (displayPoints) {
+                    this.whichPoints = this.display.toLowerCase();
+                    this.contents = book[key].points[this.whichPoints].value;
                     this.display = "points";
                 } else if (this.display.toLowerCase() == "countdown") {
                     this.display = "countdown";
@@ -3039,8 +3476,16 @@ function PObject(curXmlObj, key) {
             book[key].objKey.push(this.name);
         }
     }
+    curXmlObj = "";
 }
 
+function Point(name, defaultVal) {
+    this.name = name;
+    this.defaultValue = (defaultVal) ? defaultVal : 0;
+    this.value = this.defaultValue * 1; // disconnect link maybe?
+    this.changed = false;
+    return this;
+}
 
 function getValue(parent, nodeName, silentError) {
     var tmpReturn = false;
@@ -3096,10 +3541,23 @@ function stringBetween(parentStr, start, end) {
 
 
 
-
-
-
-
-
-
-
+function saveDrawings(page) {
+    writeFile(drawAbsName(page), book[page].DRAW.toDataURL(), function () {
+        // drawing saved
+    });
+}
+function loadDrawings(page) {
+    readFile(drawAbsName(page), function (dataURI) {
+        // comes back as undefined if bad
+        if (dataURI.length) {
+            var tmpDrawing = new Image;
+            tmpDrawing.onload = function () {
+                book[page].CAN.getContext('2d').drawImage(tmpDrawing, 0, 0);
+                book[page].DRAW.getContext('2d').drawImage(tmpDrawing, 0, 0);
+                tmpDrawing.src = false;
+                tmpDrawing = null;
+            }
+            tmpDrawing.src = dataURI;
+        }
+    });
+}
