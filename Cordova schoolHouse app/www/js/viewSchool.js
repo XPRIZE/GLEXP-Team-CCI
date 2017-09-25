@@ -1,4 +1,7 @@
 document.addEventListener("deviceready", function () {
+    window.addEventListener("batterystatus", onBatteryStatus, false);
+
+    viewportFix();
     login(function (userID, schoolXML) {
         schoolXML = $.parseXML(schoolXML);
         window.schoolXML = schoolXML;
@@ -73,6 +76,11 @@ document.addEventListener("deviceready", function () {
             $("#tutorialSchoolElem").find("img").attr("src", "img/openTutorials.png");
             $("#tutorialSchoolElem").addClass("picture");
             $("#tutorialSchoolElem").removeClass("text");
+            
+            $("#booksElem").css({"display": "block"});
+            $("#booksElem").find("img").attr("src", "img/openBooks.png");
+            $("#booksElem").addClass("picture");
+            $("#booksElem").removeClass("text");
 
             /*
              var scrapbookXML = xml.getElementsByTagName("scrapbook")[0];
@@ -141,7 +149,7 @@ document.addEventListener("deviceready", function () {
     var tabletBorderMarginRatioHori = 0.07143;
 
     var gridTemplate = "<div class='grid' subject='' onClick=gotoSubject(this)><h2></h2><img /></div>";
-    var subjectRowNum = 2;
+    var subjectRowNum = 3; //TODO: get this from XML
     var subjectColNum = 2;
     function modifySubjectGrid(isAdd, isRow, noAjax) {
         if (isAdd) {
@@ -238,7 +246,7 @@ document.addEventListener("deviceready", function () {
                                     {
                                         type: "spacer",
                                         gravity: 1,
-                                        template: "<div id=scrapbookSchoolElem class=solid><h2>Scrapbook</h2><img></div>"
+                                        template: "<div id=booksElem class=solid><img id=goBooks ></div>"
                                     },
                                 ]
                             },
@@ -283,7 +291,7 @@ document.addEventListener("deviceready", function () {
             if (getValByTag(tutorials[t], "icon")) {
                 var tutName = getValByTag(tutorials[t], "name");
                 tutsHTML += "<div class=tutorial name='" + tutName + "'><img class=tutorialImg src='" +
-                  window.schoolLoc + "/" + tutName + "_Tutorial/icons/icon.png'" +
+                  window.schoolLoc + "/tutorials/" + tutName + "/icons/icon.png'" +
                   " ></img></div>";
                 totTuts++;
             }
@@ -320,10 +328,16 @@ document.addEventListener("deviceready", function () {
     }
     if (device.platform == "browser") {
         //$("#tutorialSchoolElem").on("click", goTutorial);
-        $("#openTuts").on("click", toggleTutorial)
+        $("#openTuts").on("click", toggleTutorial);
+        $("#goBooks").on("click", function() {
+            window.location.href = "books.html";
+        });
     } else {
         //$("#tutorialSchoolElem").on("touchend", goTutorial);
-        $("#openTuts").on("touchend", toggleTutorial)
+        $("#openTuts").on("touchend", toggleTutorial);
+        $("#goBooks").on("touchend", function() {
+            window.location.href = "books.html";
+        });
     }
 
     function goScrapbook() {
@@ -337,7 +351,7 @@ document.addEventListener("deviceready", function () {
 }, false);
 function gotoTutorial() {
     var tutName = $(this).attr("name");
-    var loc = window.schoolLoc + "/" + tutName + "_Tutorial/index.html"
+    var loc = window.schoolLoc + "/tutorials/" + tutName + "/index.html"
     var serverLoc = window.schoolName + "_zip/" + tutName + "_Tutorial.zip";
     checkDownloadAndGo(loc, serverLoc);
 }
@@ -375,23 +389,6 @@ function retakePicture() {
             }, 1000); // used to be 5000
         });
     })
-}
-
-function checkDownloadAndGo(url, partialServerLoc) {
-    $.ajax({
-        type: "GET",
-        url: url,
-        dataType: "xml",
-        success: function (ret) {
-            window.location.href = url;
-        },
-        error: function () {
-            // showDownloadWindow();
-            downloadAndUnzip(partialServerLoc, "0", function () {
-                window.location.href = url;
-            })
-        }
-    });
 }
 
 function getValByTag(node, tag) {

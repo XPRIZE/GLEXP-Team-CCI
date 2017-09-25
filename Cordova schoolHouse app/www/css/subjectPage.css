@@ -8,6 +8,50 @@ and open the template in the editor.
     Author     : NewDigs
 */
 
+.starHolder {
+    height:0;
+    width:0;
+}
+
+.smallStar, .bigStar {
+    position:absolute;
+    visibility:hidden;
+}
+.smallStar {
+    margin-left: 50px;
+    height: 35px;
+    margin-top: -7px;
+}
+.unit.next .bigStar {
+    visibility:visible;
+    animation: 1.7s linear 0s 3 normal;
+    animation-name:bigStarSpin;
+    height:100px;
+    margin-left:-13px;
+    margin-top:-15px;
+    opacity:0;
+}
+.unit.next .smallStar {
+    visibility:visible;
+    animation: 6s linear 0s 1 normal;
+    animation-name:smallStarAppear;
+}
+@-webkit-keyframes bigStarSpin {
+    0%   {opacity:0; height:0px; transform: rotate(0deg);  margin-left:47px; margin-top:50px;}
+    33%  {opacity:1; height:80px; transform: rotate(0deg);   margin-left:-3px; margin-top:0px;}
+    66%  {opacity:1; height:80px; transform: rotate(360deg); margin-left:-3px; margin-top:0px;}
+    100% {opacity:0; height:0px; transform: rotate(360deg); margin-left:47px; margin-top:50px;}
+}
+
+@-webkit-keyframes smallStarAppear {
+    0%    { opacity: 0; height:0px;  width:0px;  transform: rotate(0deg);}
+    80%   { opacity: 0; height:0px;  width:0px;  transform: rotate(0deg);}
+    90%   { opacity: 1; height:35px; width:35px; transform: rotate(0deg);}
+    100%  { opacity: 1; height:35px; width:35px; transform: rotate(360deg);}
+}
+
+
+
 
 .webix_template {
     padding:1px!IMPORTANT;
@@ -156,11 +200,10 @@ blueBox.unlocked .levelNameCont {
     position:absolute;
     height:100%;
     width:100%;
-    overflow:hidden;
+    overflow-x: hidden;
 }
 .scrollCont {
     position:absolute;
-    overflow:hidden;
     width: 100000px; /* Change this in javascript to only the needed width, but 100000 just to be safe preload */
     bottom: 2px;
 }

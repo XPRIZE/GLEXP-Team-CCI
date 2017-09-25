@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 function getValByTag(node, tag) {
     if (node && node.getElementsByTagName(tag).length && node.getElementsByTagName(tag)[0].innerHTML) {
         return node.getElementsByTagName(tag)[0].innerHTML;
@@ -122,7 +116,16 @@ document.addEventListener("deviceready", function () {
                 createFile("users/" + newID + "/school.xml", function () {
                     var xmlText = new XMLSerializer().serializeToString(window.schoolXML);
                     writeFile("users/" + newID + "/school.xml", xmlText, function () {
-                        login(id);
+                        createFile("users/" + newID + "/analytics-post.json", function () {
+                            createFile("users/" + newID + "/analytics.json", function () {
+                                var firstRecord = {type: "uc"};
+                                var analyticsMain = {userID: newID, records: {}};
+                                analyticsMain.records[retStamp()] = firstRecord;
+                                writeFile("users/" + newID + "/analytics.json", JSON.stringify(analyticsMain), function () {
+                                    login(newID);
+                                });
+                            });
+                        })
                     })
                 });
             })
@@ -131,7 +134,14 @@ document.addEventListener("deviceready", function () {
 
     function login(id) {
         overwriteFile("loggedIn.txt", id, function (ret) {
-            window.location.href = "school.html";
+            readFile("users/" + id + "/analytics.json", function (ret) {
+                var loginRecord = {type: "li"};
+                var analyticsMain = JSON.parse(ret);
+                analyticsMain.records[retStamp()] = loginRecord;
+                writeFile("users/" + id + "/analytics.json", JSON.stringify(analyticsMain), function () {
+                    window.location.href = "school.html";
+                });
+            });
         })
     }
 

@@ -140,7 +140,7 @@ function updateXML(schoolXML, usersXML, unitLoc, gameLoc, callback) {
     } else {
         bookName = this.gameName;
     }
-    var url = "school/" + this.subjectName + "_" + this.levelName + "_" + bookName + "/index.html";
+    var url = "school/" + this.subjectName + "/" + this.levelName + "/" + bookName + "/index.html";
 
     if (typeof overwriteFile == "undefined") {
         callback(url);

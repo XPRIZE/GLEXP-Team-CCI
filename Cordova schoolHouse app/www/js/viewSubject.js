@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 var unitSize = 79;
 document.addEventListener("deviceready", function () {
+    window.addEventListener("batterystatus", onBatteryStatus, false);
+
+    viewportFix();
     var cover = document.createElement("div");
     cover.setAttribute("id", "cover");
     document.body.appendChild(cover);
@@ -136,15 +132,21 @@ document.addEventListener("deviceready", function () {
             } else {
                 unitHTML += "<div class='unit incomplete'";
             }
-            unitHTML += " loc='" + window.schoolLoc + "/" + window.curSubject + "_" + level.name + "_" + unit.name + "/index.html' ";
-            unitHTML += " loc='" + window.schoolLoc + "/" + window.curSubject + "_" + level.name + "_" + unit.name + "/index.html' ";
+            unitHTML += " loc='" + window.schoolLoc + "/" + window.curSubject + "/" + level.name + "/" + unit.name + "/index.html' ";
+            unitHTML += " loc='" + window.schoolLoc + "/" + window.curSubject + "/" + level.name + "/" + unit.name + "/index.html' ";
             unitHTML += "subject='" + window.curSubject + "' ";
             unitHTML += "level='" + level.name + "' ";
             unitHTML += "unit='" + unit.name + "' >";
+
+            unitHTML += "<div class=starHolder>";
+            unitHTML += "<img class=smallStar src='img/smallStar.png' />";
+            unitHTML += "<img class=bigStar src='img/bigStar.png' />";
+            unitHTML += "</div>";
+
             unitHTML += "<img class=middle src=" + blankSrc + " />" +
-              "<span>" + (u + 1) + "</span>" +
-              "<img class=middle src=" + blankSrc + " />" +
-              "</div>"
+                    "<span>" + (u + 1) + "</span>" +
+                    "<img class=middle src=" + blankSrc + " />" +
+                    "</div>";
         }
         var windowWidth = ($(document).width() - 100) * 0.75; // good
         var scrollWidth = (unitSize + 8) * nextUnitNum; // good
@@ -190,10 +192,10 @@ document.addEventListener("deviceready", function () {
                     gd += gamesToMake[g];
                     var curGame = level.games[gd];
                     ret += "<img difficulties='" + gamesToMake[g] + "' class='gameIcon totGames" + totGames +
-                      "' src='" + window.schoolLoc + "/" + window.curSubject + "/icons/" + curGame.icon + "'" +
-                      " game='" + (g + 1) + "'" +
-                      " level='" + level.name + "'" +
-                      " loc='" + window.schoolLoc + "/" + window.curSubject + "_" + level.name + "_Game " + (g + 1) + "' />"
+                            "' src='" + window.schoolLoc + "/" + window.curSubject + "/icons/" + curGame.icon + "'" +
+                            " game='" + (g + 1) + "'" +
+                            " level='" + level.name + "'" +
+                            " loc='" + window.schoolLoc + "/" + window.curSubject + "/" + level.name + "/Game " + (g + 1) + "' />"
                 } else {
                     // no game
                 }
@@ -229,28 +231,11 @@ document.addEventListener("deviceready", function () {
         sub.css = "tabletBG";
         sub.rows = [];
         sub.rows.push({}); // spacer
-        var tutorialLoc = window.schoolLoc + "/" + subject.tutorial.name + "_Tutorial/index.html";
+        var tutorialLoc = window.schoolLoc + "/tutorials/" + subject.tutorial.name + "/index.html";
         sub.rows.push(headerHTML(subject.displayName, "unlocked", [["loc", tutorialLoc]]));
         sub.rows.push({}); // spacer
         sub.rows.push({}); // spacer
 
-        if (subject.tutorial) {
-            /*
-             var tut = {};
-             tut.height = window.barHeight + 2;
-             tut.cols = [];
-             tut.cols.push({gravity: 0.075}); // left margin
-             tut.cols.push({height: window.barHeight, gravity: 3, template: "<div id='tutorialCont' class='blueBox unlocked' " +
-             "loc='" + window.schoolLoc + "/" + subject.tutorial.name + "_Tutorial/index.html'" +
-             "><div style='display:table;height:100%;    width: 100%;'><h1>" + getValByTag(tutorialXML, "name") + "</h1></div></div>"}); // tut act
-             tut.cols.push({width: 50}); // hole where games would go
-             tut.cols.push({}); // hole where games would go
-             tut.cols.push({gravity: 0.075}); // right margin
-             sub.rows.push(tut);
-             sub.rows.push({});
-             */
-
-        }
         for (var l = 0; l < subject.levels.length; l++) {
             var level = subject.levels[l];
             var lvl = {};
@@ -455,10 +440,10 @@ function unitClick() {
         var loc = $(this).attr("loc");
         var unlocked = $(this).hasClass("complete");
 
-        var serverLoc = window.schoolName + "_zip/" + window.subjectName + "_" + levelName + "_" + unitName + ".zip";
+        var serverLoc = window.schoolName + "_zip/" + window.subjectName + "/" + levelName + "/" + unitName + ".zip";
         var unitLoc = [window.schoolName, window.subjectName, levelName, unitName];
         updateXML(window.xml, window.userXML, unitLoc, false, function (url) {
-            window.location.href = url;
+            checkDownloadAndGo(url);
         })
     } else {
         console.error("Error: Cannot find XML to save progress");
@@ -511,10 +496,9 @@ function gameClick(elem) {
             height: 350,
             width: 350,
             template: "<div id='gameSelector'>" +
-              starHTML +
-              "</div>"
+                    starHTML +
+                    "</div>"
         },
-
     }).show();
     var eventName = "touchend";
     if (device.platform == "browser") {
@@ -526,25 +510,6 @@ function gameClick(elem) {
         updateXML(window.xml, window.userXML, false, gameLoc, function (url) {
             window.location.href = url;
         })
-        /*
-         var gameDif = $(this).attr("id").charAt(4);
-         var url = partialLoc + " dif " + gameDif + "/index.html";
-
-         var subjectName = $(this).attr("subject");
-         var levelName = $(this).attr("level");
-         var unitName = $(this).attr("unit");
-         var loc = $(this).attr("loc");
-         var unlocked = $(this).hasClass("complete");
-
-         var serverLoc = window.schoolName + "_zip/" + window.subjectName + "_" + levelName + "_" + unitName + ".zip";
-         var unitLoc = [window.schoolName, window.subjectName, levelName, unitName];
-         updateXML(window.xml, window.userXML, unitLoc, false, function (url) {
-         window.location.href = url;
-         })
-
-         var serverLoc = window.schoolName + "_zip/" + window.subjectName + "_" + curLevel + "_Game " + gameNum + " dif " + gameDif + ".zip";
-         checkDownloadAndGo(url, serverLoc);
-         */
     });
 }
 
@@ -573,22 +538,7 @@ function saveAndGo(xml, loc, partialServerLoc, unlocked) {
     });
 }
 
-function checkDownloadAndGo(url, partialServerLoc) {
-    $.ajax({
-        type: "GET",
-        url: url,
-        dataType: "xml",
-        success: function (ret) {
-            window.location.href = url;
-        },
-        error: function () {
-            // showDownloadWindow();
-            downloadAndUnzip(partialServerLoc, "0", function () {
-                window.location.href = url;
-            })
-        }
-    });
-}
+
 
 
 function addAccentStyle(color) {
@@ -608,18 +558,18 @@ function addAccentStyle(color) {
 
     // ugly, but I'll be damned if I use sass for one stupid thing.
     $('head').append(
-      "<style>" +
-      ".blueBox, .unit.complete, .unit.next {" +
-      "\r\t border-color:" + color + ";" +
-      "\r}\r" +
-      ".blueBox, .unitsToGamesLine, .unit.complete, #starCont {" +
-      "\r\t background-color:" + color + ";" +
-      "\r}\r" +
-      ".blueBox h1, .blueBox.unlocked h2, .blueBox.unlocked h3, .unit.next span {" +
-      "\r\t color:" + color + ";" +
-      "\r}\r" +
-      "</style>"
-      )
+            "<style>" +
+            ".blueBox, .unit.complete, .unit.next {" +
+            "\r\t border-color:" + color + ";" +
+            "\r}\r" +
+            ".blueBox, .unitsToGamesLine, .unit.complete, #starCont {" +
+            "\r\t background-color:" + color + ";" +
+            "\r}\r" +
+            ".blueBox h1, .blueBox.unlocked h2, .blueBox.unlocked h3, .unit.next span {" +
+            "\r\t color:" + color + ";" +
+            "\r}\r" +
+            "</style>"
+            )
 }
 
 

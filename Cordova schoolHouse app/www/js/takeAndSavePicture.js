@@ -1,10 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 document.addEventListener("deviceready", function () {
     window.QuickCamera = function (folder, fileName, callback) {
         var THIS = this;
@@ -25,18 +18,6 @@ document.addEventListener("deviceready", function () {
         }
 
         function onPhotoDataSuccess(imageURI) {
-            // console.log("got URI");
-            // Uncomment to view the base64 encoded image data
-            // console.log(imageData);
-
-            // Get image handle
-            //
-            // var imgProfile = document.getElementById('imgProfile');
-
-            // Show the captured photo
-            // The inline CSS rules are used to resize the image
-            //
-            // imgProfile.src = imageURI;
             if (sessionStorage.isprofileimage == 1) {
                 getLocation();
             }
@@ -45,10 +26,6 @@ document.addEventListener("deviceready", function () {
 
         // Called if something bad happens.
         function onFail(message) {
-            // use default bunny pic
-            //
-            // DOESN'T WORK, because something something fucked up with the user.xml
-            // THIS.callback("default");
         }
 
         function movePic(file) {

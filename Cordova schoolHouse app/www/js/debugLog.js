@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 window.dev = false;
 window.alert = function (msg) {
     if (dev) {
@@ -13,17 +8,6 @@ window.alert = function (msg) {
         }
     }
 }
-/*
- console.log = function (msg) {
- if (dev) {
- if (webix) {
- webix.message("Log: " + msg);
- } else {
- alert("Log: " + msg);
- }
- }
- }
- */
 window.onerror = function (message, url, linenumber) {
     if (dev) {
         var script = url.split("/");
