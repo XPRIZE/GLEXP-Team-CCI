@@ -1,0 +1,33 @@
+<html>
+    <head>
+	<script>
+	    window.history.pushState('popstateListener', null, window.location.href);
+	    window.addEventListener("popstate", function (e) {
+		e.preventDefault();
+	    });
+	</script>
+	<script src="js/navHandler.js"></script>
+	<title>Cordova Download Unzip Display Sample</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<script src="cordova.js"></script>
+	<script src="js/debugLog.js"></script>
+	<link rel="stylesheet" href='css/webix.css' />
+	<link rel="stylesheet" href='css/all.css' />
+	<link rel="stylesheet" href='css/viewSchool.css' />
+        <script src="js/jquery.js"></script>
+	<script src="js/webix.js"></script>
+	<script src="js/getAbsLoc.js"></script>
+	<script src="js/readWrite.js"></script>
+	<script src="js/viewSchool.js"></script>
+	<script src="js/downloadSchool.js"></script>
+	<script src="js/checkDownloadAndGo.js"></script>
+	<script src="js/loginCheck.js"></script>
+	<script src="js/takeAndSavePicture.js"></script>
+        
+	<script src="js/analytics.js"></script>
+        <script src="js/JSONC.js"></script>
+    </head>
+    <body>
+    </body>
+</html>

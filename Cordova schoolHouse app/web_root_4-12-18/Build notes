@@ -1,0 +1,70 @@
+Move BOOK_Tutorial from bottom shelf to tutorials folder
+
+Copy books folder from last build. Copy and replace last build folder with new build folder (Keep covers.png)
+
+Encode all wavs to ogg
+
+    find -name *.wav -exec oggenc -q 3 {} \;
+    find -name *.wav -exec rm {} \;
+
+Replace good index with all bad index
+
+    find -name index.html -exec cp "unit template.html" {} \;
+    find -name index.php -exec rm {} \;
+
+New idea, remove all zips;
+    
+    find -name *.zip -exec rm {} \;
+
+Increase java memory
+
+    export _JAVA_OPTIONS="-Xmx7000m"
+
+Build
+
+    cordova build android -verbose
+
+
+ - restart
+
+cd NetBeansProjects/school/www/school &&
+find -name *.wav -exec oggenc -q 3 {} \; && 
+find -name *.wav -exec rm {} \; && 
+cd tutorials && 
+find -name index.html -exec cp "tutorial template.html" {} \; && 
+cd ../Books && 
+find -name index.html -exec cp "book template.html" {} \; && 
+cd "../Usomaji na Uandishi" && 
+find -name index.html -exec cp "unit template.html" {} \; && 
+cd "../Hisabati" && 
+find -name index.html -exec cp "unit template.html" {} \; && 
+cd ../ && 
+find -name index.php -exec rm {} \; && 
+find -name *.zip -exec rm {} \; && 
+find -name video -exec rmdir {} \; && 
+cd ../../ && 
+export _JAVA_OPTIONS="-Xmx7000m" && 
+cordova build android -verbose
+
+
+
+
+
+
+
+ONCE APP IS ON DEVICE
+
+adb devices
+adb shell
+dpm set-device-owner com.cci.SchoolHouse/.MyAdmin
+
+
+
+
+
+
+
+
+
+
+
