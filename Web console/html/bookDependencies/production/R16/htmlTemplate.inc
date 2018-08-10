@@ -7,7 +7,6 @@ $template = '<html>
 <meta http-equiv="expires" content="0" />
 <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 <meta http-equiv="pragma" content="no-cache" />
-<!--<script src="https://getfirebug.com/firebug-lite-debug.js"></script>-->
 <script src="MainXML.js"></script>
 <link rel="stylesheet" href="/script/style.css"></link>
 <script src="/script/jquery.min.js"></script>
