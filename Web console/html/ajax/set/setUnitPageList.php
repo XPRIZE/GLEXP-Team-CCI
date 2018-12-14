@@ -1,11 +1,6 @@
 <?php
+require_once("../../config.php");
 
-/**
- 
- * User: Jason
- * Date: 8/26/2016
- * Time: 5:00 PM
- */
 $unit = $_GET['unitName'];
 $school = $_GET['schoolName'];
 $pageSet = $_GET['pageObj'];

@@ -1,0 +1,94 @@
+DOWNLOAD APK
+
+console.pubbly.com/downloads/submittal/SchoolHouse_3-23-18.apk
+
+Build from APK
+
+* Flash stock Android 7 roms
+* Go through setup wizard. 
+	Setup as new device
+	Do not connect to internet
+	Set time to GMT+03:00 (Moscow)
+	Name is "CCI Xprize"
+	No unlock method
+	Turn all "Help out google" stuff off
+	All setup
+* Delete all apps from homescreen
+
+TABLET SETUP
+
+* Tap Google search bar at top of homescreen. "Close" Help build a better keyboard prompt.
+* Go to 6 dots (bottom homescreen), and "Settings". From within settings...
+---
+* Screen lock -> None
+* Wifi -> Add Network -> Manually fill out WE WORK Wifi Credentials
+
+// In house testing
+	SSID: WeWork
+	Security: WPA
+	Password: P@ssw0rd
+
+// External testing
+	SSID: RT-AC66U_B1_C0_5G
+	Security: both
+	Password: ht32EAgM3725		
+
+// Field
+	SSID: XPRIZE
+	Security: none
+	Password: 
+		
+			
+* Display -> Turn on Adaptive Brightness
+		-> Sleep after 10 minutes
+		-> When device is rotated: Stay in current orientation (landscape)
+* Security -> Unknown Sources -> Allow
+* Languages and Input -> Spell checker -> Off
+* About tablet -> Tap build number 7 times for developer options
+* Developer options -> Allow USB Debugging
+
+
+INSTALL APP
+
+* Connect to computer
+* Swipe down from top, change android "charge this device" to "transfer files"
+* Allow USB debugging
+* Transfer APK from computer to device
+* On device, go to Files->Pixel C
+* Launch SchoolHouse.apk
+* Next next, install install, after installation choose "Done" NOT "Launch"
+* Move SchoolHouse icon from 6 dots to homescreen top left.
+* Launch
+
+SETUP APP PERMISSIONS
+
+* Screen is pinned: No thanks
+* In app, take a User profile pic and "Allow access to photos, files"
+* Allow Camera to access device location
+* Go to book shelf, middle book, Kwa Nini Viboko... (hippo book)
+* Press record button and "Allow SchoolHouse to record"
+* Square button, close the app
+
+DELETE DATA
+
+* Go to Files->Pixel C
+* Delete android_asset... (Recording from hippo book)
+* Flash TWRP, manually delete users.xml, reflash stock recovery
+	NOTE: Long and annoying. Only necessary to remove user account used to OK permissions. Not necessary for internal testing. 
+
+ALLOW LOCKED Screen
+
+* On computer, ensure adb is connected by issuing
+	adb devices
+	response -- {SerialNumber}    device
+* Enter shell
+	adb shell
+	response -- dragon:/ $
+* Set SchoolHouse as admin
+	dpm set-device-owner com.cci.schoolHouse/.MyAdmin
+	response -- Success: Something something, who cares, success...
+	
+* Square button on tablet, close all apps.
+* Launch Pubbly from homescreen. Screen will pin.
+	
+DEVICES IS READY TO GENERATE TWRP IMAGES

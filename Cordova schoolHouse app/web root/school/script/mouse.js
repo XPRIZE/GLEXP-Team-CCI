@@ -770,7 +770,7 @@ function actionCheck(page, mX, mY, isHover, isDrag) {
                         mMode = "nav";
                         // linkName is the link accepting the line, NOT the link that started the line
                         lineAccept(page, lineStartPos, pos, lineFrom);
-                    } else if (isDrag) {
+                    } else if (isDrag && actionArr[hit].action.substr(0,4).toLowerCase() == "drop") {
                         // It's a mouse up, it's a drag.
                         if (!curSequence) {
                             hoverMouse(false);
@@ -2180,14 +2180,16 @@ function gotoChange(page, ident) {
         window.location.href = "game.html";
     } else if (performanceSwitch) {
         urlVars["cur"];
+		var breakLoc = (typeof defaultPageLoadBreak == "undefined") ? 
+			8 : defaultPageLoadBreak
         var newVars = "";
         var newStart = 1;
-        while (newStart + 8 <= gotoPage) {
-            newStart += 8;
+        while (newStart + breakLoc <= gotoPage) {
+            newStart += breakLoc;
         }
 
         newVars += "start=" + (newStart);
-        newVars += "&end=" + (newStart + 7);
+        newVars += "&end=" + (newStart + (breakLoc - 1));
         newVars += "&cur=" + (gotoPage);
 
         window.location.href = window.location.href.split("?")[0] + "?" + newVars;

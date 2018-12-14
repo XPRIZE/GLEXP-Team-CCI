@@ -1,4 +1,5 @@
 <?php
+require_once("../../config.php");
 
 $oldName = isset($_GET['oldName']) ? $_GET['oldName'] : false;
 $newName = isset($_GET['newName']) ? $_GET['newName'] : false;

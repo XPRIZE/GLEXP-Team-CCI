@@ -1,5 +1,5 @@
 function retStamp() {
-    return parseInt(Date.now() / 1000).toString().slice(2);
+    return parseInt(Date.now()).toString();
 }
 
 function Analytics() {
@@ -8,7 +8,7 @@ function Analytics() {
     this.fullObj = {};
 
     this.retStamp = function () {
-        var now = parseInt(Date.now() / 1000).toString().slice(2);
+        var now = parseInt(Date.now()).toString();
         return now;
 
         // to reverse
@@ -22,7 +22,8 @@ function Analytics() {
         var subject = url.pop();
         login(function (uid) {
             readFile("users/" + uid + "/analytics.json", function (ret) {
-                var name = uid + "-" + subject + "-" + book + "-analitics-" + self.retStamp() + "";
+                // var name = uid + "-" + window.location.pathname + "-analytics-" + self.retStamp() + "";
+                var name = uid + "-" + window.location.pathname + "-analytics-" + self.retStamp() + "";
                 self.fName = "users/" + btoa(name) + ".json";
                 var bookOpenLoc = {type: "bo", recordLoc: self.fName};
                 var analyticsMain = JSON.parse(ret);
@@ -40,7 +41,7 @@ function Analytics() {
             });
         }, function (err) {
             console.log(err);
-            var name = "anon" + "-" + subject + "-" + book + "-analitics-" + self.retStamp() + "";
+            var name = "anon" + "-" + window.location.pathname + "-analytics-" + self.retStamp() + "";
             self.fName = "users/" + btoa(name) + ".json";
             self.add({
                 type: "book open",

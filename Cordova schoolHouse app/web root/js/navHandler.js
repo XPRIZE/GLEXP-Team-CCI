@@ -1,4 +1,3 @@
-window.navPressed = false;
 function navHandler() {
     var road = {
         welcome: "exit",
@@ -16,21 +15,7 @@ function navHandler() {
                 var cur = loc.pop();
                 cur = cur.split(".")[0];
                 if (road[cur] == "exit") {
-                    // using different plugin.
-                    //if (window.confirm("To exit kiosk mode, press OK. When prompted to select a home app, select 'Pixel launcher'. Once there, uninstall pubbly. (enabled for development only)")) {
-//                    testing = false;
-//                    if (testing) {
-//                        if (KioskPlugin) {
-//                            KioskPlugin.exitKiosk();
-//                        }
-//                        if (navigator.app) {
-//                            navigator.app.exitApp();
-//                        } else {
-//                            navigator.device.exitApp();
-//                        }
-//                    } else {
                     window.location.href = window.location.href;
-//                    }
                 } else if (road[cur]) {
                     window.location.href = road[cur] + ".html";
                 } else {

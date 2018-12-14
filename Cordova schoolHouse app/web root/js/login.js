@@ -112,7 +112,7 @@ document.addEventListener("deviceready", function () {
             }
             xml.getElementsByTagName("users")[0].appendChild(user);
             var xmlText = new XMLSerializer().serializeToString(xml);
-            overwriteFile("users.xml", xmlText, function (ret) {
+            overwriteFileSafe("users.xml", xmlText, function (ret) {
                 createFile("users/" + newID + "/school.xml", function () {
                     var xmlText = new XMLSerializer().serializeToString(window.schoolXML);
                     writeFile("users/" + newID + "/school.xml", xmlText, function () {

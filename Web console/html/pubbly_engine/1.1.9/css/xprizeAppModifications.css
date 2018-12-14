@@ -1,0 +1,14 @@
+body {
+    background-color: black; 
+    overflow:hidden;
+}
+
+#main {
+    overflow: hidden; }
+#main div {
+    overflow:hidden;
+}
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+/*# sourceMappingURL=xprizeAppModifications.css.map */

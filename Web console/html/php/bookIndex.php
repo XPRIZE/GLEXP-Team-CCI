@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Created by PhpStorm.
+ * User: Jason
+ * Date: 6/22/2016
+ * Time: 4:28 PM
+ */
 function createBook($seriesName, $childName) {
     include("version.inc");
 
@@ -39,10 +45,15 @@ function createBook($seriesName, $childName) {
 	'bookBugs.js',
 	'bookFonts.js',
 	'fileUploader.js',
+	// thanks chris (apach2) thanks matt (mit)
+	'recorderMain.js',
+	'audiodisplay.js',
+	'recorderjs/recorder.js',
+	'recorderjs/recorderWorker.js',
     ];
     $styles = ['style.css', 'initialProgressGraph.css'];
     foreach ($scripts as $script) {
-	$indexHTML = $indexHTML . '<script src = "' . $scriptLoc . $script . '"></script>';
+	$indexHTML = $indexHTML . '<script src = "' . $scriptLoc . $script . '?' . rand(1,9999) . '"></script>';
     }
     foreach ($styles as $style) {
 	$indexHTML = $indexHTML . '<link rel="stylesheet" href="' . $scriptLoc . $style . '"></link>';
@@ -204,7 +215,7 @@ function createUnit() {
     ];
     $styles = ['style.css', 'initialProgressGraph.css'];
     foreach ($scripts as $script) {
-	$indexHTML = $indexHTML . '<script src="' . $scriptLoc . $script . '"></script>';
+	$indexHTML = $indexHTML . '<script src = "' . $scriptLoc . $script . '?' . rand(1,9999) . '"></script>';
     }
     foreach ($styles as $style) {
 	$indexHTML = $indexHTML . '<link rel="stylesheet" href="' . $scriptLoc . $style . '"></link>';

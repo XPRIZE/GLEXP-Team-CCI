@@ -21,23 +21,26 @@ function createFile(name, callback) {
     }
 }
 function clearFile(fileName, callback) {
-    var callback = callback;
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
-        fileSystem.root.getFile(fileName, {create: false}, function (fileEntry) {
-            fileEntry.createWriter(function (writer) {
-                writer.onwriteend = function (evt) {
-                    callback();
-                }
-                writer.truncate(0);
-            }, function () {
-                callback();
-            });
-        }, function () {
-            callback();
-        });
-    }, function () {
-        console.log("Error: Getting file system failed");
-    });
+    callback();
+    /*
+     var callback = callback;
+     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+     fileSystem.root.getFile(fileName, {create: false}, function (fileEntry) {
+     fileEntry.createWriter(function (writer) {
+     writer.onwriteend = function (evt) {
+     callback();
+     }
+     writer.truncate(0);
+     }, function () {
+     callback();
+     });
+     }, function () {
+     callback();
+     });
+     }, function () {
+     console.log("Error: Getting file system failed");
+     });
+     */
 }
 function writeFile(name, what, callback) {
     var type = window.PERSISTENT;
@@ -70,11 +73,30 @@ function writeFile(name, what, callback) {
 function readFile(name, callback) {
     if (device.platform == "browser") {
         $.get(name, function (data) {
-            if (name.split(".")[1] == "xml") {
-                var str = new XMLSerializer().serializeToString(data);
-                callback(str);
+            if (data == "") {
+                console.error("Error: Empty file, attempting restore");
+                $.get(name + ".old", function (data) {
+                    if (data == "") {
+                        console.error("Error: Empty file");
+                        callback(false);
+                    } else {
+                        if (name.split(".")[1] == "xml") {
+                            var str = new XMLSerializer().serializeToString(data);
+                            callback(str);
+                        } else {
+                            callback(data);
+                        }
+                    }
+                }).fail(function () {
+                    callback(false);
+                });
             } else {
-                callback(data);
+                if (name.split(".")[1] == "xml") {
+                    var str = new XMLSerializer().serializeToString(data);
+                    callback(str);
+                } else {
+                    callback(data);
+                }
             }
         }).fail(function () {
             callback(false);
@@ -120,11 +142,24 @@ function deleteFile(name, callback) {
     });
 }
 function overwriteFile(fileName, what, callback) {
-    clearFile(fileName, function () {
-        writeFile(fileName, what, function () {
-            callback();
-        })
-    })
+    writeFile(fileName, what, function () {
+        callback();
+    });
+}
+function overwriteFileSafe(fileName, what, callback) {
+    readFile(fileName, function (oldData) {
+        if (oldData == "") {
+            writeFile(fileName, what, function () {
+                callback();
+            })
+        } else {
+            writeFile(fileName + ".old", oldData, function () {
+                writeFile(fileName, what, function () {
+                    callback();
+                })
+            })
+        }
+    });
 }
 function checkDirectory(folderPath, callback) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
@@ -138,6 +173,33 @@ function checkDirectory(folderPath, callback) {
 
 document.addEventListener("deviceready", function () {
     /*
+     
+     window.fileWriteHold = function () {
+     let THIS = this;
+     this.hold = false;
+     this.holding = false;
+     this.startKey = "";
+     this.start = function (key) {
+     if (THIS.holding) {
+     console.error("Another hold in progress");
+     } else {
+     THIS.startKey = key;
+     THIS.holding = true;
+     THIS.hold = window.setTimeout(function () {
+     THIS.holding = false;
+     }, 10000);
+     }
+     }
+     this.end = function (key) {
+     if (THIS.startKey == key) {
+     THIS.holding = false;
+     window.clearTimeout(THIS.hold);
+     } else {
+     console.error("Key mismatch");
+     }
+
+     }
+     }
      createFile("log.txt", function () {
      writeFile("log.txt", "aa", function () {
      readFile("log.txt", function (ret) {

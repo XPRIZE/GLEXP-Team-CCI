@@ -1,17 +1,17 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 7/7/2016
- * Time: 2:19 PM
- */
 
-include('../includes/loginCheck.php');
-if (loginCheck() === true) {
-    header("Location: selectSeries.php");
+require("config.php");
+require(CLASS_ROOT . "/html_fragment.php");
+$errors = (isset($_GET['errors'])) ? $_GET['errors'] : "";
+if (ENVIRONMENT === "sandbox") {
+    $frag = new Html_fragment("html/register_with_conditions.html", [
+        ["ERROR_LIST", $errors],
+    ]);
 } else {
-    $html = file_get_contents('html/register.html');
-    echo $html;
+    $frag = new Html_fragment("html/register.html", [
+        ["ERROR_LIST", $errors],
+    ]);
 }
 
+$frag->echoOut();
 ?>

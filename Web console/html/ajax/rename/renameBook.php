@@ -1,10 +1,6 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 8/24/2016
- * Time: 2:01 PM
- */
+require_once("../../config.php");
+
 
 $id = isset($_GET['id']) ? $_GET['id'] : false;
 $name = isset($_GET['name']) ? $_GET['name'] : false;

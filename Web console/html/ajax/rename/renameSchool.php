@@ -1,4 +1,5 @@
 <?php
+require_once("../../config.php");
 
 $oldName = isset($_GET['oldName']) ? $_GET['oldName'] : false;
 $newName = isset($_GET['newName']) ? $_GET['newName'] : false;
@@ -14,12 +15,16 @@ if (!$oldName && !$newName) {
     $sqlObj->bind_param('ss', $newName, $oldName);
     $sqlObj->execute();
     rename("../schools/$oldName", "../schools/$newName");
+    if (is_dir("../program/$oldName")) {
+        rename("../program/$oldName", "../program/$newName");
+    }
 
-    include("../php/saveXML.php");
-    $xml = simplexml_load_file("../schools/$newName/school.xml");
-    $xml->name = $newName;
-    saveXML($xml, "../schools/$newName/school.xml");
-
+    /*
+      include("../php/saveXML.php");
+      $xml = simplexml_load_file("../schools/$newName/school.xml");
+      $xml->name = $newName;
+      saveXML($xml, "../schools/$newName/school.xml");
+     */
     echo "done";
 }
 ?>

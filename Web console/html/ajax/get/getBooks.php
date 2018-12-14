@@ -1,10 +1,5 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 8/24/2016
- * Time: 3:37 PM
- */
+require_once("../../config.php");
 
 chdir('../');
 $ret = [];
@@ -12,7 +7,7 @@ $returnType = isset($_GET['return']) ? $_GET['return'] : "datagrid";
 include('../../includes/dbConnect.php');
 $con = new DBConnect();
 $sql = $con->mysqli;
-$stmt = $sql->prepare("SELECT ID, `name`, `longname`, pages FROM books ORDER BY `name` ASC");
+$stmt = $sql->prepare("SELECT ID, `name`, `longname`, folder, pages FROM books ORDER BY `name` ASC");
 $stmt->execute();
 if ($result = $stmt->get_result()) {
     /* fetch associative array */

@@ -1,17 +1,8 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 6/15/2016
- * Time: 4:57 PM
- */
-include('../includes/secSession.php');
-sec_session_start();
-$_SESSION['userBrowser'] = false;
-$_SESSION['username'] = false;
-$_SESSION['loginString'] = false;
-session_unset();
 
-header("location:selectSeries.php");
-
-?>
+require_once("config.php");
+require_once(WEB_ROOT . "/php/main.php");
+require_once(CLASS_ROOT . "/sec_session.php");
+$session = new Sec_session();
+$session->clear();
+header("Location: login.php");

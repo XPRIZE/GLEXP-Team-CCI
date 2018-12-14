@@ -1,0 +1,396 @@
+#header {
+  padding-bottom: 10px;
+  font-family: "vag", sans-serif; }
+  #header #title {
+    display: inline-block;
+    vertical-align: middle;
+    /* NO MARGINS cause it messes up the vert middle */
+    margin: 0;
+    color: white;
+    font-family: "vag", sans-serif;
+    /*font-size:2em;*/
+    font-size: 1.25em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    max-height: 2.2em;
+    /* max width calc 100% - something maybe? */
+    max-width: calc(100% - 150px);
+    overflow: hidden; }
+  #header .navigationUI {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    float: right; }
+    #header .navigationUI .previous, #header .navigationUI .next {
+      display: inline-block;
+      margin: 0 7;
+      /* 7 */
+      vertical-align: middle;
+      height: 21;
+      /*21*/
+      width: 21;
+      /*21*/
+      cursor: hand; }
+    #header .navigationUI .previous img, #header .navigationUI .next img {
+      height: 21;
+      /*21*/
+      width: 21;
+      /*21*/
+      position: absolute;
+      content: url("../../shared/UI/arrowLeft.png");
+      z-index: 10;
+      opacity: 1; }
+    #header .navigationUI .previous.disabled img, #header .navigationUI .next.disabled img,
+    #header .navigationUI .previous.noTurn img, #header .navigationUI .next.noTurn img {
+      opacity: 0.5; }
+    #header .navigationUI .next img {
+      /* Flipped to save that extra 1kb of load */
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+      filter: FlipH;
+      -ms-filter: "FlipH"; }
+    #header .navigationUI .goto {
+      display: inline-block; }
+      #header .navigationUI .goto p.cover {
+        width: 80;
+        /*color:#5AACC5;*/
+        color: white;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        padding: 0;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        background-color: RGBA(0, 0, 0, 0);
+        font-size: 1.25em;
+        padding-top: 4; }
+      #header .navigationUI .goto select {
+        width: 143;
+        margin-left: -31.5;
+        height: 21;
+        margin-top: -21;
+        position: absolute;
+        cursor: hand;
+        opacity: 0; }
+      #header .navigationUI .goto option {
+        width: 100%;
+        color: #5AACC5;
+        font-size: x-large;
+        opacity: 100; }
+    #header .navigationUI .goto.disabled p.cover {
+      color: grey; }
+
+.cursor-grabbing {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing; }
+
+.cursor-grab {
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab; }
+
+.cursor-cell {
+  cursor: cell; }
+
+.cursor-default {
+  cursor: default; }
+
+.cursor-crosshair {
+  cursor: crosshair; }
+
+.cursor-text {
+  cursor: text; }
+
+.cursor-pointer {
+  cursor: pointer; }
+
+.cursor-no-drop {
+  cursor: no-drop; }
+
+.cursor-wait {
+  cursor: wait; }
+
+.cursor-progress {
+  cursor: progress; }
+
+.cursor-chalk {
+  cursor: url("../../shared/cursors/chalk.png"), auto; }
+
+.cursor-eraser {
+  cursor: url("../../shared/cursors/eraser.png"), auto; }
+
+.cursor-marker {
+  cursor: url("../../shared/cursors/marker.png"), auto; }
+
+.cursor-pen {
+  cursor: url("../../shared/cursors/pen.png"), auto; }
+
+.cursor-pencil {
+  cursor: url("../../shared/cursors/pencil.png"), auto; }
+
+@font-face {
+  font-family: "vag";
+  src: url("../../shared/fonts/vag.oft") format("openstyle");
+  font-family: 'vag';
+  font-style: normal;
+  font-weight: normal;
+  font-size: large;
+  src: local("?"), url("../../shared/fonts/vag.oft") format("openstyle"), url("../../shared/fonts/vag.woff") format("woff"), url("../../shared/fonts/vag.ttf") format("truetype"); }
+body {
+  margin: 0; }
+
+#main {
+  background-image: url("../../shared/logos/pubbly_background_logo.png");
+  background-size: cover;
+  background-width: 100%; }
+
+#pubbly_main {
+  padding: 15px;
+  border-radius: 15px;
+  background-color: RGB(34, 34, 34);
+  opacity:0
+  /* Header */
+  /* TODO: Alt styling for books < 300 px */
+  /* Canvases */
+  /* For single page display, all animations are done with CSS (better performance) */
+  /* Footer */ }
+  #pubbly_main #header {
+    padding-bottom: 10px;
+    font-family: "vag", sans-serif; }
+    #pubbly_main #header #title {
+      display: inline-block;
+      vertical-align: middle;
+      /* NO MARGINS cause it messes up the vert middle */
+      margin: 0;
+      color: white;
+      font-family: "vag", sans-serif;
+      /*font-size:2em;*/
+      font-size: 1.25em;
+      font-weight: 800;
+      letter-spacing: 2px;
+      max-height: 2.2em;
+      /* max width calc 100% - something maybe? */
+      max-width: calc(100% - 150px);
+      overflow: hidden; }
+    #pubbly_main #header .navigationUI {
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+      float: right; }
+      #pubbly_main #header .navigationUI .previous, #pubbly_main #header .navigationUI .next {
+        display: inline-block;
+        margin: 0 7;
+        /* 7 */
+        vertical-align: middle;
+        height: 21;
+        /*21*/
+        width: 21;
+        /*21*/
+        cursor: hand; }
+      #pubbly_main #header .navigationUI .previous img, #pubbly_main #header .navigationUI .next img {
+        height: 21;
+        /*21*/
+        width: 21;
+        /*21*/
+        position: absolute;
+        content: url("../../shared/UI/arrowLeft.png");
+        z-index: 10;
+        opacity: 1; }
+      #pubbly_main #header .navigationUI .previous.disabled img, #pubbly_main #header .navigationUI .next.disabled img,
+      #pubbly_main #header .navigationUI .previous.noTurn img, #pubbly_main #header .navigationUI .next.noTurn img {
+        opacity: 0.5; }
+      #pubbly_main #header .navigationUI .next img {
+        /* Flipped to save that extra 1kb of load */
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH"; }
+      #pubbly_main #header .navigationUI .goto {
+        display: inline-block; }
+        #pubbly_main #header .navigationUI .goto p.cover {
+          width: 80;
+          /*color:#5AACC5;*/
+          color: white;
+          display: inline-block;
+          vertical-align: middle;
+          text-align: center;
+          padding: 0;
+          border: 0;
+          margin: 0;
+          padding: 0;
+          background-color: RGBA(0, 0, 0, 0);
+          font-size: 1.25em;
+          padding-top: 4; }
+        #pubbly_main #header .navigationUI .goto select {
+          width: 143;
+          margin-left: -31.5;
+          height: 21;
+          margin-top: -21;
+          position: absolute;
+          cursor: hand;
+          opacity: 0; }
+        #pubbly_main #header .navigationUI .goto option {
+          width: 100%;
+          color: #5AACC5;
+          font-size: x-large;
+          opacity: 100; }
+      #pubbly_main #header .navigationUI .goto.disabled p.cover {
+        color: grey; }
+  #pubbly_main .loader {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    z-index: 10;
+    top: 0;
+    left: 0; }
+  #pubbly_main #assetVisitorCenter {
+    display: none; }
+    #pubbly_main #assetVisitorCenter * {
+      display: none; }
+  #pubbly_main .logo {
+    float: right;
+    content: url("../../shared/logos/Pubbly_logo_pwered20px.png");
+    height: 20px; }
+  #pubbly_main #canvases {
+    overflow: hidden; }
+    #pubbly_main #canvases #cancover {
+      /* For overflow hidden on abs readerren */
+      position: absolute;
+      overflow: hidden;
+      /* height and width set in main.js to whatever is read in xml */ }
+      #pubbly_main #canvases #cancover .canPlacer {
+        pointer-events: none;
+        position: absolute; }
+      #pubbly_main #canvases #cancover canvas {
+        background-color: white; }
+      #pubbly_main #canvases #cancover .bufferCanvas {
+        display: none;
+        background-color: RGBA(0, 0, 0, 0); }
+  #pubbly_main #canvases.singlePage div.previous {
+    margin-left: -100%; }
+  #pubbly_main #canvases.singlePage div.current {
+    margin-left: 0%; }
+  #pubbly_main #canvases.singlePage div.next {
+    margin-left: 100%; }
+  #pubbly_main #canvases.composite canvas {
+    height: 100%; }
+  #pubbly_main #canvases.composite div {
+    overflow: hidden; }
+  #pubbly_main #canvases.composite div.current {
+    width: 100%;
+    margin-left: 0%; }
+  #pubbly_main #canvases.composite div.current.cover {
+    width: 50%;
+    margin-left: 25%; }
+  #pubbly_main #canvases.composite div.currentSpreadLeft, #pubbly_main #canvases.composite div.currentSpreadRight {
+    margin-left: 100%; }
+  #pubbly_main #canvases.composite div.next, #pubbly_main #canvases.composite div.nextSpreadLeft, #pubbly_main #canvases.composite div.nextSpreadRight {
+    margin-left: 100%; }
+  #pubbly_main #canvases.composite div.previous, #pubbly_main #canvases.composite div.previousSpreadLeft, #pubbly_main #canvases.composite div.previousSpreadRight {
+    margin-left: -100%; }
+  #pubbly_main #footer {
+    padding-top: 15px; }
+
+.clearfix {
+  clear: both; }
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+                   /* Non-prefixed version, currently
+supported by Chrome and Opera */ }
+
+.transformCenterCont {
+  position: relative;
+  height: 100%;
+  width: 100%; }
+  .transformCenterCont .transformCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+
+div#fatal {
+  width: 150px;
+  padding: 15px;
+  border-radius: 15px;
+  margin: auto;
+  margin-top: 25px;
+  background-color: RGBA(20, 20, 20, 0.2); }
+  div#fatal * {
+    text-align: center;
+    width: 100%; }
+
+/* Common bullshit */
+/* Like how to you center things in css? Do you know? You don't you big liar, no on knows */
+.tableCenterCont {
+  display: table;
+  height: 100%;
+  width: 100%; }
+  .tableCenterCont .tableCenter {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle; }
+
+.flexCenterCont {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; }
+  .flexCenterCont .flexCenter {
+    flex: none; }
+
+/* Cursor bullshit */
+/* SOMETIMES you have to put a moz in front, and you can't do more than one in jquery. So class to cursor and maybe we use this some other way in da future */
+.cursor-grabbing {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing; }
+
+.cursor-grab {
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab; }
+
+.cursor-cell {
+  cursor: cell; }
+
+.cursor-default {
+  cursor: default; }
+
+.cursor-crosshair {
+  cursor: crosshair; }
+
+.cursor-text {
+  cursor: text; }
+
+.cursor-pointer {
+  cursor: pointer; }
+
+.cursor-no-drop {
+  cursor: no-drop; }
+
+.cursor-wait {
+  cursor: wait; }
+
+.cursor-progress {
+  cursor: progress; }
+
+/*# sourceMappingURL=main.css.map */

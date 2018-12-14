@@ -1,11 +1,6 @@
 <?php
+require_once("../../config.php");
 
-/**
- 
- * User: Jason
- * Date: 8/19/2016
- * Time: 10:04 AM
- */
 $requestSchool = isset($_GET["school"]) ? $_GET["school"] : false;
 $requestSubject = isset($_GET["subject"]) ? $_GET["subject"] : false;
 $requestLevel = isset($_GET["level"]) ? $_GET["level"] : false;

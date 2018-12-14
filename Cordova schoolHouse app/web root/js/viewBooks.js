@@ -1,6 +1,8 @@
 document.addEventListener("deviceready", function () {
-    window.addEventListener("batterystatus", onBatteryStatus, false);
-    
+    if (typeof Analytics !== "undefined") {
+        window.AnalyticHandler = new Analytics();
+    }
+
     ready();
 });
 // Tester
@@ -28,12 +30,12 @@ function ready() {
         var rabbitTut = getValByTag(bookRoot, "rabbitLoc");
         var shelves = bookRoot.getElementsByTagName("level");
         var shelvesHTML = "<div id='leftFog'></div>" +
-                "<div id='leftStop'></div>" +
-                "<div id='rightFog'></div>" +
-                "<div id='rightStop'></div>" +
-                "<img id='rabbit' src='" + window.schoolLoc + "/icons/" + rabbitPic + "' loc='" + window.schoolLoc + "/tutorials/" + rabbitTut + "/index.html' />" +
-                "<div class='spacer' ></div>" +
-                "<div class='spacer' ></div>";
+          "<div id='leftStop'></div>" +
+          "<div id='rightFog'></div>" +
+          "<div id='rightStop'></div>" +
+          "<img id='rabbit' src='" + window.schoolLoc + "/icons/" + rabbitPic + "' loc='" + window.schoolLoc + "/tutorials/" + rabbitTut + "/index.html' />" +
+          "<div class='spacer' ></div>" +
+          "<div class='spacer' ></div>";
         for (var s = 0; s < shelves.length; s++) {
             var shelf = shelves[s];
             var shelfName = getValByTag(shelf, "name");
@@ -58,7 +60,7 @@ function ready() {
 
         window.setTimeout(function () {
             attachEvents();
-        }, 250);
+        }, 400);
 
     }
 
@@ -124,7 +126,7 @@ function ready() {
             mainMax = Math.max($(this).find(".slider").width(), mainMax);
             scrollMax = Math.min($(this).width() - $(this).find(".slider").width() - 25, scrollMax);
         });
-        $("#main").css("width", mainMax + "px");
+        $("#main").css("width", (mainMax + 300) + "px");
 
         $("#main").on(moveEvt, function (e) {
             if (mDown) {
@@ -132,7 +134,7 @@ function ready() {
                 var mod = ex - mStart[0];
                 var speed = 2;
                 mod *= speed;
-               
+
                 var lastMod = $("#main").attr("modLeft") || 0;
                 mod += 1 * lastMod; // cast to num
                 if (mod >= 0) {

@@ -1,10 +1,5 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 8/26/2016
- * Time: 11:10 AM
- */
+require_once("../../config.php");
 
 $seriesName = $_GET['seriesName'];
 $ret = [];

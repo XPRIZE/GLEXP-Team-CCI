@@ -1,10 +1,5 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 6/15/2016
- * Time: 3:01 PM
- */
+
 function sec_session_start()
 {
     $session_name = 'PubblySecure';
@@ -22,6 +17,6 @@ function sec_session_start()
         $httponly);
     session_name($session_name);
     session_start();
-    session_regenerate_id(true);
+    session_regenerate_id(false);
 }
 ?>

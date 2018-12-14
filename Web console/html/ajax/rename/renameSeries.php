@@ -1,10 +1,5 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 6/30/2016
- * Time: 10:43 AM
- */
+require_once("../../config.php");
 
 chdir('../');
 $oldName = $_GET['oldName'];

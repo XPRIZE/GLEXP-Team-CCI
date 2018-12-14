@@ -1,3 +1,29 @@
+/* Ugly overrides for better placement, because the grid dream never came true */
+
+div[subject='Usomaji na Uandishi'] {	
+	position: absolute;
+    left: calc(640px - 110px - 320px);
+    top: 461px;
+    height: 220px;
+    width: 220px;
+}
+div[subject='Hisabati'] {	
+	position: absolute;
+    left: calc(640px - 110px + 320px);
+    top: 461px;
+    height: 220px;
+    width: 220px;
+}
+div[subject='Epic Quest'] {
+	position: absolute;
+    left: calc(640px - 80px);
+    top: 340px;
+    height: 160px;
+    width: 160px;
+}
+
+
+
 body {
     margin:0;
     padding:0;

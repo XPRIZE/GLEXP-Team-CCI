@@ -1,0 +1,3 @@
+ID 5: Fourth Little Pig
+    Objects don't reset: -- fixed
+        Needed to add new target of Reset object.

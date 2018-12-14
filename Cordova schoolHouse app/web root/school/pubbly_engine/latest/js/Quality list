@@ -1,0 +1,80 @@
+List of scripts  I'd use on a resume
+
+Build
+Run
+Shared
+Utility
+    filePathManupulations.js
+    redrawDependency.js
+    mergeObjWithDefaults.js
+    variableFrameRateInt.js
+
+
+
+
+Things to check for, to ensure script is actually good.
+
+ES6 skeleton match
+
+>>> Example file
+/* Block Comment Here
+ * Describe what the class is
+ * How it can be used
+ * What it requires
+ * Anything else I'd need to know if I was a first time looker
+ * 
+ * Keep code in the block, netbeans won't mess up format
+ */
+
+// Class name 
+//      Either Pubbly... (if directly related to pubbly)
+//      Or "SpecificName" (if reusable elsewhere)
+class ExampleClass {
+    // 30 lines each, does exactly what it says it does.
+    method1() {
+        if (errorCheck) {
+            console.error("PubblyExampleClass.method2: Error message here");
+        }   else    {
+            if (warningCheck) {
+                console.warn("PubblyExampleClass.method2: Error warning here");
+            }
+            // Do the stuff
+        }
+    }
+    // 30 lines, very little logic, mostly just call this call that.
+    method2_dispatch() {
+        if (checkForErrors) {
+            console.error("ExampleClass.method2_dispatch: message");
+        }   else    {
+            this.doThisThing();
+            this.doThisOtherThing();
+            this.callThisThirdThing({
+                done: this.finalCall(cb.done),
+                fail: this.errorCall(message)
+            });
+        }
+    }
+    constructor(arg1, arg2) {
+        // Move over the arguments
+        this.arg1 = arg1;
+        this.arg2 = arg2;
+        
+        // Bind the methods
+        this.method1 = this.method1.bind(this);
+        this.method2 = this.method2.bind(this);
+
+        // Constructor logic here (Keep under 30 lines)
+    }
+}
+// NOTHING ELSE
+<<< End example
+
+Class name descriptive
+Method names descriptive
+All methods (and constructor) under 30 lines
+Methods bound in constructor
+Errors and warnings show origin
+Top block comment present
+Top block describes how to use
+Required helpers/classes in top block
+isThing for boolean returns or getThing for string/number/obj returns

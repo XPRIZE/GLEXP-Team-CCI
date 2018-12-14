@@ -1,11 +1,5 @@
 <?php
-
-/**
- 
- * User: Jason
- * Date: 11/8/2016
- * Time: 4:33 PM
- */
+require_once("../../config.php");
 chdir('../');
 require('../../includes/loginCheck.php');
 require('../php/setSchoolXML.php');

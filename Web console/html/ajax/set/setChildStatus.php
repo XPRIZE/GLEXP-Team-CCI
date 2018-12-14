@@ -1,10 +1,6 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 7/2/2016
- * Time: 3:54 PM
- */
+require_once("../../config.php");
+
 
 chdir('../');
 $seriesName = $_GET['seriesName'];

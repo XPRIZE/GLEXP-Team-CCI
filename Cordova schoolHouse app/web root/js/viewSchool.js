@@ -1,5 +1,7 @@
 document.addEventListener("deviceready", function () {
-    window.addEventListener("batterystatus", onBatteryStatus, false);
+    if (typeof Analytics !== "undefined") {
+        window.AnalyticHandler = new Analytics();
+    }
 
     viewportFix();
     login(function (userID, schoolXML) {
@@ -76,7 +78,7 @@ document.addEventListener("deviceready", function () {
             $("#tutorialSchoolElem").find("img").attr("src", "img/openTutorials.png");
             $("#tutorialSchoolElem").addClass("picture");
             $("#tutorialSchoolElem").removeClass("text");
-            
+
             $("#booksElem").css({"display": "block"});
             $("#booksElem").find("img").attr("src", "img/openBooks.png");
             $("#booksElem").addClass("picture");
@@ -129,6 +131,7 @@ document.addEventListener("deviceready", function () {
                 var elem = $(document.querySelector('[view_id="grid_r' + cur.row + 'c' + cur.col + '"]')).find(".grid")[0];
                 $(elem).find("h2").html(cur.name);
                 $(elem).attr("subject", cur.name);
+				$(elem).attr("id", cur.name);
                 if (cur.icon) {
                     $(elem).find("img").attr("src", window.schoolLoc + "/" + cur.name + "/icons/" + cur.icon);
                     $(elem).addClass("picture");
@@ -329,13 +332,13 @@ document.addEventListener("deviceready", function () {
     if (device.platform == "browser") {
         //$("#tutorialSchoolElem").on("click", goTutorial);
         $("#openTuts").on("click", toggleTutorial);
-        $("#goBooks").on("click", function() {
+        $("#goBooks").on("click", function () {
             window.location.href = "books.html";
         });
     } else {
         //$("#tutorialSchoolElem").on("touchend", goTutorial);
         $("#openTuts").on("touchend", toggleTutorial);
-        $("#goBooks").on("touchend", function() {
+        $("#goBooks").on("touchend", function () {
             window.location.href = "books.html";
         });
     }
@@ -376,19 +379,26 @@ function gotoSubject(elem) {
             } else {
                 $(img).css({"max-height": "100%", "max-width": "100%"});
             }
-            window.location.href = "subject.html?" + sub;
+            if (sub === "Epic Quest") {
+				window.location.href = "school/Epic Quest/index.html";
+			}	else	{
+				 window.location.href = "subject.html?" + sub;
+			}
         }, 100);
     }
 }
 function retakePicture() {
-    var cam = new QuickCamera();
-    deleteFile("users/" + window.userID + "/profile_pic", function () {
-        cam.snap("users/" + window.userID, "profile_pic", function (url) {
-            window.setTimeout(function () {
-                window.location.href = window.location.href;
-            }, 1000); // used to be 5000
+    if (!window.retakingPicture) {
+        window.retakingPicture = true;
+        var cam = new QuickCamera();
+        deleteFile("users/" + window.userID + "/profile_pic", function () {
+            cam.snap("users/" + window.userID, "profile_pic", function (url) {
+                window.setTimeout(function () {
+                    window.location.href = window.location.href;
+                }, 1000); // used to be 5000
+            });
         });
-    })
+    }
 }
 
 function getValByTag(node, tag) {

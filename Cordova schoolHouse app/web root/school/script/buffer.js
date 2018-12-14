@@ -1,13 +1,13 @@
 var coverWhiteLineRoundingStrength = 2; // "White line" problem explained
 /*
  PREVIOUSLY,
- 
+
  Front and back covers were their proper width. Ray didn't like having to shift objects, so he made front and back covers double wide. This means I get a white margin on the left and right of the image.
- 
+
  In order to fix this on my end, I had to shift the CAN element left by pUnit/2,	then shift the containing DIV right by pUnit/2.	This covered the white margin.
- 
+
  Ran into a problem, however, with scaling. If the background image was 200px, but displayed in a 100px resolution, the meta data was getting rounded inside CHROME and getting a white line on the left hand side. As a messy fix to this, I've trimmed 1 pixel off either side of the image and the white line is hidden again.
- 
+
  If this problem reappears, increase the strength of the trim.
  */
 
@@ -185,7 +185,7 @@ function buffer() {
 
     function bufferElement(type, name, location) {
         if (firstLoad) {
-            book.loader.update(bufNum - 1, bufArr[curPage - 1].length);
+            book.loader.update(bufNum - 1, bufArr[0].length);
         }
 
         var splitName = name.split(".");
@@ -238,11 +238,19 @@ function buffer() {
                     var context = canvas.getContext('2d');
                     var objLoc = pageLoc.objs[name];
                     var img = objLoc.elem;
+                    img.errorNum = 0;
                     img.onerror = function (e) {
-                        console.warn("Bug: " + "Image <b>" + objLoc.src + "</b> did not load");
-                        nextBuffer(bufNum);
+                        if (img.errorNum == 0) {
+                            img.src = window.assetsLoc + objLoc.src
+                        } else {
+                            console.warn("Bug: " + "Image <b>" + objLoc.src + "</b> did not load");
+                            nextBuffer(bufNum);
+
+                        }
+                        img.errorNum++;
                     };
-                    img.src = assetsLoc + objLoc.src + noCacheExt();
+                    // img.src = assetsLoc + objLoc.src + noCacheExt();
+                    img.src = window.sharedAssetLoc + objLoc.src;
                     img.onload = function () {
                         if (objLoc.initVis == "show") {
                             context.drawImage(this, objLoc.left, objLoc.top, objLoc.width, objLoc.height);
@@ -258,7 +266,7 @@ function buffer() {
                 var dry = book[location].auds[name].drySrc;
                 var src = false;
                 if (type == "audio") {
-                    src = assetsLoc + "audio/" + name + ".ogg";
+                    src = window.sharedAssetLoc + "audio/" + name + ".ogg";
                 } else {
                     src = recAbsName(name, location + 1);
                     aud.type = "recording";
@@ -280,7 +288,7 @@ function buffer() {
                         if (aud.type == "recording") {
 
                             // duct tape
-                            // Show play button and enable if recording is present. 
+                            // Show play button and enable if recording is present.
                             var linkName = false;
                             if (typeof book[location].linkKey['play link'] !== "undefined") {
                                 linkName = 'play link';
@@ -300,16 +308,24 @@ function buffer() {
                             nextBuffer(bufNum);
                         } else {
                             aud.errorNum++;
-                            aud.src = 'audio/' + name + '.wav';
+                            aud.src = window.sharedAssetLoc + "audio/" + name + ".mp3";
                             dry = src;
                         }
                     } else if (aud.errorNum == 1) {
                         aud.errorNum++;
-                        aud.src = 'audio/' + name + '.mp3';
+                        aud.src = window.sharedAssetLoc + "audio/" + name + ".wav";
                         dry = src;
                     } else if (aud.errorNum == 2) {
                         aud.errorNum++;
                         aud.src = 'audio/' + name + '.ogg';
+                        dry = src;
+                    } else if (aud.errorNum == 3) {
+                        aud.errorNum++;
+                        aud.src = 'audio/' + name + '.mp3';
+                        dry = src;
+                    } else if (aud.errorNum == 4) {
+                        aud.errorNum++;
+                        aud.src = 'audio/' + name + '.wav';
                         dry = src;
                     } else {
                         console.warn("Bug: " + "Audio <b>" + aud.src + "</b> did not load");
@@ -443,256 +459,253 @@ function buffer() {
 // Recalculate buffer priorities on every page turn and audiolink click.
 function arrangePages() {
     for (var pNum = 0; pNum < book.length; pNum++) {
-        if (book[pNum]) {
-
-            var PAGE = book[pNum].DIV;
-            var DUP = book[pNum].DUP;
-            var rNum = pNum - (curPage - 1);
-            var pLeft = 0;
-            var pIndex = 0;
-            var pWidth = 0;
-            var pVis = 'hidden';
-            var pDis = 'none';
-            if (pDisplay == 'Single') {
-                if (rNum < -1) {
-                    pLeft = -1 * pUnit;
-                    pIndex = 1;
-                    pWidth = pUnit;
-                    pVis = 'hidden';
-                    pDis = 'none';
-                } else if (rNum == -1) {
-                    pLeft = -1 * pUnit;
-                    pIndex = 1;
-                    pWidth = pUnit;
-                    pVis = 'visible';
-                    pDis = 'block';
-                } else if (rNum == 0) {
-                    pLeft = 0;
-                    pIndex = 1;
-                    pWidth = pUnit;
-                    pVis = 'visible';
-                    pDis = 'block';
-                } else if (rNum == 1) {
-                    pLeft = pUnit;
-                    pIndex = 1;
-                    pWidth = pUnit;
-                    pVis = 'visible';
-                    pDis = 'block';
-                } else {
-                    pLeft = pUnit;
-                    pIndex = 1;
-                    pWidth = pUnit;
-                    pVis = 'hidden';
-                    pDis = 'none';
-                }
-            } else if (pDisplay == 'SingleSpread') {
-                if (curPage == 1) {
-                    switch (rNum) {
-                        // on the swing, open as regular, swing right pUnit/2
-                        case 0:
-                            pLeft = pUnit / 2;
-                            pIndex = 4;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case 1:
-                            pLeft = pUnit / 2;
-                            pIndex = 3;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case 2:
-                            pLeft = pUnit / 2;
-                            pIndex = 3;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        default:
-                            pLeft = pUnit * 2;
-                            pIndex = 2;
-                            pWidth = 0;
-                            break;
-                    }
-                } else if (curPage == bookLength + 1) {
-                    switch (rNum) {
-                        case -3:
-                            pLeft = pUnit / 2;
-                            pIndex = 3;
-                            pWidth = 0;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case -2:
-                            pLeft = pUnit / 2;
-                            pIndex = 4;
-                            pWidth = 0;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case -1:
-                            pLeft = pUnit / 2;
-                            pIndex = 5;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        default:
-                            pLeft = 0;
-                            pIndex = 2;
-                            pWidth = 0;
-                            break;
-                    }
-                } else {
-                    switch (rNum) {
-                        case -3:
-                            pLeft = 0;
-                            pIndex = 1;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case -2:
-                            pLeft = -pUnit;
-                            pIndex = 1;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case -1:
-                            pLeft = 0;
-                            pIndex = 2;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case 0:
-                            pLeft = pUnit;
-                            pIndex = 4;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case 1:
-                            pLeft = pUnit * 2;
-                            pIndex = 1;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case 2:
-                            pLeft = pUnit;
-                            pIndex = 1;
-                            pWidth = pUnit;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        default:
-                            pLeft = 0;
-                            pIndex = 1;
-                            pWidth = 0;
-                            break;
-                    }
-                }
-            } else if (pDisplay == 'BlockSpread') {
-                if (curPage == 1) {
-                    // first page
-                    switch (rNum) {
-                        case 0:
-                            pLeft = pUnit / 2;
-                            pIndex = 3;
-                            pWidth = pUnit - (coverWhiteLineRoundingStrength * 2); // "White line" problem fix
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case 1:
-                            pLeft = pUnit * 2;
-                            pWidth = pUnit * 2;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        default:
-                            pLeft = pUnit;
-                            pWidth = pUnit * 2;
-                            pVis = 'visible';
-                            pDis = 'none';
-                            break;
-                    }
-                } else if (curPage == bookLength && !book.lastPageDouble) {
-                    // Last page to cover
-                    switch (rNum) {
-                        case -1:
-                            pLeft = 0;
-                            pIndex = 1;
-                            pWidth = pUnit * 2;
-                            pVis = 'visible';
-                            pDis = 'none';
-                            break;
-                        case 0:
-                            pLeft = pUnit / 2;
-                            pIndex = 2;
-                            pWidth = pUnit - (coverWhiteLineRoundingStrength * 2); // "White line" problem fix
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                    }
-                } else {
-                    // Normal turn
-                    switch (rNum) {
-                        case -1:
-                            pLeft = -pUnit * 2;
-                            pIndex = 2;
-                            if (pNum == 0) {
-                                pWidth = pUnit;
-                            } else {
-                                pWidth = pUnit * 2;
-                            }
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case 0:
-                            pLeft = 0;
-                            pIndex = 3;
-                            pWidth = pUnit * 2;
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        case 1:
-                            pLeft = pUnit * 2;
-                            pIndex = 2;
-                            if (pNum == bookLength - 1) {
-                                pWidth = pUnit;
-                            } else {
-                                pWidth = pUnit * 2;
-                            }
-                            pVis = 'visible';
-                            pDis = 'block';
-                            break;
-                        default:
-                            pLeft = 0;
-                            pWidth = pUnit * 2;
-                            pIndex = 1;
-                            pVis = 'hidden';
-                            pDis = 'none';
-                            break;
-                    }
-                }
-            }
-
-            $(PAGE).css({"left": pLeft, "z-index": pIndex, "width": pWidth, 'display': pDis});
-            var can = $(PAGE).find("canvas.can");
-            can.css({'display': pDis});
-            if (pDis == "none") {
-                book[pNum].CAN.width = book[pNum].CAN.width;
+        var PAGE = book[pNum].DIV;
+        var DUP = book[pNum].DUP;
+        var rNum = pNum - (curPage - 1);
+        var pLeft = 0;
+        var pIndex = 0;
+        var pWidth = 0;
+        var pVis = 'hidden';
+        var pDis = 'none';
+        if (pDisplay == 'Single') {
+            if (rNum < -1) {
+                pLeft = -1 * pUnit;
+                pIndex = 1;
+                pWidth = pUnit;
+                pVis = 'hidden';
+                pDis = 'none';
+            } else if (rNum == -1) {
+                pLeft = -1 * pUnit;
+                pIndex = 1;
+                pWidth = pUnit;
+                pVis = 'visible';
+                pDis = 'block';
+            } else if (rNum == 0) {
+                pLeft = 0;
+                pIndex = 1;
+                pWidth = pUnit;
+                pVis = 'visible';
+                pDis = 'block';
+            } else if (rNum == 1) {
+                pLeft = pUnit;
+                pIndex = 1;
+                pWidth = pUnit;
+                pVis = 'visible';
+                pDis = 'block';
             } else {
-                book[pNum].redraw();
+                pLeft = pUnit;
+                pIndex = 1;
+                pWidth = pUnit;
+                pVis = 'hidden';
+                pDis = 'none';
             }
+        } else if (pDisplay == 'SingleSpread') {
+            if (curPage == 1) {
+                switch (rNum) {
+                    // on the swing, open as regular, swing right pUnit/2
+                    case 0:
+                        pLeft = pUnit / 2;
+                        pIndex = 4;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case 1:
+                        pLeft = pUnit / 2;
+                        pIndex = 3;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case 2:
+                        pLeft = pUnit / 2;
+                        pIndex = 3;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    default:
+                        pLeft = pUnit * 2;
+                        pIndex = 2;
+                        pWidth = 0;
+                        break;
+                }
+            } else if (curPage == bookLength + 1) {
+                switch (rNum) {
+                    case - 3:
+                        pLeft = pUnit / 2;
+                        pIndex = 3;
+                        pWidth = 0;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case - 2:
+                        pLeft = pUnit / 2;
+                        pIndex = 4;
+                        pWidth = 0;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case - 1:
+                        pLeft = pUnit / 2;
+                        pIndex = 5;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    default:
+                        pLeft = 0;
+                        pIndex = 2;
+                        pWidth = 0;
+                        break;
+                }
+            } else {
+                switch (rNum) {
+                    case - 3:
+                        pLeft = 0;
+                        pIndex = 1;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case - 2:
+                        pLeft = -pUnit;
+                        pIndex = 1;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case - 1:
+                        pLeft = 0;
+                        pIndex = 2;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case 0:
+                        pLeft = pUnit;
+                        pIndex = 4;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case 1:
+                        pLeft = pUnit * 2;
+                        pIndex = 1;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case 2:
+                        pLeft = pUnit;
+                        pIndex = 1;
+                        pWidth = pUnit;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    default:
+                        pLeft = 0;
+                        pIndex = 1;
+                        pWidth = 0;
+                        break;
+                }
+            }
+        } else if (pDisplay == 'BlockSpread') {
+            if (curPage == 1) {
+                // first page
+                switch (rNum) {
+                    case 0:
+                        pLeft = pUnit / 2;
+                        pIndex = 3;
+                        pWidth = pUnit - (coverWhiteLineRoundingStrength * 2); // "White line" problem fix
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case 1:
+                        pLeft = pUnit * 2;
+                        pWidth = pUnit * 2;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    default:
+                        pLeft = pUnit;
+                        pWidth = pUnit * 2;
+                        pVis = 'visible';
+                        pDis = 'none';
+                        break;
+                }
+            } else if (curPage == bookLength && !book.lastPageDouble) {
+                // Last page to cover
+                switch (rNum) {
+                    case - 1:
+                        pLeft = 0;
+                        pIndex = 1;
+                        pWidth = pUnit * 2;
+                        pVis = 'visible';
+                        pDis = 'none';
+                        break;
+                    case 0:
+                        pLeft = pUnit / 2;
+                        pIndex = 2;
+                        pWidth = pUnit - (coverWhiteLineRoundingStrength * 2); // "White line" problem fix
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                }
+            } else {
+                // Normal turn
+                switch (rNum) {
+                    case - 1:
+                        pLeft = -pUnit * 2;
+                        pIndex = 2;
+                        if (pNum == 0) {
+                            pWidth = pUnit;
+                        } else {
+                            pWidth = pUnit * 2;
+                        }
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case 0:
+                        pLeft = 0;
+                        pIndex = 3;
+                        pWidth = pUnit * 2;
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    case 1:
+                        pLeft = pUnit * 2;
+                        pIndex = 2;
+                        if (pNum == bookLength - 1) {
+                            pWidth = pUnit;
+                        } else {
+                            pWidth = pUnit * 2;
+                        }
+                        pVis = 'visible';
+                        pDis = 'block';
+                        break;
+                    default:
+                        pLeft = 0;
+                        pWidth = pUnit * 2;
+                        pIndex = 1;
+                        pVis = 'hidden';
+                        pDis = 'none';
+                        break;
+                }
+            }
+        }
 
-            if (DUP) {
-                $(DUP).css({'display': 'none'});
-            }
+        $(PAGE).css({"left": pLeft, "z-index": pIndex, "width": pWidth, 'display': pDis});
+        var can = $(PAGE).find("canvas.can");
+        can.css({'display': pDis});
+        if (pDis == "none") {
+            book[pNum].CAN.width = book[pNum].CAN.width;
+        } else {
+            book[pNum].redraw();
+        }
+
+        if (DUP) {
+            $(DUP).css({'display': 'none'});
         }
     }
     // double wide first page problem fix here
@@ -767,7 +780,7 @@ function createGoto() {
 
     // Loop through the pages, delete any options if page nav is disabled
     for (var p = book.length - 1; p >= 0; p--) {
-        if (book[p] && !book[p].pageNavigationEnabled) {
+        if (!book[p].pageNavigationEnabled) {
             inner.splice(p, 1);
         }
     }
@@ -777,12 +790,12 @@ function createGoto() {
 var coverWhiteLineRoundingStrength = 2; // "White line" problem explained
 /*
  PREVIOUSLY, ON "40 HOURS IN FRONT OF LEDs",
- 
+
  Front and back covers were their proper width. Ray didn't like having to shift objects, so he made front and back covers double wide. This means I get a white margin on the left and right of the image.
- 
+
  In order to fix this on my end, I had to shift the CAN element left by pUnit/2,	then shift the containing DIV right by pUnit/2.	This covered the white margin.
- 
+
  Ran into a problem, however, with scaling. If the background image was 200px, but displayed in a 100px resolution, the meta data was getting rounded inside CHROME and getting a white line on the left hand side. As a messy fix to this, I've trimmed 1 pixel off either side of the image and the white line is hidden again.
- 
+
  If this problem reappears, increase the strength of the trim.
  */

@@ -1,10 +1,6 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 6/16/2016
- * Time: 4:20 PM
- */
+require_once("../../config.php");
+
 
 chdir('../');
 

@@ -25,12 +25,29 @@
 }
 
 @font-face {
-    font-family: 'DidactGothic';
+    font-family: 'caf';
     font-style: normal;
     font-weight: large;
     font-size: x-large;
     src: local('?'),
-        url("../fonts/DidactGothic.ttf") format("truetype");
+        url("../fonts/caf.oft") format("openstyle"),
+        url("../fonts/caf.woff") format("woff"),
+        url("../fonts/caf.eot") format("embedded-opentype"),
+        url("../fonts/caf.ttf") format("truetype"),
+        url("../fonts/caf.svg#caf") format("svg");
+}
+
+@font-face {
+    font-family: 'vag';
+    font-style: normal;
+    font-weight: normal;
+    font-size: large;
+    src: local('?'),
+        url("../fonts/vag.oft") format("openstyle"),
+        url("../fonts/vag.woff") format("woff"),
+        url("../fonts/vag.eot") format("embedded-opentype"),
+        url("../fonts/vag.ttf") format("truetype"),
+        url("../fonts/vag.svg#vag") format("svg");
 }
 
 .noSelect {
@@ -158,7 +175,7 @@ body {
 }
 
 #textC {
-    font-family: "DidactGothic";
+    font-family: "vag";
     float: left;
     width: 21px;
     min-width: 100px;
@@ -226,7 +243,7 @@ body {
     text-align: center;
     color: #FFF;
     font-color: #FFF;
-    font-family: 'DidactGothic';
+    font-family: vag;
     font-size: 20;
     top: -1px;
 }
@@ -246,7 +263,7 @@ body {
 #goto select * {
     color: #5AACC5;
     font-color: #5AACC5;
-    font-family: 'DidactGothic';
+    font-family: vag;
     font-size: x-large;
 }
 
@@ -815,7 +832,7 @@ body {
     font-size: 48px;
     padding: 0;
     margin: 0;
-    font-family: 'DidactGothic';
+    font-family: 'vag';
     color: RGB(255, 102, 51);
 }
 

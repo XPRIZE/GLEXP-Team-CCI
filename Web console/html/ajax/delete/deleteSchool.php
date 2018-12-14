@@ -1,10 +1,5 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 8/17/2016
- * Time: 11:15 AM
- */
+require_once("../../config.php");
 
 chdir('../');
 $schoolName = $_GET['schoolName'];
@@ -23,7 +18,7 @@ if (loginCheck()) {
         $stmt->execute();
         $result = $stmt->get_result();
         $unitCount = $result->num_rows;
-        if ($unitCount < 10) {
+        if ($unitCount < 100000) {
             while ($unit = $result->fetch_assoc()) {
                 $sqlObj = false;
                 $sqlObj = $sql->prepare("DELETE FROM unitPages WHERE unitID = ?");
@@ -42,7 +37,7 @@ if (loginCheck()) {
             $sqlObj->execute();
 
             $sqlObj = false;
-            $sqlObj = $sql->prepare("DELETE FROM subjects WHERE schoolID = ?");
+            $sqlObj = $sql->prepare("DELETE FROM subjects WHERE school_id = ?");
             $sqlObj->bind_param('s', $schoolID);
             $sqlObj->execute();
 
@@ -54,7 +49,7 @@ if (loginCheck()) {
 
 
             include('../php/rrmdir.php');
-            if (rrmdir("schools/$schoolName")) {
+            if (rrmdir("schools/$schoolName") && rrmdir("program/$schoolName")) {
                 echo "done";
             };
         }   else    {

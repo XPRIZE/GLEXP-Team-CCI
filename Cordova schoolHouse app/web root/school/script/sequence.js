@@ -118,8 +118,8 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                     for (var t = 0; t < this.listArr.length; t++) {
                         var targ = this.listArr[t];
                         if (targ[1] == "send click to" && targ[2].isFunction &&
-                                (targ[2].functionType == "chooseAndRemove" || targ[2].functionType == "choose") &&
-                                arraysEqual(targ[2].initArgs, sendLink.initArgs)) {
+                          (targ[2].functionType == "chooseAndRemove" || targ[2].functionType == "choose") &&
+                          arraysEqual(targ[2].initArgs, sendLink.initArgs)) {
                             // THIS is the original link, and THIS is what we'll delete arguments from
                             pullTarg = targ[2];
                             t = this.listArr.length;
@@ -484,6 +484,8 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                                 if (THIS.openAudio) {
                                     THIS.listNum--;
                                     wait('silence');
+                                    // debug
+                                    // console.warn("Aud dupe: adding silence");
                                 } else {
                                     playSound(targDest);
                                 }
@@ -834,6 +836,9 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             if (destIsPoints) {
                 var mod = action.charAt(0);
                 var num = Number(action.substr(1, action.length));
+				if (isNaN(num)) {
+					num = Number(action.substr(1, action.split(" ")[0].length));
+				}
                 book[curPage - 1].points[destination].changed = true;
                 if (mod == "+") {
                     book[curPage - 1].points[destination].value += num;
@@ -1056,7 +1061,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
              Flash 3 times with curvis of hide means
              ON, OFF, ON, OFF, ON
              An interval is how much time it takes for 2 state changes, so flash 3 times at int of 2s takes 6s, not 12s.
-             
+
              That about sums it up.
              */
             flashNum *= 2;
@@ -1190,9 +1195,13 @@ function sequence(list, elem, linkName, relPos, triggerType) {
             objLoc.elem.removeEventListener('ended', endFunc);
             window.clearInterval(THIS.videoRefresh);
             if (isFirefox && isMac) {
-                THIS.openVideo.SetTime(0)
+                // changed
+                // THIS.openVideo.SetTime(0)
+                THIS.openVideo.pause();
             } else {
-                THIS.openVideo.currentTime = 0;
+                // changed
+                // THIS.openVideo.currentTime = 0;
+                THIS.openVideo.pause();
             }
             THIS.pageElem.redraw();
             THIS.openVideo = false;
@@ -1338,31 +1347,44 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                         book.audChannel.currentTime = 0;
                         function audEnd() {
                             book.audChannel.removeEventListener('ended', audEnd);
-                            book.audChannel.removeEventListener('playing', audStarted);
-                            book.audChannel.removeEventListener('canplaythrough', startAud);
+                            // timeout here?
                             THIS.openAudio = false;
                             if (THIS.openWait) {
+                                // debug
+                                // console.warn("Aud end: next in seq. PID: " + book.audChannel.pid);
                                 window.clearTimeout(THIS.openWait);
                                 THIS.openWait = false;
                                 THIS.next();
                             } else {
+                                // debug
+                                // console.warn("Aud end NO WAIT: end seq. PID: " + book.audChannel.pid);
                                 THIS.endCheck();
                             }
                         }
                         function audStarted() {
+                            book.audChannel.removeEventListener('playing', audStarted);
+                            book.audChannel.addEventListener('ended', audEnd);
                             if (highlightObj) {
                                 highlightObj.start();
                             } else {
+                                // debug
+                                // console.warn("Aud start: next in seq. PID: " + book.audChannel.pid);
                                 THIS.next();
                             }
                             logSecStamp("aud actually started playing called"); // AND THIS
                         }
-                        function startAud() {
-                            book.audChannel.play();
-                            logSecStamp("Aud.play called");
-                        }
 
-                        book.audChannel.addEventListener('ended', audEnd);
+                        // BUG:
+                        /*
+                         * In some semi-rare cases, the new audio will END before it PLAYs
+                         *
+                         * Soo... set end event listener inside the start function.
+                         *
+                         * What if there's a 0 second long audio file?
+                         *
+                         * Just check submission, there aren't
+                         */
+                        //
                         book.audChannel.addEventListener('playing', audStarted);
                         book.audChannel.addEventListener('error', function failed(e) {
                             switch (e.target.error.code) {
@@ -1391,6 +1413,7 @@ function sequence(list, elem, linkName, relPos, triggerType) {
                         if (src !== $(book.audChannel).attr("src")) {
                             book.audChannel.src = src;
                         }
+                        // book.audChannel.pid = parseInt(Math.random() * 10000);
                         book.audChannel.play();
                     } else {
                         THIS.next();
@@ -1498,14 +1521,14 @@ function sequence(list, elem, linkName, relPos, triggerType) {
         } else {
             if (pageTarg.toLowerCase() == 'next') {
                 if (curPage < bookLength) {
-                    gotoChange(false, curPage+1);
+                    gotoChange(false, curPage + 1);
                 } else {
                     gotoChange(false, 1);
                 }
                 THIS.end();
             } else if (pageTarg.toLowerCase() == 'previous') {
                 if (curPage > 1) {
-                    gotoChange(false, curPage-1);
+                    gotoChange(false, curPage - 1);
                 } else {
                     if (!singlePage && isEven(bookLength)) {
                         gotoChange(false, bookLength + 1);

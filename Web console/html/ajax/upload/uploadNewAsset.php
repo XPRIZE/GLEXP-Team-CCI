@@ -1,18 +1,16 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 6/23/2016
- * Time: 2:12 PM
- */
+require_once("../../config.php");
+
 chdir('../');
 include('../../includes/loginCheck.php');
+include('../../includes/secSession.php');
 include('../php/saveXML.php');
 include('../php/splitGif.php');
 include('../php/outdateUnit.php');
 
 $username = false;
-if ($ret = loginCheck() === true) {
+$ret = loginCheck();
+if ($ret === true) {
     $username = $_SESSION['username'];
     include_once('../../includes/dbConnect.php'); // not sure if already included from loginCHeck.
     $seriesName = $_GET['seriesName'];
@@ -23,6 +21,9 @@ if ($ret = loginCheck() === true) {
     if ($type == "images" || $type == "image") {
         $type = "image";
         $destLoc = "images";
+    } else if ($type == "videos" || $type == "video") {
+        $type = "video";
+        $destLoc = "videos";
     } else if ($type == "audios" || $type == "audio") {
         $type = "audio";
         $destLoc = "audio";
@@ -61,7 +62,7 @@ if ($ret = loginCheck() === true) {
         }
 
         if ($fileExt == "gif") {
-            splitGif("../series/$seriesName/$destLoc",$filename);
+            splitGif("../series/$seriesName/$destLoc", $filename);
         }
     }
 
@@ -70,7 +71,7 @@ if ($ret = loginCheck() === true) {
     if ($type == "image") {
         foreach ($xml->Pages->children() as $page) {
             foreach ($page->Objects->children() as $object) {
-                if ((string)$object->ParentSource == $oldSrc) {
+                if ((string) $object->ParentSource == $oldSrc) {
                     $object->ObjFileName = $filename;
                     $object->ObjExt = $fileExt;
 
@@ -79,7 +80,7 @@ if ($ret = loginCheck() === true) {
                         $object->swapHeight = imagesy($im);
                         $object->swapWidth = imagesx($im);
                         imagedestroy($im);
-                    }   else if (strtolower($object->ObjExt) == "jpg" || strtolower($object->ObjExt) == "jpeg") {
+                    } else if (strtolower($object->ObjExt) == "jpg" || strtolower($object->ObjExt) == "jpeg") {
                         $data = getimagesize($destination);
                         $object->swapHeight = $data[1];
                         $object->swapWidth = $data[0];
@@ -89,41 +90,50 @@ if ($ret = loginCheck() === true) {
 
 
                     /*
-                    // Resizes image with additional transparency.
-                    $parentHeight = 100;
-                    $parentWidth = 200;
+                      // Resizes image with additional transparency.
+                      $parentHeight = 100;
+                      $parentWidth = 200;
 
-                    $im = imagecreatefrompng($destination);
-                    $uploadHeight = imagesy($im);
-                    $uploadWidth = imagesx($im);
+                      $im = imagecreatefrompng($destination);
+                      $uploadHeight = imagesy($im);
+                      $uploadWidth = imagesx($im);
 
-                    // echo "Fit the uploaded image (h:$uploadHeight, w:$uploadWidth) into image (h:$parentHeight, w:$parentWidth).<br>";
-                    $heightSizeDown = $uploadHeight / $parentHeight;
-                    if ($uploadWidth / $heightSizeDown > $parentWidth) {
-                        $widthSizeDown = $uploadWidth / $parentWidth;
-                        $newHeight = $uploadHeight / $widthSizeDown;
-                        $newWidth = $parentWidth;
-                    } else {
-                        $newHeight = $parentHeight;
-                        $newWidth = $uploadWidth / $heightSizeDown;
-                    }
-                    // echo "First, size the image to (h:$newHeight, w:$newWidth)</br>";
-                    $leftOffset = ($parentWidth - $newWidth) / 2;
-                    $topOffset = ($parentHeight - $newHeight) / 2;
-                    // echo "Then, offset the image (t:$topOffset, l:$leftOffset)</br>";
+                      // echo "Fit the uploaded image (h:$uploadHeight, w:$uploadWidth) into image (h:$parentHeight, w:$parentWidth).<br>";
+                      $heightSizeDown = $uploadHeight / $parentHeight;
+                      if ($uploadWidth / $heightSizeDown > $parentWidth) {
+                      $widthSizeDown = $uploadWidth / $parentWidth;
+                      $newHeight = $uploadHeight / $widthSizeDown;
+                      $newWidth = $parentWidth;
+                      } else {
+                      $newHeight = $parentHeight;
+                      $newWidth = $uploadWidth / $heightSizeDown;
+                      }
+                      // echo "First, size the image to (h:$newHeight, w:$newWidth)</br>";
+                      $leftOffset = ($parentWidth - $newWidth) / 2;
+                      $topOffset = ($parentHeight - $newHeight) / 2;
+                      // echo "Then, offset the image (t:$topOffset, l:$leftOffset)</br>";
 
-                    $newImg = imagecreatetruecolor($parentWidth, $parentHeight);
-                    imagealphablending($newImg, false);
-                    imagesavealpha($newImg, true);
-                    $transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
-                    imagefilledrectangle($newImg, 0, 0, $parentWidth, $parentHeight, $transparent);
+                      $newImg = imagecreatetruecolor($parentWidth, $parentHeight);
+                      imagealphablending($newImg, false);
+                      imagesavealpha($newImg, true);
+                      $transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
+                      imagefilledrectangle($newImg, 0, 0, $parentWidth, $parentHeight, $transparent);
 
-                    imagecopyresampled($newImg, $im, $leftOffset, $topOffset, 0, 0,
-                        $newWidth, $newHeight, $uploadWidth, $uploadHeight);
+                      imagecopyresampled($newImg, $im, $leftOffset, $topOffset, 0, 0,
+                      $newWidth, $newHeight, $uploadWidth, $uploadHeight);
 
-                    imagepng($newImg, $destination, 9);
-                    imagepng($newImg, $orig_destination, 9);
-                    */
+                      imagepng($newImg, $destination, 9);
+                      imagepng($newImg, $orig_destination, 9);
+                     */
+                }
+            }
+        }
+    } else if ($type == "video") {
+        foreach ($xml->Pages->children() as $page) {
+            foreach ($page->Objects->children() as $object) {
+                if ((string) $object->ParentSource == $oldSrc) {
+                    $object->Source = $filename . "." . $fileExt;
+                    // $object->ObjFileName = $filename . "." . $fileExt;
                 }
             }
         }
@@ -142,7 +152,7 @@ if ($ret = loginCheck() === true) {
     } else if ($type == "field") {
         foreach ($xml->Pages->children() as $page) {
             foreach ($page->Objects->children() as $object) {
-                if ((string)$object->ObjName == $oldSrc) {
+                if ((string) $object->ObjName == $oldSrc) {
                     $object->newContents = $newContent;
                     $object->FldContentsEncoded = $newContent;
                 }
@@ -159,20 +169,19 @@ if ($ret = loginCheck() === true) {
         $newSrcComplete = "";
         if ($type == "image") {
             $newSrcComplete = "images";
+        } else if ($type == "video") {
+            $newSrcComplete = "videos";
         } else if ($type == "audio") {
             $newSrcComplete = "audio";
         }
         $newSrcComplete = $newSrcComplete . '/' . $newSrc;
         echo '{"status":"server","src":"' . $newSrcComplete . '"}';
     }
-
-
 } else {
     echo "{error:'$ret'}";
 }
 
-function addSwapToDB($seriesName, $childName, $oldSrc, $newSrc, $username)
-{
+function addSwapToDB($seriesName, $childName, $oldSrc, $newSrc, $username) {
     $pass = true;
     include_once('../../includes/dbConnect.php');
     $con = new dbConnect();
@@ -182,14 +191,14 @@ function addSwapToDB($seriesName, $childName, $oldSrc, $newSrc, $username)
     if ($sqlObj) {
         $sqlObj->bind_param('sss', $seriesName, $childName, $oldSrc);
         $sqlObj->execute();
-    }   else    {
+    } else {
         $pass = false;
     }
 
     // Save most recent swap
     $queryStr = "INSERT INTO swaps " .
-        "(refSeries, refBook, originalAssetName, newAssetName, username) " .
-        "VALUES (?, ?, ?, ?, ?)";
+            "(refSeries, refBook, originalAssetName, newAssetName, username) " .
+            "VALUES (?, ?, ?, ?, ?)";
     $sqlObj = $sql->prepare($queryStr);
     if ($sqlObj) {
         $sqlObj->bind_param('sssss', $seriesName, $childName, $oldSrc, $newSrc, $username);
@@ -203,16 +212,14 @@ function addSwapToDB($seriesName, $childName, $oldSrc, $newSrc, $username)
 
     if ($pass) {
         return true;
-    }   else    {
+    } else {
         return false;
     }
 
     // Done!
-
 }
 
-function getChildNumberFromSeriesNameAndChildName($seriesName, $childName)
-{
+function getChildNumberFromSeriesNameAndChildName($seriesName, $childName) {
     include_once("../../includes/dbConnect.php");
     $nextID = 0;
     $con = new DBConnect();
@@ -231,7 +238,5 @@ function getChildNumberFromSeriesNameAndChildName($seriesName, $childName)
         echo "error: bad sql stmt";
     }
 }
-
-
 
 ?>

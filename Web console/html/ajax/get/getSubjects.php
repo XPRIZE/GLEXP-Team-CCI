@@ -1,11 +1,6 @@
 <?php
+require_once("../../config.php");
 
-/**
- 
- * User: Jason
- * Date: 8/17/2016
- * Time: 10:49 AM
- */
 $requestSchool = isset($_GET["school"]) ? $_GET["school"] : false;
 if ($requestSchool) {
     chdir('../');

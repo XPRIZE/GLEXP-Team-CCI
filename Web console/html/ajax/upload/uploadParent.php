@@ -1,11 +1,6 @@
 <?php
+require_once("../../config.php");
 
-/**
- 
- * User: Jason
- * Date: 6/16/2016
- * Time: 4:20 PM
- */
 chdir('../');
 include('../php/parentFunctions.php');
 include('../php/saveXML.php');

@@ -1,0 +1,4 @@
+Utility functions:
+    Kept in the global name space, called as anon functions.
+
+Maybe one day I'll add them all together in their own library, and load that way. But for now...

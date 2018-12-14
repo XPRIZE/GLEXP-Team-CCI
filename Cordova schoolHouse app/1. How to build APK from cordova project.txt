@@ -1,0 +1,84 @@
+Create a new cordova project
+
+Add android, and the following plugins
+
+* com.oddmouse.plugins.locktask
+* cordova-plugin-autostart
+* cordova-plugin-battery-status
+* cordova-plugin-camera
+* cordova-plugin-compat
+* cordova-plugin-device
+* cordova-plugin-file
+* cordova-plugin-file-transfer
+* cordova-plugin-ftp
+* cordova-plugin-fullscreen
+* cordova-plugin-media
+* cordova-plugin-splashscreen
+* cordova-plugin-whitelist
+* cordova-plugin-zip
+
+Add splash screen to the config.xml
+
+    <platform name="android">
+        <splash density="land-hdpi" src="res/load_final.png" />
+        <splash density="land-ldpi" src="res/load_final.png" />
+        <splash density="land-mdpi" src="res/load_final.png" />
+        <splash density="land-xhdpi" src="res/load_final.png" />
+        <splash density="port-hdpi" src="res/load_final.png" />
+        <splash density="port-ldpi" src="res/load_final.png" />
+        <splash density="port-mdpi" src="res/load_final.png" />
+        <splash density="port-xhdpi" src="res/load_final.png" />
+        <allow-intent href="market:*" />
+    </platform>
+
+For plugin https://github.com/oddmouse/cordova-plugin-locktask, follow his github instructions for how to create an admin reciever java class. Name said class "MyAdmin"
+
+Put schoolhouse contents into cordova web dir. Either
+
+	Download the school and associated maps you want to build from the console server.
+
+	Change the index files over based on index templates used for cordova app
+
+OR 
+
+	Download cordova school house application www guts from one of the three official builds online
+
+To build extremely large APKs from cordova, do the following.
+
+First, clean.
+
+> cordova clean android
+
+Then, build from powershell
+
+> cordova build android --verbose
+
+It WILL fail, after about 30 minutes per gb
+
+Then, build again
+
+> cordova build android --verbose
+
+Keep building from powershell until the failure takes >3 minutes.
+
+Then, from a cmd.exe as admin, cd to the project, increase java heap size
+
+Increase java memory to 2X the size of the www folder in the project
+
+> SET _JAVA_OPTIONS="-Xmx4000m"
+
+Build again. 
+
+> cordova build android --verbose
+
+It will also probably fail
+
+Then, from task manager, kill the java process with all the ram in it. Build a final fime
+
+> cordova build android --verbose
+
+It will work, but from cmd.exe as admin only.
+
+Unix? You're on your own.
+
+APK IS READY TO BE INSTALLED

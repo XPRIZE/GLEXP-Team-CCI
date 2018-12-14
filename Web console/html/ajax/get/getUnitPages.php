@@ -1,11 +1,6 @@
 <?php
+require_once("../../config.php");
 
-/**
- 
- * User: Jason
- * Date: 8/26/2016
- * Time: 5:00 PM
- */
 $errors = false;
 $unit = $_GET['unitName'];
 $level = isset($_GET['levelName']) ? $_GET['levelName'] : false;
@@ -44,6 +39,7 @@ for ($p = 0; $p < count($ret); $p++) {
 	$pageList[$p]['type'] = "Book";
 	$bookName = $ret[$p]['refBook'];
 	$pageList[$p]['name'] = $bookName;
+        $pageList[$p]['from'] = "Static export";
 	$sqlObj = $sql->prepare("SELECT ID from books where `name` = ?");
 	$sqlObj->bind_param('s', $bookName);
 	$sqlObj->execute();
@@ -57,6 +53,7 @@ for ($p = 0; $p < count($ret); $p++) {
 	$pageList[$p]['name'] = $childName;
 	$seriesName = $ret[$p]['refSeries'];
 	$pageList[$p]['seriesName'] = $seriesName;
+        $pageList[$p]['from'] = "Parent '$seriesName'";
 	$loc = "../series/$seriesName/$childName.xml";
     }
     $pageInfo = getPageInfoByLoc($loc);
@@ -72,4 +69,3 @@ if (!$errors) {
     echo json_encode($pageList);
 }
 ?>
-

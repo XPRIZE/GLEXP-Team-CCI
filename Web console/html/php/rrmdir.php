@@ -1,11 +1,5 @@
 <?php
 
-/**
- 
- * User: Jason
- * Date: 9/1/2016
- * Time: 10:40 AM
- */
 function rrmdir($dir) {
     // gets us to the web root
     $d = 4;
@@ -17,7 +11,7 @@ function rrmdir($dir) {
     // If we got to the web root
     if ($d) {
 	$multiples = explode("/", $dir);
-	$fineFolders = ["schools", "downloads"]; // add to this
+	$fineFolders = ["schools", "downloads", "map"]; // add to this
 	if (in_array($multiples[0], $fineFolders) && count($multiples) > 1) {
 	    // Should be *somewhat* safe to delete
 	    rrmdirAct($dir);

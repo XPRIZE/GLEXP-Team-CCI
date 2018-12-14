@@ -1,4 +1,5 @@
 <?php
+require_once("../../config.php");
 
 $requestSchool = isset($_GET["school"]) ? $_GET["school"] : false;
 if ($requestSchool) {

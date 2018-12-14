@@ -17,58 +17,67 @@ h1, h2, h3, h4 {
 }
 
 .delete button {
-    background-color: #B70000 !important;
-    border-color: #B70000 !important;
+    background-color: #B3252A !important;
+    border-color: #B3252A !important;
 }
 
 .delete button:hover {
-    background-color: #9E0000 !important;
-    border-color: #9E0000 !important;
+    background-color: #9E2126!important;
+    border-color: #9E2126 !important;
 }
 
 .delete.webix_disabled_view button {
-    background-color: #834A4A !important;
+    background-color: #945154 !important;
+    border-color: #945154 !important;
     color:#aaa !important;
 }
 
 .remove button {
-    background-color: #b177b7 !important;
-    border-color: #b177b7 !important;
+    background-color: #8867ac !important;
+    border-color: #8867ac !important;
 }
 .remove button:hover {
-    background-color: #875b8c !important;
-    border-color: #875b8c !important;
+    background-color: #70578C !important;
+    border-color: #70578C !important;
 }
 .remove.webix_disabled_view button {
-    background-color: #73527b !important;
+    background-color: #86808C !important;
+    border-color: #86808C !important;
     color:#aaa !important;
 }
 
 .add button {
-    background-color: #2fb79f !important;
-    border-color: #2fb79f !important;
+    background-color: #91bd49 !important;
+    border-color: #91bd49 !important;
 }
 .add button:hover {
-    background-color: #25907d !important;
-    border-color: #25907d !important;
+    background-color: #789C3D !important;
+    border-color: #789C3D !important;
 }
 .add.webix_disabled_view button {
-    background-color: #398375 !important;
+    background-color: #A5A8A0 !important;
+    border-color: #A5A8A0 !important;
     color:#aaa !important;
 }
 
 /* Make this better */
 .submit button {
-    background-color: #00B709 !important;
-    border-color: #00B709 !important;
+    background-color: #91bd49 !important;
+    border-color: #91bd49 !important;
 }
 
 .submit button:hover {
-    background-color: #229E0E !important;
-    border-color: #229E0E !important;
+    background-color: #789C3D !important;
+    border-color: #789C3D !important;
 }
 
 .submit.webix_disabled_view button {
-    background-color: #4D8348 !important;
+    background-color: #A5A8A0 !important;
+    border-color: #A5A8A0 !important;
     color:#aaa !important;
+}
+
+
+.webix_tree_branch_1 > .webix_tree_item  .webix_tree_file {
+    background-image: url(data:image/gif;base64,R0lGODlhEgASAIABAI6Pj////yH5BAEKAAEALAAAAAASABIAAAIhjI+py90AI3Syvoqj27mfnn2gZYxkYEpiCqypa27yTC8FADs=) !important;
 }

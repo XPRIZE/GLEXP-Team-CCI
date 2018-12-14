@@ -1,10 +1,6 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 11/9/2016
- * Time: 11:52 AM
- */
+require_once("../../config.php");
+
 
 chdir('../');
 require('../../includes/loginCheck.php');

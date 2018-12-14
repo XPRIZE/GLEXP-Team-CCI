@@ -8,148 +8,151 @@ function getValByTag(node, tag) {
 }
 
 function updateXML(schoolXML, usersXML, unitLoc, gameLoc, callback) {
-    if (typeof schoolXML == "string") {
-        this.schoolXML = $.parseXML(schoolXML);
-    } else {
-        this.schoolXML = $.parseXML(new XMLSerializer().serializeToString(schoolXML));
-    }
-    if (typeof usersXML == "string") {
-        this.usersXML = $.parseXML(usersXML);
-    } else {
-        this.usersXML = $.parseXML(new XMLSerializer().serializeToString(usersXML));
-    }
-    if (unitLoc) {
-        this.schoolName = unitLoc[0];
-        this.subjectName = unitLoc[1];
-        this.levelName = unitLoc[2];
-        this.unitName = unitLoc[3];
-    } else if (gameLoc) {
-        this.schoolName = gameLoc[0];
-        this.subjectName = gameLoc[1];
-        this.levelName = gameLoc[2];
-        this.gameName = gameLoc[3];
-    }
-    var finishedLesson = false;
-    var finishedGame = false;
-    var finishedLevel = true;
+    if (!window.updateXMLHold) {
+        window.updateXMLHold = true;
+        if (typeof schoolXML == "string") {
+            this.schoolXML = $.parseXML(schoolXML);
+        } else {
+            this.schoolXML = $.parseXML(new XMLSerializer().serializeToString(schoolXML));
+        }
+        if (typeof usersXML == "string") {
+            this.usersXML = $.parseXML(usersXML);
+        } else {
+            this.usersXML = $.parseXML(new XMLSerializer().serializeToString(usersXML));
+        }
+        if (unitLoc) {
+            this.schoolName = unitLoc[0];
+            this.subjectName = unitLoc[1];
+            this.levelName = unitLoc[2];
+            this.unitName = unitLoc[3];
+        } else if (gameLoc) {
+            this.schoolName = gameLoc[0];
+            this.subjectName = gameLoc[1];
+            this.levelName = gameLoc[2];
+            this.gameName = gameLoc[3];
+        }
+        var finishedLesson = false;
+        var finishedGame = false;
+        var finishedLevel = true;
 
-    var subjects = this.schoolXML.getElementsByTagName("subject");
-    for (var s = 0; s < subjects.length; s++) {
-        var subject = subjects[s];
-        var subName = getValByTag(subject, "name");
-        if (subName == this.subjectName) {
-            var levels = subject.getElementsByTagName("level");
-            for (var l = 0; l < levels.length; l++) {
-                var level = levels[l];
-                var lvlName = getValByTag(level, "name");
-                if (lvlName == this.levelName) {
-                    var bookStr = (unitLoc) ? "unit" : "game";
-                    var books = level.getElementsByTagName(bookStr);
-                    for (var b = 0; b < books.length; b++) {
-                        var book = books[b];
+        var subjects = this.schoolXML.getElementsByTagName("subject");
+        for (var s = 0; s < subjects.length; s++) {
+            var subject = subjects[s];
+            var subName = getValByTag(subject, "name");
+            if (subName == this.subjectName) {
+                var levels = subject.getElementsByTagName("level");
+                for (var l = 0; l < levels.length; l++) {
+                    var level = levels[l];
+                    var lvlName = getValByTag(level, "name");
+                    if (lvlName == this.levelName) {
+                        var bookStr = (unitLoc) ? "unit" : "game";
+                        var books = level.getElementsByTagName(bookStr);
+                        for (var b = 0; b < books.length; b++) {
+                            var book = books[b];
 
-                        var bookName = getValByTag(book, "name");
+                            var bookName = getValByTag(book, "name");
 
-                        if (this.unitName && this.unitName == bookName ||
-                          this.gameName && this.gameName == bookName) {
-                            var status = getValByTag(book, "status");
-                            if (status == "complete") {
-                                // rereading, no change
+                            if (this.unitName && this.unitName == bookName ||
+                              this.gameName && this.gameName == bookName) {
+                                var status = getValByTag(book, "status");
+                                if (status == "complete") {
+                                    // rereading, no change
+                                } else {
+                                    if (status == "incomplete") {
+                                        // node there, change it
+                                        book.getElementsByTagName("status")[0].childNodes[0].nodeValue = "complete";
+                                    } else if (!status) {
+                                        // no node, need to make
+                                        var status = this.schoolXML.createElement("status");
+                                        status.innerHTML = "complete";
+                                        book.appendChild(status);
+                                    }
+                                    if (unitLoc) {
+                                        finishedLesson = 1;
+                                    } else if (gameLoc) {
+                                        finishedGame = 1;
+                                    }
+                                }
                             } else {
-                                if (status == "incomplete") {
-                                    // node there, change it
-                                    book.getElementsByTagName("status")[0].childNodes[0].nodeValue = "complete";
-                                } else if (!status) {
-                                    // no node, need to make
-                                    var status = this.schoolXML.createElement("status");
-                                    status.innerHTML = "complete";
-                                    book.appendChild(status);
-                                }
                                 if (unitLoc) {
-                                    finishedLesson = 1;
-                                } else if (gameLoc) {
-                                    finishedGame = 1;
-                                }
-                            }
-                        } else {
-                            if (unitLoc) {
-                                if (getValByTag(book, "status") == "incomplete") {
-                                    finishedLevel = false;
+                                    if (getValByTag(book, "status") == "incomplete") {
+                                        finishedLevel = false;
+                                    }
                                 }
                             }
                         }
-                    }
-                    // Can only finish level by completing last LESSON, not game.
-                    if (finishedLevel && unitLoc) {
-                        // set current level to "complete"
-                        level.getElementsByTagName("status")[0].childNodes[0].nodeValue = "complete";
-                        // set next level to "unlocked"
-                        if (levels[l + 1]) {
-                            levels[l + 1].getElementsByTagName("status")[0].childNodes[0].nodeValue = "unlocked";
+                        // Can only finish level by completing last LESSON, not game.
+                        if (finishedLevel && unitLoc) {
+                            // set current level to "complete"
+                            level.getElementsByTagName("status")[0].childNodes[0].nodeValue = "complete";
+                            // set next level to "unlocked"
+                            if (levels[l + 1]) {
+                                levels[l + 1].getElementsByTagName("status")[0].childNodes[0].nodeValue = "unlocked";
+                            }
+                            finishedLevel = 1;
                         }
-                        finishedLevel = 1;
                     }
                 }
             }
         }
-    }
-    var totSchoolUnits = this.schoolXML.getElementsByTagName("unit").length;
-    var totSchoolGames = this.schoolXML.getElementsByTagName("game").length;
-    var totSchoolLevels = this.schoolXML.getElementsByTagName("level").length;
-    if (finishedLesson || finishedGame || finishedLevel) {
-        var users = this.usersXML.getElementsByTagName("user");
-        for (var u = 0; u < users.length; u++) {
-            var user = users[u];
-            var tmpID = getValByTag(user, "id");
-            if (tmpID == window.userID) {
-                var unitsRead = getValByTag(users[u], "unitsRead") * 1;
-                var gamesWon = getValByTag(users[u], "gamesWon") * 1;
-                var levelsUnlocked = getValByTag(users[u], "levelsUnlocked") * 1;
+        var totSchoolUnits = this.schoolXML.getElementsByTagName("unit").length;
+        var totSchoolGames = this.schoolXML.getElementsByTagName("game").length;
+        var totSchoolLevels = this.schoolXML.getElementsByTagName("level").length;
+        if (finishedLesson || finishedGame || finishedLevel) {
+            var users = this.usersXML.getElementsByTagName("user");
+            for (var u = 0; u < users.length; u++) {
+                var user = users[u];
+                var tmpID = getValByTag(user, "id");
+                if (tmpID == window.userID) {
+                    var unitsRead = getValByTag(users[u], "unitsRead") * 1;
+                    var gamesWon = getValByTag(users[u], "gamesWon") * 1;
+                    var levelsUnlocked = getValByTag(users[u], "levelsUnlocked") * 1;
 
-                if (finishedLesson === 1) {
-                    var prevVal = getValByTag(user, "unitsRead") * 1;
-                    user.getElementsByTagName("prevUnitsRead")[0].childNodes[0].nodeValue = prevVal;
-                    user.getElementsByTagName("unitsRead")[0].childNodes[0].nodeValue = prevVal + 1;
-                    unitsRead++;
-                }
-                if (finishedGame === 1) {
-                    var prevVal = getValByTag(user, "gamesWon") * 1;
-                    user.getElementsByTagName("prevGamesWon")[0].childNodes[0].nodeValue = prevVal;
-                    user.getElementsByTagName("gamesWon")[0].childNodes[0].nodeValue = prevVal + 1;
-                    gamesWon++;
-                }
-                if (finishedLevel === 1) {
-                    var prevVal = getValByTag(user, "levelsUnlocked") * 1;
-                    user.getElementsByTagName("prevLevelsUnlocked")[0].childNodes[0].nodeValue = prevVal;
-                    user.getElementsByTagName("levelsUnlocked")[0].childNodes[0].nodeValue = prevVal + 1;
-                    levelsUnlocked++;
-                }
+                    if (finishedLesson === 1) {
+                        var prevVal = getValByTag(user, "unitsRead") * 1;
+                        user.getElementsByTagName("prevUnitsRead")[0].childNodes[0].nodeValue = prevVal;
+                        user.getElementsByTagName("unitsRead")[0].childNodes[0].nodeValue = prevVal + 1;
+                        unitsRead++;
+                    }
+                    if (finishedGame === 1) {
+                        var prevVal = getValByTag(user, "gamesWon") * 1;
+                        user.getElementsByTagName("prevGamesWon")[0].childNodes[0].nodeValue = prevVal;
+                        user.getElementsByTagName("gamesWon")[0].childNodes[0].nodeValue = prevVal + 1;
+                        gamesWon++;
+                    }
+                    if (finishedLevel === 1) {
+                        var prevVal = getValByTag(user, "levelsUnlocked") * 1;
+                        user.getElementsByTagName("prevLevelsUnlocked")[0].childNodes[0].nodeValue = prevVal;
+                        user.getElementsByTagName("levelsUnlocked")[0].childNodes[0].nodeValue = prevVal + 1;
+                        levelsUnlocked++;
+                    }
 
-                var maxLevelAbs = totSchoolUnits + totSchoolGames + (totSchoolLevels * 3);
-                var curLevelAbs = unitsRead + gamesWon + (levelsUnlocked * 3);
-                var curLevel = Math.round((1 + Math.round((curLevelAbs / maxLevelAbs) * 900) / 90) * 100) / 100;
-                user.getElementsByTagName("level")[0].childNodes[0].nodeValue = curLevel;
+                    var maxLevelAbs = totSchoolUnits + totSchoolGames + (totSchoolLevels * 3);
+                    var curLevelAbs = unitsRead + gamesWon + (levelsUnlocked * 3);
+                    var curLevel = Math.round((1 + Math.round((curLevelAbs / maxLevelAbs) * 900) / 90) * 100) / 100;
+                    user.getElementsByTagName("level")[0].childNodes[0].nodeValue = curLevel;
+                }
             }
         }
-    }
-    var userText = new XMLSerializer().serializeToString(this.usersXML);
-    var schoolText = new XMLSerializer().serializeToString(this.schoolXML);
-    var bookName = "";
-    if (unitLoc) {
-        bookName = this.unitName;
-    } else {
-        bookName = this.gameName;
-    }
-    var url = "school/" + this.subjectName + "/" + this.levelName + "/" + bookName + "/index.html";
+        var userText = new XMLSerializer().serializeToString(this.usersXML);
+        var schoolText = new XMLSerializer().serializeToString(this.schoolXML);
+        var bookName = "";
+        if (unitLoc) {
+            bookName = this.unitName;
+        } else {
+            bookName = this.gameName;
+        }
+        var url = "school/" + this.subjectName + "/" + this.levelName + "/" + bookName + "/index.html";
 
-    if (typeof overwriteFile == "undefined") {
-        callback(url);
-    } else {
-        overwriteFile("users.xml", userText, function () {
-            overwriteFile("users/" + window.userID + "/school.xml", schoolText, function () {
-                callback(url);
+        if (typeof overwriteFile == "undefined") {
+            callback(url);
+        } else {
+            overwriteFileSafe("users.xml", userText, function () {
+                overwriteFileSafe("users/" + window.userID + "/school.xml", schoolText, function () {
+                    callback(url);
+                });
             });
-        });
+        }
     }
 }
 function User(schoolXML, usersXML) {
@@ -200,7 +203,7 @@ function User(schoolXML, usersXML) {
                     users[u].getElementsByTagName("prevGamesWon")[0].childNodes[0].nodeValue = THIS.gamesWon;
                     users[u].getElementsByTagName("prevLevelsUnlocked")[0].childNodes[0].nodeValue = THIS.levelsUnlocked;
                     var userText = new XMLSerializer().serializeToString(this.usersXML);
-                    overwriteFile("users.xml", userText, function () {
+                    overwriteFileSafe("users.xml", userText, function () {
                         // console.log("updated");
                     });
 

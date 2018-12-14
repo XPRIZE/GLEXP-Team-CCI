@@ -1,0 +1,2174 @@
+<html>
+   <head>
+		<title>Pubbly</title>
+		<link href="../pubbly_engine/latest/css/main.css" rel="stylesheet" />
+		<link href="../pubbly_engine/latest/css/xprizeAppModifications.css" rel="stylesheet" />
+		<link href="../pubbly_engine/latest/css/supportedFonts.css" rel="stylesheet" />
+		<script src="../pubbly_engine/latest/js/third_party/jquery.min.js"></script>
+		<script src="../pubbly_engine/latest/js/third_party/lzwCompress.js"></script>
+
+		<script src="../pubbly_engine/latest/js/utility/filePathManipulations.js"></script>
+		<script src="../pubbly_engine/latest/js/utility/findDifferenceBetweenTwoArrays.js"></script>
+		<!--<script src="../pubbly_engine/latest/js/utility/mergeObjWithDefaults.js"></script>-->
+		<script src="../pubbly_engine/latest/js/utility/random.js"></script>
+		<script src="../pubbly_engine/latest/js/utility/redrawDependency.js"></script>
+		<script src="../pubbly_engine/latest/js/utility/variableFrameRateInt.js"></script>
+
+		<script src="../pubbly_engine/latest/js/shared/assetListLoader.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/buffer.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/color_codes.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/cursors.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/defaultCallbacks.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/error.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/globals.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/helpers.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/messyHTML.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/progressGraph.js"></script>
+
+		<script src="../pubbly_engine/latest/js/run/countdown.js"></script>
+		<script src="../pubbly_engine/latest/js/run/dom.js"></script>
+		<script src="../pubbly_engine/latest/js/run/domInteractionCover.js"></script>
+		<script src="../pubbly_engine/latest/js/run/drawingTools.js"></script>
+		<script src="../pubbly_engine/latest/js/run/events.js"></script>
+		<script src="../pubbly_engine/latest/js/run/events_cursorInput.js"></script>
+		<script src="../pubbly_engine/latest/js/run/links.js"></script>
+		<script src="../pubbly_engine/latest/js/run/navigationUI.js"></script>
+		<script src="../pubbly_engine/latest/js/run/presetAssets.js"></script>
+		<script src="../pubbly_engine/latest/js/run/sequence.js"></script>
+		<script src="../pubbly_engine/latest/js/run/states.js"></script>
+		<script src="../pubbly_engine/latest/js/run/turns.js"></script>
+		<script src="../pubbly_engine/latest/js/run/urlNav.js"></script>
+		<script src="../pubbly_engine/latest/js/run/workspaces.js"></script>
+		<script src="../pubbly_engine/latest/js/run/_Pubbly.js"></script>
+		<script>
+			// Pre doc ready back catch
+			window.history.pushState('popstateListener', null, window.location.href);
+			window.addEventListener("popstate", function (e) {
+				e.preventDefault();
+			});
+		</script>
+		<script src="../pubbly_engine/latest/js/app/_AppModifications.js"></script>
+		<script src="../pubbly_engine/latest/js/app/analytics.js"></script>
+		<script src="../../cordova.js"></script>
+		<script src="../../js/loginCheck.js"></script>
+		<script src="../../js/readWrite.js"></script>
+
+		<script>
+		 window.json = {
+    "info": {
+        "name": "EQ_Sampler",
+        "height": 641,
+        "width": 1000,
+        "display": "single",
+        "bullet": "#8867AC",
+        "interrupt": false,
+        "saveStates": false,
+        "navigation": true,
+        "snapDrops": true,
+        "lastPageSpread": false,
+        "assetLocationPrefix": "undefined_",
+        "HighlightLinkColor": "128,255,255",
+        "HighlightLinkTransparency": 50,
+        "HighlightLinkTime": 500,
+        "HighlightLinkColorRGBA": "RGBA(128,255,255,0.5)"
+    },
+    "pages": [
+        {
+            "points": {
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "Page 1",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "OverallMapQuest",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_OverallMapQuest",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_OverallMapQuest.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Sampler-EQ_Sampler\/images\/P_OverallMapQuest.png"
+                },
+                {
+                    "type": "image",
+                    "name": "EQ_HOME_SELECT",
+                    "layer": 1,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_EQ_HOME_SELECT",
+                    "ext": "jpg",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 1,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_EQ_HOME_SELECT.jpg",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Sampler-EQ_Sampler\/images\/P_EQ_HOME_SELECT.jpg"
+                },
+                {
+                    "type": "image",
+                    "name": "EQ_MAP",
+                    "layer": 2,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_EQ_MAP",
+                    "ext": "jpg",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 2,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_EQ_MAP.jpg",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Sampler-EQ_Sampler\/images\/P_EQ_MAP.jpg"
+                },
+                {
+                    "type": "image",
+                    "name": "EQ_map_main_menu_BEST",
+                    "layer": 3,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_EQ_map_main_menu_BEST",
+                    "ext": "jpg",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 3,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_EQ_map_main_menu_BEST.jpg",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Sampler-EQ_Sampler\/images\/P_EQ_map_main_menu_BEST.jpg"
+                }
+            ],
+            "auds": [],
+            "audKey": {},
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid0",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_INTRO-EQ_INTRO"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 1",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -7,
+                            -14
+                        ],
+                        [
+                            162,
+                            -14
+                        ],
+                        [
+                            162,
+                            157
+                        ],
+                        [
+                            -7,
+                            157
+                        ],
+                        [
+                            -7,
+                            -14
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                -7,
+                                -14
+                            ],
+                            [
+                                162,
+                                -14
+                            ],
+                            [
+                                162,
+                                157
+                            ],
+                            [
+                                -7,
+                                157
+                            ],
+                            [
+                                -7,
+                                -14
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid1",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T1_SyllTap-EQ_T1_SyllTap"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 2",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            194,
+                            57
+                        ],
+                        [
+                            284,
+                            57
+                        ],
+                        [
+                            284,
+                            144
+                        ],
+                        [
+                            194,
+                            144
+                        ],
+                        [
+                            194,
+                            57
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 2,
+                    "init": {
+                        "poly": [
+                            [
+                                194,
+                                57
+                            ],
+                            [
+                                284,
+                                57
+                            ],
+                            [
+                                284,
+                                144
+                            ],
+                            [
+                                194,
+                                144
+                            ],
+                            [
+                                194,
+                                57
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 2
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid2",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_G1_Chicken-EQ_G1_Chicken"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 3",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            299,
+                            -9
+                        ],
+                        [
+                            480,
+                            -9
+                        ],
+                        [
+                            480,
+                            86
+                        ],
+                        [
+                            299,
+                            86
+                        ],
+                        [
+                            299,
+                            -9
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 3,
+                    "init": {
+                        "poly": [
+                            [
+                                299,
+                                -9
+                            ],
+                            [
+                                480,
+                                -9
+                            ],
+                            [
+                                480,
+                                86
+                            ],
+                            [
+                                299,
+                                86
+                            ],
+                            [
+                                299,
+                                -9
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 3
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid3",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T2_Puzpottery-EQ_T2_Puzpottery"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 4",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            560,
+                            5
+                        ],
+                        [
+                            650,
+                            5
+                        ],
+                        [
+                            650,
+                            92
+                        ],
+                        [
+                            560,
+                            92
+                        ],
+                        [
+                            560,
+                            5
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 4,
+                    "init": {
+                        "poly": [
+                            [
+                                560,
+                                5
+                            ],
+                            [
+                                650,
+                                5
+                            ],
+                            [
+                                650,
+                                92
+                            ],
+                            [
+                                560,
+                                92
+                            ],
+                            [
+                                560,
+                                5
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 4
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid4",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_G2_Pottery-EQ_G2_Pottery"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 5",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            809,
+                            8
+                        ],
+                        [
+                            979,
+                            8
+                        ],
+                        [
+                            979,
+                            109
+                        ],
+                        [
+                            809,
+                            109
+                        ],
+                        [
+                            809,
+                            8
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 5,
+                    "init": {
+                        "poly": [
+                            [
+                                809,
+                                8
+                            ],
+                            [
+                                979,
+                                8
+                            ],
+                            [
+                                979,
+                                109
+                            ],
+                            [
+                                809,
+                                109
+                            ],
+                            [
+                                809,
+                                8
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 5
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid5",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T3_Writesent_P2C-EQ_T3_Writesent_P2C"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 6",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            681,
+                            94
+                        ],
+                        [
+                            771,
+                            94
+                        ],
+                        [
+                            771,
+                            181
+                        ],
+                        [
+                            681,
+                            181
+                        ],
+                        [
+                            681,
+                            94
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 6,
+                    "init": {
+                        "poly": [
+                            [
+                                681,
+                                94
+                            ],
+                            [
+                                771,
+                                94
+                            ],
+                            [
+                                771,
+                                181
+                            ],
+                            [
+                                681,
+                                181
+                            ],
+                            [
+                                681,
+                                94
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 6
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid6",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_G3_Seeds-EQ_G3_Seeds"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 7",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            312,
+                            112
+                        ],
+                        [
+                            488,
+                            112
+                        ],
+                        [
+                            488,
+                            197
+                        ],
+                        [
+                            312,
+                            197
+                        ],
+                        [
+                            312,
+                            112
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 7,
+                    "init": {
+                        "poly": [
+                            [
+                                312,
+                                112
+                            ],
+                            [
+                                488,
+                                112
+                            ],
+                            [
+                                488,
+                                197
+                            ],
+                            [
+                                312,
+                                197
+                            ],
+                            [
+                                312,
+                                112
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 7
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid7",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T4_AddSub_0-EQ_T4_AddSub_0"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 8",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            17,
+                            201
+                        ],
+                        [
+                            107,
+                            201
+                        ],
+                        [
+                            107,
+                            288
+                        ],
+                        [
+                            17,
+                            288
+                        ],
+                        [
+                            17,
+                            201
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 8,
+                    "init": {
+                        "poly": [
+                            [
+                                17,
+                                201
+                            ],
+                            [
+                                107,
+                                201
+                            ],
+                            [
+                                107,
+                                288
+                            ],
+                            [
+                                17,
+                                288
+                            ],
+                            [
+                                17,
+                                201
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 8
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid8",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_G4_Beads-EQ_G4_Beads"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 9",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            147,
+                            239
+                        ],
+                        [
+                            309,
+                            239
+                        ],
+                        [
+                            309,
+                            328
+                        ],
+                        [
+                            147,
+                            328
+                        ],
+                        [
+                            147,
+                            239
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 9,
+                    "init": {
+                        "poly": [
+                            [
+                                147,
+                                239
+                            ],
+                            [
+                                309,
+                                239
+                            ],
+                            [
+                                309,
+                                328
+                            ],
+                            [
+                                147,
+                                328
+                            ],
+                            [
+                                147,
+                                239
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 9
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid9",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T5_NumbDrums_v2-EQ_T5_NumbDrums"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 10",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            386,
+                            251
+                        ],
+                        [
+                            476,
+                            251
+                        ],
+                        [
+                            476,
+                            338
+                        ],
+                        [
+                            386,
+                            338
+                        ],
+                        [
+                            386,
+                            251
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 10,
+                    "init": {
+                        "poly": [
+                            [
+                                386,
+                                251
+                            ],
+                            [
+                                476,
+                                251
+                            ],
+                            [
+                                476,
+                                338
+                            ],
+                            [
+                                386,
+                                338
+                            ],
+                            [
+                                386,
+                                251
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 10
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid10",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_G5_Drums-EQ_G5_Drums"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 11",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            529,
+                            186
+                        ],
+                        [
+                            713,
+                            186
+                        ],
+                        [
+                            713,
+                            276
+                        ],
+                        [
+                            529,
+                            276
+                        ],
+                        [
+                            529,
+                            186
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 11,
+                    "init": {
+                        "poly": [
+                            [
+                                529,
+                                186
+                            ],
+                            [
+                                713,
+                                186
+                            ],
+                            [
+                                713,
+                                276
+                            ],
+                            [
+                                529,
+                                276
+                            ],
+                            [
+                                529,
+                                186
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 11
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid11",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T6_SyllTest-EQ_T6_SyllTest_SYLL"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 12",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            865,
+                            177
+                        ],
+                        [
+                            955,
+                            177
+                        ],
+                        [
+                            955,
+                            264
+                        ],
+                        [
+                            865,
+                            264
+                        ],
+                        [
+                            865,
+                            177
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 12,
+                    "init": {
+                        "poly": [
+                            [
+                                865,
+                                177
+                            ],
+                            [
+                                955,
+                                177
+                            ],
+                            [
+                                955,
+                                264
+                            ],
+                            [
+                                865,
+                                264
+                            ],
+                            [
+                                865,
+                                177
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 12
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid12",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_G6_Book-EQ_G6_Book"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 13",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            814,
+                            287
+                        ],
+                        [
+                            995,
+                            287
+                        ],
+                        [
+                            995,
+                            379
+                        ],
+                        [
+                            814,
+                            379
+                        ],
+                        [
+                            814,
+                            287
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 13,
+                    "init": {
+                        "poly": [
+                            [
+                                814,
+                                287
+                            ],
+                            [
+                                995,
+                                287
+                            ],
+                            [
+                                995,
+                                379
+                            ],
+                            [
+                                814,
+                                379
+                            ],
+                            [
+                                814,
+                                287
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 13
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid13",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T7_WordProb_P2A-EQ_T7_WordProb_P2A"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 14",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            221,
+                            334
+                        ],
+                        [
+                            311,
+                            334
+                        ],
+                        [
+                            311,
+                            421
+                        ],
+                        [
+                            221,
+                            421
+                        ],
+                        [
+                            221,
+                            334
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 14,
+                    "init": {
+                        "poly": [
+                            [
+                                221,
+                                334
+                            ],
+                            [
+                                311,
+                                334
+                            ],
+                            [
+                                311,
+                                421
+                            ],
+                            [
+                                221,
+                                421
+                            ],
+                            [
+                                221,
+                                334
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 14
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid14",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_G7_Goat-EQ_G7_Goat"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 15",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            49,
+                            435
+                        ],
+                        [
+                            209,
+                            435
+                        ],
+                        [
+                            209,
+                            517
+                        ],
+                        [
+                            49,
+                            517
+                        ],
+                        [
+                            49,
+                            435
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 15,
+                    "init": {
+                        "poly": [
+                            [
+                                49,
+                                435
+                            ],
+                            [
+                                209,
+                                435
+                            ],
+                            [
+                                209,
+                                517
+                            ],
+                            [
+                                49,
+                                517
+                            ],
+                            [
+                                49,
+                                435
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 15
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid15",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_WORLD_you-EQ World Map Search"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 16",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            827,
+                            476
+                        ],
+                        [
+                            985,
+                            476
+                        ],
+                        [
+                            985,
+                            631
+                        ],
+                        [
+                            827,
+                            631
+                        ],
+                        [
+                            827,
+                            476
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 16,
+                    "init": {
+                        "poly": [
+                            [
+                                827,
+                                476
+                            ],
+                            [
+                                985,
+                                476
+                            ],
+                            [
+                                985,
+                                631
+                            ],
+                            [
+                                827,
+                                631
+                            ],
+                            [
+                                827,
+                                476
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 16
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid16",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-Game_EggTap_New-Game_EggTap"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 17",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            606,
+                            381
+                        ],
+                        [
+                            696,
+                            381
+                        ],
+                        [
+                            696,
+                            468
+                        ],
+                        [
+                            606,
+                            468
+                        ],
+                        [
+                            606,
+                            381
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 17,
+                    "init": {
+                        "poly": [
+                            [
+                                606,
+                                381
+                            ],
+                            [
+                                696,
+                                381
+                            ],
+                            [
+                                696,
+                                468
+                            ],
+                            [
+                                606,
+                                468
+                            ],
+                            [
+                                606,
+                                381
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 17
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid17",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_PaintPots_v3-EQ_paintPots_v3"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 18",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            723,
+                            452
+                        ],
+                        [
+                            817,
+                            452
+                        ],
+                        [
+                            817,
+                            544
+                        ],
+                        [
+                            723,
+                            544
+                        ],
+                        [
+                            723,
+                            452
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 18,
+                    "init": {
+                        "poly": [
+                            [
+                                723,
+                                452
+                            ],
+                            [
+                                817,
+                                452
+                            ],
+                            [
+                                817,
+                                544
+                            ],
+                            [
+                                723,
+                                544
+                            ],
+                            [
+                                723,
+                                452
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 18
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid18",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_BookShelf-EQ_BookShelf"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 19",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            356,
+                            500
+                        ],
+                        [
+                            446,
+                            500
+                        ],
+                        [
+                            446,
+                            587
+                        ],
+                        [
+                            356,
+                            587
+                        ],
+                        [
+                            356,
+                            500
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 19,
+                    "init": {
+                        "poly": [
+                            [
+                                356,
+                                500
+                            ],
+                            [
+                                446,
+                                500
+                            ],
+                            [
+                                446,
+                                587
+                            ],
+                            [
+                                356,
+                                587
+                            ],
+                            [
+                                356,
+                                500
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 19
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid19",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_Village_Colorsort-EQ_Village_Colorsort"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 20",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            450,
+                            391
+                        ],
+                        [
+                            550,
+                            391
+                        ],
+                        [
+                            550,
+                            493
+                        ],
+                        [
+                            450,
+                            493
+                        ],
+                        [
+                            450,
+                            391
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 20,
+                    "init": {
+                        "poly": [
+                            [
+                                450,
+                                391
+                            ],
+                            [
+                                550,
+                                391
+                            ],
+                            [
+                                550,
+                                493
+                            ],
+                            [
+                                450,
+                                493
+                            ],
+                            [
+                                450,
+                                391
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 20
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid20",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_VILL_UPDATE-EQ_Village"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 21",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            410,
+                            636
+                        ],
+                        [
+                            411,
+                            590
+                        ],
+                        [
+                            442,
+                            562
+                        ],
+                        [
+                            442,
+                            517
+                        ],
+                        [
+                            471,
+                            484
+                        ],
+                        [
+                            516,
+                            484
+                        ],
+                        [
+                            537,
+                            450
+                        ],
+                        [
+                            606,
+                            440
+                        ],
+                        [
+                            636,
+                            471
+                        ],
+                        [
+                            680,
+                            461
+                        ],
+                        [
+                            718,
+                            488
+                        ],
+                        [
+                            730,
+                            531
+                        ],
+                        [
+                            764,
+                            544
+                        ],
+                        [
+                            776,
+                            602
+                        ],
+                        [
+                            772,
+                            638
+                        ],
+                        [
+                            410,
+                            636
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 21,
+                    "init": {
+                        "poly": [
+                            [
+                                410,
+                                636
+                            ],
+                            [
+                                411,
+                                590
+                            ],
+                            [
+                                442,
+                                562
+                            ],
+                            [
+                                442,
+                                517
+                            ],
+                            [
+                                471,
+                                484
+                            ],
+                            [
+                                516,
+                                484
+                            ],
+                            [
+                                537,
+                                450
+                            ],
+                            [
+                                606,
+                                440
+                            ],
+                            [
+                                636,
+                                471
+                            ],
+                            [
+                                680,
+                                461
+                            ],
+                            [
+                                718,
+                                488
+                            ],
+                            [
+                                730,
+                                531
+                            ],
+                            [
+                                764,
+                                544
+                            ],
+                            [
+                                776,
+                                602
+                            ],
+                            [
+                                772,
+                                638
+                            ],
+                            [
+                                410,
+                                636
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 21
+                    }
+                }
+            ]
+        }
+    ],
+    "drawingTool": {},
+    "points": {}
+};
+		window.startPage = 0;
+		$(document).ready(function () {
+			document.addEventListener("deviceready", buildPubbly);
+		});
+		function buildPubbly() {
+			window.pubbly = new Pubbly(json, {environment: "app", forceBack: "../../school.html", enginePathPrefix: "../",
+			});
+		};
+		</script>
+
+		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body class="noSelect">
+		<div id="main" class="transformCenterCont">
+			<div class="transformCenter">
+				<div id="pubbly_main">
+				</div>
+			</div>
+		</div>
+   </body>
+</html>

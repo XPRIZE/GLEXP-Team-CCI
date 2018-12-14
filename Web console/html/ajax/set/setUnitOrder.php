@@ -1,11 +1,7 @@
 <?php
 
-/**
- 
- * User: Jason
- * Date: 8/20/2016
- * Time: 2:31 PM
- */
+require_once("../../config.php");
+
 chdir('../');
 $schoolName = isset($_GET["schoolName"]) ? $_GET["schoolName"] : false;
 $subjectName = isset($_GET["subjectName"]) ? $_GET["subjectName"] : false;

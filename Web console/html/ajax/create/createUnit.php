@@ -1,11 +1,6 @@
 <?php
+require_once("../../config.php");
 
-/**
- 
- * User: Jason
- * Date: 8/30/2016
- * Time: 10:10 AM
- */
 chdir('../');
 include('../../includes/dbConnect.php');
 include("../php/getLocFromUnitID.php");
@@ -59,36 +54,36 @@ for ($p = 0; $p < count($ret); $p++) {
     $pageList[$p]['page'] = $ret[$p]['refPage'];
     $sqlObj = false;
     if ($ret[$p]['refChild'] == null) {
-	// It's a book
-	$pageList[$p]['type'] = "Book";
-	$bookName = $ret[$p]['refBook'];
-	$pageList[$p]['name'] = $bookName;
-	$sqlObj = $sql->prepare("SELECT ID from books where `name` = ?");
-	$sqlObj->bind_param('s', $bookName);
-	$sqlObj->execute();
-	$sqlObj->bind_result($bookID);
-	$sqlObj->fetch();
-	$loc = "../books/$bookID";
-	$xmlName = "mainXML.xml";
+        // It's a book
+        $pageList[$p]['type'] = "Book";
+        $bookName = $ret[$p]['refBook'];
+        $pageList[$p]['name'] = $bookName;
+        $sqlObj = $sql->prepare("SELECT ID from books where `name` = ?");
+        $sqlObj->bind_param('s', $bookName);
+        $sqlObj->execute();
+        $sqlObj->bind_result($bookID);
+        $sqlObj->fetch();
+        $loc = "../books/$bookID";
+        $xmlName = "MainXML.xml";
     } else {
-	// It's a series
-	$pageList[$p]['type'] = "Child";
-	$childName = $ret[$p]['refChild'];
-	$pageList[$p]['name'] = $childName;
-	$seriesName = $ret[$p]['refSeries'];
-	$pageList[$p]['seriesName'] = $seriesName;
-	$loc = "../series/$seriesName";
-	$xmlName = "$childName.xml";
+        // It's a series
+        $pageList[$p]['type'] = "Child";
+        $childName = $ret[$p]['refChild'];
+        $pageList[$p]['name'] = $childName;
+        $seriesName = $ret[$p]['refSeries'];
+        $pageList[$p]['seriesName'] = $seriesName;
+        $loc = "../series/$seriesName";
+        $xmlName = "$childName.xml";
     }
     $xmlLoc = "$loc/$xmlName";
     if (file_exists($xmlLoc)) {
-	$pageInfo = getPageInfoByLoc($xmlLoc);
-	$pageList[$p]['height'] = $pageInfo[0]['height'];
-	$pageList[$p]['width'] = $pageInfo[0]['width'];
-	$pageList[$p]['assetLoc'] = $loc;
-	$pageList[$p]['xmlLoc'] = $xmlLoc;
+        $pageInfo = getPageInfoByLoc($xmlLoc);
+        $pageList[$p]['height'] = $pageInfo[0]['height'];
+        $pageList[$p]['width'] = $pageInfo[0]['width'];
+        $pageList[$p]['assetLoc'] = $loc;
+        $pageList[$p]['xmlLoc'] = $xmlLoc;
     } else {
-	array_push($errList, "error: XML $xmlLoc does not exist");
+        array_push($errList, "error: XML $xmlLoc does not exist");
     }
 }
 
@@ -100,15 +95,15 @@ if (count($pageList) > 0) {
     $unitWidth = $pageList[0]['width'];
 
     for ($p = 0; $p < count($pageList); $p++) {
-	if ($pageList[$p]['height'] == $unitHeight &&
-		$pageList[$p]['width'] == $unitWidth
-	) {
-	    // $pass = true? unnecessary
-	} else {
-	    $pass = false;
-	    array_push($errList, "error: Page $p does not conform to unit dimensions and will probably look bad. Make sure all pages in unit are the same height and width.");
-	    $p = count($pageList);
-	}
+        if ($pageList[$p]['height'] == $unitHeight &&
+                $pageList[$p]['width'] == $unitWidth
+        ) {
+            // $pass = true? unnecessary
+        } else {
+            $pass = false;
+            array_push($errList, "error: Page $p does not conform to unit dimensions and will probably look bad. Make sure all pages in unit are the same height and width.");
+            $p = count($pageList);
+        }
     }
 } else {
     $unitWidth = 0;
@@ -122,10 +117,10 @@ if ($isTutorial) {
     $unitAssetLoc = "../schools/" . $unitInfo['schoolName'] . "/tutorials" . "/" . $unitInfo['unitName'];
 } else {
     $unitAssetLoc = "../schools/" .
-	    $unitInfo['schoolName'] . "/" .
-	    $unitInfo['subjectName'] . "/" .
-	    $unitInfo['levelName'] . "/" .
-	    $unitInfo['unitName'];
+            $unitInfo['schoolName'] . "/" .
+            $unitInfo['subjectName'] . "/" .
+            $unitInfo['levelName'] . "/" .
+            $unitInfo['unitName'];
 }
 
 
@@ -164,117 +159,151 @@ if ($pass) {
 
     $files = glob("$unitAssetLoc/images/*");
     foreach ($files as $file) {
-	if (is_file($file)) {
-	    unlink($file);
-	}
+        if (is_file($file)) {
+            unlink($file);
+        }
     }
     $files = glob("$unitAssetLoc/audio/*");
     foreach ($files as $file) {
-	if (is_file($file)) {
-	    unlink($file);
-	}
+        if (is_file($file)) {
+            unlink($file);
+        }
     }
 
     for ($p = 0; $p < count($pageList); $p++) {
-	$obj = $pageList[$p];
-	$pullLoc = $obj['xmlLoc'];
-	$pageFromPull = $obj['page'] - 1;
+        $obj = $pageList[$p];
+        $pullLoc = $obj['xmlLoc'];
+        $pageFromPull = $obj['page'] - 1;
 
-	$pullDoc = new DOMDocument;
-	$pullDoc->loadXML(file_get_contents($pullLoc));
-	$node = $pullDoc->getElementsByTagName("Page")->item($pageFromPull);
-	if ($node) {
-	    $putDoc = new DOMDocument;
-	    $putDoc->formatOutput = true;
-	    $putDoc->loadXML(file_get_contents($unitXMLLoc));
-	    $node = $putDoc->importNode($node, true);
-	    $putDoc->documentElement->getElementsByTagName("Pages")->item(0)->appendChild($node);
-	    file_put_contents($unitXMLLoc, "");
-	    file_put_contents($unitXMLLoc, $putDoc->saveXML());
-	} else {
-	    array_push($errList, "error: Can't combine page $pageFromPull of book $pullLoc");
-	}
+        $pullDoc = new DOMDocument;
+        $pullDoc->loadXML(file_get_contents($pullLoc));
+        $node = $pullDoc->getElementsByTagName("Page")->item($pageFromPull);
+        if ($node) {
+            $putDoc = new DOMDocument;
+            $putDoc->formatOutput = true;
+            $putDoc->loadXML(file_get_contents($unitXMLLoc));
+            $node = $putDoc->importNode($node, true);
+            $putDoc->documentElement->getElementsByTagName("Pages")->item(0)->appendChild($node);
+            file_put_contents($unitXMLLoc, "");
+            file_put_contents($unitXMLLoc, $putDoc->saveXML());
+        } else {
+            array_push($errList, "error: Can't combine page $pageFromPull of book $pullLoc");
+        }
 
-	$pullPageSimple = simplexml_load_file($pullLoc);
-	if ($pullPageSimple->Pages->Page->$pageFromPull) {
-	    $pullAssetLoc = $obj['assetLoc'];
-	    $objLoc = $pullPageSimple->Pages->Page->$pageFromPull->Objects->Object;
+        $pullPageSimple = simplexml_load_file($pullLoc);
+        if ($pullPageSimple->Pages->Page->$pageFromPull) {
+            $pullAssetLoc = $obj['assetLoc'];
+            $objLoc = $pullPageSimple->Pages->Page->$pageFromPull->Objects->Object;
 
-	    for ($i = 0; $i < count($objLoc); $i++) {
-		if ($objLoc[$i]->ObjType == "image" || $objLoc[$i]->ObjType == "video") {
-		    $type = $objLoc[$i]->ObjType;
-		    $imgName = $objLoc[$i]->ObjFileName . '.' . $objLoc[$i]->ObjExt;
-		    if ($type == "video") {
-			$imgName = $objLoc[$i]->ObjName . '.' . $objLoc[$i]->ObjExt;
-		    }
-		    $imgName = str_replace("'", "", $imgName);
-		    if (!is_dir("$unitAssetLoc/$type" . "s")) {
-			mkdir("$unitAssetLoc/$type" . "s");
-		    }
-		    copy("$pullAssetLoc/$type" . "s/$imgName", "$unitAssetLoc/$type" . "s/$imgName");
-		    if ($objLoc[$i]->ObjExt == "gif") {
-			if (!is_dir("$unitAssetLoc/images/gifFrames")) {
-			    mkdir("$unitAssetLoc/images/gifFrames");
-			}
-			$imgsInGif = 0;
-			$fileName = $objLoc[$i]->ObjFileName;
-			$frameCheck = "$pullAssetLoc/images/gifFrames/" . $fileName . "-frame-" . $imgsInGif . ".png";
+            for ($i = 0; $i < count($objLoc); $i++) {
+                if ($objLoc[$i]->ObjType == "image" || $objLoc[$i]->ObjType == "video") {
+                    $type = $objLoc[$i]->ObjType;
+                    $imgName = $objLoc[$i]->ObjFileName . '.' . $objLoc[$i]->ObjExt;
+                    if ($type == "video") {
+                        if ((string) $objLoc[$i]->Source !== "") {
+                            $imgName = $objLoc[$i]->Source;
+                        }   else if ((string)$objLoc[$i]->ObjFileName !== "")    {
+                            $imgName = $objLoc[$i]->ObjFileName;
+                        } else {
+                            $imgName = $objLoc[$i]->ObjName . '.' . $objLoc[$i]->ObjExt;
+                        }
+                    }
+                    $imgName = str_replace("'", "", $imgName);
+                    if (!is_dir("$unitAssetLoc/$type" . "s")) {
+                        mkdir("$unitAssetLoc/$type" . "s");
+                    }
+                    if ($objLoc[$i]->ObjIsImageSequence == "true") {
+                        $frames = $objLoc[$i]->ObjImageSequenceFrames->Frame;
+                        $frameFolder = $objLoc[$i]->ObjImageSequenceFolder;
+                        $frameDir = "$unitAssetLoc/images/$frameFolder";
+                        if (!is_dir($frameDir)) {
+                            mkdir($frameDir);
+                        }
+                        for ($f = 0; $f < count($frames); $f++) {
+                            $frameName = $frames[$f];
+                            $from = "$pullAssetLoc/$type" . "s/$frameFolder/$frameName";
+                            $to = "$unitAssetLoc/$type" . "s/$frameFolder/$frameName";
+                            copy($from, $to);
+                        }
+                    } else {
+                        copy("$pullAssetLoc/$type" . "s/$imgName", "$unitAssetLoc/$type" . "s/$imgName");
+                    }
+                    if ($objLoc[$i]->ObjExt == "gif") {
+                        if (!is_dir("$unitAssetLoc/images/gifFrames")) {
+                            mkdir("$unitAssetLoc/images/gifFrames");
+                        }
+                        $imgsInGif = 0;
+                        $fileName = $objLoc[$i]->ObjFileName;
+                        $frameCheck = "$pullAssetLoc/images/gifFrames/" . $fileName . "-frame-" . $imgsInGif . ".png";
 
-			if (file_exists($frameCheck)) {
-			    do {
-				copy($frameCheck, "$unitAssetLoc/images/gifFrames/" . $fileName . "-frame-" . $imgsInGif . ".png");
-				$imgsInGif++;
-				$frameCheck = "$pullAssetLoc/images/gifFrames/" . $fileName . "-frame-" . $imgsInGif . ".png";
-			    } while (file_exists($frameCheck));
-			    // echo $imgsInGif;
-			    $gifInfoStr = $gifInfoStr . "'" . $fileName . "'" . ":{'length':'" . $imgsInGif . "'},";
-			    $gifsInProject++;
-			}
-		    }
-		}
-	    }
+                        if (file_exists($frameCheck)) {
+                            do {
+                                copy($frameCheck, "$unitAssetLoc/images/gifFrames/" . $fileName . "-frame-" . $imgsInGif . ".png");
+                                $imgsInGif++;
+                                $frameCheck = "$pullAssetLoc/images/gifFrames/" . $fileName . "-frame-" . $imgsInGif . ".png";
+                            } while (file_exists($frameCheck));
+                            // echo $imgsInGif;
+                            $gifInfoStr = $gifInfoStr . "'" . $fileName . "'" . ":{'length':'" . $imgsInGif . "'},";
+                            $gifsInProject++;
+                        }
+                    }
+                }
+            }
 
-	    foreach ($pullPageSimple->Pages->Page->$pageFromPull->Links->children() as $link) {
-		foreach ($link->Triggers->children() as $trigger) {
-		    foreach ($trigger->Targets->children() as $target) {
-			if ($target->Type == "Audio") {
-			    $aud = (string) $target->Destination;
-			    $aud = str_replace("'", "", $aud);
+            foreach ($pullPageSimple->Pages->Page->$pageFromPull->Links->children() as $link) {
+                foreach ($link->Triggers->children() as $trigger) {
+                    foreach ($trigger->Targets->children() as $target) {
+                        if ($target->Type == "Audio") {
+                            $aud = (string) $target->Destination;
+                            // $aud = str_replace("'", "", $aud);
+                            // Causing problems, missing auds and stuff
 
-			    $functionCheck1 = explode("?choose(", $aud);
-			    $functionCheck2 = explode("?chooseAndRemove(", $aud);
-			    if (count($functionCheck1) > 1 || count($functionCheck2) > 1) {
-				// This takes care of ?choose(aud,aud,aud)?
-				$audStr = (count($functionCheck1) > 1) ? $functionCheck1[1] : $functionCheck2[1];
-				$audStr = explode(")?", $audStr);
-				$audStr = $audStr[0];
-				$audArr = explode(",", $audStr);
-				for ($a = 0; $a < count($audArr); $a++) {
-				    copy("$pullAssetLoc/audio/$audArr[$a].wav", "$unitAssetLoc/audio/$audArr[$a].wav");
-				}
-			    } else {
-				copy("$pullAssetLoc/audio/$aud.wav", "$unitAssetLoc/audio/$aud.wav");
-			    }
-			}
-		    }
-		}
-	    }
-	} else {
-	    array_push($errList, "error: Page $pageFromPull no longer exists in xml file $pullLoc");
-	}
+                            $functionCheck1 = explode("?choose(", $aud);
+                            $functionCheck2 = explode("?chooseAndRemove(", $aud);
+                            if (count($functionCheck1) > 1 || count($functionCheck2) > 1) {
+                                // This takes care of ?choose(aud,aud,aud)?
+                                $audStr = (count($functionCheck1) > 1) ? $functionCheck1[1] : $functionCheck2[1];
+                                $audStr = explode(")?", $audStr);
+                                $audStr = $audStr[0];
+                                $audArr = explode(",", $audStr);
+                                for ($a = 0; $a < count($audArr); $a++) {
+                                    copy("$pullAssetLoc/audio/$audArr[$a].wav", "$unitAssetLoc/audio/$audArr[$a].wav");
+                                }
+                            } else {
+                                $audFileLocFullWav = "$pullAssetLoc/audio/$aud.wav";
+                                $audFileLocFullMp3 = "$pullAssetLoc/audio/$aud.mp3";
+                                if (file_exists($audFileLocFullWav)) {
+                                    copy($audFileLocFullWav, "$unitAssetLoc/audio/$aud.wav");
+                                } else if (file_exists($audFileLocFullMp3)) {
+                                    copy($audFileLocFullMp3, "$unitAssetLoc/audio/$aud.mp3");
+                                } else {
+                                    array_push($errList, "error: Missing audio file $aud. Unit may not play correctly. Make sure you are using ONLY mp3's and wav files in uploads");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            array_push($errList, "error: Page $pageFromPull no longer exists in xml file $pullLoc");
+        }
     }
 
     if ($gifsInProject > 0) {
-	$gifInfoStr = $gifInfoStr . "};";
-	file_put_contents("$unitAssetLoc/images/gifFrames/gifInfo.js", $gifInfoStr);
+        $gifInfoStr = $gifInfoStr . "};";
+        file_put_contents("$unitAssetLoc/images/gifFrames/gifInfo.js", $gifInfoStr);
     }
 }
 
 if (count($errList) == 0) {
-// update unit
+    // update unit
     $con = new DBConnect();
     $sql = $con->mysqli;
     $obj = $sql->prepare("UPDATE units SET outdated = 0 WHERE ID = ?");
+    $obj->bind_param('s', $unitID);
+    $obj->execute();
+    $obj = false;
+    $obj = $sql->prepare("UPDATE schools sch LEFT JOIN units unt ON unt.schoolID = sch.ID SET sch.outdated = 1 WHERE unt.ID = ?");
     $obj->bind_param('s', $unitID);
     $obj->execute();
 

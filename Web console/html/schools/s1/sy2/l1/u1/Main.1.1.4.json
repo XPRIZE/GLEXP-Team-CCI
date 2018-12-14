@@ -1,0 +1,24 @@
+{
+    "info": {
+        "name": "u1",
+        "height": false,
+        "width": 0,
+        "display": "single",
+        "bullet": "#0EFE0E",
+        "interrupt": 0,
+        "saveStates": false,
+        "navigation": true,
+        "snapDrops": true,
+        "assetLocationPrefix": "undefined_",
+        "HighlightLinkColor": "128,255,255",
+        "HighlightLinkTransparency": 50,
+        "HighlightLinkTime": 500,
+        "inrettupt": true,
+        "HighlightLinkColorRGBA": "RGBA(128,255,255,0.5)"
+    },
+    "pages": [],
+    "drawingTool": {},
+    "points": {
+        "": 0
+    }
+}

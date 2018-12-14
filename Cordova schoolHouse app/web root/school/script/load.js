@@ -15,7 +15,7 @@ window.addEventListener("popstate", function (e) {
 // last minute didn't want to change the index so I'm changin the load script added analytics stuff
 // ideally, add this in index.html and game.html
 function retStamp() {
-    return parseInt(Date.now() / 1000).toString().slice(2);
+    return parseInt(Date.now()).toString();
 }
 
 function Analytics() {
@@ -24,7 +24,7 @@ function Analytics() {
     this.fullObj = {};
 
     this.retStamp = function () {
-        var now = parseInt(Date.now() / 1000).toString().slice(2);
+        var now = parseInt(Date.now()).toString();
         return now;
 
         // to reverse
@@ -38,14 +38,14 @@ function Analytics() {
         var subject = url.pop();
         login(function (uid) {
             readFile("users/" + uid + "/analytics.json", function (ret) {
-                var name = uid + "-" + subject + "-" + book + "-analitics-" + self.retStamp() + "";
+                var name = uid + "-" + window.location.pathname + "-analytics-" + self.retStamp() + "";
                 self.fName = "users/" + btoa(name) + ".json";
                 var bookOpenLoc = {type: "bo", recordLoc: self.fName};
                 var analyticsMain = JSON.parse(ret);
                 analyticsMain.records[self.retStamp()] = bookOpenLoc;
                 writeFile("users/" + uid + "/analytics.json", JSON.stringify(analyticsMain), function () {
                     self.add({
-                        type: "book open",
+                        type: "bo",
                         bookName: book,
                         subjectName: subject,
                         fName: self.fName,
@@ -56,7 +56,7 @@ function Analytics() {
             });
         }, function (err) {
             console.log(err);
-            var name = "anon" + "-" + subject + "-" + book + "-analitics-" + self.retStamp() + "";
+            var name = "anon" + "-" + window.location.pathname + "-analitics-" + self.retStamp() + "";
             self.fName = "users/" + btoa(name) + ".json";
             self.add({
                 type: "book open",
@@ -179,6 +179,9 @@ if (false && isPad) {
 if (typeof window.assetsLoc == "undefined") {
     window.assetsLoc = "";
 }
+if (typeof window.sharedAssetLoc == "undefined") {
+    window.sharedAssetLoc = "../../../sharedAssets/";
+}
 if (typeof window.gifInfo == "undefined") {
     window.gifInfo = {};
 }
@@ -220,70 +223,77 @@ if (isCordova) {
             window.readerName = uid;
             $.holdReady(false);
         }, function () {
-            window.readerName = "annon";
+            window.readerName = "anon";
             $.holdReady(false);
         })
     });
 }
 
 $(document).ready(function () {
-    if (typeof Analytics == "undefined") {
-        book.analytics = {};
-        book.analytics.add = function (what, cb) {
-            console.error("analytics script did not load, please add in index.html");
-            if (cb) {
-                cb();
+    if (typeof window.location.href.split("?")[1] == "undefined") {
+        var breakLoc = (typeof defaultPageLoadBreak == "undefined") ?
+          8 : defaultPageLoadBreak
+        window.location.href = window.location.href + "?start=1&end=" + breakLoc + "&cur=1";
+    } else {
+        if (typeof Analytics == "undefined") {
+            book.analytics = {};
+            book.analytics.add = function (what, cb) {
+                console.error("analytics script did not load, please add in index.html");
+                if (cb) {
+                    cb();
+                }
+            }
+            triggerXMLload();
+        } else {
+            book.analytics = new Analytics();
+            book.analytics.init(function () {
+                triggerXMLload();
+            })
+            // Catch back event ONLY if analytics are loaded, otherwise kids are locked in book.
+            window.history.pushState('popstateListener', null, window.location.href);
+            window.addEventListener("popstate", function (e) {
+                e.preventDefault();
+            });
+        }
+
+        function triggerXMLload() {
+            var test = document.createElement('div');
+            test.setAttribute('id', 'screen-middle');
+            document.body.appendChild(test);
+            var xmlParsed = "";
+            if (typeof (xml) === "undefined") {
+                if (!window.xmlLoc) {
+                    xmlLoc = window.assetsLoc + "MainXML.xml";
+                }
+                window.xmlLoc = window.xmlLoc + noCacheExt();
+                $.ajax({
+                    type: "GET",
+                    url: xmlLoc,
+                    dataType: "xml",
+                    timeout: 5000,
+                    cache: false,
+                    success: xmlLoaded,
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.error("ERROR - " + thrownError);
+                        missingXML = true;
+                        var id = window.location.pathname.split("/")[3];
+                        var author = window.location.pathname.split("/")[2];
+                        document.body.innerHTML = "<div class=fatalError>" +
+                          "<h2>Fatal error</h2>" +
+                          "<p>This book is missing the XML. Try reuploading.</p>" +
+                          "<p>If the problem persists, try reuploading, " +
+                          "<a href=http://" + window.location.hostname + "/phpscripts/Optimize.php?id=" + id + "&username=" + author + ">reoptimizing</a>" +
+                          " or contact support.</p>" +
+                          "</div>";
+                    }
+                });
+            } else {
+                xml = $.parseXML(xml);
+                xmlLoaded(xml);
             }
         }
-        triggerXMLload();
-    } else {
-        book.analytics = new Analytics();
-        book.analytics.init(function () {
-            triggerXMLload();
-        })
-        // Catch back event ONLY if analytics are loaded, otherwise kids are locked in book.
-        window.history.pushState('popstateListener', null, window.location.href);
-        window.addEventListener("popstate", function (e) {
-            e.preventDefault();
-        });
     }
 
-    function triggerXMLload() {
-        var test = document.createElement('div');
-        test.setAttribute('id', 'screen-middle');
-        document.body.appendChild(test);
-        var xmlParsed = "";
-        if (typeof (xml) === "undefined") {
-            if (!window.xmlLoc) {
-                xmlLoc = window.assetsLoc + "MainXML.xml";
-            }
-            window.xmlLoc = window.xmlLoc + noCacheExt();
-            $.ajax({
-                type: "GET",
-                url: xmlLoc,
-                dataType: "xml",
-                timeout: 5000,
-                cache: false,
-                success: xmlLoaded,
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.error("ERROR - " + thrownError);
-                    missingXML = true;
-                    var id = window.location.pathname.split("/")[3];
-                    var author = window.location.pathname.split("/")[2];
-                    document.body.innerHTML = "<div class=fatalError>" +
-                            "<h2>Fatal error</h2>" +
-                            "<p>This book is missing the XML. Try reuploading.</p>" +
-                            "<p>If the problem persists, try reuploading, " +
-                            "<a href=http://" + window.location.hostname + "/phpscripts/Optimize.php?id=" + id + "&username=" + author + ">reoptimizing</a>" +
-                            " or contact support.</p>" +
-                            "</div>";
-                }
-            });
-        } else {
-            xml = $.parseXML(xml);
-            xmlLoaded(xml);
-        }
-    }
 });
 // At this point, I do not have to worry about whether this is a local view or a serverside view. ALL EVENTS are handled the same from here on out.
 //
@@ -542,11 +552,11 @@ function xmlLoaded(curXML) {
          var subChoices = addElem(plateMax, "div", [["id", "subChoices"]]);
          var subCol1 = addElem(subChoices, "div", [["id", "subCol1"], ["class", "subCol"]]);
          var subCol2 = addElem(subChoices, "div", [["id", "subCol2"], ["class", "subCol"]]);
-         
+
          // pushed to production, drawing tools removed.
          //$("#plateCont").css({"display":"none","pointer-events":"none"});
-         
-         
+
+
          plateHeight = 'close';
          function togglePlate() {
          if (plateHeight == 'close') {
@@ -555,9 +565,9 @@ function xmlLoaded(curXML) {
          animPlate('close');
          }
          }
-         
+
          plateMin.addEventListener('mouseup', togglePlate);
-         
+
          book.drawingTools = {};
          book.drawingTools.status = false;
          book.drawingTools.cur = false;
@@ -567,7 +577,7 @@ function xmlLoaded(curXML) {
          this.displayName = displayName || name;
          this.choices = choices;
          this.subValues = subValues;
-         
+
          this.elem = addElem(plateMax, 'div', [['id', this.name], ['class', 'plateChoice']]);
          this.icon = addElem(this.elem, 'img', [['id', this.name + '-icon'], ['class', 'plateChoiceIcon'], ['src', dependenciesLoc + 'presets/icons/' + this.name + '.png']]);
          this.title = addElem(this.elem, 'p', [['id', this.name + '-title'], ['class', 'plateChoiceName']], this.displayName);
@@ -590,14 +600,14 @@ function xmlLoaded(curXML) {
          if (prevName == 'nuke') {
          $("#clearInputLeft").trigger("click");
          }
-         
+
          if (this.name == 'navigation' || this.name == 'nav') {
          book.drawingTools.cur = false;
          animPlate('close');
          } else {
          book.drawingTools.cur = this.name;
          }
-         
+
          if (prevTool) {
          prevTool.hoverLeave();
          }
@@ -612,7 +622,7 @@ function xmlLoaded(curXML) {
          $("#subChoices #opacity").css({"display": "none"});
          $("#subChoices #shape").css({"display": "none"});
          $("#subChoices #clear").css({"display": "none"});
-         
+
          var choice = this.choices;
          if (choice.left.length == 1) {
          $("#subCol1 > #" + choice.left[0]).css({"display": "inline-block"});
@@ -639,7 +649,7 @@ function xmlLoaded(curXML) {
          $(".shapeAct")[0].click();
          shapeValue = '50%';
          }
-         
+
          $('.colorSquare')[subValues.color].click();
          document.getElementById('thicknessSlider').value = subValues.thickness;
          document.getElementById('opacitySlider').value = subValues.opacity * 100;
@@ -675,7 +685,7 @@ function xmlLoaded(curXML) {
          THIS.select()
          });
          }
-         
+
          drawingTools = {
          pencil: {
          name: 'pencil',
@@ -695,7 +705,7 @@ function xmlLoaded(curXML) {
          opacity: 1,
          shape: 'circle',
          }
-         
+
          },
          pen: {
          name: 'pen',
@@ -788,7 +798,7 @@ function xmlLoaded(curXML) {
          html: '',
          }
          };
-         
+
          // inner html for sub choices
          // --COLOR
          var colorHTML = '';
@@ -800,20 +810,20 @@ function xmlLoaded(curXML) {
          colorHTML += firstHTML + c + secondHTML + colorArr[c] + closeHTML;
          }
          drawingToolsSubs.color.html = colorHTML;
-         
+
          // --THICKNESS
          drawingToolsSubs.thickness.html = '<div id=thicknessInputLeft class=thicknessTable><input type=range id=thicknessSlider min=3 max=80></input><p id=thicknessLabel>Thickness<p></div>';
-         
+
          // --CLEAR
          drawingToolsSubs.clear.html = '<input id=clearInputLeft type=button value="Clear Drawing" ></input>';
-         
+
          // --OPACITY
          drawingToolsSubs.opacity.html = '<div id=opacityInputLeft class=opacityTable><input type=range id=opacitySlider min=10 max=100></input><p id=opacityLabel>Opacity<p></div>';
-         
+
          // --SHAPE
          drawingToolsSubs.shape.html = '<div class=shapeAct id=circle-shape chosen=false></div><div class=shapeAct id=square-shape chosen=false></div><p id=shapeLabel>Shape</p>';
-         
-         
+
+
          for (var t in drawingTools) {
          var curTool = drawingTools[t];
          var curName = curTool.name;
@@ -827,11 +837,11 @@ function xmlLoaded(curXML) {
          addElem(subCol2, "div", [["id", curSub.name], ["class", "subChoice"], ["val", false]], curSub.html);
          }
          }
-         
+
          // --DISPLAY
          var subCol3 = addElem(subChoices, "div", [["id", "subCol3"], ["class", "subCol"]]);
          var choiceDisplay = addElem(subCol3, "div", [["id", "choiceDisplay"]]);
-         
+
          $(".colorSquare").mouseleave(function () {
          if (this.getAttribute('chosen') == 'false') {
          $(this).clearQueue();
@@ -856,8 +866,8 @@ function xmlLoaded(curXML) {
          $(this).animate({"background-color": "white", "opacity": 1}, 200);
          }
          });
-         
-         
+
+
          $(".colorSquare").click(function () {
          var colorSlot = this.getAttribute('slot');
          var colorCho = this.style.backgroundColor;
@@ -869,27 +879,27 @@ function xmlLoaded(curXML) {
          $(cur).css({"borderColor": "transparent"});
          }
          }
-         
+
          $(this).animate({"borderColor": "#303030"}, 400);
          this.parentNode.setAttribute('val', colorCho);
          this.setAttribute('chosen', 'true');
          $(choiceDisplay).css({"background-color": colorCho});
-         
+
          // set new value
          book.drawingTools[book.drawingTools.cur].subValues.color = colorSlot;
          });
          document.getElementById("thicknessSlider").addEventListener('change', function (e) {
          var thickVal = this.value;
          $(choiceDisplay).css({"height": thickVal, "width": thickVal, 'margin': (90 - this.value) / 2});
-         
+
          // set new value
          book.drawingTools[book.drawingTools.cur].subValues.thickness = thickVal;
          }, false);
          document.getElementById("opacitySlider").addEventListener('change', function (e) {
-         
+
          var opVal = this.value / 100;
          $(choiceDisplay).css({"opacity": opVal});
-         
+
          // set new value
          book.drawingTools[book.drawingTools.cur].subValues.opacity = opVal;
          }, false);
@@ -909,7 +919,7 @@ function xmlLoaded(curXML) {
          } else if (shapeCho == 'square') {
          $(choiceDisplay).css({"border-radius": '0%'});
          }
-         
+
          // set new value
          book.drawingTools[book.drawingTools.cur].subValues.shape = shapeCho;
          });
@@ -945,7 +955,7 @@ function xmlLoaded(curXML) {
         this.src = src;
         this.aud = new Audio();
         this.loaded = false;
-        // TODO: make an array of all potential background audio files. Preload by page.		
+        // TODO: make an array of all potential background audio files. Preload by page.
         this.onLoad = function () {
             this.aud.play();
         };
@@ -1105,25 +1115,6 @@ function xmlLoaded(curXML) {
         bufArr[key + 'at'] = 0;
         bufArr.length++;
 
-        book[key] ={
-            "CAN":false,
-            "BUF":false,
-            "loaded":true,
-            redraw:function() {
-                return true;
-            },
-            reload:function() {
-                return true;
-            }
-        }
-    }
-    
-    for (var key = Math.max(urlVars["start"] - 2,0); key < Math.min(curPages.length, urlVars["end"] + 1); key++) {
-        bufArr[key] = [];
-        bufArr[key + "load"] = false;
-        bufArr[key + 'at'] = 0;
-        bufArr.length++;
-
         var curPage = curPages[key];
 
         book[key] = new Page(key, curPages[key]);
@@ -1265,13 +1256,6 @@ function xmlLoaded(curXML) {
                 viewport.name = 'viewport';
                 // viewport.content = 'width=device-width,initital-scale=1,user=-scalable=no';
                 viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0';
-
-                // may or may not fix screen unhinging
-                // did not. maybe useful in the future, but just slowed things down.
-//                var densityPort = document.createElement("meta");
-//                densityPort.content = "target-densitydpi=device-dpi";
-//                document.head.insertBefore(densityPort, document.head.firstChild);
-
                 document.head.insertBefore(viewport, document.head.firstChild);
             }
             window.addEventListener('orientationchange', rescale);
@@ -1294,6 +1278,8 @@ function xmlLoaded(curXML) {
 
     curInfo = "";
     curXML = "";
+
+    book.analytics.add({type: "xp", pageCount: book.length});
 
     window.setTimeout(function () {
         // Should give enough time for the viewport meta to finally parse in the browser.
@@ -1927,9 +1913,9 @@ function Page(key, curXmlPage) {
                     curObj.opacity = curObj.initOpacity || 1; // No init op
 
                     if (curObj.type == "drawing") {
-                        curObj.drawn = false; // Reset drawings		
-                        // TO MY KNOWLEDGE, there are no "default drawn on page" drawings.		
-                        // If there are, or if we add them later, curObj.initDrawn		
+                        curObj.drawn = false; // Reset drawings
+                        // TO MY KNOWLEDGE, there are no "default drawn on page" drawings.
+                        // If there are, or if we add them later, curObj.initDrawn
                     }
                 }
             }
@@ -2126,12 +2112,12 @@ function Page(key, curXmlPage) {
 
                         try {
                             btx.drawImage(
-                                    curElem,
-                                    -1 * (curData.width / 2),
-                                    -1 * (curData.height / 2),
-                                    curData.width,
-                                    curData.height
-                                    );
+                              curElem,
+                              -1 * (curData.width / 2),
+                              -1 * (curData.height / 2),
+                              curData.width,
+                              curData.height
+                              );
                         } catch (e) {
                         }
                         btx.rotate(-1 * curData.rot);
@@ -2185,11 +2171,11 @@ function Page(key, curXmlPage) {
 
                         try {
                             btx.drawImage(
-                                    curElem,
-                                    (-1 * (curObj.width / 2)),
-                                    (-1 * (curObj.height / 2)),
-                                    width,
-                                    height);
+                              curElem,
+                              (-1 * (curObj.width / 2)),
+                              (-1 * (curObj.height / 2)),
+                              width,
+                              height);
                         } catch (e) {
                         }
 
@@ -2197,11 +2183,11 @@ function Page(key, curXmlPage) {
                     } else {
                         try {
                             btx.drawImage(
-                                    curElem,
-                                    left,
-                                    top,
-                                    width,
-                                    height);
+                              curElem,
+                              left,
+                              top,
+                              width,
+                              height);
                         } catch (e) {
                         }
                     }
@@ -2209,19 +2195,19 @@ function Page(key, curXmlPage) {
                     /*
                      Animations were getting stuck at the last leg. Thought that was a bug, it was a workaround for "saving animations in their last state".
                      Had to get rid of that, so I set the anim.AT to false in the sequence, now you can drag animated objects.
-                     
+
                      BUT WAIT!!
-                     
+
                      What about animations that finish with an opacity, and need to keep it?
-                     
+
                      Well, now when an animation ends, the animation data is copied over to the actual data, problem solved.
-                     
+
                      BUT WAIT, regular objects don't have opacity!!
-                     
+
                      Added opacity to regular objects.
-                     
+
                      TODO: Didn't get opacity for all regular objects. Don't want to screw with it today, so put an undefined default of 1 check up top. This will probably cause problems in the future, but who cares about future Jason, that guys lame!
-                     
+
                      PROBLEM SOLVED MOTHERS!!!
                      */
                 }

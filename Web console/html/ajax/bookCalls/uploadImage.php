@@ -1,10 +1,6 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 11/3/2016
- * Time: 12:04 PM
- */
+require_once("../../config.php");
+
 
 $bUrl = $_GET['imgUrl'];
 

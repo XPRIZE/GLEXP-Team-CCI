@@ -1,0 +1,4179 @@
+<html>
+   <head>
+		<title>Pubbly</title>
+		<link href="../pubbly_engine/latest/css/main.css" rel="stylesheet" />
+		<link href="../pubbly_engine/latest/css/xprizeAppModifications.css" rel="stylesheet" />
+		<link href="../pubbly_engine/latest/css/supportedFonts.css" rel="stylesheet" />
+		<script src="../pubbly_engine/latest/js/third_party/jquery.min.js"></script>
+		<script src="../pubbly_engine/latest/js/third_party/lzwCompress.js"></script>
+
+		<script src="../pubbly_engine/latest/js/utility/filePathManipulations.js"></script>
+		<script src="../pubbly_engine/latest/js/utility/findDifferenceBetweenTwoArrays.js"></script>
+		<!--<script src="../pubbly_engine/latest/js/utility/mergeObjWithDefaults.js"></script>-->
+		<script src="../pubbly_engine/latest/js/utility/random.js"></script>
+		<script src="../pubbly_engine/latest/js/utility/redrawDependency.js"></script>
+		<script src="../pubbly_engine/latest/js/utility/variableFrameRateInt.js"></script>
+
+		<script src="../pubbly_engine/latest/js/shared/assetListLoader.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/buffer.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/color_codes.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/cursors.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/defaultCallbacks.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/error.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/globals.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/helpers.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/messyHTML.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/progressGraph.js"></script>
+
+		<script src="../pubbly_engine/latest/js/run/countdown.js"></script>
+		<script src="../pubbly_engine/latest/js/run/dom.js"></script>
+		<script src="../pubbly_engine/latest/js/run/domInteractionCover.js"></script>
+		<script src="../pubbly_engine/latest/js/run/drawingTools.js"></script>
+		<script src="../pubbly_engine/latest/js/run/events.js"></script>
+		<script src="../pubbly_engine/latest/js/run/events_cursorInput.js"></script>
+		<script src="../pubbly_engine/latest/js/run/links.js"></script>
+		<script src="../pubbly_engine/latest/js/run/navigationUI.js"></script>
+		<script src="../pubbly_engine/latest/js/run/presetAssets.js"></script>
+		<script src="../pubbly_engine/latest/js/run/sequence.js"></script>
+		<script src="../pubbly_engine/latest/js/run/states.js"></script>
+		<script src="../pubbly_engine/latest/js/run/turns.js"></script>
+		<script src="../pubbly_engine/latest/js/run/urlNav.js"></script>
+		<script src="../pubbly_engine/latest/js/run/workspaces.js"></script>
+		<script src="../pubbly_engine/latest/js/run/_Pubbly.js"></script>
+		<script>
+			// Pre doc ready back catch
+			window.history.pushState('popstateListener', null, window.location.href);
+			window.addEventListener("popstate", function (e) {
+				e.preventDefault();
+			});
+		</script>
+		<script src="../pubbly_engine/latest/js/app/_AppModifications.js"></script>
+		<script src="../pubbly_engine/latest/js/app/analytics.js"></script>
+		<script src="../../cordova.js"></script>
+		<script src="../../js/loginCheck.js"></script>
+		<script src="../../js/readWrite.js"></script>
+
+		<script>
+		 window.json = {
+    "info": {
+        "name": "EQ_vill_colorsort_COLORING",
+        "height": 641,
+        "width": 1000,
+        "display": "single",
+        "bullet": "#8867AC",
+        "interrupt": false,
+        "saveStates": false,
+        "navigation": false,
+        "snapDrops": true,
+        "lastPageSpread": false,
+        "assetLocationPrefix": "undefined_",
+        "HighlightLinkColor": "128,255,255",
+        "HighlightLinkTransparency": 50,
+        "HighlightLinkTime": 500,
+        "HighlightLinkColorRGBA": "RGBA(128,255,255,0.5)"
+    },
+    "pages": [
+        {
+            "points": {
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "Page 1",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "Color_recipe 1",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_Color_recipe",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Color_recipe.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/P_Color_recipe.png"
+                },
+                {
+                    "type": "image",
+                    "name": "coloringOVERLAY",
+                    "layer": 1,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_coloringOVERLAY",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 1,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_coloringOVERLAY.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/P_coloringOVERLAY.png"
+                },
+                {
+                    "type": "workspace",
+                    "name": "Workspace 1",
+                    "layer": 2,
+                    "vis": true,
+                    "loc": [
+                        5,
+                        3
+                    ],
+                    "width": 990,
+                    "height": 526,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "bgTexture": false,
+                    "rect": [
+                        [
+                            3,
+                            5
+                        ],
+                        [
+                            993,
+                            5
+                        ],
+                        [
+                            993,
+                            531
+                        ],
+                        [
+                            3,
+                            531
+                        ],
+                        [
+                            3,
+                            5
+                        ]
+                    ],
+                    "clear": true,
+                    "init": {
+                        "height": 526,
+                        "width": 990,
+                        "loc": [
+                            5,
+                            3
+                        ],
+                        "vis": true,
+                        "layer": 2,
+                        "mobility": "fixed",
+                        "opacity": 1,
+                        "clear": true
+                    }
+                }
+            ],
+            "auds": [],
+            "audKey": {},
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid0",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_Village_Colorsort-EQ_Village_Colorsort"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "HOME-BACK",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -4,
+                            -5
+                        ],
+                        [
+                            117,
+                            -5
+                        ],
+                        [
+                            117,
+                            56
+                        ],
+                        [
+                            -4,
+                            56
+                        ],
+                        [
+                            -4,
+                            -5
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                -4,
+                                -5
+                            ],
+                            [
+                                117,
+                                -5
+                            ],
+                            [
+                                117,
+                                56
+                            ],
+                            [
+                                -4,
+                                56
+                            ],
+                            [
+                                -4,
+                                -5
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid1",
+                                        "type": "reset",
+                                        "action": "page reset",
+                                        "destination": "page",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "RESET",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            3,
+                            538
+                        ],
+                        [
+                            96,
+                            538
+                        ],
+                        [
+                            96,
+                            637
+                        ],
+                        [
+                            3,
+                            637
+                        ],
+                        [
+                            3,
+                            538
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 2,
+                    "init": {
+                        "poly": [
+                            [
+                                3,
+                                538
+                            ],
+                            [
+                                96,
+                                538
+                            ],
+                            [
+                                96,
+                                637
+                            ],
+                            [
+                                3,
+                                637
+                            ],
+                            [
+                                3,
+                                538
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 2
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid2",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            255,
+                                            146,
+                                            38,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "ORANGE",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            102,
+                            525
+                        ],
+                        [
+                            242,
+                            525
+                        ],
+                        [
+                            242,
+                            639
+                        ],
+                        [
+                            102,
+                            639
+                        ],
+                        [
+                            102,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 3,
+                    "init": {
+                        "poly": [
+                            [
+                                102,
+                                525
+                            ],
+                            [
+                                242,
+                                525
+                            ],
+                            [
+                                242,
+                                639
+                            ],
+                            [
+                                102,
+                                639
+                            ],
+                            [
+                                102,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 3
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid3",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            254,
+                                            255,
+                                            65,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "YELLO",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            246,
+                            525
+                        ],
+                        [
+                            371,
+                            525
+                        ],
+                        [
+                            371,
+                            640
+                        ],
+                        [
+                            246,
+                            640
+                        ],
+                        [
+                            246,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 4,
+                    "init": {
+                        "poly": [
+                            [
+                                246,
+                                525
+                            ],
+                            [
+                                371,
+                                525
+                            ],
+                            [
+                                371,
+                                640
+                            ],
+                            [
+                                246,
+                                640
+                            ],
+                            [
+                                246,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 4
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid4",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            0,
+                                            205,
+                                            227,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "BLUE",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            374,
+                            524
+                        ],
+                        [
+                            513,
+                            524
+                        ],
+                        [
+                            513,
+                            640
+                        ],
+                        [
+                            374,
+                            640
+                        ],
+                        [
+                            374,
+                            524
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 5,
+                    "init": {
+                        "poly": [
+                            [
+                                374,
+                                524
+                            ],
+                            [
+                                513,
+                                524
+                            ],
+                            [
+                                513,
+                                640
+                            ],
+                            [
+                                374,
+                                640
+                            ],
+                            [
+                                374,
+                                524
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 5
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid5",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            232,
+                                            0,
+                                            44,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "RED",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            514,
+                            523
+                        ],
+                        [
+                            659,
+                            523
+                        ],
+                        [
+                            659,
+                            640
+                        ],
+                        [
+                            514,
+                            640
+                        ],
+                        [
+                            514,
+                            523
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 6,
+                    "init": {
+                        "poly": [
+                            [
+                                514,
+                                523
+                            ],
+                            [
+                                659,
+                                523
+                            ],
+                            [
+                                659,
+                                640
+                            ],
+                            [
+                                514,
+                                640
+                            ],
+                            [
+                                514,
+                                523
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 6
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid6",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            0,
+                                            209,
+                                            75,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "GREEN",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            659,
+                            523
+                        ],
+                        [
+                            795,
+                            524
+                        ],
+                        [
+                            791,
+                            637
+                        ],
+                        [
+                            663,
+                            639
+                        ],
+                        [
+                            659,
+                            523
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 7,
+                    "init": {
+                        "poly": [
+                            [
+                                659,
+                                523
+                            ],
+                            [
+                                795,
+                                524
+                            ],
+                            [
+                                791,
+                                637
+                            ],
+                            [
+                                663,
+                                639
+                            ],
+                            [
+                                659,
+                                523
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 7
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid7",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "eraser",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            100
+                                        ],
+                                        "width": 40
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "_ERASER",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            797,
+                            525
+                        ],
+                        [
+                            879,
+                            525
+                        ],
+                        [
+                            879,
+                            638
+                        ],
+                        [
+                            797,
+                            638
+                        ],
+                        [
+                            797,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 8,
+                    "init": {
+                        "poly": [
+                            [
+                                797,
+                                525
+                            ],
+                            [
+                                879,
+                                525
+                            ],
+                            [
+                                879,
+                                638
+                            ],
+                            [
+                                797,
+                                638
+                            ],
+                            [
+                                797,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 8
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid8",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "pubbly",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "relative",
+                                        "value": "next"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "NEXT 1",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            892,
+                            524
+                        ],
+                        [
+                            990,
+                            524
+                        ],
+                        [
+                            990,
+                            638
+                        ],
+                        [
+                            892,
+                            638
+                        ],
+                        [
+                            892,
+                            524
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 9,
+                    "init": {
+                        "poly": [
+                            [
+                                892,
+                                524
+                            ],
+                            [
+                                990,
+                                524
+                            ],
+                            [
+                                990,
+                                638
+                            ],
+                            [
+                                892,
+                                638
+                            ],
+                            [
+                                892,
+                                524
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 9
+                    }
+                }
+            ]
+        },
+        {
+            "points": {
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "Page 2",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "Color_2",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "C1_Mathazaar",
+                    "ext": "png",
+                    "swapMethod": "size",
+                    "swapHeight": 641,
+                    "swapWidth": 1000,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "C1_Mathazaar.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/C1_Mathazaar.png"
+                },
+                {
+                    "type": "image",
+                    "name": "coloringOVERLAY",
+                    "layer": 1,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_coloringOVERLAY",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 1,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_coloringOVERLAY.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/P_coloringOVERLAY.png"
+                },
+                {
+                    "type": "workspace",
+                    "name": "Workspace 1",
+                    "layer": 2,
+                    "vis": true,
+                    "loc": [
+                        5,
+                        3
+                    ],
+                    "width": 990,
+                    "height": 526,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "bgTexture": false,
+                    "rect": [
+                        [
+                            3,
+                            5
+                        ],
+                        [
+                            993,
+                            5
+                        ],
+                        [
+                            993,
+                            531
+                        ],
+                        [
+                            3,
+                            531
+                        ],
+                        [
+                            3,
+                            5
+                        ]
+                    ],
+                    "clear": true,
+                    "init": {
+                        "height": 526,
+                        "width": 990,
+                        "loc": [
+                            5,
+                            3
+                        ],
+                        "vis": true,
+                        "layer": 2,
+                        "mobility": "fixed",
+                        "opacity": 1,
+                        "clear": true
+                    }
+                },
+                {
+                    "type": "image",
+                    "name": "left_arrow_button_stroke2",
+                    "layer": 3,
+                    "vis": true,
+                    "loc": [
+                        478,
+                        905
+                    ],
+                    "width": 75,
+                    "height": 75,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_left_arrow_button_stroke2",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 75,
+                        "width": 75,
+                        "loc": [
+                            478,
+                            905
+                        ],
+                        "vis": true,
+                        "layer": 3,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_left_arrow_button_stroke2.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/P_left_arrow_button_stroke2.png"
+                }
+            ],
+            "auds": [],
+            "audKey": {},
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid9",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_Village_Colorsort-EQ_Village_Colorsort"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "HOME-BACK",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -4,
+                            -5
+                        ],
+                        [
+                            117,
+                            -5
+                        ],
+                        [
+                            117,
+                            56
+                        ],
+                        [
+                            -4,
+                            56
+                        ],
+                        [
+                            -4,
+                            -5
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                -4,
+                                -5
+                            ],
+                            [
+                                117,
+                                -5
+                            ],
+                            [
+                                117,
+                                56
+                            ],
+                            [
+                                -4,
+                                56
+                            ],
+                            [
+                                -4,
+                                -5
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid10",
+                                        "type": "reset",
+                                        "action": "page reset",
+                                        "destination": "page",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "RESET",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            3,
+                            538
+                        ],
+                        [
+                            96,
+                            538
+                        ],
+                        [
+                            96,
+                            637
+                        ],
+                        [
+                            3,
+                            637
+                        ],
+                        [
+                            3,
+                            538
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 2,
+                    "init": {
+                        "poly": [
+                            [
+                                3,
+                                538
+                            ],
+                            [
+                                96,
+                                538
+                            ],
+                            [
+                                96,
+                                637
+                            ],
+                            [
+                                3,
+                                637
+                            ],
+                            [
+                                3,
+                                538
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 2
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid11",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            255,
+                                            146,
+                                            38,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "ORANGE",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            102,
+                            525
+                        ],
+                        [
+                            242,
+                            525
+                        ],
+                        [
+                            242,
+                            639
+                        ],
+                        [
+                            102,
+                            639
+                        ],
+                        [
+                            102,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 3,
+                    "init": {
+                        "poly": [
+                            [
+                                102,
+                                525
+                            ],
+                            [
+                                242,
+                                525
+                            ],
+                            [
+                                242,
+                                639
+                            ],
+                            [
+                                102,
+                                639
+                            ],
+                            [
+                                102,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 3
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid12",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            254,
+                                            255,
+                                            65,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "YELLO",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            246,
+                            525
+                        ],
+                        [
+                            371,
+                            525
+                        ],
+                        [
+                            371,
+                            640
+                        ],
+                        [
+                            246,
+                            640
+                        ],
+                        [
+                            246,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 4,
+                    "init": {
+                        "poly": [
+                            [
+                                246,
+                                525
+                            ],
+                            [
+                                371,
+                                525
+                            ],
+                            [
+                                371,
+                                640
+                            ],
+                            [
+                                246,
+                                640
+                            ],
+                            [
+                                246,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 4
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid13",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            0,
+                                            205,
+                                            227,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "BLUE",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            374,
+                            524
+                        ],
+                        [
+                            513,
+                            524
+                        ],
+                        [
+                            513,
+                            640
+                        ],
+                        [
+                            374,
+                            640
+                        ],
+                        [
+                            374,
+                            524
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 5,
+                    "init": {
+                        "poly": [
+                            [
+                                374,
+                                524
+                            ],
+                            [
+                                513,
+                                524
+                            ],
+                            [
+                                513,
+                                640
+                            ],
+                            [
+                                374,
+                                640
+                            ],
+                            [
+                                374,
+                                524
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 5
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid14",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            232,
+                                            0,
+                                            44,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "RED",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            514,
+                            523
+                        ],
+                        [
+                            659,
+                            523
+                        ],
+                        [
+                            659,
+                            640
+                        ],
+                        [
+                            514,
+                            640
+                        ],
+                        [
+                            514,
+                            523
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 6,
+                    "init": {
+                        "poly": [
+                            [
+                                514,
+                                523
+                            ],
+                            [
+                                659,
+                                523
+                            ],
+                            [
+                                659,
+                                640
+                            ],
+                            [
+                                514,
+                                640
+                            ],
+                            [
+                                514,
+                                523
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 6
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid15",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            0,
+                                            209,
+                                            75,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "GREEN",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            660,
+                            522
+                        ],
+                        [
+                            796,
+                            523
+                        ],
+                        [
+                            792,
+                            636
+                        ],
+                        [
+                            664,
+                            638
+                        ],
+                        [
+                            660,
+                            522
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 7,
+                    "init": {
+                        "poly": [
+                            [
+                                660,
+                                522
+                            ],
+                            [
+                                796,
+                                523
+                            ],
+                            [
+                                792,
+                                636
+                            ],
+                            [
+                                664,
+                                638
+                            ],
+                            [
+                                660,
+                                522
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 7
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid16",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "eraser",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            100
+                                        ],
+                                        "width": 40
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "_ERASER",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            797,
+                            525
+                        ],
+                        [
+                            879,
+                            525
+                        ],
+                        [
+                            879,
+                            638
+                        ],
+                        [
+                            797,
+                            638
+                        ],
+                        [
+                            797,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 8,
+                    "init": {
+                        "poly": [
+                            [
+                                797,
+                                525
+                            ],
+                            [
+                                879,
+                                525
+                            ],
+                            [
+                                879,
+                                638
+                            ],
+                            [
+                                797,
+                                638
+                            ],
+                            [
+                                797,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 8
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid17",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "pubbly",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "relative",
+                                        "value": "next"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "NEXT 1",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            902,
+                            559
+                        ],
+                        [
+                            990,
+                            559
+                        ],
+                        [
+                            990,
+                            638
+                        ],
+                        [
+                            902,
+                            638
+                        ],
+                        [
+                            902,
+                            559
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 9,
+                    "init": {
+                        "poly": [
+                            [
+                                902,
+                                559
+                            ],
+                            [
+                                990,
+                                559
+                            ],
+                            [
+                                990,
+                                638
+                            ],
+                            [
+                                902,
+                                638
+                            ],
+                            [
+                                902,
+                                559
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 9
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid18",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "pubbly",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "relative",
+                                        "value": "previous"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 1",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            902,
+                            469
+                        ],
+                        [
+                            984,
+                            469
+                        ],
+                        [
+                            984,
+                            555
+                        ],
+                        [
+                            902,
+                            555
+                        ],
+                        [
+                            902,
+                            469
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 10,
+                    "init": {
+                        "poly": [
+                            [
+                                902,
+                                469
+                            ],
+                            [
+                                984,
+                                469
+                            ],
+                            [
+                                984,
+                                555
+                            ],
+                            [
+                                902,
+                                555
+                            ],
+                            [
+                                902,
+                                469
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 10
+                    }
+                }
+            ]
+        },
+        {
+            "points": {
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "Page 3",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "Color_3",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "C1_DigSquish2",
+                    "ext": "png",
+                    "swapMethod": "size",
+                    "swapHeight": 641,
+                    "swapWidth": 1000,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "C1_DigSquish2.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/C1_DigSquish2.png"
+                },
+                {
+                    "type": "image",
+                    "name": "coloringOVERLAY",
+                    "layer": 1,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_coloringOVERLAY",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 1,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_coloringOVERLAY.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/P_coloringOVERLAY.png"
+                },
+                {
+                    "type": "workspace",
+                    "name": "Workspace 1",
+                    "layer": 2,
+                    "vis": true,
+                    "loc": [
+                        4,
+                        3
+                    ],
+                    "width": 990,
+                    "height": 526,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "bgTexture": false,
+                    "rect": [
+                        [
+                            3,
+                            4
+                        ],
+                        [
+                            993,
+                            4
+                        ],
+                        [
+                            993,
+                            530
+                        ],
+                        [
+                            3,
+                            530
+                        ],
+                        [
+                            3,
+                            4
+                        ]
+                    ],
+                    "clear": true,
+                    "init": {
+                        "height": 526,
+                        "width": 990,
+                        "loc": [
+                            4,
+                            3
+                        ],
+                        "vis": true,
+                        "layer": 2,
+                        "mobility": "fixed",
+                        "opacity": 1,
+                        "clear": true
+                    }
+                },
+                {
+                    "type": "image",
+                    "name": "left_arrow_button_stroke2",
+                    "layer": 3,
+                    "vis": true,
+                    "loc": [
+                        478,
+                        905
+                    ],
+                    "width": 75,
+                    "height": 75,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_left_arrow_button_stroke2",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 75,
+                        "width": 75,
+                        "loc": [
+                            478,
+                            905
+                        ],
+                        "vis": true,
+                        "layer": 3,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_left_arrow_button_stroke2.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/P_left_arrow_button_stroke2.png"
+                }
+            ],
+            "auds": [],
+            "audKey": {},
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid19",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_Village_Colorsort-EQ_Village_Colorsort"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "HOME-BACK",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -4,
+                            -5
+                        ],
+                        [
+                            117,
+                            -5
+                        ],
+                        [
+                            117,
+                            56
+                        ],
+                        [
+                            -4,
+                            56
+                        ],
+                        [
+                            -4,
+                            -5
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                -4,
+                                -5
+                            ],
+                            [
+                                117,
+                                -5
+                            ],
+                            [
+                                117,
+                                56
+                            ],
+                            [
+                                -4,
+                                56
+                            ],
+                            [
+                                -4,
+                                -5
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid20",
+                                        "type": "reset",
+                                        "action": "page reset",
+                                        "destination": "page",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "RESET",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            3,
+                            538
+                        ],
+                        [
+                            96,
+                            538
+                        ],
+                        [
+                            96,
+                            637
+                        ],
+                        [
+                            3,
+                            637
+                        ],
+                        [
+                            3,
+                            538
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 2,
+                    "init": {
+                        "poly": [
+                            [
+                                3,
+                                538
+                            ],
+                            [
+                                96,
+                                538
+                            ],
+                            [
+                                96,
+                                637
+                            ],
+                            [
+                                3,
+                                637
+                            ],
+                            [
+                                3,
+                                538
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 2
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid21",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            255,
+                                            146,
+                                            38,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "ORANGE",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            102,
+                            525
+                        ],
+                        [
+                            242,
+                            525
+                        ],
+                        [
+                            242,
+                            639
+                        ],
+                        [
+                            102,
+                            639
+                        ],
+                        [
+                            102,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 3,
+                    "init": {
+                        "poly": [
+                            [
+                                102,
+                                525
+                            ],
+                            [
+                                242,
+                                525
+                            ],
+                            [
+                                242,
+                                639
+                            ],
+                            [
+                                102,
+                                639
+                            ],
+                            [
+                                102,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 3
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid22",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            254,
+                                            255,
+                                            65,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "YELLO",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            246,
+                            525
+                        ],
+                        [
+                            371,
+                            525
+                        ],
+                        [
+                            371,
+                            640
+                        ],
+                        [
+                            246,
+                            640
+                        ],
+                        [
+                            246,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 4,
+                    "init": {
+                        "poly": [
+                            [
+                                246,
+                                525
+                            ],
+                            [
+                                371,
+                                525
+                            ],
+                            [
+                                371,
+                                640
+                            ],
+                            [
+                                246,
+                                640
+                            ],
+                            [
+                                246,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 4
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid23",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            0,
+                                            205,
+                                            227,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "BLUE",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            374,
+                            524
+                        ],
+                        [
+                            513,
+                            524
+                        ],
+                        [
+                            513,
+                            640
+                        ],
+                        [
+                            374,
+                            640
+                        ],
+                        [
+                            374,
+                            524
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 5,
+                    "init": {
+                        "poly": [
+                            [
+                                374,
+                                524
+                            ],
+                            [
+                                513,
+                                524
+                            ],
+                            [
+                                513,
+                                640
+                            ],
+                            [
+                                374,
+                                640
+                            ],
+                            [
+                                374,
+                                524
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 5
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid24",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            232,
+                                            0,
+                                            44,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "RED",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            514,
+                            523
+                        ],
+                        [
+                            659,
+                            523
+                        ],
+                        [
+                            659,
+                            640
+                        ],
+                        [
+                            514,
+                            640
+                        ],
+                        [
+                            514,
+                            523
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 6,
+                    "init": {
+                        "poly": [
+                            [
+                                514,
+                                523
+                            ],
+                            [
+                                659,
+                                523
+                            ],
+                            [
+                                659,
+                                640
+                            ],
+                            [
+                                514,
+                                640
+                            ],
+                            [
+                                514,
+                                523
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 6
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid25",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            0,
+                                            209,
+                                            75,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "GREEN",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            659,
+                            523
+                        ],
+                        [
+                            795,
+                            524
+                        ],
+                        [
+                            791,
+                            637
+                        ],
+                        [
+                            663,
+                            639
+                        ],
+                        [
+                            659,
+                            523
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 7,
+                    "init": {
+                        "poly": [
+                            [
+                                659,
+                                523
+                            ],
+                            [
+                                795,
+                                524
+                            ],
+                            [
+                                791,
+                                637
+                            ],
+                            [
+                                663,
+                                639
+                            ],
+                            [
+                                659,
+                                523
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 7
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid26",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "eraser",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            100
+                                        ],
+                                        "width": 40
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "_ERASER",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            797,
+                            525
+                        ],
+                        [
+                            879,
+                            525
+                        ],
+                        [
+                            879,
+                            638
+                        ],
+                        [
+                            797,
+                            638
+                        ],
+                        [
+                            797,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 8,
+                    "init": {
+                        "poly": [
+                            [
+                                797,
+                                525
+                            ],
+                            [
+                                879,
+                                525
+                            ],
+                            [
+                                879,
+                                638
+                            ],
+                            [
+                                797,
+                                638
+                            ],
+                            [
+                                797,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 8
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid27",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "pubbly",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "relative",
+                                        "value": "next"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "NEXT 1",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            898,
+                            556
+                        ],
+                        [
+                            990,
+                            556
+                        ],
+                        [
+                            990,
+                            638
+                        ],
+                        [
+                            898,
+                            638
+                        ],
+                        [
+                            898,
+                            556
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 9,
+                    "init": {
+                        "poly": [
+                            [
+                                898,
+                                556
+                            ],
+                            [
+                                990,
+                                556
+                            ],
+                            [
+                                990,
+                                638
+                            ],
+                            [
+                                898,
+                                638
+                            ],
+                            [
+                                898,
+                                556
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 9
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid28",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "pubbly",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "relative",
+                                        "value": "previous"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 1",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            899,
+                            471
+                        ],
+                        [
+                            985,
+                            471
+                        ],
+                        [
+                            985,
+                            553
+                        ],
+                        [
+                            899,
+                            553
+                        ],
+                        [
+                            899,
+                            471
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 10,
+                    "init": {
+                        "poly": [
+                            [
+                                899,
+                                471
+                            ],
+                            [
+                                985,
+                                471
+                            ],
+                            [
+                                985,
+                                553
+                            ],
+                            [
+                                899,
+                                553
+                            ],
+                            [
+                                899,
+                                471
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 10
+                    }
+                }
+            ]
+        },
+        {
+            "points": {
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "Page 4",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "Color_4",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "C1_Ostrich",
+                    "ext": "png",
+                    "swapMethod": "size",
+                    "swapHeight": 641,
+                    "swapWidth": 1000,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "C1_Ostrich.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/C1_Ostrich.png"
+                },
+                {
+                    "type": "image",
+                    "name": "coloringOVERLAY",
+                    "layer": 1,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_coloringOVERLAY",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 1,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_coloringOVERLAY.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/P_coloringOVERLAY.png"
+                },
+                {
+                    "type": "workspace",
+                    "name": "Workspace 1",
+                    "layer": 2,
+                    "vis": true,
+                    "loc": [
+                        5,
+                        3
+                    ],
+                    "width": 990,
+                    "height": 526,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "bgTexture": false,
+                    "rect": [
+                        [
+                            3,
+                            5
+                        ],
+                        [
+                            993,
+                            5
+                        ],
+                        [
+                            993,
+                            531
+                        ],
+                        [
+                            3,
+                            531
+                        ],
+                        [
+                            3,
+                            5
+                        ]
+                    ],
+                    "clear": true,
+                    "init": {
+                        "height": 526,
+                        "width": 990,
+                        "loc": [
+                            5,
+                            3
+                        ],
+                        "vis": true,
+                        "layer": 2,
+                        "mobility": "fixed",
+                        "opacity": 1,
+                        "clear": true
+                    }
+                },
+                {
+                    "type": "image",
+                    "name": "left_arrow_button_stroke2",
+                    "layer": 3,
+                    "vis": true,
+                    "loc": [
+                        558,
+                        908
+                    ],
+                    "width": 75,
+                    "height": 75,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_left_arrow_button_stroke2",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 75,
+                        "width": 75,
+                        "loc": [
+                            558,
+                            908
+                        ],
+                        "vis": true,
+                        "layer": 3,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_left_arrow_button_stroke2.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_Vill_colorsort_COLORING-EQ_vill_colorsort_COLORING\/images\/P_left_arrow_button_stroke2.png"
+                }
+            ],
+            "auds": [],
+            "audKey": {},
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid29",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_Village_Colorsort-EQ_Village_Colorsort"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "HOME-BACK",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -4,
+                            -5
+                        ],
+                        [
+                            117,
+                            -5
+                        ],
+                        [
+                            117,
+                            56
+                        ],
+                        [
+                            -4,
+                            56
+                        ],
+                        [
+                            -4,
+                            -5
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                -4,
+                                -5
+                            ],
+                            [
+                                117,
+                                -5
+                            ],
+                            [
+                                117,
+                                56
+                            ],
+                            [
+                                -4,
+                                56
+                            ],
+                            [
+                                -4,
+                                -5
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid30",
+                                        "type": "reset",
+                                        "action": "page reset",
+                                        "destination": "page",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "RESET",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            3,
+                            538
+                        ],
+                        [
+                            96,
+                            538
+                        ],
+                        [
+                            96,
+                            637
+                        ],
+                        [
+                            3,
+                            637
+                        ],
+                        [
+                            3,
+                            538
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 2,
+                    "init": {
+                        "poly": [
+                            [
+                                3,
+                                538
+                            ],
+                            [
+                                96,
+                                538
+                            ],
+                            [
+                                96,
+                                637
+                            ],
+                            [
+                                3,
+                                637
+                            ],
+                            [
+                                3,
+                                538
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 2
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid31",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            255,
+                                            146,
+                                            38,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "ORANGE",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            102,
+                            525
+                        ],
+                        [
+                            242,
+                            525
+                        ],
+                        [
+                            242,
+                            639
+                        ],
+                        [
+                            102,
+                            639
+                        ],
+                        [
+                            102,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 3,
+                    "init": {
+                        "poly": [
+                            [
+                                102,
+                                525
+                            ],
+                            [
+                                242,
+                                525
+                            ],
+                            [
+                                242,
+                                639
+                            ],
+                            [
+                                102,
+                                639
+                            ],
+                            [
+                                102,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 3
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid32",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            254,
+                                            255,
+                                            65,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "YELLO",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            246,
+                            525
+                        ],
+                        [
+                            371,
+                            525
+                        ],
+                        [
+                            371,
+                            640
+                        ],
+                        [
+                            246,
+                            640
+                        ],
+                        [
+                            246,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 4,
+                    "init": {
+                        "poly": [
+                            [
+                                246,
+                                525
+                            ],
+                            [
+                                371,
+                                525
+                            ],
+                            [
+                                371,
+                                640
+                            ],
+                            [
+                                246,
+                                640
+                            ],
+                            [
+                                246,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 4
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid33",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            0,
+                                            205,
+                                            227,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "BLUE",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            374,
+                            524
+                        ],
+                        [
+                            513,
+                            524
+                        ],
+                        [
+                            513,
+                            640
+                        ],
+                        [
+                            374,
+                            640
+                        ],
+                        [
+                            374,
+                            524
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 5,
+                    "init": {
+                        "poly": [
+                            [
+                                374,
+                                524
+                            ],
+                            [
+                                513,
+                                524
+                            ],
+                            [
+                                513,
+                                640
+                            ],
+                            [
+                                374,
+                                640
+                            ],
+                            [
+                                374,
+                                524
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 5
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid34",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            232,
+                                            0,
+                                            44,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "RED",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            514,
+                            523
+                        ],
+                        [
+                            659,
+                            523
+                        ],
+                        [
+                            659,
+                            640
+                        ],
+                        [
+                            514,
+                            640
+                        ],
+                        [
+                            514,
+                            523
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 6,
+                    "init": {
+                        "poly": [
+                            [
+                                514,
+                                523
+                            ],
+                            [
+                                659,
+                                523
+                            ],
+                            [
+                                659,
+                                640
+                            ],
+                            [
+                                514,
+                                640
+                            ],
+                            [
+                                514,
+                                523
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 6
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid35",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "pencil",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            0,
+                                            209,
+                                            75,
+                                            20
+                                        ],
+                                        "width": 15
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "GREEN",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            659,
+                            523
+                        ],
+                        [
+                            795,
+                            524
+                        ],
+                        [
+                            791,
+                            637
+                        ],
+                        [
+                            663,
+                            639
+                        ],
+                        [
+                            659,
+                            523
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 7,
+                    "init": {
+                        "poly": [
+                            [
+                                659,
+                                523
+                            ],
+                            [
+                                795,
+                                524
+                            ],
+                            [
+                                791,
+                                637
+                            ],
+                            [
+                                663,
+                                639
+                            ],
+                            [
+                                659,
+                                523
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 7
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid36",
+                                        "type": "drawing tool",
+                                        "action": "select",
+                                        "destination": "eraser",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "value": [
+                                            100
+                                        ],
+                                        "width": 40
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "_ERASER",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            797,
+                            525
+                        ],
+                        [
+                            879,
+                            525
+                        ],
+                        [
+                            879,
+                            638
+                        ],
+                        [
+                            797,
+                            638
+                        ],
+                        [
+                            797,
+                            525
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 8,
+                    "init": {
+                        "poly": [
+                            [
+                                797,
+                                525
+                            ],
+                            [
+                                879,
+                                525
+                            ],
+                            [
+                                879,
+                                638
+                            ],
+                            [
+                                797,
+                                638
+                            ],
+                            [
+                                797,
+                                525
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 8
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid37",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "pubbly",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "relative",
+                                        "value": "previous"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "firstPage",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            891,
+                            537
+                        ],
+                        [
+                            992,
+                            537
+                        ],
+                        [
+                            992,
+                            638
+                        ],
+                        [
+                            891,
+                            638
+                        ],
+                        [
+                            891,
+                            537
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 9,
+                    "init": {
+                        "poly": [
+                            [
+                                891,
+                                537
+                            ],
+                            [
+                                992,
+                                537
+                            ],
+                            [
+                                992,
+                                638
+                            ],
+                            [
+                                891,
+                                638
+                            ],
+                            [
+                                891,
+                                537
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 9
+                    }
+                }
+            ]
+        }
+    ],
+    "drawingTool": {},
+    "points": {}
+};
+		window.startPage = 0;
+		$(document).ready(function () {
+			document.addEventListener("deviceready", buildPubbly);
+		});
+		function buildPubbly() {
+			window.pubbly = new Pubbly(json, {environment: "app", forceBack: "../../school.html", enginePathPrefix: "../",
+			});
+		};
+		</script>
+
+		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body class="noSelect">
+		<div id="main" class="transformCenterCont">
+			<div class="transformCenter">
+				<div id="pubbly_main">
+				</div>
+			</div>
+		</div>
+   </body>
+</html>

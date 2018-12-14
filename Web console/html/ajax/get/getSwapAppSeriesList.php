@@ -1,11 +1,5 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 6/30/2016
- * Time: 4:09 PM
- */
-
+require_once("../../config.php");
 chdir('../');
 $ret = [];
 
@@ -13,7 +7,7 @@ include_once('../../includes/dbConnect.php');
 $con = new dbConnect();
 if ($con) {
     $sql = $con->mysqli;
-    $stmt = $sql->prepare("SELECT ID, name FROM series WHERE deleted=0 ORDER BY `name` ASC");
+    $stmt = $sql->prepare("SELECT ID, `name`, folder FROM series WHERE deleted=0 ORDER BY `name` ASC");
     $stmt->execute();
     if ($result = $stmt->get_result()) {
         /* fetch associative array */

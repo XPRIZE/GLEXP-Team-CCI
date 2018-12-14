@@ -1,0 +1,82 @@
+<html>
+   <head>
+      <title>Pubbly</title>
+      <link href="pubbly_engine/{ENGINE_CODE}/css/main.css" rel="stylesheet" />
+      <script src="pubbly_engine/{ENGINE_CODE}/js/third_party/jquery.min.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/third_party/lzwCompress.js"></script>
+
+      <script src="pubbly_engine/{ENGINE_CODE}/js/utility/filePathManipulations.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/utility/findDifferenceBetweenTwoArrays.js"></script>
+      <!--<script src="pubbly_engine/{ENGINE_CODE}/js/utility/mergeObjWithDefaults.js"></script>-->
+      <script src="pubbly_engine/{ENGINE_CODE}/js/utility/random.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/utility/redrawDependency.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/utility/variableFrameRateInt.js"></script>
+
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/assetListLoader.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/buffer.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/color_codes.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/cursors.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/defaultCallbacks.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/error.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/globals.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/helpers.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/messyHTML.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/shared/progressGraph.js"></script>
+
+      <script src="pubbly_engine/{ENGINE_CODE}/js/build/buildDOM.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/build/xmlFormattingFunctions.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/build/xmlToJson.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/build/_Build.js"></script>
+
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/countdown.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/dom.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/domInteractionCover.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/drawingTools.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/events.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/events_cursorInput.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/links.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/navigationUI.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/presetAssets.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/sequence.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/states.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/turns.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/urlNav.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/workspaces.js"></script>
+      <script src="pubbly_engine/{ENGINE_CODE}/js/run/_Pubbly.js"></script>
+
+      <script>
+         window.testing = true;
+         $(document).ready(function () {
+             let engineCode = '{ENGINE_CODE}';
+             let xmlName = "MainXML.xml";
+             window.build = new Build({
+                 engineCode: engineCode,
+                 xmlName: xmlName,
+                 bookLoc: "{MAP_NODE_NAME}",
+                 buildPostSpecs: false,
+                 buildPostLoc: false,
+                 success: function (json) {
+                     $("#pubbly_main").html("");
+                     window.pubbly = new Pubbly(json, {
+                         startPage: 0,
+                         environment: "app"
+                     });
+                 },
+                 error: function (messageHTML) {
+                     document.innerHTML += messageHTML;
+                 }
+             }
+             );
+         });
+      </script>
+      <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body class="noSelect">
+      <div id="main" class="transformCenterCont">
+         <div class="transformCenter">
+            <div id="pubbly_main">
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

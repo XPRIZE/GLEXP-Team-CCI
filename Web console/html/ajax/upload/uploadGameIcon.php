@@ -1,4 +1,5 @@
 <?php
+require_once("../../config.php");
 
 $file = isset($_FILES['upload']) ? $_FILES['upload'] : false;
 $schoolName = $_GET['schoolName'];

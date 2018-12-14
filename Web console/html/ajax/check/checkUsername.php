@@ -1,10 +1,6 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 7/7/2016
- * Time: 3:12 PM
- */
+require_once("../../config.php");
+
 
 chdir('../');
 include('../../includes/dbConnect.php');

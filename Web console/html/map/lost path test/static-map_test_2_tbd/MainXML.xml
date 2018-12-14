@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<Project>
+  <Info>
+    <PrjName>map_test</PrjName>
+    <BulletColor>#8867AC</BulletColor>
+    <PrjNameLong>map_test</PrjNameLong>
+    <HighlightLinkColor>128,255,255</HighlightLinkColor>
+    <HighlightLinkTransparency>50</HighlightLinkTransparency>
+    <LastPageSingleOrDouble>Single</LastPageSingleOrDouble>
+    <LastPlayedAmbientAudio/>
+    <PageDisplay>single</PageDisplay>
+    <PointNames/>
+    <UpdatedGroups>true</UpdatedGroups>
+    <FontNamesList/>
+    <UnnecessaryFilesFromLastUpload/>
+    <ToBeDeterminedNote>true</ToBeDeterminedNote>
+    <SnapDroppedImagesIntoLocation>true</SnapDroppedImagesIntoLocation>
+    <AllowInterrupting>true</AllowInterrupting>
+    <TimeToInterrupt>0</TimeToInterrupt>
+    <HighlightLinkTransparency>50</HighlightLinkTransparency>
+    <SinglePageHeight>401</SinglePageHeight>
+    <SinglePageWidth>215</SinglePageWidth>
+    <AlwaysDoubleWide>true</AlwaysDoubleWide>
+    <PageNumbering>Page 1</PageNumbering>
+    <ReturnPageToPreviousStateOnInterruptions>false</ReturnPageToPreviousStateOnInterruptions>
+  </Info>
+  <Pages>
+    <Page>
+      <ClickPromptRequired>false</ClickPromptRequired>
+      <RandomChoiceRemovals/>
+      <NeedToUpdateSnap>false</NeedToUpdateSnap>
+      <PagePoints>0</PagePoints>
+      <RunningOpenPageLinks>false</RunningOpenPageLinks>
+      <PointNames/>
+      <AllowPointsToGoNegative>false</AllowPointsToGoNegative>
+      <InitialLayers>Link 1	1
+MarginRight	2
+MarginLeft	3
+MobileCover	4</InitialLayers>
+      <HasPlayedOpenPageFirstTime>false</HasPlayedOpenPageFirstTime>
+      <PageName>Page 1</PageName>
+      <Objects>
+</Objects>
+      <Links>
+        <Link>
+          <Name>Link 1</Name>
+          <LinkType>graphic</LinkType>
+          <LineDrawing/>
+          <Points>81,49.161,49.161,145.81,145.81,49</Points>
+          <CurrentRect>80,48,162,146</CurrentRect>
+          <GraphicStyle>polygon</GraphicStyle>
+          <PinnedTo/>
+          <InitialStatus/>
+          <AutoHighlightLink/>
+          <Triggers>
+            <Trigger>
+              <TriggerType>click</TriggerType>
+              <Targets>
+                <Target>
+                  <Type>URL</Type>
+                  <Action>Has been determined</Action>
+                  <Destination>base64Encoded(P2VuZ2luZUNvZGU9bmV3JnQ9bSZtbj1sb3N0IHBhdGggdGVzdCZubj1zdGF0aWMtYXNzZXQgbGlzdCBsb2FkZXI=)</Destination>
+                </Target>
+              </Targets>
+            </Trigger>
+          </Triggers>
+        </Link>
+      </Links>
+    </Page>
+  </Pages>
+  <Assets>
+</Assets>
+  <preserveWhiteSpace/>
+  <formatOutput>1</formatOutput>
+</Project>

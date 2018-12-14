@@ -1,0 +1,205 @@
+{
+    "info": {
+        "name": "pinned",
+        "height": 401,
+        "width": 430,
+        "display": "single",
+        "bullet": "#8867AC",
+        "interrupt": 0,
+        "saveStates": false,
+        "navigation": true,
+        "snapDrops": true,
+        "lastPageSpread": false,
+        "assetLocationPrefix": "undefined_",
+        "HighlightLinkColor": "128,255,255",
+        "HighlightLinkTransparency": 50,
+        "HighlightLinkTime": 500,
+        "inrettupt": true,
+        "HighlightLinkColorRGBA": "RGBA(128,255,255,0.5)"
+    },
+    "pages": [
+        {
+            "points": {
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "Page 1",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "JasonHorsleyTech_noStars",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        39,
+                        23
+                    ],
+                    "width": 140,
+                    "height": 140,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_1": {
+                            "name": "Animation_1",
+                            "data": [
+                                {
+                                    "loc": [
+                                        109,
+                                        93
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        312,
+                                        347
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "JasonHorsleyTech_noStars",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 140,
+                        "width": 140,
+                        "loc": [
+                            39,
+                            23
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "JasonHorsleyTech_noStars.png",
+                    "relPath": "books\/9\/images\/JasonHorsleyTech_noStars.png"
+                }
+            ],
+            "auds": [],
+            "audKey": {},
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid0",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "JasonHorsleyTech_noStars",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid1",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "JasonHorsleyTech_noStars",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_1"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 1",
+                    "type": "link",
+                    "drawing": false,
+                    "poly": [
+                        [
+                            25,
+                            36
+                        ],
+                        [
+                            166,
+                            36
+                        ],
+                        [
+                            166,
+                            183
+                        ],
+                        [
+                            25,
+                            183
+                        ],
+                        [
+                            25,
+                            36
+                        ]
+                    ],
+                    "pinned": "JasonHorsleyTech_noStars",
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                25,
+                                36
+                            ],
+                            [
+                                166,
+                                36
+                            ],
+                            [
+                                166,
+                                183
+                            ],
+                            [
+                                25,
+                                183
+                            ],
+                            [
+                                25,
+                                36
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "false",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                }
+            ]
+        }
+    ],
+    "drawingTool": {},
+    "points": {}
+}

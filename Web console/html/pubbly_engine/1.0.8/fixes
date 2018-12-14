@@ -1,0 +1,11 @@
+Includes
+
+Object animation rotation fix --
+
+typeof "1" * 1 >> NaN
+typeof ("1" * 1) >> "number"
+
+WHYYY? Anyway, that fixes the parse in parseObjAnims
+
+
+Fields cleanup -- Partially done. Ability to edit a text field at a certain string position is still not working... Will have to clean up later.

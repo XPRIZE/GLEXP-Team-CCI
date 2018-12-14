@@ -1,10 +1,5 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 6/27/2016
- * Time: 2:28 PM
- */
+require_once("../../config.php");
 
 chdir('../');
 $retObj = [];
@@ -22,20 +17,25 @@ if (isset($seriesName)) {
     $variableImages = [];
     $variableAudios = [];
     $variableFields = [];
+    $variableVideos = [];
     $i = 1;
     // Get all variable assets (images and audios)
     foreach ($xml->Assets->children() as $child) {
-        if (strtolower((string)$child->FixedOrVariable) == "variable") {
-            if ((string)$child->Type == "Image") {
-                $variableImages[(string)$child->Source] = $i;
+        if (strtolower((string) $child->FixedOrVariable) == "variable") {
+            if ((string) $child->Type == "Image") {
+                $variableImages[(string) $child->Source] = $i;
                 $i++;
-            } else if ((string)$child->Type == "Audio") {
-                $fileName = trimExtension((string)$child->Source);
+            } else if ((string) $child->Type == "Audio") {
+                $fileName = trimExtension((string) $child->Source);
                 $variableAudios[$fileName] = $i;
                 $i++;
-            } else if ((string)$child->Type == "Field") {
-                $fieldName = (string)$child->Source;
+            } else if ((string) $child->Type == "Field") {
+                $fieldName = (string) $child->Source;
                 $variableFields[$fieldName] = $i;
+                $i++;
+            } else if ((string) $child->Type == "Video") {
+                $videoName = (string) $child->Source;
+                $variableVideos[$videoName] = $i;
                 $i++;
             }
         }
@@ -53,8 +53,8 @@ if (isset($seriesName)) {
             $retObj['parent']['pages'][$p - 1] = [];
         }
         foreach ($page->Objects->children() as $object) {
-            if ((string)$object->ObjType == "image") {
-                $src = (string)$object->ObjFileName . '.' . (string)$object->ObjExt;
+            if ((string) $object->ObjType == "image") {
+                $src = (string) $object->ObjFileName . '.' . (string) $object->ObjExt;
                 if (isset($variableImages[$src])) {
                     $asset = [];
                     $asset['originalAsset'] = $src;
@@ -62,13 +62,24 @@ if (isset($seriesName)) {
                     $asset['type'] = "image";
                     array_push($retObj['parent']['pages'][$p - 1], $asset);
                 }
-            } else if ((string)$object->ObjType == "field") {
-                if (isset($variableFields[(string)$object->ObjName])) {
+            } else if ((string) $object->ObjType == "field") {
+                if (isset($variableFields[(string) $object->ObjName])) {
                     $asset = [];
-                    $asset['originalContents'] = (string)$object->originalContents;
-                    $asset['newAsset'] = (string)$object->newContents;
+                    $asset['originalContents'] = (string) $object->originalContents;
+                    $asset['newAsset'] = (string) $object->newContents;
                     $asset['type'] = "field";
-                    $asset['fieldName'] = (string)$object->ObjName;
+                    $asset['fieldName'] = (string) $object->ObjName;
+                    $asset['textAlign'] = (isset($object->TextAlign)) ? (string) $object->TextAlign : "center";
+
+                    array_push($retObj['parent']['pages'][$p - 1], $asset);
+                }
+            } else if ((string) $object->ObjType == "video") {
+                $src = (string) $object->ObjFileName;
+                if (isset($variableVideos[$src])) {
+                    $asset = [];
+                    $asset['originalAsset'] = $src;
+                    $asset['newAsset'] = $src;
+                    $asset['type'] = "video";
                     array_push($retObj['parent']['pages'][$p - 1], $asset);
                 }
             }
@@ -83,8 +94,8 @@ if (isset($seriesName)) {
         foreach ($page->Links->children() as $link) {
             foreach ($link->Triggers->children() as $trigger) {
                 foreach ($trigger->Targets->children() as $target) {
-                    $aud = (string)$target->Destination;
-                    if ((string)$target->Type == "Audio" && isset($variableAudios[$aud])) {
+                    $aud = (string) $target->Destination;
+                    if ((string) $target->Type == "Audio" && isset($variableAudios[$aud])) {
                         $asset = [];
                         $asset['originalAsset'] = $aud . '';
                         $asset['newAsset'] = $aud . '';
@@ -94,7 +105,6 @@ if (isset($seriesName)) {
                             $asset[$note['noteType']] = $note['noteAct'];
                         }
                         array_push($retObj['parent']['pages'][$p - 1], $asset);
-
                     }
                 }
             }
@@ -124,8 +134,8 @@ if (isset($seriesName)) {
                 $cObj['pages'][$p - 1] = [];
             }
             foreach ($page->Objects->children() as $object) {
-                if ((string)$object->ObjType == "image") {
-                    $src = (string)$object->ObjFileName . '.' . (string)$object->ObjExt;
+                if ((string) $object->ObjType == "image") {
+                    $src = (string) $object->ObjFileName . '.' . (string) $object->ObjExt;
                     if (isset($variableImages[$src])) {
                         $asset = [];
                         $asset['originalAsset'] = $src;
@@ -138,25 +148,49 @@ if (isset($seriesName)) {
                         $asset['type'] = "image";
 
                         $sizeOrLoc = getSizeOrLocFromOldAssetSrc($src, $swapsMade);
-                        $asset['sizeOrLoc'] = $sizeOrLoc;
+                        $asset['sizeOrLoc'] = ($sizeOrLoc == false) ? "size" : $sizeOrLoc;
                         $notes = getNotes($seriesName, $child, $p, $src);
                         foreach ($notes as $note) {
                             $asset[$note['noteType']] = $note['noteAct'];
                         }
                         array_push($cObj['pages'][$p - 1], $asset);
                     }
-                } else if ((string)$object->ObjType == "field") {
-                    if (isset($variableFields[(string)$object->ObjName])) {
+                } else if ((string) $object->ObjType == "video") {
+                    $src = (string) $object->ObjFileName;
+                    if (isset($variableVideos[$src])) {
                         $asset = [];
-                        $asset['originalContents'] = (string)$object->originalContents;
-                        $newSrc = getNewAssetFromOldAssetSrc((string)$object->ObjName, $swapsMade);
+                        $asset['originalAsset'] = $src;
+                        $newSrc = getNewAssetFromOldAssetSrc($src, $swapsMade);
                         if ($newSrc) {
                             $asset['newAsset'] = $newSrc;
                         } else {
-                            $asset['newAsset'] = (string)$object->originalContents;
+                            $asset['newAsset'] = $src;
+                        }
+                        $asset['type'] = "video";
+
+                        $sizeOrLoc = getSizeOrLocFromOldAssetSrc($src, $swapsMade);
+                        $asset['sizeOrLoc'] = ($sizeOrLoc == false) ? "size" : $sizeOrLoc;
+                        $notes = getNotes($seriesName, $child, $p, $src);
+                        foreach ($notes as $note) {
+                            $asset[$note['noteType']] = $note['noteAct'];
+                        }
+                        array_push($cObj['pages'][$p - 1], $asset);
+                    }
+                } else if ((string) $object->ObjType == "field") {
+                    if (isset($variableFields[(string) $object->ObjName])) {
+                        $asset = [];
+                        $asset['originalContents'] = (string) $object->originalContents;
+                        $newSrc = getNewAssetFromOldAssetSrc((string) $object->ObjName, $swapsMade);
+                        if ($newSrc) {
+                            $asset['newAsset'] = $newSrc;
+                        } else {
+                            $asset['newAsset'] = (string) $object->originalContents;
                         }
                         $asset['type'] = "field";
-                        $asset['fieldName'] = (string)$object->ObjName;
+                        $asset['fieldName'] = (string) $object->ObjName;
+                        $asset['textAlign'] = (isset($object->TextAlign)) ? (string) $object->TextAlign : "center";
+                        $serverTextAlign = getSizeOrLocFromOldAssetSrc((string) $object->ObjName, $swapsMade);
+                        $asset['textAlign'] = ($serverTextAlign == false) ? $asset['textAlign'] : $serverTextAlign;
                         $notes = getNotes($seriesName, $child, $p, $asset['fieldName']);
                         foreach ($notes as $note) {
                             $asset[$note['noteType']] = $note['noteAct'];
@@ -177,8 +211,8 @@ if (isset($seriesName)) {
             foreach ($page->Links->children() as $link) {
                 foreach ($link->Triggers->children() as $trigger) {
                     foreach ($trigger->Targets->children() as $target) {
-                        $aud = (string)$target->Destination;
-                        if ((string)$target->Type == "Audio" && isset($variableAudios[$aud])) {
+                        $aud = (string) $target->Destination;
+                        if ((string) $target->Type == "Audio" && isset($variableAudios[$aud])) {
                             $asset = [];
                             $withExt = $aud . '';
                             $asset['originalAsset'] = $withExt;
@@ -205,11 +239,11 @@ if (isset($seriesName)) {
 
 // Uncomment to check the return directly from the ajax request.
     /*
-    print "<pre>";
-    print_r(json_encode($retObj));
-    print "</pre>";
-    echo "<script>console.log(" . json_encode($retObj) . ");</script>";
-    */
+      print "<pre>";
+      print_r(json_encode($retObj));
+      print "</pre>";
+      echo "<script>console.log(" . json_encode($retObj) . ");</script>";
+     */
     echo json_encode($retObj);
 } else {
     echo "error: seriesName undefined";
@@ -240,8 +274,7 @@ function getModified($seriesName, $childName, $src) {
     return $ret;
 }
 
-function getNewAssetFromOldAssetSrc($oldSrc, $swapsMade)
-{
+function getNewAssetFromOldAssetSrc($oldSrc, $swapsMade) {
     for ($s = 0; $s < count($swapsMade); $s++) {
         $swap = $swapsMade[$s];
         if ($swap['originalAssetName'] == $oldSrc && isset($swap['newAssetName'])) {
@@ -259,11 +292,10 @@ function getSizeOrLocFromOldAssetSrc($oldSrc, $swapsMade) {
             return $swap['sizeOrLoc'];
         }
     }
-    return "size";
+    return false;
 }
 
-function getNotes($seriesName, $childName, $page, $src)
-{
+function getNotes($seriesName, $childName, $page, $src) {
     include_once('../../includes/dbConnect.php');
     $con = new dbConnect();
     $ret = [];
@@ -290,8 +322,7 @@ function getNotes($seriesName, $childName, $page, $src)
     return $ret;
 }
 
-function getChildSwapsToMake($seriesName, $childName)
-{
+function getChildSwapsToMake($seriesName, $childName) {
     // TODO: Get abs root for includes
     include_once('../../includes/dbConnect.php');
     $con = new dbConnect();
@@ -320,8 +351,7 @@ function getChildSwapsToMake($seriesName, $childName)
     }
 }
 
-function trimExtension($src)
-{
+function trimExtension($src) {
     $arr = explode(".", $src);
     array_pop($arr);
     $str = implode(".", $arr);
@@ -369,8 +399,6 @@ function getStatusByChildNameAndSeriesName($childName, $seriesName) {
         return "error: Bad sql object";
     }
 }
-
-
 ?>
 
 

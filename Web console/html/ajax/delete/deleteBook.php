@@ -1,10 +1,5 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 8/24/2016
- * Time: 4:15 PM
- */
+require_once("../../config.php");
 
 chdir('../');
 
@@ -20,26 +15,28 @@ if (loginCheck()) {
         $result = $sqlObj->get_result();
         $last = $result->fetch_assoc();
         $id = $last['ID'];
-        $sqlObj = false;
+        if ($id && $id !== "") {
+            $sqlObj = false;
 
-        $stmt = $sql->prepare("DELETE FROM books WHERE `name` = ?");
-        $stmt->bind_param('s', $bookName);
-        $stmt->execute();
+            $stmt = $sql->prepare("DELETE FROM books WHERE `name` = ?");
+            $stmt->bind_param('s', $bookName);
+            $stmt->execute();
 
-        $stmt = false;
-        $stmt = $sql->prepare("DELETE FROM unitPages WHERE `refBook` = ?");
-        $stmt->bind_param('s', $bookName);
-        $stmt->execute();
+            $stmt = false;
+            $stmt = $sql->prepare("DELETE FROM unitPages WHERE `refBook` = ?");
+            $stmt->bind_param('s', $bookName);
+            $stmt->execute();
 
-        $date = new DateTime();
-        $stamp = $date->getTimestamp();
-        $dir = "../deletedBooks/$bookName" . "_" . "$stamp/";
-        rename("../books/$id/",$dir);
+            $date = new DateTime();
+            $stamp = $date->getTimestamp();
+            $dir = "../deletedBooks/$bookName" . "_" . "$stamp/";
+            rename("../books/$id/", $dir);
 
-        echo "done";
-    }   else    {
+            echo "done";
+        }
+    } else {
         echo "error: Missing bookName";
     }
-}   else    {
+} else {
     echo "error: Not logged in";
 }

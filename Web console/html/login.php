@@ -1,16 +1,33 @@
 <?php
-/**
- 
- * User: Jason
- * Date: 6/15/2016
- * Time: 12:30 PM
- */
 
-include('../includes/loginCheck.php');
-if (loginCheck() === true) {
-    header("Location: selectSeries.php");
+require_once("config.php");
+require_once(INC_ROOT . "/dbConnect.php");
+require_once(CLASS_ROOT . "/mysql_query.php");
+require_once(WEB_ROOT . "/php/main.php");
+
+if (LOGGED_IN) {
+    header("Location: index.php");
 } else {
-    $html = file_get_contents('html/login.html');
-    echo $html;
+    $codes = [
+        "000" => "Server has been updated for extra security. Please re-register",
+        "100" => "User not found in the Database. Please register",
+        "200" => "Password did not match. Please try again",
+    ];
+    $err = isset($_GET['err']) ? $_GET['err'] : false;
+    if ($err) {
+        if (isset($codes[$err])) {
+            $err = $codes[$err];
+        } else {
+            $err = "Server error, please try again later";
+        }
+    } else {
+        $err = "Server has been updated for extra security. Please re-register";
+        $err = "";
+    }
+
+    require_once(CLASS_ROOT . "/html_fragment.php");
+    $html = new Html_fragment("html/login.html", [
+        ["ERROR_MESSAGE", $err]
+    ]);
+    $html->echoOut();
 }
-?>

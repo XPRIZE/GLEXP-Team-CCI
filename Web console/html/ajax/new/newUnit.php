@@ -1,11 +1,6 @@
 <?php
+require_once("../../config.php");
 
-/**
- 
- * User: Jason
- * Date: 8/19/2016
- * Time: 10:15 AM
- */
 chdir('../');
 include('../../includes/dbConnect.php');
 $schoolName = $_GET["schoolName"];
@@ -23,7 +18,7 @@ $ret = checkNameTaken($schoolName, $subjectName, $levelName, $unitName);
 if (isset($ret["unit"])) {
     echo "error: Name taken";
 } else {
-    $schoolID = $ret["school"];
+    $schoolID = $ret["school"];   
     $subjectID = isset($ret["subject"]) ? $ret["subject"] : null;
     $levelID = isset($ret["level"]) ? $ret["level"] : null;
 
@@ -62,6 +57,11 @@ if (isset($ret["unit"])) {
 	$unitLoc = "../schools/$schoolName/$subjectName/$levelName/$unitName";
 	$unitIndex = file_get_contents("../php/templates/unitIndex.php");
     }
+    $obj = $sql->prepare("UPDATE schools SET outdated = 1 WHERE ID = ?");
+    $obj->bind_param('s', $schoolID);
+    $obj->execute();
+    
+    
     if (!is_dir("../schools/$schoolName/tutorials")) {
 	mkdir("../schools/$schoolName/tutorials");
     }

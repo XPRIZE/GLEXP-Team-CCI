@@ -1,6 +1,7 @@
 document.addEventListener("deviceready", function () {
-    window.addEventListener("batterystatus", onBatteryStatus, false);
-
+    if (typeof Analytics !== "undefined") {
+        window.AnalyticHandler = new Analytics();
+    }
     viewportFix();
     // cordova.plugins.autoStart.enable();
 
