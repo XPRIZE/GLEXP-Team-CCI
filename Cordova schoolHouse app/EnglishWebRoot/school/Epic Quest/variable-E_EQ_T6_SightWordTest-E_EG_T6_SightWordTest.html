@@ -1,0 +1,2940 @@
+<html>
+   <head>
+      <title>Pubbly</title>
+      <link href="../pubbly_engine/latest/css/main.css" rel="stylesheet" />
+      <link href="../pubbly_engine/latest/css/xprizeAppModifications.css" rel="stylesheet" />
+      <link href="../pubbly_engine/latest/css/supportedFonts.css" rel="stylesheet" />
+      <script src="../pubbly_engine/latest/js/third_party/jquery.min.js"></script>
+      <script src="../pubbly_engine/latest/js/third_party/lzwCompress.js"></script>
+
+      <script src="../pubbly_engine/latest/js/utility/filePathManipulations.js"></script>
+      <script src="../pubbly_engine/latest/js/utility/findDifferenceBetweenTwoArrays.js"></script>
+      <!--<script src="../pubbly_engine/latest/js/utility/mergeObjWithDefaults.js"></script>-->
+      <script src="../pubbly_engine/latest/js/utility/random.js"></script>
+      <script src="../pubbly_engine/latest/js/utility/redrawDependency.js"></script>
+      <script src="../pubbly_engine/latest/js/utility/variableFrameRateInt.js"></script>
+
+      <script src="../pubbly_engine/latest/js/shared/assetListLoader.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/buffer.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/color_codes.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/cursors.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/defaultCallbacks.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/error.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/globals.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/helpers.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/messyHTML.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/progressGraph.js"></script>
+
+      <script src="../pubbly_engine/latest/js/run/countdown.js"></script>
+      <script src="../pubbly_engine/latest/js/run/dom.js"></script>
+      <script src="../pubbly_engine/latest/js/run/domInteractionCover.js"></script>
+      <script src="../pubbly_engine/latest/js/run/drawingTools.js"></script>
+      <script src="../pubbly_engine/latest/js/run/events.js"></script>
+      <script src="../pubbly_engine/latest/js/run/events_cursorInput.js"></script>
+      <script src="../pubbly_engine/latest/js/run/links.js"></script>
+      <script src="../pubbly_engine/latest/js/run/navigationUI.js"></script>
+      <script src="../pubbly_engine/latest/js/run/presetAssets.js"></script>
+      <script src="../pubbly_engine/latest/js/run/sequence.js"></script>
+      <script src="../pubbly_engine/latest/js/run/states.js"></script>
+      <script src="../pubbly_engine/latest/js/run/turns.js"></script>
+      <script src="../pubbly_engine/latest/js/run/urlNav.js"></script>
+      <script src="../pubbly_engine/latest/js/run/workspaces.js"></script>
+      <script src="../pubbly_engine/latest/js/run/_Pubbly.js"></script>
+      <script>
+         // Pre doc ready back catch
+         window.history.pushState('popstateListener', null, window.location.href);
+         window.addEventListener("popstate", function (e) {
+            e.preventDefault();
+         });
+      </script>
+      <script src="../pubbly_engine/latest/js/app/_AppModifications.js"></script>
+      <script src="../pubbly_engine/latest/js/app/analytics.js"></script>
+      <script src="../../cordova.js"></script>
+      <script src="../../js/loginCheck.js"></script>
+      <script src="../../js/readWrite.js"></script>
+
+      <script>
+      window.json = {
+    "info": {
+        "name": "E_EG_T6_SightWordTest",
+        "height": 641,
+        "width": 1000,
+        "display": "single",
+        "bullet": "#8867AC",
+        "interrupt": false,
+        "saveStates": false,
+        "navigation": false,
+        "snapDrops": true,
+        "lastPageSpread": false,
+        "assetLocationPrefix": "undefined_",
+        "HighlightLinkColor": "128,255,255",
+        "HighlightLinkTransparency": 50,
+        "HighlightLinkTime": 500,
+        "HighlightLinkColorRGBA": "RGBA(128,255,255,0.5)"
+    },
+    "pages": [
+        {
+            "points": {
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "1",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "sightWords",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        25,
+                        22
+                    ],
+                    "width": 963,
+                    "height": 488,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "C1_sightwords2",
+                    "ext": "jpg",
+                    "swapMethod": "size",
+                    "swapHeight": 488,
+                    "swapWidth": 963,
+                    "init": {
+                        "height": 488,
+                        "width": 963,
+                        "loc": [
+                            25,
+                            22
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "C1_sightwords2.jpg",
+                    "relPath": "sharedAssets/C1_sightwords2.jpg"
+                },
+                {
+                    "type": "image",
+                    "name": "right_arrow_button_stroke2",
+                    "layer": 1,
+                    "vis": false,
+                    "loc": [
+                        552,
+                        911
+                    ],
+                    "width": 75,
+                    "height": 75,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_right_arrow_button_stroke2",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 75,
+                        "width": 75,
+                        "loc": [
+                            552,
+                            911
+                        ],
+                        "vis": false,
+                        "layer": 1,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_right_arrow_button_stroke2.png",
+                    "relPath": "sharedAssets/P_right_arrow_button_stroke2.png"
+                },
+                {
+                    "type": "image",
+                    "name": "replay_button_stroke2",
+                    "layer": 2,
+                    "vis": false,
+                    "loc": [
+                        552,
+                        6
+                    ],
+                    "width": 75,
+                    "height": 75,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_replay_button_stroke2",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 75,
+                        "width": 75,
+                        "loc": [
+                            552,
+                            6
+                        ],
+                        "vis": false,
+                        "layer": 2,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_replay_button_stroke2.png",
+                    "relPath": "sharedAssets/P_replay_button_stroke2.png"
+                },
+                {
+                    "type": "image",
+                    "name": "redbutton",
+                    "layer": 3,
+                    "vis": false,
+                    "loc": [
+                        10,
+                        537
+                    ],
+                    "width": 44,
+                    "height": 44,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_redbutton",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 44,
+                        "width": 44,
+                        "loc": [
+                            10,
+                            537
+                        ],
+                        "vis": false,
+                        "layer": 3,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_redbutton.png",
+                    "relPath": "sharedAssets/P_redbutton.png"
+                },
+                {
+                    "type": "image",
+                    "name": "greenbutton",
+                    "layer": 4,
+                    "vis": false,
+                    "loc": [
+                        10,
+                        537
+                    ],
+                    "width": 44,
+                    "height": 44,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_greenbutton",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 44,
+                        "width": 44,
+                        "loc": [
+                            10,
+                            537
+                        ],
+                        "vis": false,
+                        "layer": 4,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_greenbutton.png",
+                    "relPath": "sharedAssets/P_greenbutton.png"
+                },
+                {
+                    "type": "field",
+                    "name": "Field 1",
+                    "layer": 5,
+                    "vis": true,
+                    "loc": [
+                        7,
+                        534
+                    ],
+                    "width": 50,
+                    "height": 51,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "align": "center",
+                    "displayType": "countdown",
+                    "display": "Countdown",
+                    "font": "Didact",
+                    "editable": false,
+                    "size": "auto",
+                    "color": "#000000",
+                    "contents": "0",
+                    "calculated": {},
+                    "init": {
+                        "height": 51,
+                        "width": 50,
+                        "loc": [
+                            7,
+                            534
+                        ],
+                        "vis": true,
+                        "layer": 5,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    }
+                },
+                {
+                    "type": "image",
+                    "name": "hare_hand_long",
+                    "layer": 6,
+                    "vis": false,
+                    "loc": [
+                        26,
+                        -49
+                    ],
+                    "width": 1000,
+                    "height": 800,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_1": {
+                            "name": "Animation_1",
+                            "data": [
+                                {
+                                    "loc": [
+                                        779,
+                                        440
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        344,
+                                        190
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        },
+                        "FromFirstWordOUT": {
+                            "name": "FromFirstWordOUT",
+                            "data": [
+                                {
+                                    "loc": [
+                                        363,
+                                        286
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        950,
+                                        440
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        },
+                        "handaout": {
+                            "name": "handaout",
+                            "data": [
+                                {
+                                    "loc": [
+                                        344,
+                                        190
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 1000,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        900,
+                                        225
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 1000
+                        },
+                        "handBin": {
+                            "name": "handBin",
+                            "data": [
+                                {
+                                    "loc": [
+                                        779,
+                                        440
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        343,
+                                        272
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        },
+                        "handBin_1out": {
+                            "name": "handBin_1out",
+                            "data": [
+                                {
+                                    "loc": [
+                                        343,
+                                        272
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        950,
+                                        440
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        },
+                        "handCin": {
+                            "name": "handCin",
+                            "data": [
+                                {
+                                    "loc": [
+                                        779,
+                                        440
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        344,
+                                        351
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        },
+                        "handCout_1": {
+                            "name": "handCout_1",
+                            "data": [
+                                {
+                                    "loc": [
+                                        344,
+                                        351
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        950,
+                                        440
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        },
+                        "Show1": {
+                            "name": "Show1",
+                            "data": [
+                                {
+                                    "loc": [
+                                        383,
+                                        286
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 2000,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        383,
+                                        452
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 1000,
+                                    "angle": 0
+                                },
+                                {
+                                    "loc": [
+                                        383,
+                                        618
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 1000,
+                                    "angle": 0
+                                },
+                                {
+                                    "loc": [
+                                        383,
+                                        781
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 1000,
+                                    "angle": 0
+                                },
+                                {
+                                    "loc": [
+                                        383,
+                                        946
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 1000,
+                                    "angle": 0
+                                },
+                                {
+                                    "loc": [
+                                        427,
+                                        284
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 1000,
+                                    "angle": 0
+                                },
+                                {
+                                    "loc": [
+                                        426,
+                                        451
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 1000,
+                                    "angle": 0
+                                },
+                                {
+                                    "loc": [
+                                        950,
+                                        428
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 8000
+                        }
+                    },
+                    "fName": "P_hare_hand_long",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 800,
+                        "width": 1000,
+                        "loc": [
+                            26,
+                            -49
+                        ],
+                        "vis": false,
+                        "layer": 6,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_hare_hand_long.png",
+                    "relPath": "sharedAssets/P_hare_hand_long.png"
+                },
+                {
+                    "type": "image",
+                    "name": "smallcheck",
+                    "layer": 7,
+                    "vis": false,
+                    "loc": [
+                        -4,
+                        926
+                    ],
+                    "width": 75,
+                    "height": 75,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_smallcheck",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 75,
+                        "width": 75,
+                        "loc": [
+                            -4,
+                            926
+                        ],
+                        "vis": false,
+                        "layer": 7,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_smallcheck.png",
+                    "relPath": "sharedAssets/P_smallcheck.png"
+                },
+                {
+                    "type": "image",
+                    "name": "StarSmall",
+                    "layer": 8,
+                    "vis": false,
+                    "loc": [
+                        142,
+                        -19
+                    ],
+                    "width": 96,
+                    "height": 105,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_StarSmall",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 105,
+                        "width": 96,
+                        "loc": [
+                            142,
+                            -19
+                        ],
+                        "vis": false,
+                        "layer": 8,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_StarSmall.png",
+                    "relPath": "sharedAssets/P_StarSmall.png"
+                },
+                {
+                    "type": "image",
+                    "name": "StarSmall2",
+                    "layer": 9,
+                    "vis": false,
+                    "loc": [
+                        197,
+                        -16
+                    ],
+                    "width": 96,
+                    "height": 105,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_StarSmall2",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 105,
+                        "width": 96,
+                        "loc": [
+                            197,
+                            -16
+                        ],
+                        "vis": false,
+                        "layer": 9,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_StarSmall2.png",
+                    "relPath": "sharedAssets/P_StarSmall.png"
+                },
+                {
+                    "type": "image",
+                    "name": "StarSmall3",
+                    "layer": 10,
+                    "vis": false,
+                    "loc": [
+                        252,
+                        -15
+                    ],
+                    "width": 96,
+                    "height": 105,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_StarSmall3",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 105,
+                        "width": 96,
+                        "loc": [
+                            252,
+                            -15
+                        ],
+                        "vis": false,
+                        "layer": 10,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_StarSmall3.png",
+                    "relPath": "sharedAssets/P_StarSmall.png"
+                },
+                {
+                    "type": "image",
+                    "name": "highlightBar",
+                    "layer": 11,
+                    "vis": false,
+                    "loc": [
+                        443,
+                        113
+                    ],
+                    "width": 886,
+                    "height": 49,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "C1_highlightBar4",
+                    "ext": "png",
+                    "swapMethod": "size",
+                    "swapHeight": 49,
+                    "swapWidth": 886,
+                    "init": {
+                        "height": 49,
+                        "width": 886,
+                        "loc": [
+                            443,
+                            113
+                        ],
+                        "vis": false,
+                        "layer": 11,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "C1_highlightBar4.png",
+                    "relPath": "sharedAssets/C1_highlightBar4.png"
+                }
+            ],
+            "auds": [
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_SW_Clip1",
+                    "relPathNoExt": "sharedAssets/P_SW_Clip1.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_SW_clip2",
+                    "relPathNoExt": "sharedAssets/P_SW_clip2.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_SW_Clip3A",
+                    "relPathNoExt": "sharedAssets/P_SW_Clip3A.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_SW_clip3B",
+                    "relPathNoExt": "sharedAssets/P_SW_clip3B.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_sfx_buzzer",
+                    "relPathNoExt": "sharedAssets/P_sfx_buzzer.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_HowDidYouDo",
+                    "relPathNoExt": "sharedAssets/P_HowDidYouDo.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_TapTheLastWord",
+                    "relPathNoExt": "sharedAssets/P_TapTheLastWord.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_KeepTrying",
+                    "relPathNoExt": "sharedAssets/P_KeepTrying.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_TapForHelp2",
+                    "relPathNoExt": "sharedAssets/P_TapForHelp2.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_WowGreatWork",
+                    "relPathNoExt": "sharedAssets/P_WowGreatWork.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_TapForHelp2",
+                    "relPathNoExt": "sharedAssets/P_TapForHelp2.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_WowGreatWork",
+                    "relPathNoExt": "sharedAssets/P_WowGreatWork.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_TapForHelp2",
+                    "relPathNoExt": "sharedAssets/P_TapForHelp2.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_PerfectScore",
+                    "relPathNoExt": "sharedAssets/P_PerfectScore.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_At_Row1",
+                    "relPathNoExt": "sharedAssets/P_At_Row1.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_of_row2",
+                    "relPathNoExt": "sharedAssets/P_of_row2.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_we_row3",
+                    "relPathNoExt": "sharedAssets/P_we_row3.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_hold_row4",
+                    "relPathNoExt": "sharedAssets/P_hold_row4.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_not_row5",
+                    "relPathNoExt": "sharedAssets/P_not_row5.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_now_row6",
+                    "relPathNoExt": "sharedAssets/P_now_row6.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_any_row7",
+                    "relPathNoExt": "sharedAssets/P_any_row7.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_find_row8",
+                    "relPathNoExt": "sharedAssets/P_find_row8.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_live_Row9",
+                    "relPathNoExt": "sharedAssets/P_live_Row9.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_away_Row10",
+                    "relPathNoExt": "sharedAssets/P_away_Row10.ogg"
+                }
+            ],
+            "audKey": {
+                "P_SW_Clip1": 1,
+                "P_SW_clip2": 2,
+                "P_SW_Clip3A": 3,
+                "P_SW_clip3B": 4,
+                "P_sfx_buzzer": 5,
+                "P_HowDidYouDo": 6,
+                "P_TapTheLastWord": 7,
+                "P_KeepTrying": 8,
+                "P_TapForHelp2": 13,
+                "P_WowGreatWork": 12,
+                "P_PerfectScore": 14,
+                "P_At_Row1": 15,
+                "P_of_row2": 16,
+                "P_we_row3": 17,
+                "P_hold_row4": 18,
+                "P_not_row5": 19,
+                "P_now_row6": 20,
+                "P_any_row7": 21,
+                "P_find_row8": 22,
+                "P_live_Row9": 23,
+                "P_away_Row10": 24
+            },
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid0",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=variable-E_EQ_G6_Book-E_EQ_G6_Book"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 1",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            915,
+                            553
+                        ],
+                        [
+                            998,
+                            553
+                        ],
+                        [
+                            998,
+                            650
+                        ],
+                        [
+                            915,
+                            650
+                        ],
+                        [
+                            915,
+                            553
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": false,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                915,
+                                553
+                            ],
+                            [
+                                998,
+                                553
+                            ],
+                            [
+                                998,
+                                650
+                            ],
+                            [
+                                915,
+                                650
+                            ],
+                            [
+                                915,
+                                553
+                            ]
+                        ],
+                        "enabled": false,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid1",
+                                        "type": "reset",
+                                        "action": "page reset",
+                                        "destination": "page",
+                                        "blocking": false,
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid2",
+                                        "type": "send",
+                                        "action": "click",
+                                        "destination": "go countown",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 2",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            0,
+                            554
+                        ],
+                        [
+                            79,
+                            554
+                        ],
+                        [
+                            79,
+                            645
+                        ],
+                        [
+                            0,
+                            645
+                        ],
+                        [
+                            0,
+                            554
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": false,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 2,
+                    "init": {
+                        "poly": [
+                            [
+                                0,
+                                554
+                            ],
+                            [
+                                79,
+                                554
+                            ],
+                            [
+                                79,
+                                645
+                            ],
+                            [
+                                0,
+                                645
+                            ],
+                            [
+                                0,
+                                554
+                            ]
+                        ],
+                        "enabled": false,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 2
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid3",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_SW_Clip1",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid4",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid5",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_SW_clip2",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid6",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid7",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "static",
+                                        "blocking": [
+                                            "gifs",
+                                            "flashes",
+                                            "animations",
+                                            "videos",
+                                            "sequences"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid8",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_SW_Clip3A",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid9",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "hare_hand_long",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 286,
+                                            "y": 383
+                                        }
+                                    },
+                                    {
+                                        "id": "tid10",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 1,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid11",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "hare_hand_long",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid12",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "hare_hand_long",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Show1"
+                                    },
+                                    {
+                                        "id": "tid13",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid14",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "static",
+                                        "blocking": [
+                                            "gifs",
+                                            "flashes",
+                                            "animations",
+                                            "videos",
+                                            "sequences"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid15",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "hare_hand_long",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 286,
+                                            "y": 383
+                                        }
+                                    },
+                                    {
+                                        "id": "tid16",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_SW_clip3B",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid17",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid18",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "hare_hand_long",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid19",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "hare_hand_long",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "FromFirstWordOUT"
+                                    },
+                                    {
+                                        "id": "tid20",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "greenbutton",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid21",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "greenbutton",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid22",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid23",
+                                        "type": "countdown",
+                                        "action": "start_at",
+                                        "destination": "countdown",
+                                        "value": "60"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "go countown",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            1
+                        ],
+                        [
+                            -10,
+                            1
+                        ],
+                        [
+                            -10,
+                            71
+                        ],
+                        [
+                            -80,
+                            71
+                        ],
+                        [
+                            -80,
+                            1
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 3,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                1
+                            ],
+                            [
+                                -10,
+                                1
+                            ],
+                            [
+                                -10,
+                                71
+                            ],
+                            [
+                                -80,
+                                71
+                            ],
+                            [
+                                -80,
+                                1
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 3
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid24",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "greenbutton",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid25",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_sfx_buzzer",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid26",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "redbutton",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid27",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "redbutton",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid28",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid29",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "redbutton",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid30",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "replay_button_stroke2",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid31",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "right_arrow_button_stroke2",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid32",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Link 1",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "link",
+                                        "attribute": "enabled",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid33",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Link 2",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "link",
+                                        "attribute": "enabled",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid34",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_HowDidYouDo",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid35",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid36",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_TapTheLastWord",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid37",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Link 3",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "link",
+                                        "attribute": "enabled",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid38",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Link 4",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "link",
+                                        "attribute": "enabled",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid39",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Link 5",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "link",
+                                        "attribute": "enabled",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid40",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Link 6",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "link",
+                                        "attribute": "enabled",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid41",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Link 7",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "link",
+                                        "attribute": "enabled",
+                                        "value": true
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "end countdown",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 4,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 4
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid42",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_KeepTrying",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid43",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "StarSmall",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid44",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_TapForHelp2",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid45",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "StarSmall",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid46",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "smallcheck",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid47",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "smallcheck",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 3",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            135,
+                            62
+                        ],
+                        [
+                            963,
+                            64
+                        ],
+                        [
+                            965,
+                            274
+                        ],
+                        [
+                            332,
+                            275
+                        ],
+                        [
+                            249,
+                            276
+                        ],
+                        [
+                            137,
+                            274
+                        ],
+                        [
+                            135,
+                            62
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": false,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 5,
+                    "init": {
+                        "poly": [
+                            [
+                                135,
+                                62
+                            ],
+                            [
+                                963,
+                                64
+                            ],
+                            [
+                                965,
+                                274
+                            ],
+                            [
+                                332,
+                                275
+                            ],
+                            [
+                                249,
+                                276
+                            ],
+                            [
+                                137,
+                                274
+                            ],
+                            [
+                                135,
+                                62
+                            ]
+                        ],
+                        "enabled": false,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 5
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid48",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_WowGreatWork",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid49",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "StarSmall",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid50",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "StarSmall",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid51",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.2,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid52",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "StarSmall2",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid53",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "StarSmall2",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid54",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_TapForHelp2",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid55",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "smallcheck",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid56",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "smallcheck",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 4",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            137,
+                            286
+                        ],
+                        [
+                            391,
+                            282
+                        ],
+                        [
+                            969,
+                            283
+                        ],
+                        [
+                            966,
+                            446
+                        ],
+                        [
+                            134,
+                            446
+                        ],
+                        [
+                            133,
+                            349
+                        ],
+                        [
+                            137,
+                            286
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": false,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 6,
+                    "init": {
+                        "poly": [
+                            [
+                                137,
+                                286
+                            ],
+                            [
+                                391,
+                                282
+                            ],
+                            [
+                                969,
+                                283
+                            ],
+                            [
+                                966,
+                                446
+                            ],
+                            [
+                                134,
+                                446
+                            ],
+                            [
+                                133,
+                                349
+                            ],
+                            [
+                                137,
+                                286
+                            ]
+                        ],
+                        "enabled": false,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 6
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid57",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_WowGreatWork",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid58",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "StarSmall",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid59",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "StarSmall",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid60",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.2,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid61",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "StarSmall2",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid62",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "StarSmall2",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid63",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_TapForHelp2",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid64",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "smallcheck",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid65",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "smallcheck",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 5",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            134,
+                            450
+                        ],
+                        [
+                            820,
+                            450
+                        ],
+                        [
+                            820,
+                            501
+                        ],
+                        [
+                            134,
+                            501
+                        ],
+                        [
+                            134,
+                            450
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": false,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 7,
+                    "init": {
+                        "poly": [
+                            [
+                                134,
+                                450
+                            ],
+                            [
+                                820,
+                                450
+                            ],
+                            [
+                                820,
+                                501
+                            ],
+                            [
+                                134,
+                                501
+                            ],
+                            [
+                                134,
+                                450
+                            ]
+                        ],
+                        "enabled": false,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 7
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid66",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_PerfectScore",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid67",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "StarSmall",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid68",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "StarSmall",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid69",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.2,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid70",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "StarSmall2",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid71",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "StarSmall2",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid72",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.2,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid73",
+                                        "type": "flash",
+                                        "action": "flashon",
+                                        "destination": "StarSmall3",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "num": 5,
+                                        "stateChangeInterval": 150
+                                    },
+                                    {
+                                        "id": "tid74",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "StarSmall3",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 6",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            840,
+                            448
+                        ],
+                        [
+                            917,
+                            448
+                        ],
+                        [
+                            917,
+                            511
+                        ],
+                        [
+                            840,
+                            511
+                        ],
+                        [
+                            840,
+                            448
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": false,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 8,
+                    "init": {
+                        "poly": [
+                            [
+                                840,
+                                448
+                            ],
+                            [
+                                917,
+                                448
+                            ],
+                            [
+                                917,
+                                511
+                            ],
+                            [
+                                840,
+                                511
+                            ],
+                            [
+                                840,
+                                448
+                            ]
+                        ],
+                        "enabled": false,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 8
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid75",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_At_Row1",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid76",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid77",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 84
+                                        }
+                                    },
+                                    {
+                                        "id": "tid78",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid79",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_of_row2",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid80",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 128
+                                        }
+                                    },
+                                    {
+                                        "id": "tid81",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid82",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_we_row3",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid83",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 169
+                                        }
+                                    },
+                                    {
+                                        "id": "tid84",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid85",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_hold_row4",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid86",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 211
+                                        }
+                                    },
+                                    {
+                                        "id": "tid87",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid88",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_not_row5",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid89",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 256
+                                        }
+                                    },
+                                    {
+                                        "id": "tid90",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid91",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_now_row6",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid92",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 296
+                                        }
+                                    },
+                                    {
+                                        "id": "tid93",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid94",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_any_row7",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid95",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 339
+                                        }
+                                    },
+                                    {
+                                        "id": "tid96",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid97",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_find_row8",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid98",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 382
+                                        }
+                                    },
+                                    {
+                                        "id": "tid99",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid100",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_live_Row9",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid101",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 427
+                                        }
+                                    },
+                                    {
+                                        "id": "tid102",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid103",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_away_Row10",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid104",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "center",
+                                        "value": {
+                                            "x": 546,
+                                            "y": 467
+                                        }
+                                    },
+                                    {
+                                        "id": "tid105",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid106",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "highlightBar",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Link 7",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            930,
+                            4
+                        ],
+                        [
+                            994,
+                            4
+                        ],
+                        [
+                            994,
+                            61
+                        ],
+                        [
+                            930,
+                            61
+                        ],
+                        [
+                            930,
+                            4
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": false,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 9,
+                    "init": {
+                        "poly": [
+                            [
+                                930,
+                                4
+                            ],
+                            [
+                                994,
+                                4
+                            ],
+                            [
+                                994,
+                                61
+                            ],
+                            [
+                                930,
+                                61
+                            ],
+                            [
+                                930,
+                                4
+                            ]
+                        ],
+                        "enabled": false,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 9
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [
+                            {
+                                "type": "countdown",
+                                "condition": "finished",
+                                "targets": [
+                                    {
+                                        "id": "tid107",
+                                        "type": "send",
+                                        "action": "click",
+                                        "destination": "end countdown",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "openPages": [
+                            {
+                                "type": "openPage",
+                                "condition": "every",
+                                "targets": [
+                                    {
+                                        "id": "tid108",
+                                        "type": "send",
+                                        "action": "click",
+                                        "destination": "go countown",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ]
+                    },
+                    "name": "Page",
+                    "type": "link",
+                    "drawing": false,
+                    "poly": [],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 10,
+                    "init": {
+                        "poly": [],
+                        "enabled": true,
+                        "drawing": "false",
+                        "pinned": false,
+                        "layer": 10
+                    }
+                }
+            ]
+        }
+    ],
+    "drawingTool": {},
+    "points": {}
+};
+      window.startPage = 0;
+      $(document).ready(function () {
+         document.addEventListener("deviceready", buildPubbly);
+      });
+      function buildPubbly() {
+         window.pubbly = new Pubbly(json, {
+            environment: "app", 
+            forceBack: "../../school.html", 
+            enginePathPrefix: "../",
+         });
+      };
+      </script>
+
+      <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body class="noSelect">
+      <div id="main" class="transformCenterCont">
+         <div class="transformCenter">
+            <div id="pubbly_main">
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
