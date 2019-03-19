@@ -58,7 +58,7 @@
              <disable-camera />
            </uses-policies>
          </device-admin>
-  ### 9. __Put EnglishWebRoot folder inside www folder.__
+  ### 9. __Paste the contents of EnglishWebRoot folder inside www folder.__
   ### 10. __Clean using following command.__
          cordova clean android
   ### 11. __Build the application from powershell using following command.__
