@@ -3,7 +3,7 @@
          i.    npm install -g cordova
   ### 2. __Add android platform using following command__.
          i.    cordova platform add android
-  ### 3. __Add required plugins using following command__.
+  ### 3. __Add required plugins using following commands__.
          i.    cordova plugin add https://github.com/oddmouse/cordova-plugin-locktask.git
          ii.   cordova plugin add https://github.com/ToniKorin/cordova-plugin-autostart.git
          iii.  cordova plugin add cordova-plugin-battery-status
