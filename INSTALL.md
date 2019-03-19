@@ -2,7 +2,7 @@
   ### 1. __Install cordova using following command in cmd.__
          npm install -g cordova
   ### 2. __Create a new cordova project using following command.__
-	 cordova create CCIApp com.example.cciapp CCIAPP
+         cordova create CCIApp com.example.cciapp CCIAPP
   ### 3. __Add android platform using following command__.
          cordova platform add android
   ### 4. __Add required plugins using following commands__.
