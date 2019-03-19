@@ -4,20 +4,20 @@
   ### 2. __Add android platform using following command__.
          cordova platform add android
   ### 3. __Add required plugins using following commands__.
-         i.    cordova plugin add https://github.com/oddmouse/cordova-plugin-locktask.git
-         ii.   cordova plugin add https://github.com/ToniKorin/cordova-plugin-autostart.git
-         iii.  cordova plugin add cordova-plugin-battery-status
-         iv.   cordova plugin add cordova-plugin-camera
-         v.    cordova plugin add cordova-plugin-compat (deprecated as the functionalities it provide are already handled for Android 6.0.0)
-         vi.   cordova plugin add cordova-plugin-device
-         vii.  cordova plugin add cordova-plugin-file
-         viii. cordova plugin add cordova-plugin-file-transfer
-         ix.   cordova plugin add cordova-plugin-ftp
-         x.    cordova plugin add cordova-plugin-fullscreen
-         xi.   cordova plugin add cordova-plugin-media
-         xii.  cordova plugin add cordova-plugin-splashscreen
-         xii.  cordova plugin add cordova-plugin-whitelist
-         xiii. cordova plugin add cordova-plugin-zip
+         cordova plugin add https://github.com/oddmouse/cordova-plugin-locktask.git
+         cordova plugin add https://github.com/ToniKorin/cordova-plugin-autostart.git
+         cordova plugin add cordova-plugin-battery-status
+         cordova plugin add cordova-plugin-camera
+         cordova plugin add cordova-plugin-compat (deprecated as the functionalities it provide are already handled for Android 6.0.0)
+         cordova plugin add cordova-plugin-device
+         cordova plugin add cordova-plugin-file
+         cordova plugin add cordova-plugin-file-transfer
+         cordova plugin add cordova-plugin-ftp
+         cordova plugin add cordova-plugin-fullscreen
+         cordova plugin add cordova-plugin-media
+         cordova plugin add cordova-plugin-splashscreen
+         cordova plugin add cordova-plugin-whitelist
+         cordova plugin add cordova-plugin-zip
   ### 4. __Add splash screen to config.xml file.__
          <platform name="android">
 		<splash density="land-hdpi" src="res/load_final.png" />
@@ -63,10 +63,10 @@
          cordova build android –verbose
 
 ## __FAQ__
-	1. "Not a git repository" error while executing git packages get command in any one of the repositories
-	Solution: Delete C:\Users\USERNAME\AppData\Roaming\Pub\Cache\git\cache folder and rerun the above command
-	2. Plugin import dependency error in the any of the repositories
-	Solution:
-	  i. Create a lib folder in parent directory of the concerned project repository
-	 ii. Copy flutter.jar file from the _FLUTTER_SDK_ROOT_DIR_\bin\cache\artifacts\engine\android-arm folder into lib folder
-	iii. From Android Studio right click the newly added jar file and then select "Add as library"
+	1. Source path doesnot exist: res/load_final.png
+	Solution: Place load_final.png into res/folder and rerun the build command
+	2. app:processDebugResources xml/camera_provider_paths.xml not found
+	Solution: Place camera_provider_paths.xml file into the platforms\android\app\src\main\res\xml folder.
+        3. Ececution failed because of Java heap space 
+	Solution: Increase the Java heap space using following command
+	      i. SET _JAVA_OPTIONS="-Xmx4000m"
