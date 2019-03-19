@@ -64,9 +64,9 @@
 
 ## __FAQ__
 	1. Source path doesnot exist: res/load_final.png
-	Solution: Place load_final.png into res/folder and rerun the build command
+	Solution: Place load_final.png into res/folder and rerun the build command.
 	2. app:processDebugResources xml/camera_provider_paths.xml not found
-	Solution: Place camera_provider_paths.xml file into the platforms\android\app\src\main\res\xml folder
+	Solution: Place camera_provider_paths.xml file into the platforms\android\app\src\main\res\xml folder.
         3. Execution failed because of Java heap space 
-	Solution: Increase the Java heap space using following command
-	SET _JAVA_OPTIONS="-Xmx4000m"
+	Solution: Increase the Java heap space using following command.
+	   SET _JAVA_OPTIONS="-Xmx4000m"
