@@ -1,39 +1,64 @@
 # CCI Installation Steps
 
-Pubbly: A Rapid Production System of Publishing Engaging, Interactive, Educational Materials
+1. Install cordova using following command in cmd.
+   npm install -g cordova
+2. Add android platform using following command
+   cordova platform add android
+3. Added plugins using following commands
+   cordova plugin add https://github.com/oddmouse/cordova-plugin-locktask.git
+   cordova plugin add https://github.com/ToniKorin/cordova-plugin-autostart.git
+   cordova plugin add cordova-plugin-battery-status
+   cordova plugin add cordova-plugin-camera
+   cordova plugin add cordova-plugin-compat (deprecated as the functionalities it provide are already handled for Android 6.0.0)
+   cordova plugin add cordova-plugin-device
+   cordova plugin add cordova-plugin-file
+   cordova plugin add cordova-plugin-file-transfer
+   cordova plugin add cordova-plugin-ftp
+   cordova plugin add cordova-plugin-fullscreen
+   cordova plugin add cordova-plugin-media
+   cordova plugin add cordova-plugin-splashscreen
+   cordova plugin add cordova-plugin-whitelist
+   cordova plugin add cordova-plugin-zip
+Step 4: Added splash screen to config.xml file
+   <platform name="android">
+        <splash density="land-hdpi" src="res/load_final.png" />
+        <splash density="land-ldpi" src="res/load_final.png" />
+        <splash density="land-mdpi" src="res/load_final.png" />
+        <splash density="land-xhdpi" src="res/load_final.png" />
+        <splash density="port-hdpi" src="res/load_final.png" />
+        <splash density="port-ldpi" src="res/load_final.png" />
+        <splash density="port-mdpi" src="res/load_final.png" />
+        <splash density="port-xhdpi" src="res/load_final.png" />
+        <allow-intent href="market:*" />
+    </platform>
+Step 5: Add Java class for the locktask plugin by creating MyAdmin class inside CCIApp\platforms\android\app\src\main\java\com\example\CCIApp folder and added following lines to the class
+    package com.example.CCIApp;
+    import android.app.admin.DeviceAdminReceiver;
+    public class MyAdmin extends DeviceAdminReceiver {
+      // Some code here if you want but not necessary
+    }
+    Add following lines in the AndroidManifest.xml file
+    <receiver android:label="@string/app_name" android:name="MyAdmin" android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data android:name="android.app.device_admin" android:resource="@xml/device_admin" />
+            <intent-filter>
+            <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+    </receiver>
+    Create xml folder inside res folder and generated device_admin.xml file with following content
+    <device-admin xmlns:android="http://schemas.android.com/apk/res/android">
+        <uses-policies>
+            <limit-password />
+            <watch-login />
+            <reset-password />
+            <force-lock />
+            <wipe-data />
+            <expire-password />
+            <encrypted-storage />
+            <disable-camera />
+            </uses-policies>
+    </device-admin>
+Step 6: Put EnglishWebRoot folder inside www folder
+Step 7: Clean using ‘cordova clean android’ command
+Step 8: Build the application from powershell using ‘cordova build android –verbose’ command
 
-The pubbly system consists of three main projects. The Desktop design tools, the Web console, and the Cordova school house application. Build instructions for each are in the coresponding subfolders.
 
-
-DESIGN TOOLS
-
-The Desktop design tools are a cross platform suite of tools written in livecode for non-developers to create interactive books. The creation of discrete content assets, such as books, lessons or games, begins with adding a visual content layer by importing PDF’s and other image files and by adding text fields as needed.
-
-These assets are completed by adding the interactive layer. This is the behind-the-scenes creativity where instructional designers will spend most of their time. In most cases, designers begin this work by tracing areas on each page to create hotspots or ”links,” and then adding ”targets” to them. When triggered (touched or clicked by the student), the targets provide an engaging educational experience. Some examples of targets include playing audio files, flashing images, highlighting text, automated drawing, and running animations.
-
-It is through this system of links, triggers, and targets that Pubbly designers create rich and engaging interactivity. For the newcomer, even the addition of just a few audio targets can produce valuable interactive learning experiences, and designers can upload or “publish” any content asset to the cloud directly from the authoring system. Doing so generates a URL that can be accessed by Internet-connected learners anywhere in the world. Nothing more is required. For GLEXP, we also developed the capability to run content assets locally, without an Internet connection and to arrange those assets into specific learning pathways. For those who want to go further, Pubbly offers much, much more while never requiring any coding or complex computer skills.
-
-____
-
-
-WEB CONSOLE
-
-The Console is a web app that facilitates a number of fundamental tasks directly related to our work on GLEXP. First, the Console enables users to create “virtual schools” with content. In other words, it is the Console that enables designers to organize Pubbly content assets into a coherent sequence of lessons or activities based upon subject area or instructional level. In this way, self-directed learners can benefit from a highly structured approach without the need for a teacher or a physical school. We also have used the term “Virtual School” to describe this structured arrangement, even though the “school” has no teachers, staff, or physical space.
-
-The second critical function of the Console relates to enabling interactive content assets, or “Pubblies,” to be quickly updated, repurposed and leveraged for use in any language (or to make other changes to the assets) without the need to build entirely new Pubblies from scratch. This is really a key to scalability given that in traditional interactive authoring, video, and animation tools, there is a often a lengthy rendering process that makes large scale production and modification very time-consuming. 
-
-We overcame this challenge by developing a template generation system that allows images, animations and audio files to be quickly updated or replaced via a drag-and-drop user interface and published in real time. Internally, we refer to this process as creating a “parent” (or master) and then swapping out specific images or text to create any number of “children,” which are essentially derivative copies of the parent that contain one or more modifications.
-
-The Pubbly parent’s structure and interactivity (the bulk of the designer’s work) is reused as the base of any number of child Pubblies, while images and audio assets are swapped to present new material. Changes made to the parent are passed to all its children, greatly facilitating the editorial process.
-
-Finally, units are then created using the console’s stitch app to combine pages from any child Pubbly. Units are organized by level, subject, and “school.” Upon entering a virtual school, a student selects a subject, a level, and a unit. Levels also have associated games, created through the same development process as units. Games are unlocked by progressing through levels.
-
-They serve as a reward, an incentive, and a way for academic designers to teach through non-traditional methods. Once completed, a virtual school can be downloaded, tested and deployed on mobile devices through an APK installer or other processes.
-
-
-____
-
-
-CORDOVA SCHOOL HOUSE APP
-
-The School House is the final product of the Pubbly system where students take a picture of themselves, create an account, and log in.  After logging in students choose a subject, a level, and finally a unit.  At the end of each unit students are typically offered educational games corresponding to the subject matter covered by the unit.  Each unit must be opened in order to unlock the next so as to guide students through the units sequentially.
