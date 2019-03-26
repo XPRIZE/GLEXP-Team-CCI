@@ -45,7 +45,7 @@
             <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
          </receiver>
-  ### 8. __Create xml folder inside CCIApp\res folder and create device_admin.xml file with following content__
+  ### 8. __Create folder res inside CCIApp. Inside res folder create xml folder. Add device_admin.xml file inside xml folder with following content__
          <device-admin xmlns:android="http://schemas.android.com/apk/res/android">
            <uses-policies>
              <limit-password />
