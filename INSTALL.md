@@ -99,10 +99,11 @@
 2. app:processDebugResources CCIApp\xml\camera_provider_paths.xml not found
 
 
-	Solution: 
+    Solution: 
     Place camera_provider_paths.xml file into the CCIApp\platforms\android\app\src\main\res\xml folder
 3. Execution failed because of Java heap space 
 	
     
-    Solution: Increase the Java heap space using following command
-	SET _JAVA_OPTIONS="-Xmx4000m"
+    Solution:
+    Increase the Java heap space using following command
+    SET _JAVA_OPTIONS="-Xmx4000m"
