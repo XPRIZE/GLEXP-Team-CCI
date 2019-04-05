@@ -1,4 +1,4 @@
-### __Installation instructions for CCI project__
+### __Installation instructions for CCI project in Windows__
   1. __Install cordova using following command in cmd__
    
         `npm install -g cordova`
