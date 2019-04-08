@@ -1,5 +1,5 @@
 ### __Installation instructions for CCI project in Windows OS__
-  1. __Install cordova using following command in cmd__
+  1. __Download and Install [Node JS](https://nodejs.org/en/). Then install cordova using following command in cmd__
    
         `npm install -g cordova`
   2. __Create a new cordova project using following command__
