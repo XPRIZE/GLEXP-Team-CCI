@@ -68,7 +68,7 @@
          </intent-filter>
          </receiver>
         
-  8. __Create folder *res* inside CCIApp. Inside *res* folder create *xml* folder. Add *device_admin.xml* file inside *xml* folder with following content__
+  8. __Create folder *res* inside CCIApp if it is not present. Inside *res* folder create *xml* folder. Add *device_admin.xml* file inside *xml* folder with following content__
            
          <device-admin xmlns:android="http://schemas.android.com/apk/res/android">
            <uses-policies>
