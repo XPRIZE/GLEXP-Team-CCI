@@ -1,5 +1,33 @@
-Web console build instructions
+# Web console build instructions
+## Windows commands
+1. Download and Install XAMPP.
+2. Start the XAMPP Control Panel.
+3. For Apache module click Config button from Actions column and then select Apache (httpd.conf) option. In httpd.conf file search for port number 443 and replace it with port number 8080.
+4. Click on <i>Start</i> button from Actions column for Apache and MySQL Module.
+5. Type http://localhost:8080/phpmyadmin/ in the browser.
+6. In the Databases section, create a new database by specifying <i>console</i> as the name of the database.
+7. Import [console.sql](https://github.com/XPRIZE/GLEXP-Team-CCI/blob/master/Web%20console/console.sql) file by using the Import section of <i>phpMyAdmin</i>.
+8. Create a new User using the Privileges option of phpMyadmin and specify the name and password for the user.
+9. Update the [config_default.php](https://github.com/XPRIZE/GLEXP-Team-CCI/blob/master/Web%20console/html/config_default.php), [config.php](https://github.com/XPRIZE/GLEXP-Team-CCI/blob/master/Web%20console/html/config.php) file with the username, password, console as the database name and localhost as the database host name.
+10. Place the entire [Web Console](https://github.com/XPRIZE/GLEXP-Team-CCI) folder in Xampp-->htdocs.
+11. For running the python scripts in XAMPP follow the steps mentioned below:
+	1. Download and install the latest version of python from www.python.org. Click on windows installer of any version e.g. python-3.6.2
+	2. Install python in any directory e.g. D:\python-3.6.2
+	3. Open the directory where XAMPP is installed and navigate to apache-->conf-->httpd.conf
+	4. Paste the below code in the end of the file:
+		AddHandler cgi-script .py
+        ScriptInterpreterSource Registry-Strict
+    5. Restart XAMPP.
+    6. Add #!D:/python-3.6.2/python.exe at the start of each .py file
+12. Type http://localhost:8080/Web%20console/html/login.php in the browser.
 
+<i>FAQ</i>
+1. If page not found error is rendered after navigating to http://localhost:8080/Web%20console/html/login.php, then update the following paths in [config.php](https://github.com/XPRIZE/GLEXP-Team-CCI/blob/master/Web%20console/html/config.php) as follows:
+	1. <b>Update</b> define('WEB_ROOT', $_SERVER['DOCUMENT_ROOT'] . "/console/html"); <b>to</b> define('WEB_ROOT', $_SERVER['DOCUMENT_ROOT'] . "/Web console/html");
+	2. <b>Update</b> define('INC_ROOT', $_SERVER['DOCUMENT_ROOT'] . "/console/includes"); <b>to</b> define('INC_ROOT', $_SERVER['DOCUMENT_ROOT'] . "/Web console/includes");
+	3. <b>Update</b> define('CLASS_ROOT', $_SERVER['DOCUMENT_ROOT'] . "/console/html/php/classes"); <b>to</b> define('CLASS_ROOT', $_SERVER['DOCUMENT_ROOT'] . "/Web console/html/php/classes");
+
+## Linux commands
 Spin up a Ubuntu 16.04 LTS server
 Install apache2
 Install php5
