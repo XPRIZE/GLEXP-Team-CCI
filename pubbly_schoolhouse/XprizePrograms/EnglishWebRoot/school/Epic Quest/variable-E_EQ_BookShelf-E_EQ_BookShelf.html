@@ -1,0 +1,679 @@
+<html>
+   <head>
+      <title>Pubbly</title>
+      <link href="../pubbly_engine/latest/css/main.css" rel="stylesheet" />
+      <link href="../pubbly_engine/latest/css/xprizeAppModifications.css" rel="stylesheet" />
+      <link href="../pubbly_engine/latest/css/supportedFonts.css" rel="stylesheet" />
+      <script src="../pubbly_engine/latest/js/third_party/jquery.min.js"></script>
+      <script src="../pubbly_engine/latest/js/third_party/lzwCompress.js"></script>
+
+      <script src="../pubbly_engine/latest/js/utility/filePathManipulations.js"></script>
+      <script src="../pubbly_engine/latest/js/utility/findDifferenceBetweenTwoArrays.js"></script>
+      <!--<script src="../pubbly_engine/latest/js/utility/mergeObjWithDefaults.js"></script>-->
+      <script src="../pubbly_engine/latest/js/utility/random.js"></script>
+      <script src="../pubbly_engine/latest/js/utility/redrawDependency.js"></script>
+      <script src="../pubbly_engine/latest/js/utility/variableFrameRateInt.js"></script>
+
+      <script src="../pubbly_engine/latest/js/shared/assetListLoader.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/buffer.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/color_codes.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/cursors.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/defaultCallbacks.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/error.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/globals.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/helpers.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/messyHTML.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/progressGraph.js"></script>
+
+      <script src="../pubbly_engine/latest/js/run/countdown.js"></script>
+      <script src="../pubbly_engine/latest/js/run/dom.js"></script>
+      <script src="../pubbly_engine/latest/js/run/domInteractionCover.js"></script>
+      <script src="../pubbly_engine/latest/js/run/drawingTools.js"></script>
+      <script src="../pubbly_engine/latest/js/run/events.js"></script>
+      <script src="../pubbly_engine/latest/js/run/events_cursorInput.js"></script>
+      <script src="../pubbly_engine/latest/js/run/links.js"></script>
+      <script src="../pubbly_engine/latest/js/run/navigationUI.js"></script>
+      <script src="../pubbly_engine/latest/js/run/presetAssets.js"></script>
+      <script src="../pubbly_engine/latest/js/run/sequence.js"></script>
+      <script src="../pubbly_engine/latest/js/run/states.js"></script>
+      <script src="../pubbly_engine/latest/js/run/turns.js"></script>
+      <script src="../pubbly_engine/latest/js/run/urlNav.js"></script>
+      <script src="../pubbly_engine/latest/js/run/workspaces.js"></script>
+      <script src="../pubbly_engine/latest/js/run/_Pubbly.js"></script>
+      <script>
+         // Pre doc ready back catch
+         window.history.pushState('popstateListener', null, window.location.href);
+         window.addEventListener("popstate", function (e) {
+            e.preventDefault();
+         });
+      </script>
+      <script src="../pubbly_engine/latest/js/app/_AppModifications.js"></script>
+      <script src="../pubbly_engine/latest/js/app/analytics.js"></script>
+      <script src="../../cordova.js"></script>
+      <script src="../../js/loginCheck.js"></script>
+      <script src="../../js/readWrite.js"></script>
+
+      <script>
+      window.json = {
+    "info": {
+        "name": "E_EQ_BookShelf",
+        "height": 641,
+        "width": 1000,
+        "display": "single",
+        "bullet": "#8867AC",
+        "interrupt": false,
+        "saveStates": false,
+        "navigation": false,
+        "snapDrops": true,
+        "lastPageSpread": false,
+        "assetLocationPrefix": "undefined_",
+        "HighlightLinkColor": "128,255,255",
+        "HighlightLinkTransparency": 50,
+        "HighlightLinkTime": 500,
+        "HighlightLinkColorRGBA": "RGBA(128,255,255,0.5)"
+    },
+    "pages": [
+        {
+            "points": {
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "Page 1",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "VILL_library_screen_best",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "C1_Library_new",
+                    "ext": "png",
+                    "swapMethod": "size",
+                    "swapHeight": 641,
+                    "swapWidth": 1000,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "C1_Library_new.png",
+                    "relPath": "sharedAssets/C1_Library_new.png"
+                }
+            ],
+            "auds": [],
+            "audKey": {},
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid0",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=variable-E_EQ_VILL_UPDATE-E_EQ_VILL_UPDATE"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "backTBD",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -3,
+                            0
+                        ],
+                        [
+                            88,
+                            0
+                        ],
+                        [
+                            88,
+                            58
+                        ],
+                        [
+                            -3,
+                            58
+                        ],
+                        [
+                            -3,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                -3,
+                                0
+                            ],
+                            [
+                                88,
+                                0
+                            ],
+                            [
+                                88,
+                                58
+                            ],
+                            [
+                                -3,
+                                58
+                            ],
+                            [
+                                -3,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid1",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=unit-EpicQuest-Books-Books-E_EQ_B1_Petros"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "PetrosTBD",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            160,
+                            24
+                        ],
+                        [
+                            485,
+                            24
+                        ],
+                        [
+                            485,
+                            236
+                        ],
+                        [
+                            160,
+                            236
+                        ],
+                        [
+                            160,
+                            24
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 2,
+                    "init": {
+                        "poly": [
+                            [
+                                160,
+                                24
+                            ],
+                            [
+                                485,
+                                24
+                            ],
+                            [
+                                485,
+                                236
+                            ],
+                            [
+                                160,
+                                236
+                            ],
+                            [
+                                160,
+                                24
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 2
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid2",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=unit-EpicQuest-Books-Books-E_EQ_B5_TinySeed"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Hadithi",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            520,
+                            24
+                        ],
+                        [
+                            861,
+                            24
+                        ],
+                        [
+                            861,
+                            246
+                        ],
+                        [
+                            520,
+                            246
+                        ],
+                        [
+                            520,
+                            24
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 3,
+                    "init": {
+                        "poly": [
+                            [
+                                520,
+                                24
+                            ],
+                            [
+                                861,
+                                24
+                            ],
+                            [
+                                861,
+                                246
+                            ],
+                            [
+                                520,
+                                246
+                            ],
+                            [
+                                520,
+                                24
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 3
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid3",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=unit-EpicQuest-Books-Books-E_EQ_B4_Orange"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Rangi",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            13,
+                            337
+                        ],
+                        [
+                            333,
+                            337
+                        ],
+                        [
+                            333,
+                            553
+                        ],
+                        [
+                            13,
+                            553
+                        ],
+                        [
+                            13,
+                            337
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 4,
+                    "init": {
+                        "poly": [
+                            [
+                                13,
+                                337
+                            ],
+                            [
+                                333,
+                                337
+                            ],
+                            [
+                                333,
+                                553
+                            ],
+                            [
+                                13,
+                                553
+                            ],
+                            [
+                                13,
+                                337
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 4
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid4",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=unit-EpicQuest-Books-Books-E_EQ_B3_Keeper"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Mlinzi",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            339,
+                            333
+                        ],
+                        [
+                            660,
+                            333
+                        ],
+                        [
+                            660,
+                            549
+                        ],
+                        [
+                            339,
+                            549
+                        ],
+                        [
+                            339,
+                            333
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 5,
+                    "init": {
+                        "poly": [
+                            [
+                                339,
+                                333
+                            ],
+                            [
+                                660,
+                                333
+                            ],
+                            [
+                                660,
+                                549
+                            ],
+                            [
+                                339,
+                                549
+                            ],
+                            [
+                                339,
+                                333
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 5
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid5",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=unit-EpicQuest-Books-Books-E_EQ_B2_Sun"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Siku",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            667,
+                            332
+                        ],
+                        [
+                            986,
+                            332
+                        ],
+                        [
+                            986,
+                            548
+                        ],
+                        [
+                            667,
+                            548
+                        ],
+                        [
+                            667,
+                            332
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 6,
+                    "init": {
+                        "poly": [
+                            [
+                                667,
+                                332
+                            ],
+                            [
+                                986,
+                                332
+                            ],
+                            [
+                                986,
+                                548
+                            ],
+                            [
+                                667,
+                                548
+                            ],
+                            [
+                                667,
+                                332
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 6
+                    }
+                }
+            ]
+        }
+    ],
+    "drawingTool": {},
+    "points": {}
+};
+      window.startPage = 0;
+      $(document).ready(function () {
+         document.addEventListener("deviceready", buildPubbly);
+      });
+      function buildPubbly() {
+         window.pubbly = new Pubbly(json, {
+            environment: "app", 
+            forceBack: "../../school.html", 
+            enginePathPrefix: "../",
+         });
+      };
+      </script>
+
+      <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body class="noSelect">
+      <div id="main" class="transformCenterCont">
+         <div class="transformCenter">
+            <div id="pubbly_main">
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

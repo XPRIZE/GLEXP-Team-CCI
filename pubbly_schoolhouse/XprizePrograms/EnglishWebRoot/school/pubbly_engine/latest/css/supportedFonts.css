@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Didact';
+    src: url("../../shared/fonts/DidactGothic.ttf");
+}
+body {
+  font-family: 'Didact', Fallback, sans-serif;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+   <head>
+      <title>Pubbly</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+         body {
+             margin:0;
+             padding:0;
+         }
+         .full {
+             position:absolute;
+             height:100%;
+             width:100%;
+         }
+         .transformCenterCont {
+             position: relative;
+             height: 100%;
+             width: 100%; }
+         .transformCenterCont .transformCenter {
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%); 
+         }
+         .logo {
+             display:block;
+             margin:auto;
+         }
+         .note {
+             font-size:38px;
+             text-align:center;
+              color: #8867ac;
+         }
+         </style>
+      </head>
+      <body>
+         <div class="full">
+         <div class="transformCenterCont">
+            <div class="transformCenter">
+               <img class=logo src="assets/logo.png" />
+               <p class="note">Server update in progress, please be patient.</p>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

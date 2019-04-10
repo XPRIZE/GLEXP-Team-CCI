@@ -1,8 +1,0 @@
-@font-face {
-    font-family: didact;
-    src: url(../fonts/DidactGothic.ttf) format('truetype');
-}
-
-* {
-    font-family: didact, sans-serif!important;
-}

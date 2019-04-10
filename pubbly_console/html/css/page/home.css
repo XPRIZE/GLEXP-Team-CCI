@@ -1,0 +1,15 @@
+.whiteBG, .whiteBG .webix_view {
+    background-color:white !important;
+    border-color:RGBA(0,0,0,0);
+}
+.webix_template {
+}
+.hoverHand {
+    cursor:hand;
+}
+#logo {
+    position:absolute;
+}
+.greyBtn div button{
+    letter-spacing:2px;
+}

@@ -1,0 +1,22 @@
+- make folder in html/py/genOffline.cgi
+- make sure you can get python/cgi files running -"hello world"
+- get info about latest version from html/pubbly_engine/latest.txt
+- copy run.html somewhere useful, from html/pubbly_engine/{version}/run.html
+- get all map content from html/map/{name o' map}
+- use a good test folder, like html/offlineMaps{name of map}
+- after getErrors
+	- add an index
+	- zip everything
+	- echo download link
+
+
+(It's just a javascript refresh to where you want to start the map)
+So add index.html, which is that html above with the name of the entry point of the map, which you can get from map/{MapName}/entryPoint.txt
+Zip everything
+• AllNode.html
+• index.html
+• pubbly_engine/
+• map/
+... Maybe move said zip to a "OfflineMapDownload/MapName.zip" folder
+And echo the finished link
+That should eliminate all your broken link problems, because the only html with broken links is just the run.html file, which you only use as a template for the node html files.

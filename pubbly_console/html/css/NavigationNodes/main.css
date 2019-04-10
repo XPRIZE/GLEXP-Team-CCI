@@ -1,0 +1,65 @@
+body{
+    margin:0;
+    padding:0;
+}
+#NavNodesCanvasMain {
+    background-color:rgba(20,20,20,0.2);
+}
+
+#buttonContainer {
+    display:block;
+    /*margin:auto;*/
+    margin-top:50px;
+    text-align: left;
+}
+
+#bottomUI {
+    background-color: blue;
+    margin-top: 15px;
+    height: 275px;
+}
+
+.col-sm {
+    padding: 0px;
+    text-align: center;
+     margin: 0 auto;
+}
+
+.button {
+    background-color: #00c763;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    width:50px;
+}
+
+.button:hover {
+    background-color: #049e51;
+    transition: 0.5s;
+}
+
+#currBookSelected {
+    width: 300px;
+}
+
+.saveButton {
+    /* Other default styles here */
+    transition: 0.5s;
+}
+
+._disabled {
+    opacity: 0.5;
+}
+
+.d-block {
+	margin-top: 5px;
+	border-radius: 4px;
+}
+
+#linkButton {
+	border-radius: 4px;
+	width: 150px;
+}

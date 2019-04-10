@@ -1,0 +1,152 @@
+#parentDZ {
+    height: 200px;
+    width: 200px;
+    display: block;
+    margin: auto;
+    border: 2px dashed grey;
+}
+
+p {
+    width: 100%;
+    height: 100%;
+    line-height: 25px;
+    white-space: pre-line;
+    margin: 0;
+}
+
+#dz {
+    background-color: grey;
+    height: 90%;
+    width: 90%;
+}
+
+.ParentChildToolbar {
+    border-radius: 15px;
+}
+
+body {
+    /* Used to be just the elem thing, the swaping part. I've added a header, which fixed the scroll problem */
+    /*overflow-y: scroll !important;*/
+}
+
+.home {
+    position: absolute;
+    margin-top: -52px !important;
+    margin-left: 4px !important;
+}
+
+.greyedOut {
+    color: grey;
+}
+
+.testClass {
+    color: red;
+    background-color: red;
+}
+
+.parentTabMainCon>.webix_multiview {
+    overflow: visible !important;
+}
+
+.imageCont {
+    width: 100%;
+    height: 95px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.preview {
+    max-height: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.assetNote textarea, .assetPlaceholder textarea {
+    color: blue;
+}
+
+.childHeaders span {
+    vertical-align: middle;
+    margin: 0 2px;
+}
+
+.childHeaders.locked {}
+
+.statuses {
+    display: none;
+    width: 30px;
+    text-align: center;
+    padding: 0;
+}
+
+.statuses.progress {
+    color: #D4E5EA;
+}
+
+.statuses.complete {
+    color: #91bd49;
+}
+
+.statuses.missing {
+    color: #B3252A;
+}
+
+.childName {
+    width: calc(100% - 30px);
+    display: inline-block;
+    padding: 0;
+    direction: rtl;
+    overflow-x: hidden;
+    text-overflow: clip;
+}
+
+.childTabMainCon .webix_item_tab {
+    height: calc(100% + 10px) !important;
+    display: inline-block !important;
+}
+
+.webix_all_tabs {
+    overflow: hidden;
+}
+
+.modified button {
+    background-color: #83a1af !important;
+}
+
+.rowNum {
+    margin: 25px 0px;
+    border-radius: 15px;
+    padding: 5px;
+    background-color: rgba(128, 128, 128, 0.35);
+    margin-left: -2px;
+    width: 40px;
+    text-align: center;
+}
+
+.align-center textarea {
+    text-align: center;
+}
+
+.align-left textarea {
+    text-align: left;
+}
+
+.align-right textarea {
+    text-align: right;
+}
+
+.selected button:hover {
+    background-color: #91bd49 !important;
+    border-color: #91bd49 !important;
+}
+
+.selected button {
+    background-color: #91bd49 !important;
+    border-color: #91bd49 !important;
+}

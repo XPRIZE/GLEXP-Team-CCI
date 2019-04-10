@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <script>
+            window.history.pushState('popstateListener', null, window.location.href);
+            window.addEventListener("popstate", function (e) {
+                e.preventDefault();
+            });
+        </script>
+        <script src="js/navHandler.js"></script>
+        <title>Cordova Download Unzip Display Sample</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+        <script src="cordova.js"></script>
+        <link rel="stylesheet" href='css/webix.css' />
+        <link rel="stylesheet" href='css/all.css' />
+        <script src="js/jquery.js"></script>
+        <script src="js/webix.js"></script>
+        <script src="js/takeAndSavePicture.js"></script>
+        <script src="js/getAbsLoc.js"></script>
+        <script src="js/readWrite.js"></script>
+        <script src="js/debugLog.js"></script>
+        <script src="js/login.js"></script>
+
+        <script src="js/analytics.js"></script>
+        <script src="js/JSONC.js"></script>
+        <style>
+            .userBlock > .webix_view {
+                background-color:RGBA(0,0,0,0)!important;
+                border-color:RGBA(0,0,0,0)!important;
+            }
+            .userBlock > .webix_view > .webix_template {
+                background-color:RGBA(0,0,0,0)!important;
+                border-color:RGBA(0,0,0,0)!important;
+            }
+            .stat {
+                background-color:RGBA(0,0,0,0)!important;
+                border-color:RGBA(0,0,0,0)!important;
+            }
+            .schoolBG {
+                background-size:cover;
+            }
+            .userBlock .center {
+                text-align:center;
+                height: 100%;
+                display: inline-block;
+                width: 100%;
+            }
+            .userBlock .middle {
+                display:inline-block;
+                vertical-align:middle;
+                height:100%;
+            }
+            .userBlock img {
+                max-height: 100%;
+                max-width: 100%;
+                display:inline-block;
+                vertical-align:middle;
+            }
+            .userBlock .userName {
+                text-align:center;
+                margin:5px;
+                text-align:center;
+            }
+            .userBlock .level {
+                width:80%;
+                margin:0px 10%;
+                height:25px;
+                background-color:blue;
+                border-radius:12.5px;
+                overflow:hidden;
+            }
+            .userBlock .level .percentToNext {
+                height: 100%;
+                background-color: green;
+            }
+            .userBlock .levelAt {
+                color:grey;
+                text-align:center;
+                margin:0;
+                font-size:22px;
+                transform: translate(0%, -100%);
+            }
+        </style>
+    </head>
+    <body style="
+          background-color: black;
+          background-image: url('img/load_final.jpg');
+          height: 100%;
+          width: 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;">
+    </body>
+</html>

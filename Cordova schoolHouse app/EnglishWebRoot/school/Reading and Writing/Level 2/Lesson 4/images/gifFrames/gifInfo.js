@@ -1,1 +1,0 @@
-window.gifInfo = {'P_P_R_ENG_L2_LS04_INST_A_scr09_sunny':{'length':'29'},};

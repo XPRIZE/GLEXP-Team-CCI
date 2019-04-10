@@ -1,0 +1,188 @@
+How to create the submission
+
+Download stuff from console
+
+Create empty cordova project
+
+Add following plugins
+
+* com.oddmouse.plugins.locktask
+* cordova-plugin-autostart
+* cordova-plugin-battery-status
+* cordova-plugin-camera
+* cordova-plugin-compat
+* cordova-plugin-device
+* cordova-plugin-file
+* cordova-plugin-file-transfer
+* cordova-plugin-ftp
+* cordova-plugin-fullscreen
+* cordova-plugin-media
+* cordova-plugin-splashscreen
+* comcordova-plugin-whitelist
+* cordova-plugin-zip
+
+Follow instructions to add plugin reciever
+
+[Github: go to Device admin](https://github.com/oddmouse/cordova-plugin-locktask)
+
+Download map in question
+
+Put in cordova web dir (www)
+
+Encode all wavs to ogg
+
+    find -name *.wav -exec oggenc -q 3 {} \;
+    find -name *.wav -exec rm {} \;
+
+Replace good index with all bad index
+
+    find -name index.html -exec cp "unit template.html" {} \;
+    find -name index.php -exec rm {} \;
+
+New idea, remove all zips;
+    
+    find -name *.zip -exec rm {} \;
+	
+cmd as admin, not powershell? dunno, sometimes errs, restart until you stop crying.
+SET _JAVA_OPTIONS="-Xmx6000m"
+cordova clean android
+cordova build android --verbose
+woo apk
+
+* Flash stock Android 7 roms
+* Go through setup wizard. 
+	Setup as new device
+	Do not connect to internet
+	Set time to GMT+03:00 (Moscow)
+	Name is "CCI Xprize"
+	No unlock method
+	Turn all "Help out google" stuff off
+	All setup
+* Delete all apps from homescreen
+
+TABLET SETUP
+
+* Tap Google search bar at top of homescreen. "Close" Help build a better keyboard prompt.
+* Go to 6 dots (bottom homescreen), and "Settings". From within settings...
+---
+* Screen lock -> None
+* Wifi -> Add Network -> Manually fill out XPRIZE Wifi Credentials
+		// TODO: look through old nathan emails and find these credentials
+		SSID: ???
+		Security: ???
+		Password: ???
+		
+			
+* Display -> Turn on Adaptive Brightness
+		-> Sleep after 10 minutes
+		-> When device is rotated: Stay in current orientation (landscape)
+* Security -> Unknown Sources -> Allow
+* Languages and Input -> Spell checker -> Off
+* About tablet -> Tap build number 7 times for developer options
+* Developer options -> Allow USB Debugging
+
+
+INSTALL APP
+
+* Connect to computer
+* Swipe down from top, change android "charge this device" to "transfer files"
+* Allow USB debugging (Choose always... This will allow you to debug ANY Xprize built tablet from your PC (and your PC only))
+* Transfer APK from computer to device
+* On device, go to Files->Pixel C
+* Launch SchoolHouse.apk
+* Next next, install install, after installation choose "Done" NOT "Launch"
+* Move SchoolHouse icon from 6 dots to homescreen top left.
+* Launch
+
+SETUP APP PERMISSIONS
+
+* Screen is pinned: No thanks
+* In app, take a User profile pic and "Allow access to photos, files"
+* Allow Camera to access device location
+* Go to book shelf, middle book, Kwa Nini Viboko... (hippo book)
+* Press record button and "Allow SchoolHouse to record"
+* Square button, close the app
+
+DELETE DATA
+
+* If on a debug build, inspect device from chrome, navigate to welcome page (1->2 start thing), and run the following js from console
+> deleteFile("users.xml", function() {console.log("done")});
+* -- If NOT on a debug build... something something adb shell or whatever
+* Hold back to unpin
+* Close all apps
+* Go to Files->Pixel C
+* Delete android_asset... (Recording from hippo book)
+
+ALLOW LOCKED Screen
+
+* On computer, ensure adb is connected by issuing
+	adb devices
+	response -- {SerialNumber}    device
+* Enter shell
+	adb shell
+	response -- dragon:/ $
+* Set SchoolHouse as admin
+	dpm set-device-owner com.cci.schoolHouse/.MyAdmin
+	response -- Success: Something something, who cares, success...
+	
+* Square button on tablet, close all apps.
+* Launch Pubbly from homescreen. Screen will pin. Cannot exit.
+
+	
+DEVICES IS READY
+
+Reboot into fastboot mode.
+	-- Reboot to fastboot (Hold power, restart, hold power and vol down, select fastboot
+
+Flash twrp 
+
+unix > sudo fastboot flash recovery TWRP_3.2.3-0-dragon.img
+ms   > fastboot flash recovery TWRP_3.2.3-0-dragon.img
+
+Reboot
+
+unix > sudo fastboot reboot
+ms   > fastboot reboot
+
+After reboot, during "OS verification off" warning, hold POWER and VOLUME DOWN buttons until you get to boot loader. Use VOLUME DOWN to hover over "Android Recovery", then POWER to select. You should reboot into TWRP recovery mode (black and yellow, not default android recovery). 
+
+* Swipe right to allow modifications
+* Choose "Backup"
+* Check only "Data" partition
+* Rename to current date stamp (MM-DD-YY)
+* Swipe right to back up
+
+Get the backup off the device. This can be accomplished two ways.
+
+ - Easiest (maybe)
+> cd /place/to/pull/backup (like your desktop or whatever)
+> adb pull /sdcard/TWRP/BACKUPS/serialno/DATE_STAMP_OF_BACKUP
+// (11-26-18 or someting)
+
+Will pull folder to your shell's cwd
+
+ - Harder (maybe?)
+* Install generic MTP drivers
+* Attempt to mound TWRP on local computer
+* Install other MTP drivers
+* still not showing up
+* cry a lot
+* ???
+* Mount and pull backup from /sdcard/TWRP/BACKUPS/serialno/
+
+THAT FOLDER on your desktop is what we submit to Xprize. The following are their install instructions. To check the build, reboot into fastboot mode
+
+(which can be done with an adb command >adb reboot fastboot)
+
+And wipe the userdata partition (ensuring you've got a fresh tablet)
+
+> sudo fastboot format userdata
+
+Woo. Go to build Install_Submission* to install on fresh tablets
+
+
+
+
+
+
+

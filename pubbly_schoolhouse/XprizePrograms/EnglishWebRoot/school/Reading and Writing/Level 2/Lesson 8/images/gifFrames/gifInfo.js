@@ -1,0 +1,1 @@
+window.gifInfo = {'P_P_R_ENG_L2_LS08_bee':{'length':'4'},'P_P_R_ENG_L2_LS08_screen08_birdfly':{'length':'3'},};

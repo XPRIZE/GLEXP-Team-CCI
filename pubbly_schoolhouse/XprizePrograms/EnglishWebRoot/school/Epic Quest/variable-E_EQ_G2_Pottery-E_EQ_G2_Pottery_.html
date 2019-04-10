@@ -1,0 +1,3929 @@
+<html>
+   <head>
+      <title>Pubbly</title>
+      <link href="../pubbly_engine/latest/css/main.css" rel="stylesheet" />
+      <link href="../pubbly_engine/latest/css/xprizeAppModifications.css" rel="stylesheet" />
+      <link href="../pubbly_engine/latest/css/supportedFonts.css" rel="stylesheet" />
+      <script src="../pubbly_engine/latest/js/third_party/jquery.min.js"></script>
+      <script src="../pubbly_engine/latest/js/third_party/lzwCompress.js"></script>
+
+      <script src="../pubbly_engine/latest/js/utility/filePathManipulations.js"></script>
+      <script src="../pubbly_engine/latest/js/utility/findDifferenceBetweenTwoArrays.js"></script>
+      <!--<script src="../pubbly_engine/latest/js/utility/mergeObjWithDefaults.js"></script>-->
+      <script src="../pubbly_engine/latest/js/utility/random.js"></script>
+      <script src="../pubbly_engine/latest/js/utility/redrawDependency.js"></script>
+      <script src="../pubbly_engine/latest/js/utility/variableFrameRateInt.js"></script>
+
+      <script src="../pubbly_engine/latest/js/shared/assetListLoader.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/buffer.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/color_codes.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/cursors.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/defaultCallbacks.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/error.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/globals.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/helpers.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/messyHTML.js"></script>
+      <script src="../pubbly_engine/latest/js/shared/progressGraph.js"></script>
+
+      <script src="../pubbly_engine/latest/js/run/countdown.js"></script>
+      <script src="../pubbly_engine/latest/js/run/dom.js"></script>
+      <script src="../pubbly_engine/latest/js/run/domInteractionCover.js"></script>
+      <script src="../pubbly_engine/latest/js/run/drawingTools.js"></script>
+      <script src="../pubbly_engine/latest/js/run/events.js"></script>
+      <script src="../pubbly_engine/latest/js/run/events_cursorInput.js"></script>
+      <script src="../pubbly_engine/latest/js/run/links.js"></script>
+      <script src="../pubbly_engine/latest/js/run/navigationUI.js"></script>
+      <script src="../pubbly_engine/latest/js/run/presetAssets.js"></script>
+      <script src="../pubbly_engine/latest/js/run/sequence.js"></script>
+      <script src="../pubbly_engine/latest/js/run/states.js"></script>
+      <script src="../pubbly_engine/latest/js/run/turns.js"></script>
+      <script src="../pubbly_engine/latest/js/run/urlNav.js"></script>
+      <script src="../pubbly_engine/latest/js/run/workspaces.js"></script>
+      <script src="../pubbly_engine/latest/js/run/_Pubbly.js"></script>
+      <script>
+         // Pre doc ready back catch
+         window.history.pushState('popstateListener', null, window.location.href);
+         window.addEventListener("popstate", function (e) {
+            e.preventDefault();
+         });
+      </script>
+      <script src="../pubbly_engine/latest/js/app/_AppModifications.js"></script>
+      <script src="../pubbly_engine/latest/js/app/analytics.js"></script>
+      <script src="../../cordova.js"></script>
+      <script src="../../js/loginCheck.js"></script>
+      <script src="../../js/readWrite.js"></script>
+
+      <script>
+      window.json = {
+    "info": {
+        "name": "E_EQ_G2_Pottery_",
+        "height": 641,
+        "width": 1000,
+        "display": "single",
+        "bullet": "#8867AC",
+        "interrupt": false,
+        "saveStates": false,
+        "navigation": false,
+        "snapDrops": true,
+        "lastPageSpread": false,
+        "assetLocationPrefix": "undefined_",
+        "HighlightLinkColor": "128,255,255",
+        "HighlightLinkTransparency": 50,
+        "HighlightLinkTime": 500,
+        "HighlightLinkColorRGBA": "RGBA(128,255,255,0.5)"
+    },
+    "pages": [
+        {
+            "points": {
+                "potter_win": 0,
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "potter_win": 0,
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "Page 1",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "GATES_OPEN",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_13": {
+                            "name": "Animation_13",
+                            "data": [
+                                {
+                                    "loc": [
+                                        320,
+                                        500
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 1000,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        320,
+                                        500
+                                    ],
+                                    "width": 2,
+                                    "height": 2,
+                                    "opacity": 0,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 1000
+                        }
+                    },
+                    "fName": "P_GATES_OPEN",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_GATES_OPEN.png",
+                    "relPath": "sharedAssets/P_GATES_OPEN.png"
+                },
+                {
+                    "type": "image",
+                    "name": "right_arrow_stroke2",
+                    "layer": 1,
+                    "vis": false,
+                    "loc": [
+                        253,
+                        475
+                    ],
+                    "width": 75,
+                    "height": 75,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_right_arrow_stroke2",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 75,
+                        "width": 75,
+                        "loc": [
+                            253,
+                            475
+                        ],
+                        "vis": false,
+                        "layer": 1,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_right_arrow_stroke2.png",
+                    "relPath": "sharedAssets/P_right_arrow_button_stroke2.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Gate_prize_pott",
+                    "layer": 2,
+                    "vis": true,
+                    "loc": [
+                        210,
+                        430
+                    ],
+                    "width": 160,
+                    "height": 149,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_7": {
+                            "name": "Animation_7",
+                            "data": [
+                                {
+                                    "loc": [
+                                        284,
+                                        510
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 100,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        263,
+                                        510
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 300,
+                                    "angle": 0
+                                },
+                                {
+                                    "loc": [
+                                        284,
+                                        510
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 400
+                        }
+                    },
+                    "fName": "P_Gate_prize_pott",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 149,
+                        "width": 160,
+                        "loc": [
+                            210,
+                            430
+                        ],
+                        "vis": true,
+                        "layer": 2,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Gate_prize_pott.png",
+                    "relPath": "sharedAssets/P_Gate_prize_pott.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Gate_Closed",
+                    "layer": 3,
+                    "vis": true,
+                    "loc": [
+                        11,
+                        232
+                    ],
+                    "width": 554,
+                    "height": 519,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_Gate_Closed",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 519,
+                        "width": 554,
+                        "loc": [
+                            11,
+                            232
+                        ],
+                        "vis": true,
+                        "layer": 3,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Gate_Closed.png",
+                    "relPath": "sharedAssets/P_Gate_Closed.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Gate_open_a",
+                    "layer": 4,
+                    "vis": false,
+                    "loc": [
+                        11,
+                        232
+                    ],
+                    "width": 554,
+                    "height": 519,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_Gate_open_a",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 519,
+                        "width": 554,
+                        "loc": [
+                            11,
+                            232
+                        ],
+                        "vis": false,
+                        "layer": 4,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Gate_open_a.png",
+                    "relPath": "sharedAssets/P_Gate_open_a.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Gate_open_c",
+                    "layer": 5,
+                    "vis": false,
+                    "loc": [
+                        11,
+                        232
+                    ],
+                    "width": 554,
+                    "height": 526,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_Gate_open_c",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 526,
+                        "width": 554,
+                        "loc": [
+                            11,
+                            232
+                        ],
+                        "vis": false,
+                        "layer": 5,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Gate_open_c.png",
+                    "relPath": "sharedAssets/P_Gate_open_c.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Gate_open_d",
+                    "layer": 6,
+                    "vis": false,
+                    "loc": [
+                        10,
+                        232
+                    ],
+                    "width": 554,
+                    "height": 562,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_Gate_open_d",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 562,
+                        "width": 554,
+                        "loc": [
+                            10,
+                            232
+                        ],
+                        "vis": false,
+                        "layer": 6,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Gate_open_d.png",
+                    "relPath": "sharedAssets/P_Gate_open_d.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Gate_open_e",
+                    "layer": 7,
+                    "vis": false,
+                    "loc": [
+                        10,
+                        232
+                    ],
+                    "width": 554,
+                    "height": 563,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_Gate_open_e",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 563,
+                        "width": 554,
+                        "loc": [
+                            10,
+                            232
+                        ],
+                        "vis": false,
+                        "layer": 7,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Gate_open_e.png",
+                    "relPath": "sharedAssets/P_Gate_open_e.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Gate_open_f",
+                    "layer": 8,
+                    "vis": false,
+                    "loc": [
+                        11,
+                        232
+                    ],
+                    "width": 554,
+                    "height": 561,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_14": {
+                            "name": "Animation_14",
+                            "data": [
+                                {
+                                    "loc": [
+                                        291,
+                                        509
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 1000,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        291,
+                                        509
+                                    ],
+                                    "width": 2,
+                                    "height": 2,
+                                    "opacity": 0,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 1000
+                        }
+                    },
+                    "fName": "P_Gate_open_f",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 561,
+                        "width": 554,
+                        "loc": [
+                            11,
+                            232
+                        ],
+                        "vis": false,
+                        "layer": 8,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Gate_open_f.png",
+                    "relPath": "sharedAssets/P_Gate_open_f.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_placeAsset 101",
+                    "layer": 9,
+                    "vis": true,
+                    "loc": [
+                        168,
+                        346
+                    ],
+                    "width": 326,
+                    "height": 286,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_5": {
+                            "name": "Animation_5",
+                            "data": [
+                                {
+                                    "loc": [
+                                        311,
+                                        509
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        311,
+                                        509
+                                    ],
+                                    "width": 0,
+                                    "height": 0,
+                                    "opacity": 0,
+                                    "time": 0,
+                                    "angle": 1
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "P_Puzzle_pottery_placeAsset 101",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 286,
+                        "width": 326,
+                        "loc": [
+                            168,
+                            346
+                        ],
+                        "vis": true,
+                        "layer": 9,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Puzzle_pottery_placeAsset 101.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_placeAsset 101.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Gate_1_INV",
+                    "layer": 10,
+                    "vis": false,
+                    "loc": [
+                        0,
+                        170
+                    ],
+                    "width": 690,
+                    "height": 74,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_8": {
+                            "name": "Animation_8",
+                            "data": [
+                                {
+                                    "loc": [
+                                        -70,
+                                        515
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        37,
+                                        515
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        },
+                        "Animation_9": {
+                            "name": "Animation_9",
+                            "data": [
+                                {
+                                    "loc": [
+                                        298,
+                                        510
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        36,
+                                        282
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "P_Gate_1_INV",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 74,
+                        "width": 690,
+                        "loc": [
+                            0,
+                            170
+                        ],
+                        "vis": false,
+                        "layer": 10,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "Gate_2_INV.png",
+                    "relPath": "sharedAssets/Gate_2_INV.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Gate_prize_pott _to_INV",
+                    "layer": 11,
+                    "vis": false,
+                    "loc": [
+                        210,
+                        430
+                    ],
+                    "width": 160,
+                    "height": 149,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_10": {
+                            "name": "Animation_10",
+                            "data": [
+                                {
+                                    "loc": [
+                                        284,
+                                        510
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        39,
+                                        328
+                                    ],
+                                    "width": 0.3,
+                                    "height": 0.3,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "P_Gate_prize_pott",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 149,
+                        "width": 160,
+                        "loc": [
+                            210,
+                            430
+                        ],
+                        "vis": false,
+                        "layer": 11,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Gate_prize_pott.png",
+                    "relPath": "sharedAssets/P_Gate_prize_pott.png"
+                },
+                {
+                    "type": "image",
+                    "name": "GATE_zoomed",
+                    "layer": 12,
+                    "vis": false,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_12": {
+                            "name": "Animation_12",
+                            "data": [
+                                {
+                                    "loc": [
+                                        320,
+                                        500
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 0,
+                                    "time": 1000,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        320,
+                                        500
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 1000
+                        }
+                    },
+                    "fName": "P_GATE_zoomed",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": false,
+                        "layer": 12,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_GATE_zoomed.png",
+                    "relPath": "sharedAssets/P_GATE_zoomed.png"
+                },
+                {
+                    "type": "sequence",
+                    "name": "Star_Splash_00000",
+                    "layer": 13,
+                    "vis": true,
+                    "loc": [
+                        30,
+                        250
+                    ],
+                    "width": 500,
+                    "height": 500,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "sequence": true,
+                    "dName": "P_Star_Splash",
+                    "frameOrder": [
+                        "Star_Splash_00000.png",
+                        "Star_Splash_00001.png",
+                        "Star_Splash_00002.png",
+                        "Star_Splash_00003.png",
+                        "Star_Splash_00004.png",
+                        "Star_Splash_00005.png",
+                        "Star_Splash_00006.png",
+                        "Star_Splash_00007.png",
+                        "Star_Splash_00008.png",
+                        "Star_Splash_00009.png",
+                        "Star_Splash_00010.png",
+                        "Star_Splash_00011.png",
+                        "Star_Splash_00012.png",
+                        "Star_Splash_00013.png",
+                        "Star_Splash_00014.png",
+                        "Star_Splash_00015.png",
+                        "Star_Splash_00016.png",
+                        "Star_Splash_00017.png",
+                        "Star_Splash_00018.png",
+                        "Star_Splash_00019.png",
+                        "Star_Splash_00020.png",
+                        "Star_Splash_00021.png",
+                        "Star_Splash_00022.png",
+                        "Star_Splash_00023.png",
+                        "Star_Splash_00024.png",
+                        "Star_Splash_00025.png",
+                        "Star_Splash_00026.png",
+                        "Star_Splash_00027.png",
+                        "Star_Splash_00028.png",
+                        "Star_Splash_00029.png",
+                        "Star_Splash_00030.png",
+                        "Star_Splash_00031.png",
+                        "Star_Splash_00032.png",
+                        "Star_Splash_00033.png",
+                        "Star_Splash_00034.png",
+                        "Star_Splash_00035.png",
+                        "Star_Splash_00036.png"
+                    ],
+                    "frames": [
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00000.png",
+                            "fName": "Star_Splash_00000.png",
+                            "relPath": "sharedAssets/Star_Splash_00000.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00001.png",
+                            "fName": "Star_Splash_00001.png",
+                            "relPath": "sharedAssets/Star_Splash_00001.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00002.png",
+                            "fName": "Star_Splash_00002.png",
+                            "relPath": "sharedAssets/Star_Splash_00002.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00003.png",
+                            "fName": "Star_Splash_00003.png",
+                            "relPath": "sharedAssets/Star_Splash_00003.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00004.png",
+                            "fName": "Star_Splash_00004.png",
+                            "relPath": "sharedAssets/Star_Splash_00004.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00005.png",
+                            "fName": "Star_Splash_00005.png",
+                            "relPath": "sharedAssets/Star_Splash_00005.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00006.png",
+                            "fName": "Star_Splash_00006.png",
+                            "relPath": "sharedAssets/Star_Splash_00006.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00007.png",
+                            "fName": "Star_Splash_00007.png",
+                            "relPath": "sharedAssets/Star_Splash_00007.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00008.png",
+                            "fName": "Star_Splash_00008.png",
+                            "relPath": "sharedAssets/Star_Splash_00008.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00009.png",
+                            "fName": "Star_Splash_00009.png",
+                            "relPath": "sharedAssets/Star_Splash_00009.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00010.png",
+                            "fName": "Star_Splash_00010.png",
+                            "relPath": "sharedAssets/Star_Splash_00010.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00011.png",
+                            "fName": "Star_Splash_00011.png",
+                            "relPath": "sharedAssets/Star_Splash_00011.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00012.png",
+                            "fName": "Star_Splash_00012.png",
+                            "relPath": "sharedAssets/Star_Splash_00012.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00013.png",
+                            "fName": "Star_Splash_00013.png",
+                            "relPath": "sharedAssets/Star_Splash_00013.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00014.png",
+                            "fName": "Star_Splash_00014.png",
+                            "relPath": "sharedAssets/Star_Splash_00014.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00015.png",
+                            "fName": "Star_Splash_00015.png",
+                            "relPath": "sharedAssets/Star_Splash_00015.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00016.png",
+                            "fName": "Star_Splash_00016.png",
+                            "relPath": "sharedAssets/Star_Splash_00016.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00017.png",
+                            "fName": "Star_Splash_00017.png",
+                            "relPath": "sharedAssets/Star_Splash_00017.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00018.png",
+                            "fName": "Star_Splash_00018.png",
+                            "relPath": "sharedAssets/Star_Splash_00018.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00019.png",
+                            "fName": "Star_Splash_00019.png",
+                            "relPath": "sharedAssets/Star_Splash_00019.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00020.png",
+                            "fName": "Star_Splash_00020.png",
+                            "relPath": "sharedAssets/Star_Splash_00020.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00021.png",
+                            "fName": "Star_Splash_00021.png",
+                            "relPath": "sharedAssets/Star_Splash_00021.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00022.png",
+                            "fName": "Star_Splash_00022.png",
+                            "relPath": "sharedAssets/Star_Splash_00022.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00023.png",
+                            "fName": "Star_Splash_00023.png",
+                            "relPath": "sharedAssets/Star_Splash_00023.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00024.png",
+                            "fName": "Star_Splash_00024.png",
+                            "relPath": "sharedAssets/Star_Splash_00024.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00025.png",
+                            "fName": "Star_Splash_00025.png",
+                            "relPath": "sharedAssets/Star_Splash_00025.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00026.png",
+                            "fName": "Star_Splash_00026.png",
+                            "relPath": "sharedAssets/Star_Splash_00026.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00027.png",
+                            "fName": "Star_Splash_00027.png",
+                            "relPath": "sharedAssets/Star_Splash_00027.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00028.png",
+                            "fName": "Star_Splash_00028.png",
+                            "relPath": "sharedAssets/Star_Splash_00028.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00029.png",
+                            "fName": "Star_Splash_00029.png",
+                            "relPath": "sharedAssets/Star_Splash_00029.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00030.png",
+                            "fName": "Star_Splash_00030.png",
+                            "relPath": "sharedAssets/Star_Splash_00030.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00031.png",
+                            "fName": "Star_Splash_00031.png",
+                            "relPath": "sharedAssets/Star_Splash_00031.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00032.png",
+                            "fName": "Star_Splash_00032.png",
+                            "relPath": "sharedAssets/Star_Splash_00032.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00033.png",
+                            "fName": "Star_Splash_00033.png",
+                            "relPath": "sharedAssets/Star_Splash_00033.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00034.png",
+                            "fName": "Star_Splash_00034.png",
+                            "relPath": "sharedAssets/Star_Splash_00034.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00035.png",
+                            "fName": "Star_Splash_00035.png",
+                            "relPath": "sharedAssets/Star_Splash_00035.png"
+                        },
+                        {
+                            "dSrc": "P_Star_Splash\/Star_Splash_00036.png",
+                            "fName": "Star_Splash_00036.png",
+                            "relPath": "sharedAssets/Star_Splash_00000.png"
+                        }
+                    ],
+                    "at": 0,
+                    "init": {
+                        "height": 500,
+                        "width": 500,
+                        "loc": [
+                            30,
+                            250
+                        ],
+                        "vis": true,
+                        "layer": 13,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    }
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_DONE",
+                    "layer": 14,
+                    "vis": true,
+                    "loc": [
+                        209,
+                        409
+                    ],
+                    "width": 206,
+                    "height": 214,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_6": {
+                            "name": "Animation_6",
+                            "data": [
+                                {
+                                    "loc": [
+                                        316,
+                                        512
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        314,
+                                        511
+                                    ],
+                                    "width": 0,
+                                    "height": 0,
+                                    "opacity": 0,
+                                    "time": 0,
+                                    "angle": 1
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "P_Puzzle_pottery_DONEAsset 102",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 214,
+                        "width": 206,
+                        "loc": [
+                            209,
+                            409
+                        ],
+                        "vis": true,
+                        "layer": 14,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Puzzle_pottery_DONEAsset 102.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_DONEAsset 102.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_peice_a_drag",
+                    "layer": 15,
+                    "vis": false,
+                    "loc": [
+                        212,
+                        411
+                    ],
+                    "width": 90,
+                    "height": 117,
+                    "opacity": 1,
+                    "mobility": "drag",
+                    "frontDrag": true,
+                    "animations": {
+                        "Animation_3": {
+                            "name": "Animation_3",
+                            "data": [
+                                {
+                                    "loc": [
+                                        270,
+                                        456
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        569,
+                                        581
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "P_Puzzle_pottery_peice_a",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "droppedLoc": false,
+                    "init": {
+                        "height": 117,
+                        "width": 90,
+                        "loc": [
+                            212,
+                            411
+                        ],
+                        "vis": false,
+                        "layer": 15,
+                        "mobility": "drag",
+                        "opacity": 1,
+                        "droppedLoc": false
+                    },
+                    "fSrc": "P_Puzzle_pottery_peice_a.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_peice_a.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_peice_b_drag",
+                    "layer": 16,
+                    "vis": false,
+                    "loc": [
+                        208,
+                        443
+                    ],
+                    "width": 147,
+                    "height": 169,
+                    "opacity": 1,
+                    "mobility": "drag",
+                    "frontDrag": true,
+                    "animations": {
+                        "Animation_2": {
+                            "name": "Animation_2",
+                            "data": [
+                                {
+                                    "loc": [
+                                        292,
+                                        516
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        572,
+                                        254
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "P_Puzzle_pottery_peice_b",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "droppedLoc": false,
+                    "init": {
+                        "height": 169,
+                        "width": 147,
+                        "loc": [
+                            208,
+                            443
+                        ],
+                        "vis": false,
+                        "layer": 16,
+                        "mobility": "drag",
+                        "opacity": 1,
+                        "droppedLoc": false
+                    },
+                    "fSrc": "P_Puzzle_pottery_peice_b.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_peice_b.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_peice_c_drag",
+                    "layer": 17,
+                    "vis": false,
+                    "loc": [
+                        319,
+                        409
+                    ],
+                    "width": 174,
+                    "height": 104,
+                    "opacity": 1,
+                    "mobility": "drag",
+                    "frontDrag": true,
+                    "animations": {
+                        "Animation_1": {
+                            "name": "Animation_1",
+                            "data": [
+                                {
+                                    "loc": [
+                                        282,
+                                        434
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        571,
+                                        722
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "P_Puzzle_pottery_peice_c",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "droppedLoc": false,
+                    "init": {
+                        "height": 104,
+                        "width": 174,
+                        "loc": [
+                            319,
+                            409
+                        ],
+                        "vis": false,
+                        "layer": 17,
+                        "mobility": "drag",
+                        "opacity": 1,
+                        "droppedLoc": false
+                    },
+                    "fSrc": "P_Puzzle_pottery_peice_c.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_peice_c.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_peice_d_drag",
+                    "layer": 18,
+                    "vis": false,
+                    "loc": [
+                        247,
+                        492
+                    ],
+                    "width": 123,
+                    "height": 154,
+                    "opacity": 1,
+                    "mobility": "drag",
+                    "frontDrag": true,
+                    "animations": {
+                        "Animation_4": {
+                            "name": "Animation_4",
+                            "data": [
+                                {
+                                    "loc": [
+                                        324,
+                                        553
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        548,
+                                        408
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "P_Puzzle_pottery_peice_d",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "droppedLoc": false,
+                    "init": {
+                        "height": 154,
+                        "width": 123,
+                        "loc": [
+                            247,
+                            492
+                        ],
+                        "vis": false,
+                        "layer": 18,
+                        "mobility": "drag",
+                        "opacity": 1,
+                        "droppedLoc": false
+                    },
+                    "fSrc": "P_Puzzle_pottery_peice_d.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_peice_d.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_peice_a_PLACE",
+                    "layer": 19,
+                    "vis": false,
+                    "loc": [
+                        212,
+                        411
+                    ],
+                    "width": 90,
+                    "height": 117,
+                    "opacity": 1,
+                    "mobility": "drag",
+                    "frontDrag": true,
+                    "animations": {},
+                    "fName": "P_Puzzle_pottery_peice_a",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "droppedLoc": false,
+                    "init": {
+                        "height": 117,
+                        "width": 90,
+                        "loc": [
+                            212,
+                            411
+                        ],
+                        "vis": false,
+                        "layer": 19,
+                        "mobility": "drag",
+                        "opacity": 1,
+                        "droppedLoc": false
+                    },
+                    "fSrc": "P_Puzzle_pottery_peice_a.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_peice_a.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_peice_b_PLACE",
+                    "layer": 20,
+                    "vis": false,
+                    "loc": [
+                        208,
+                        443
+                    ],
+                    "width": 147,
+                    "height": 169,
+                    "opacity": 1,
+                    "mobility": "drag",
+                    "frontDrag": true,
+                    "animations": {},
+                    "fName": "P_Puzzle_pottery_peice_b",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "droppedLoc": false,
+                    "init": {
+                        "height": 169,
+                        "width": 147,
+                        "loc": [
+                            208,
+                            443
+                        ],
+                        "vis": false,
+                        "layer": 20,
+                        "mobility": "drag",
+                        "opacity": 1,
+                        "droppedLoc": false
+                    },
+                    "fSrc": "P_Puzzle_pottery_peice_b.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_peice_b.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_peice_c_PLACE",
+                    "layer": 21,
+                    "vis": false,
+                    "loc": [
+                        319,
+                        409
+                    ],
+                    "width": 174,
+                    "height": 104,
+                    "opacity": 1,
+                    "mobility": "drag",
+                    "frontDrag": true,
+                    "animations": {},
+                    "fName": "P_Puzzle_pottery_peice_c",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "droppedLoc": false,
+                    "init": {
+                        "height": 104,
+                        "width": 174,
+                        "loc": [
+                            319,
+                            409
+                        ],
+                        "vis": false,
+                        "layer": 21,
+                        "mobility": "drag",
+                        "opacity": 1,
+                        "droppedLoc": false
+                    },
+                    "fSrc": "P_Puzzle_pottery_peice_c.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_peice_c.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Puzzle_pottery_peice_d_PLACE",
+                    "layer": 22,
+                    "vis": false,
+                    "loc": [
+                        247,
+                        492
+                    ],
+                    "width": 123,
+                    "height": 154,
+                    "opacity": 1,
+                    "mobility": "drag",
+                    "frontDrag": true,
+                    "animations": {},
+                    "fName": "P_Puzzle_pottery_peice_d",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "droppedLoc": false,
+                    "init": {
+                        "height": 154,
+                        "width": 123,
+                        "loc": [
+                            247,
+                            492
+                        ],
+                        "vis": false,
+                        "layer": 22,
+                        "mobility": "drag",
+                        "opacity": 1,
+                        "droppedLoc": false
+                    },
+                    "fSrc": "P_Puzzle_pottery_peice_d.png",
+                    "relPath": "sharedAssets/P_Puzzle_pottery_peice_d.png"
+                },
+                {
+                    "type": "image",
+                    "name": "gate_2_preview",
+                    "layer": 23,
+                    "vis": false,
+                    "loc": [
+                        75,
+                        311
+                    ],
+                    "width": 336,
+                    "height": 302,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {
+                        "Animation_11": {
+                            "name": "Animation_11",
+                            "data": [
+                                {
+                                    "loc": [
+                                        226,
+                                        479
+                                    ],
+                                    "width": 0,
+                                    "height": 0,
+                                    "opacity": 0,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        226,
+                                        479
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        },
+                        "Animation_15": {
+                            "name": "Animation_15",
+                            "data": [
+                                {
+                                    "loc": [
+                                        226,
+                                        479
+                                    ],
+                                    "width": 0,
+                                    "height": 0,
+                                    "opacity": 0,
+                                    "time": 500,
+                                    "angle": false
+                                },
+                                {
+                                    "loc": [
+                                        226,
+                                        479
+                                    ],
+                                    "width": 1,
+                                    "height": 1,
+                                    "opacity": 1,
+                                    "time": 0,
+                                    "angle": 0
+                                }
+                            ],
+                            "totTime": 500
+                        }
+                    },
+                    "fName": "P_gate_2_preview",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 302,
+                        "width": 336,
+                        "loc": [
+                            75,
+                            311
+                        ],
+                        "vis": false,
+                        "layer": 23,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_gate_2_preview.png",
+                    "relPath": "sharedAssets/P_gate_2_preview.png"
+                }
+            ],
+            "auds": [
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_027577142_sfx_icy_queen_magicspell",
+                    "relPathNoExt": "sharedAssets/P_027577142_sfx_icy_queen_magicspell.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_gate_open2",
+                    "relPathNoExt": "sharedAssets/P_gate_open2.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_sfx_tink",
+                    "relPathNoExt": "sharedAssets/P_sfx_tink.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_sfx_aud_glint",
+                    "relPathNoExt": "sharedAssets/P_sfx_aud_glint.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "C1_great_work",
+                    "relPathNoExt": "sharedAssets/C1_great_work.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_sfx_whip",
+                    "relPathNoExt": "sharedAssets/P_sfx_whip.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_glass_crack",
+                    "relPathNoExt": "sharedAssets/P_glass_crack.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "C1_pot_gate",
+                    "relPathNoExt": "sharedAssets/C1_pot_gate.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_stone_slide_01_short",
+                    "relPathNoExt": "sharedAssets/P_stone_slide_01_short.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_stone_slide_01_short",
+                    "relPathNoExt": "sharedAssets/P_stone_slide_01_short.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_stone_slide_01_short",
+                    "relPathNoExt": "sharedAssets/P_stone_slide_01_short.ogg"
+                },
+                {
+                    "ext": false,
+                    "fSrc": false,
+                    "loaded": false,
+                    "errored": false,
+                    "fName": "P_stone_slide_01_short",
+                    "relPathNoExt": "sharedAssets/P_stone_slide_01_short.ogg"
+                }
+            ],
+            "audKey": {
+                "P_027577142_sfx_icy_queen_magicspell": 1,
+                "P_gate_open2": 2,
+                "P_sfx_tink": 3,
+                "P_sfx_aud_glint": 4,
+                "C1_great_work": 5,
+                "P_sfx_whip": 6,
+                "P_glass_crack": 7,
+                "C1_pot_gate": 8,
+                "P_stone_slide_01_short": 12
+            },
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid0",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_027577142_sfx_icy_queen_magicspell",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid1",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Star_Splash_00000",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid2",
+                                        "type": "gif",
+                                        "action": "animate",
+                                        "destination": "Star_Splash_00000",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "framerate": 24,
+                                        "loops": 1
+                                    },
+                                    {
+                                        "id": "tid3",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_DONE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid4",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_c_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid5",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_b_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid6",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_a_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid7",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_d_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid8",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_a_PLACE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid9",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_b_PLACE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid10",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_c_PLACE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid11",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_d_PLACE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid12",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 1,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid13",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Puzzle_pottery_DONE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid14",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Puzzle_pottery_DONE",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_6"
+                                    },
+                                    {
+                                        "id": "tid15",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Puzzle_pottery_placeAsset 101",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid16",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Puzzle_pottery_placeAsset 101",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_5"
+                                    },
+                                    {
+                                        "id": "tid17",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid18",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "static",
+                                        "blocking": [
+                                            "gifs",
+                                            "flashes",
+                                            "animations",
+                                            "videos",
+                                            "sequences"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid19",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_gate_open2",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid20",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_open_a",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid21",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_Closed",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid22",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.5,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid23",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.5,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid24",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_open_c",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid25",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_open_a",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid26",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.5,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid27",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.5,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid28",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_open_d",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid29",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_open_c",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid30",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.5,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid31",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_open_e",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid32",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_open_d",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid33",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.5,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid34",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_open_f",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid35",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_open_e",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid36",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid37",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_sfx_tink",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid38",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Gate_prize_pott",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid39",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Gate_prize_pott",
+                                        "blocking": [
+                                            "self"
+                                        ],
+                                        "holds": false,
+                                        "value": "Animation_7"
+                                    },
+                                    {
+                                        "id": "tid40",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.5,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid41",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 0.5,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid42",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Gate_1_INV",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid43",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Gate_1_INV",
+                                        "blocking": [
+                                            "self"
+                                        ],
+                                        "holds": false,
+                                        "value": "Animation_8"
+                                    },
+                                    {
+                                        "id": "tid44",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_sfx_aud_glint",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid45",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_prize_pott",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid46",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Gate_prize_pott _to_INV",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid47",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Gate_prize_pott _to_INV",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid48",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Gate_prize_pott _to_INV",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_10"
+                                    },
+                                    {
+                                        "id": "tid49",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "C1_great_work",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid50",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": "silence",
+                                        "blocking": [
+                                            "audios",
+                                            "videos"
+                                        ],
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid51",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_sfx_whip",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid52",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Gate_open_f",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid53",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Gate_open_f",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_14"
+                                    },
+                                    {
+                                        "id": "tid54",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "GATES_OPEN",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid55",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "GATES_OPEN",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_13"
+                                    },
+                                    {
+                                        "id": "tid56",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "gate_2_preview",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid57",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "gate_2_preview",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_15"
+                                    },
+                                    {
+                                        "id": "tid58",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "GATE_zoomed",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid59",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "GATE_zoomed",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_12"
+                                    },
+                                    {
+                                        "id": "tid60",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "gate_2_preview",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid61",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "NEXT_A",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "link",
+                                        "attribute": "enabled",
+                                        "value": true
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "WIN_pottery",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid62",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_glass_crack",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid63",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Puzzle_pottery_peice_c_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid64",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Puzzle_pottery_peice_c_drag",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_1"
+                                    },
+                                    {
+                                        "id": "tid65",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Puzzle_pottery_peice_b_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid66",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Puzzle_pottery_peice_b_drag",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_2"
+                                    },
+                                    {
+                                        "id": "tid67",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Puzzle_pottery_peice_a_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid68",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Puzzle_pottery_peice_a_drag",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_3"
+                                    },
+                                    {
+                                        "id": "tid69",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "Puzzle_pottery_peice_d_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid70",
+                                        "type": "animation",
+                                        "action": "animate",
+                                        "destination": "Puzzle_pottery_peice_d_drag",
+                                        "blocking": false,
+                                        "holds": false,
+                                        "value": "Animation_4"
+                                    },
+                                    {
+                                        "id": "tid71",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_DONE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid72",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "C1_pot_gate",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "START",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 2,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 2
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [],
+                        "points": [],
+                        "dragStops": [
+                            {
+                                "type": "dragStop",
+                                "condition": "Puzzle_pottery_peice_a_drag",
+                                "targets": [
+                                    {
+                                        "id": "tid73",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_stone_slide_01_short",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid74",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_a_PLACE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid75",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_a_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid76",
+                                        "type": "point",
+                                        "action": "+",
+                                        "destination": "potter_win",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "attribute": "value",
+                                        "value": 1
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "POTTPLACE_RIGHT_a",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            482,
+                            322
+                        ],
+                        [
+                            407,
+                            330
+                        ],
+                        [
+                            411,
+                            299
+                        ],
+                        [
+                            422,
+                            276
+                        ],
+                        [
+                            440,
+                            254
+                        ],
+                        [
+                            453,
+                            245
+                        ],
+                        [
+                            435,
+                            217
+                        ],
+                        [
+                            449,
+                            211
+                        ],
+                        [
+                            466,
+                            215
+                        ],
+                        [
+                            454,
+                            220
+                        ],
+                        [
+                            502,
+                            246
+                        ],
+                        [
+                            439,
+                            305
+                        ],
+                        [
+                            482,
+                            322
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 3,
+                    "init": {
+                        "poly": [
+                            [
+                                482,
+                                322
+                            ],
+                            [
+                                407,
+                                330
+                            ],
+                            [
+                                411,
+                                299
+                            ],
+                            [
+                                422,
+                                276
+                            ],
+                            [
+                                440,
+                                254
+                            ],
+                            [
+                                453,
+                                245
+                            ],
+                            [
+                                435,
+                                217
+                            ],
+                            [
+                                449,
+                                211
+                            ],
+                            [
+                                466,
+                                215
+                            ],
+                            [
+                                454,
+                                220
+                            ],
+                            [
+                                502,
+                                246
+                            ],
+                            [
+                                439,
+                                305
+                            ],
+                            [
+                                482,
+                                322
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 3
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [],
+                        "points": [],
+                        "dragStops": [
+                            {
+                                "type": "dragStop",
+                                "condition": "Puzzle_pottery_peice_b_drag",
+                                "targets": [
+                                    {
+                                        "id": "tid77",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_stone_slide_01_short",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid78",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_b_PLACE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid79",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_b_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid80",
+                                        "type": "point",
+                                        "action": "+",
+                                        "destination": "potter_win",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "attribute": "value",
+                                        "value": 1
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "POTTPLACE_RIGHT_b",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            448,
+                            211
+                        ],
+                        [
+                            587,
+                            211
+                        ],
+                        [
+                            568,
+                            244
+                        ],
+                        [
+                            574,
+                            246
+                        ],
+                        [
+                            510,
+                            292
+                        ],
+                        [
+                            507,
+                            332
+                        ],
+                        [
+                            472,
+                            377
+                        ],
+                        [
+                            482,
+                            322
+                        ],
+                        [
+                            442,
+                            304
+                        ],
+                        [
+                            502,
+                            247
+                        ],
+                        [
+                            454,
+                            222
+                        ],
+                        [
+                            468,
+                            216
+                        ],
+                        [
+                            448,
+                            211
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 4,
+                    "init": {
+                        "poly": [
+                            [
+                                448,
+                                211
+                            ],
+                            [
+                                587,
+                                211
+                            ],
+                            [
+                                568,
+                                244
+                            ],
+                            [
+                                574,
+                                246
+                            ],
+                            [
+                                510,
+                                292
+                            ],
+                            [
+                                507,
+                                332
+                            ],
+                            [
+                                472,
+                                377
+                            ],
+                            [
+                                482,
+                                322
+                            ],
+                            [
+                                442,
+                                304
+                            ],
+                            [
+                                502,
+                                247
+                            ],
+                            [
+                                454,
+                                222
+                            ],
+                            [
+                                468,
+                                216
+                            ],
+                            [
+                                448,
+                                211
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 4
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [],
+                        "points": [],
+                        "dragStops": [
+                            {
+                                "type": "dragStop",
+                                "condition": "Puzzle_pottery_peice_c_drag",
+                                "targets": [
+                                    {
+                                        "id": "tid81",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_stone_slide_01_short",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid82",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_c_PLACE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid83",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_c_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid84",
+                                        "type": "point",
+                                        "action": "+",
+                                        "destination": "potter_win",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "attribute": "value",
+                                        "value": 1
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "POTTPLACE_RIGHT_c",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            407,
+                            329
+                        ],
+                        [
+                            480,
+                            322
+                        ],
+                        [
+                            472,
+                            376
+                        ],
+                        [
+                            514,
+                            322
+                        ],
+                        [
+                            514,
+                            395
+                        ],
+                        [
+                            537,
+                            361
+                        ],
+                        [
+                            579,
+                            401
+                        ],
+                        [
+                            564,
+                            411
+                        ],
+                        [
+                            547,
+                            419
+                        ],
+                        [
+                            521,
+                            423
+                        ],
+                        [
+                            493,
+                            422
+                        ],
+                        [
+                            467,
+                            416
+                        ],
+                        [
+                            437,
+                            399
+                        ],
+                        [
+                            419,
+                            378
+                        ],
+                        [
+                            408,
+                            354
+                        ],
+                        [
+                            407,
+                            329
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 5,
+                    "init": {
+                        "poly": [
+                            [
+                                407,
+                                329
+                            ],
+                            [
+                                480,
+                                322
+                            ],
+                            [
+                                472,
+                                376
+                            ],
+                            [
+                                514,
+                                322
+                            ],
+                            [
+                                514,
+                                395
+                            ],
+                            [
+                                537,
+                                361
+                            ],
+                            [
+                                579,
+                                401
+                            ],
+                            [
+                                564,
+                                411
+                            ],
+                            [
+                                547,
+                                419
+                            ],
+                            [
+                                521,
+                                423
+                            ],
+                            [
+                                493,
+                                422
+                            ],
+                            [
+                                467,
+                                416
+                            ],
+                            [
+                                437,
+                                399
+                            ],
+                            [
+                                419,
+                                378
+                            ],
+                            [
+                                408,
+                                354
+                            ],
+                            [
+                                407,
+                                329
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 5
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [],
+                        "points": [],
+                        "dragStops": [
+                            {
+                                "type": "dragStop",
+                                "condition": "Puzzle_pottery_peice_d_drag",
+                                "targets": [
+                                    {
+                                        "id": "tid85",
+                                        "type": "audio",
+                                        "action": "play",
+                                        "destination": "P_stone_slide_01_short",
+                                        "blocking": false,
+                                        "hold": "audios"
+                                    },
+                                    {
+                                        "id": "tid86",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_d_PLACE",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true
+                                    },
+                                    {
+                                        "id": "tid87",
+                                        "type": "propertyChange",
+                                        "action": "set",
+                                        "destination": "Puzzle_pottery_peice_d_drag",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": false
+                                    },
+                                    {
+                                        "id": "tid88",
+                                        "type": "point",
+                                        "action": "+",
+                                        "destination": "potter_win",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "attribute": "value",
+                                        "value": 1
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "POTTPLACE_RIGHT_d",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            569,
+                            246
+                        ],
+                        [
+                            590,
+                            264
+                        ],
+                        [
+                            609,
+                            292
+                        ],
+                        [
+                            615,
+                            309
+                        ],
+                        [
+                            612,
+                            340
+                        ],
+                        [
+                            607,
+                            367
+                        ],
+                        [
+                            594,
+                            388
+                        ],
+                        [
+                            580,
+                            402
+                        ],
+                        [
+                            538,
+                            358
+                        ],
+                        [
+                            516,
+                            396
+                        ],
+                        [
+                            514,
+                            321
+                        ],
+                        [
+                            506,
+                            332
+                        ],
+                        [
+                            509,
+                            291
+                        ],
+                        [
+                            569,
+                            246
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 6,
+                    "init": {
+                        "poly": [
+                            [
+                                569,
+                                246
+                            ],
+                            [
+                                590,
+                                264
+                            ],
+                            [
+                                609,
+                                292
+                            ],
+                            [
+                                615,
+                                309
+                            ],
+                            [
+                                612,
+                                340
+                            ],
+                            [
+                                607,
+                                367
+                            ],
+                            [
+                                594,
+                                388
+                            ],
+                            [
+                                580,
+                                402
+                            ],
+                            [
+                                538,
+                                358
+                            ],
+                            [
+                                516,
+                                396
+                            ],
+                            [
+                                514,
+                                321
+                            ],
+                            [
+                                506,
+                                332
+                            ],
+                            [
+                                509,
+                                291
+                            ],
+                            [
+                                569,
+                                246
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 6
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid89",
+                                        "type": "send",
+                                        "action": "click",
+                                        "destination": "random",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "random": {
+                                            "removeChoice": false,
+                                            "options": [
+                                                "EQ_T3_Writesent_P2A",
+                                                "EQ_T3_Writesent_P2B",
+                                                "EQ_T3_Writesent_P2C"
+                                            ],
+                                            "init": {
+                                                "removeChoice": false,
+                                                "options": [
+                                                    "EQ_T3_Writesent_P2A",
+                                                    "EQ_T3_Writesent_P2B",
+                                                    "EQ_T3_Writesent_P2C"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "NEXT_A",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            306,
+                            47
+                        ],
+                        [
+                            647,
+                            47
+                        ],
+                        [
+                            647,
+                            383
+                        ],
+                        [
+                            306,
+                            383
+                        ],
+                        [
+                            306,
+                            47
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": false,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 7,
+                    "init": {
+                        "poly": [
+                            [
+                                306,
+                                47
+                            ],
+                            [
+                                647,
+                                47
+                            ],
+                            [
+                                647,
+                                383
+                            ],
+                            [
+                                306,
+                                383
+                            ],
+                            [
+                                306,
+                                47
+                            ]
+                        ],
+                        "enabled": false,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 7
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid90",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=variable-E_EQ_T3_Writesent_P2A-E_EQ_T3_Writesent_P2A"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "EQ_T3_Writesent_P2A",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 8,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 8
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid91",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=variable-E_EQ_T3_Writesent_P2B-E_EQ_T3_Writesent_P2B"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "EQ_T3_Writesent_P2B",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 9,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 9
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid92",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=variable-E_EQ_T3_Writesent_P2C-E_EQ_T3_Writesent_P2C"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "EQ_T3_Writesent_P2C",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 10,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 10
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid93",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=ENG Epic Quest&nn=variable-E_EQ_T3_Writesent_P2D-E_EQ_T3_Writesent_P2D"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "EQ_T3_Writesent_P2D",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 11,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 11
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [],
+                        "points": [
+                            {
+                                "type": "point",
+                                "condition": [
+                                    "potter_win",
+                                    "=",
+                                    "4"
+                                ],
+                                "targets": [
+                                    {
+                                        "id": "tid94",
+                                        "type": "send",
+                                        "action": "click",
+                                        "destination": "WIN_pottery",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": [
+                            {
+                                "type": "openPage",
+                                "condition": "every",
+                                "targets": [
+                                    {
+                                        "id": "tid95",
+                                        "type": "reset",
+                                        "action": "page reset",
+                                        "destination": "page",
+                                        "blocking": false,
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid96",
+                                        "type": "send",
+                                        "action": "click",
+                                        "destination": "START",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ]
+                    },
+                    "name": "Page",
+                    "type": "link",
+                    "drawing": false,
+                    "poly": [],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 12,
+                    "init": {
+                        "poly": [],
+                        "enabled": true,
+                        "drawing": "false",
+                        "pinned": false,
+                        "layer": 12
+                    }
+                }
+            ]
+        }
+    ],
+    "drawingTool": {},
+    "points": {}
+};
+      window.startPage = 0;
+      $(document).ready(function () {
+         document.addEventListener("deviceready", buildPubbly);
+      });
+      function buildPubbly() {
+         window.pubbly = new Pubbly(json, {
+            environment: "app", 
+            forceBack: "../../school.html", 
+            enginePathPrefix: "../",
+         });
+      };
+      </script>
+
+      <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body class="noSelect">
+      <div id="main" class="transformCenterCont">
+         <div class="transformCenter">
+            <div id="pubbly_main">
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

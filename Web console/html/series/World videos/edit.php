@@ -1,1 +1,0 @@
-<?php $GLOBALS["seriesName"] = "World videos"; require("../../php/seriesEdit.php"); ?>

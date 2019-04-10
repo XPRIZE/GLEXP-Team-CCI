@@ -1,0 +1,14 @@
+.hotfixUI {
+    .missingAsset {
+        color:red;
+    }
+    .missingAsset.ignored {
+        color:green;
+    }
+    .centerAlign {
+        text-align:center;
+    }
+    .biggerText {
+        font-size:24px;
+    }
+}
