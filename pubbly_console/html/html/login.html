@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <title>{BRAND} Console - Login</title>
+    <!--
+        <link rel="stylesheet" href="includes/webix/webix.css" type="text/css">
+        <script src="includes/webix/webix.js"></script>
+      -->
+    <link rel="stylesheet" href="skins/webix.css" type="text/css">
+    <script src="includes/jquery.js"></script>
+    <script src="includes/webix/webix.js"></script>
+    <script src="skins/skin.js"></script>
+    <!-- 
+        Font Awesome 5.4.1+
+        https://fontawesome.com/license/free
+    -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" />
+    <!-- 
+         BootStrap
+         https://getbootstrap.com/docs/4.0/about/license/
+     -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+    <!-- -->
+    <!--
+            Helper: Light function filled lib of my own choosing.
+            I.E., simple stuff too long to repeat in native, or StackOverflow grabs.
+        -->
+    <script src="js/helper.js"></script>
+
+    <!-- PAGE specific includes -->
+    <!-- 
+            SHA-512 JS: Anonymous Contributor, Paul Johnston
+            BSD License
+        -->
+    <script src="js/sha512.js"></script>
+
+    <!-- -->
+    <!-- 
+            Fake Post: Create HTML form, fill in data from object arg, submit to URL
+        -->
+    <script src="js/classes/fake_post.js"></script>
+
+    <!-- Page main files -->
+    <script src="js/page/wb/login.js"></script>
+    <script>
+        $(document).ready(function () {
+            let errorMessage = "{ERROR_MESSAGE}";
+            if (errorMessage) {
+                webix.message(errorMessage);
+            }
+            // js/pages/wb/login.js
+            wb_build();
+        })
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

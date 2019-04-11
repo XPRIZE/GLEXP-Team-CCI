@@ -1,1 +1,0 @@
-window.gifInfo = {'C1_test_tube_blank_01':{'length':'18'},'C1_test_tube_blank_02':{'length':'17'},'C1_test_tube_blank_03':{'length':'17'},'C1_test_tube_blank_04':{'length':'66'},};

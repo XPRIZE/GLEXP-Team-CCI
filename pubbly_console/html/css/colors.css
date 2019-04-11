@@ -1,0 +1,241 @@
+/* Custom color codes in :root. Usable with var(colorName) */
+
+:root {
+    --pub_purpleHighlight: #9672be;
+    --pub_purpleBorder: #7b5b95;
+    --pub_blueHighlight: #65c1dd;
+    --pub_blueBorder: #3e95b0;
+    --pub_orangeHighlight: #fc6e28;
+    --pub_orangeBorder: #cf591f;
+    --pub_darkblueHighlight: #425893;
+    --pub_darkblueBorder: #31416c;
+    --pub_redHighlight: #d82b31;
+    --pub_redBorder: #9c1f24;
+    --pub_lightblueHighlight: #dff9fd;
+    --pub_lightblueBorder: #d4ecf1;
+    --pub_greenHighlight: #a5d753;
+    --pub_greenBorder: #7fa63f;
+
+    --pub_purple: #8867ac;
+    --pub_blue: #5aacc5;
+    --pub_darkblue: #3a4d81;
+    --pub_orange:#e36324;
+    --pub_red:#b3252a;
+    --pub_lightblue:#daf3f7;
+    --pub_green: #91bd49;
+    --pub_coolblue:#4ac0d9;
+
+    --pub_oxfordFuschia: #da0588;
+    --pub_white:#FFF;
+    --pub_grey:#555;
+    --pub_greyText: #555;
+    --pub_black: #000;
+}
+
+.b-darkblue {
+    background-color:var(--pub_darkblue);
+}
+.b-darkblueHighlight {
+    background-color:var(--pub_darkblueHighlight);
+}
+.b-darkblueBorder {
+    background-color:var(--pub_darkblueBorder);
+}
+.b-purple {
+    background-color:var(--pub_purple);
+}
+.b-purpleHighlight {
+    background-color:var(--pub_purpleHighlight);
+}
+.b-purpleBorder {
+    background-color:var(--pub_purpleBorder);
+}
+.b-blue {
+    background-color:var(--pub_blue);
+}
+.b-blueHighlight {
+    background-color:var(--pub_blueHighlight);
+}
+.b-blueBorder {
+    background-color:var(--pub_blueBorder);
+}
+.b-orange {
+    background-color:var(--pub_orange);
+}
+.b-orangeHighlight {
+    background-color:var(--pub_orangeHighlight);
+}
+.b-orangeBorder {
+    background-color:var(--pub_orangeBorder);
+}
+.b-red {
+    background-color:var(--pub_red);
+}
+.b-redHighlight {
+    background-color:var(--pub_redHighlight);
+}
+.b-redBorder {
+    background-color:var(--pub_redBorder);
+}
+.b-lightblue {
+    background-color:var(--pub_lightblue);
+}
+.b-lightblueHighlight {
+    background-color:var(--pub_lightblueHighlight);
+}
+.b-lightblueBorder {
+    background-color:var(--pub_lightblueBorder);
+}
+.b-green {
+    background-color:var(--pub_green);
+}
+.b-greenHighlight {
+    background-color:var(--pub_greenHighlight);
+}
+.b-greenBorder {
+    background-color:var(--pub_greenBorder);
+}
+.b-coolblue {
+    background-color:var(--pub_coolblue);
+}
+.b-oxfordFuschia {
+    background-color:var(--pub_oxfordFuschia);
+}
+.b-white {
+    background-color:var(--pub_white);
+}
+.b-gray {
+    background-color:var(--pub_gray);
+}
+.b-black {
+    background-color:var(--pub_black);
+}
+
+
+.f-white {
+    color:var(--pub_white);
+}
+.f-grey {
+    color:var(--pub_grey)
+}
+.f-purple {
+    color:var(--pub_purple)
+}
+.f-blue {
+    color:var(--pub_blue)
+}
+.f-orange {
+    color:var(--pub_orange);
+}
+.f-red {
+    color:var(--pub_red)
+}
+.f-lightblue {
+    color:var(--pub_lightblue)
+}
+.f-green {
+    color:var(--pub_green);
+}
+.f-coolblue {
+    color:var(--pub_coolblue);
+}
+
+/* Not working for a tags... probably have to fake with border bottom TODO: */
+.a-white {
+    text-decoration-color:var(--pub_white);
+    text-decoration:underline;
+    color:var(--pub_white);
+}
+.a-purple {
+    text-decoration-color:var(--pub_purple);
+    text-decoration:underline;
+    color:var(--pub_purple)
+}
+.a-blue {
+    text-decoration-color:var(--pub_blue);
+    text-decoration:underline;
+    color:var(--pub_blue)
+}
+.a-orange {
+    text-decoration-color:var(--pub_orange);
+    text-decoration:underline;
+    color:var(--pub_orange);
+}
+.a-red {
+    text-decoration-color:var(--pub_red);
+    text-decoration:underline;
+    color:var(--pub_red)
+}
+.a-lightblue {
+    text-decoration-color:var(--pub_lightblue);
+    text-decoration:underline;
+    color:var(--pub_lightblue)
+}
+.a-green {
+    text-decoration-color:var(--pub_green);
+    text-decoration:underline;
+    color:var(--pub_green);
+}
+.a-coolblue {
+    text-decoration-color:var(--pub_coolblue);
+    text-decoration:underline;
+    color:var(--pub_coolblue);
+}
+
+.bd-purple {
+    border-color:var(--pub_purple);
+}
+.bd-purpleBorder {
+    border-color:var(--pub_purpleBorder);
+}
+.bd-blue {
+    border-color:var(--pub_blue);
+}
+.bd-blueBorder {
+    border-color:var(--pub_blueBorder);
+}
+.bd-orange {
+    border-color:var(--pub_orange);
+}
+.bd-orangeBorder {
+    border-color:var(--pub_orangeBorder);
+}
+.bd-darkblue {
+    border-color:var(--pub_darkblue);
+}
+.bd-darkblueBorder {
+    border-color:var(--pub_darkblueBorder);
+}
+.bd-red {
+    border-color:var(--pub_red)
+}
+.bd-redBorder {
+    border-color:var(--pub_redBorder);
+}
+.bd-lightblue {
+    border-color:var(--pub_lightblue);
+}
+.bd-lightblueBorder {
+    border-color:var(--pub_lightblueBorder);
+}
+.bd-green {
+    border-color:var(--pub_green);
+}
+.bd-greenBorder {
+    border-color:var(--pub_greenBorder);
+}
+.bd-coolblue {
+    border-color:var(--pub_coolblue);
+}
+
+.r-purple:hover {
+    background-color: var(--pub_purple);
+    border-color: var(--pub_purple);
+    color: var(--pub_white);
+}
+
+.r-green:hover {
+    background-color: var(--pub_green);
+    border-color: var(--pub_green);
+    color: var(--pub_white);
+}

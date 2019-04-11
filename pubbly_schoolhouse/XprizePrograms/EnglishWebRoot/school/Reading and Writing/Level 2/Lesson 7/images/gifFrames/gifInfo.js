@@ -1,0 +1,1 @@
+window.gifInfo = {'P_P_R_ENG_L2_LS07_screen06_fishswim':{'length':'4'},'P_P_R_ENG_L2_LS07_insta_B_screen18_snail':{'length':'7'},};

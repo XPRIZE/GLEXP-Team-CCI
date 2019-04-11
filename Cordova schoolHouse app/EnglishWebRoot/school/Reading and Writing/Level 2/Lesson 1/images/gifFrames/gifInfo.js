@@ -1,1 +1,0 @@
-window.gifInfo = {'C1_P_R_ENG_L2_LS01_INST_A-it-is0000':{'length':'16'},};

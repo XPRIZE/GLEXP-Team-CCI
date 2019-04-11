@@ -1,0 +1,158 @@
+<!-- 
+    The pubbly offline-json template
+
+    Builds a pubbly book for offline browser viewing from a JSON object and assets
+
+    NEEDED SWITCHES
+
+    {PATH_TO_ENGINE}: Switch with the relative path to the engine folder, end with a trailing slash (./pubbly_engine/) OR switch to blank if along side ""
+
+    {PATH_TO_BOOK}: Switch with the relative path to the book folder, end with a trailing slash (./testBooks/SinglePager/) OR switch to blank if along side ""
+
+    {PUBBLY_JSON}: Switch with the FULL contents of MainXML.json. DO NOT put in quotes, paste in as it appears in the file.
+
+-->
+<html>
+
+<head>
+    <title>Pubbly</title>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 
+        MIT 
+        https://jquery.org/license/ 
+    -->
+    <script src="{PATH_TO_ENGINE}js/third_party/jquery.min.js"></script>
+    <!-- 
+        GPL FLOSS exception (Apache 2.0 compat)
+        https://blog.webix.com/using-webix-in-open-source/
+    -->
+    <script src="{PATH_TO_ENGINE}js/third_party/webix.js"></script>
+    <!--
+        From Modernizr: MIT
+        https://modernizr.com/license/
+    -->
+    <script src="{PATH_TO_ENGINE}js/third_party/detectAutoplay.js"></script>
+    <!--
+        FloydPink: MIT
+        https://github.com/floydpink/lzwCompress.js/blob/master/LICENSE
+    -->
+    <script src="{PATH_TO_ENGINE}js/third_party/lzwCompress.js"></script>
+    <script>
+        $(document).ready(function () {
+            window.pubbly = new Pubbly(pubbly_json, {
+                rootToEngine: "{PATH_TO_ENGINE}",
+            });
+        });
+        let pubbly_json = JSON.parse(`{PUBBLY_JSON}`);
+    </script>
+
+    <link href="{PATH_TO_ENGINE}css/main.css" rel="stylesheet" />
+
+    <script src="{PATH_TO_ENGINE}js/utility/filePathManipulations.js"></script>
+    <script src="{PATH_TO_ENGINE}js/utility/findAndReplace.js"></script>
+    <script src="{PATH_TO_ENGINE}js/utility/findDifferenceBetweenTwoArrays.js"></script>
+    <script src="{PATH_TO_ENGINE}js/utility/random.js"></script>
+    <script src="{PATH_TO_ENGINE}js/utility/redrawDependency.js"></script>
+    <script src="{PATH_TO_ENGINE}js/utility/variableFrameRateInt.js"></script>
+
+    <script src="{PATH_TO_ENGINE}js/build/preflight.js"></script>
+    <script src="{PATH_TO_ENGINE}js/build/xmlFormattingFunctions.js"></script>
+    <script src="{PATH_TO_ENGINE}js/build/xmlToJson.js"></script>
+    <script src="{PATH_TO_ENGINE}js/build/_Build.js"></script>
+
+    <script src="{PATH_TO_ENGINE}js/run/_Pubbly.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/countdown.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/dom.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/domInteractionCover.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/drawingTools.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/events.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/events_cursorInput.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/links.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/navigationUI.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/presetAssets.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/sequence.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/states.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/turns.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/urlNav.js"></script>
+    <script src="{PATH_TO_ENGINE}js/run/workspaces.js"></script>
+
+    <script src="{PATH_TO_ENGINE}js/shared/assetListLoader.js"></script>
+    <script src="{PATH_TO_ENGINE}js/shared/buffer.js"></script>
+    <script src="{PATH_TO_ENGINE}js/shared/color_codes.js"></script>
+    <script src="{PATH_TO_ENGINE}js/shared/cursors.js"></script>
+    <script src="{PATH_TO_ENGINE}js/shared/defaultCallbacks.js"></script>
+    <script src="{PATH_TO_ENGINE}js/shared/error.js"></script>
+    <script src="{PATH_TO_ENGINE}js/shared/globals.js"></script>
+    <script src="{PATH_TO_ENGINE}js/shared/helpers.js"></script>
+    <script src="{PATH_TO_ENGINE}js/shared/messyHTML.js"></script>
+    <script src="{PATH_TO_ENGINE}js/shared/progressGraph.js"></script>
+    <!--
+            There are a few images that are NOT book specific, that load with every pubbly.
+
+            These images are in the pubbly engine asset folder, but if loaded from CSS, well
+            Different build and run environments currently have the luxury of sticking the engine anywhere.
+            They can swap out the {PATH_TO_ENGINE} with whatever they want, and it just works
+            Except the CSS doesn't get swapped, and the image assets aren't loaded properly.
+
+            So better to keep definitions here, to root to engine swaps apply to anything that needs it...
+        -->
+    <style>
+        #main {
+            background-image:url("{PATH_TO_ENGINE}assets/logo_background.png");
+        }
+
+        .logo {
+            content:url("{PATH_TO_ENGINE}assets/logo_powered_by.png");
+        }
+
+        .previous img,
+        .next img {
+            content:url("{PATH_TO_ENGINE}assets/UI_navigation_arrow.png");
+        }
+
+        ._asset_logoEmptyColors {
+            content: url("{PATH_TO_ENGINE}assets/logo_fill_letters.png");
+        }
+
+        ._asset_eatCarrotGif {
+            content: url("{PATH_TO_ENGINE}assets/loader_carrot_eat.gif");
+        }
+
+        @font-face {
+            font-family: DidactGothic;
+            src: url("{PATH_TO_ENGINE}fonts/DidactGothic/regular.otf");
+        }
+
+        @font-face {
+            font-family: Garamond;
+            src: url("{PATH_TO_ENGINE}fonts/Garamond/regular.otf");
+        }
+
+        @font-face {
+            font-family: MyriadPro;
+            src: url("{PATH_TO_ENGINE}fonts/MyriadPro/regular.otf");
+        }
+
+        @font-face {
+            font-family: NotoSans;
+            src: url("{PATH_TO_ENGINE}fonts/NotoSans/regular.ttf");
+        }
+    </style>
+</head>
+
+<body class="noSelect">
+    <div id="main" class="transformCenterCont">
+        <div class="transformCenter">
+            <div id="pubbly_main"></div>
+        </div>
+    </div>
+    <div id="fontForcePreload" style="visibility:hidden;position:absolute;height:0;widht:0;overflow:hidden">
+        <p style="font-family:DidactGothic">The quick young fox jumped over the lazy dog.</p>
+        <p style="font-family:Garamond">The quick young fox jumped over the lazy dog.</p>
+        <p style="font-family:MyriadPro">The quick young fox jumped over the lazy dog.</p>
+        <p style="font-family:NotoSans">The quick young fox jumped over the lazy dog.</p>
+        <img src="{PATH_TO_ENGINE}assets/loader_carrot_eat.gif" />
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+body {
+    background-color: black; 
+    overflow:hidden;
+}
+
+#main {
+    overflow: hidden; 
+	div {
+		overflow:hidden;
+	}
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}

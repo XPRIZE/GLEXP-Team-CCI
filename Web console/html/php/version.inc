@@ -1,3 +1,0 @@
-<?php
-$dependenciesVersion = 16;
-?>

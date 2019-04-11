@@ -1,0 +1,4 @@
+set foldmethod=indent
+set foldnestmax=8
+set autowrite
+set tabstop=4

@@ -1,0 +1,102 @@
+_____
+
+
+Starting point
+
+Start a terminal, powershell, or Command Prompt (AS ADMIN) from within the following folder hierarchy.
+
+.  (Cmd/Terminal here)
+├── Submissions  
+|   └── {A_CCI_XPRIZE_SUBMISSION}  
+|       ├── data.ext4.win000  
+|       ├── data.ext4.win000.md5  
+|       ├── data.ext4.win001  
+|       ├── data.ext4.win001.md5  
+|       └── ... (more depending on size)  
+├── AndroidSystemImages/  
+|   └── image-ryu-nmf26h  
+|       ├── boot.img  
+|       ├── cache.img  
+|       ├── recovery.img  
+|       ├── vendor.img  
+|       └── system.img  
+├── TWRP  
+|   └── twrp-3.2.3-0-dragon.img  
+├── Install_Submission.bat  
+├── Install_Submission_Manual.txt  
+└── README.md  
+
+Connect google Pixel C tablet, unlocked, rooted, and in fastboot mode.
+
+___
+
+* Ensure your device is connected
+
+unix > sudo fastboot devices
+ms   > fastboot devices
+	(XXXXXXXXXX		fastboot)
+
+* Flash TWRP to recovery partition
+
+unix > sudo fastboot flash recovery TWRP/3.2.3-0-dragon.img
+ms   > fastboot flash recovery TWRP/3.2.3-0-dragon.img
+
+* Fastboot reboot (Read following step before executing reboot, time dependent)
+
+unix > sudo fastboot reboot
+ms   > fastboot reboot
+
+* After reboot, during "OS verification off" warning, hold POWER and VOLUME DOWN buttons until you get to boot loader. Use VOLUME DOWN to hover over "Android Recovery", then POWER to select. You should reboot into TWRP recovery mode (black and yellow, not default android recovery). 		
+
+* Wait for twrp to full launch (to the "swipe right to allow modifications" screen)
+
+* Swipe to allow modifications, then go to "BACKUPS". Check the size of the Data partition. If it is above 5GB, do the following, otherwise skip to "TWRP INSTALL"
+
+* Go back, then to 
+	-> Select "Wipe"
+	-> Select "Advanced Wipe"
+	-> Check "data"
+	-> Select "Repair or Change File System"
+	-> Select "Change File System"
+	-> Select "EXT2"
+	-> Swipe "Swipe to Change"
+	-> Wait until finish
+	-> Select "EXT4"
+	-> Swipe "Swipe to Change"
+	-> Wait until finish
+	-> Back out to TWRP home.
+* Userdata partition has been reset, and you can now safely restore
+
+
+TWRP INSTALL
+			
+both > adb shell twrp wipe data
+	 > adb shell twrp backup D folderHack
+	 > adb push Submissions/XprizeUpdate2/ /sdcard/TWRP/BACKUPS/serialno/
+	 > adb shell twrp restore XprizeUpdate2
+		(Restore successful in XXX.XX seconds)
+
+* Check to make sure restore worked (Terminal outputs "Success" statement) then reboot to fastboot
+
+both > adb reboot bootloader
+
+* Flash all stock android 7 images, except userdata partition
+
+unix > sudo fastboot flash boot AndroidSystemImages/image-ryu-nmf26h/boot.img
+	 > sudo fastboot flash cache AndroidSystemImages/image-ryu-nmf26h/cache.img
+	 > sudo fastboot flash recovery AndroidSystemImages/image-ryu-nmf26h/recovery.img
+	 > sudo fastboot flash system AndroidSystemImages/image-ryu-nmf26h/system.img
+	 > sudo fastboot flash vendor AndroidSystemImages/image-ryu-nmf26h/vendor.img
+	 > sudo fastboot reboot
+
+ms   > fastboot flash boot AndroidSystemImages/image-ryu-nmf26h/boot.img
+	 > fastboot flash cache AndroidSystemImages/image-ryu-nmf26h/cache.img
+	 > fastboot flash recovery AndroidSystemImages/image-ryu-nmf26h/recovery.img
+	 > fastboot flash system AndroidSystemImages/image-ryu-nmf26h/system.img
+	 > fastboot flash vendor AndroidSystemImages/image-ryu-nmf26h/vendor.img
+	 > fastboot reboot	 
+	 
+Device is ready to be used
+
+
+_____

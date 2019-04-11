@@ -1,1 +1,0 @@
-window.gifInfo = {'P_record_timer_30s_02':{'length':'361'},'P_record_timer_30s_02':{'length':'361'},'P_record_timer_30s_02':{'length':'361'},'P_record_timer_30s_02':{'length':'361'},'P_record_timer_30s_02':{'length':'361'},'P_record_timer_30s_02':{'length':'361'},'P_record_timer_30s_02':{'length':'361'},'P_record_timer_30s_02':{'length':'361'},};

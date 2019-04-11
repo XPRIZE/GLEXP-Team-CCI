@@ -1,1 +1,0 @@
-window.gifInfo = {'P_star_giftest3':{'length':'12'},};

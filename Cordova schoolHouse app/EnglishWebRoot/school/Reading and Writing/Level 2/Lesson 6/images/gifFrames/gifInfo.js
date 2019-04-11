@@ -1,1 +1,0 @@
-window.gifInfo = {'P_P_R_ENG_L2_LS06_bee':{'length':'4'},'P_P_R_ENG_L2_LS09_screen46_running':{'length':'4'},};

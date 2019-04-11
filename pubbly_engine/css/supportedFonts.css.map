@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,UAGC;EAFG,WAAW,EAAE,QAAQ;EACrB,GAAG,EAAE,0CAA0C",
+"sources": ["../scss/supportedFonts.scss"],
+"names": [],
+"file": "supportedFonts.css"
+}
