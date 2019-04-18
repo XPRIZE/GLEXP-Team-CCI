@@ -1,8 +1,8 @@
 ### __Installation instructions for CCI project in Windows OS__
-  1. __Download and Install [Node JS](https://nodejs.org/en/). Then install cordova using following command in cmd__
+  1. __Download and Install [Node JS](https://nodejs.org/en/). Then install Cordova using following command in cmd__
    
         `npm install -g cordova`
-  2. __Create a new cordova project using following command__
+  2. __Navigate to the folder where you want to set up the application repository and use the following command to create a new Cordova project__
          
         `cordova create CCIApp com.example.cciapp CCIAPP`
   3. __Add android platform using following command__
