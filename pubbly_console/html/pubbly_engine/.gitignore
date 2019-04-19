@@ -1,0 +1,8 @@
+.sass-cache
+testBooks/*
+.map
+*/*.map
+
+!.gitkeep
+!*/.gitkeep
+/nbproject/private/

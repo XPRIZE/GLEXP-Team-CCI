@@ -1,0 +1,83 @@
+h1, h2, h3, h4 {
+    width: 100%;
+    text-align: center;
+}
+
+.toolbarCenterLabel {
+    font-size: 19px;
+    line-height: 42px;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding: 0
+}
+
+.white * {
+    background: white;
+}
+
+.delete button {
+    background-color: #B3252A !important;
+    border-color: #B3252A !important;
+}
+
+.delete button:hover {
+    background-color: #9E2126!important;
+    border-color: #9E2126 !important;
+}
+
+.delete.webix_disabled_view button {
+    background-color: #945154 !important;
+    border-color: #945154 !important;
+    color:#aaa !important;
+}
+
+.remove button {
+    background-color: #8867ac !important;
+    border-color: #8867ac !important;
+}
+.remove button:hover {
+    background-color: #70578C !important;
+    border-color: #70578C !important;
+}
+.remove.webix_disabled_view button {
+    background-color: #86808C !important;
+    border-color: #86808C !important;
+    color:#aaa !important;
+}
+
+.add button {
+    background-color: #91bd49 !important;
+    border-color: #91bd49 !important;
+}
+.add button:hover {
+    background-color: #789C3D !important;
+    border-color: #789C3D !important;
+}
+.add.webix_disabled_view button {
+    background-color: #A5A8A0 !important;
+    border-color: #A5A8A0 !important;
+    color:#aaa !important;
+}
+
+/* Make this better */
+.submit button {
+    background-color: #91bd49 !important;
+    border-color: #91bd49 !important;
+}
+
+.submit button:hover {
+    background-color: #789C3D !important;
+    border-color: #789C3D !important;
+}
+
+.submit.webix_disabled_view button {
+    background-color: #A5A8A0 !important;
+    border-color: #A5A8A0 !important;
+    color:#aaa !important;
+}
+
+
+.webix_tree_branch_1 > .webix_tree_item  .webix_tree_file {
+    background-image: url(data:image/gif;base64,R0lGODlhEgASAIABAI6Pj////yH5BAEKAAEALAAAAAASABIAAAIhjI+py90AI3Syvoqj27mfnn2gZYxkYEpiCqypa27yTC8FADs=) !important;
+}

@@ -1,0 +1,85 @@
+<html>
+
+<head>
+    <title>Register</title>
+    <!--
+      <link rel="stylesheet" href="includes/webix/webix.css" type="text/css">
+      <script src="includes/webix/webix.js"></script>
+      -->
+    <script src="includes/jquery.js"></script>
+    <link rel="stylesheet" href="skins/webix.css" type="text/css">
+    <script src="includes/webix/webix.js"></script>
+    <script src="skins/skin.js"></script>
+    <script src="includes/sha512.js"></script>
+    <script src="js/classes/fake_post.js"></script>
+    <script src="js/branding.js"></script>
+    <style>
+        #login {
+            width: 302px;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            text-align: center;
+            width: 100%;
+        }
+
+        .toolbarCenterLabel {
+            font-size: 19px;
+            line-height: 42px;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+            padding: 0
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <script>
+            function initCaps(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
+            var header = {
+                view: "toolbar",
+                height: 55,
+                autoWidth: true,
+                cols: [
+                    {
+                        view: "button", value: "Home", width: 80, on: {
+                            onItemClick: function () {
+                                window.location.href = "index.php";
+                            }
+                        }
+                    },
+                    {
+                        view: "label",
+                        template: "<p class='toolbarCenterLabel'>Register</p>"
+                    },
+                    { width: 80 },
+                ]
+            };
+            var block = {
+                rows: [
+                    header,
+                    {},
+                    {
+                        view: "template", height: 300, template: "<div style='width:300px;display:block;margin:auto;'><h2>Registration closed, internal pubbly use only.</h2><p>If you want your own console, host it yourself. Source: https://github.com/PubblyDevelopment</p></div>"
+                    },
+                    {},
+                ]
+            };
+
+            webix.ui(
+                block
+            );
+        </script>
+    </div>
+</body>
+
+</html>

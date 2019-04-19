@@ -1,0 +1,25 @@
+/* This is the most fuck you stylesheet I have ever written */
+body {
+    overflow:hidden;
+}
+#main {
+    margin:0!important;
+    height:100%!important;
+    width:100%!important;
+}
+#mainC {
+    border-color:RGBA(0,0,0,0);
+    height:100%!important;
+    width:100%!important;
+    left:0!important;
+}
+#titleC, #navC, #logoCont {
+    display:none!important;
+}
+#bookC {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    margin:0!important;
+}

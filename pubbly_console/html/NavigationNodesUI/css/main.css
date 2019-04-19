@@ -1,0 +1,165 @@
+#webixHeader {
+    /*background-color: mistyRose;*/
+}
+
+.mainWrapper {
+  display: grid;
+  grid-template-columns: 1.5fr 8fr 0.5fr;
+}
+
+#webixContainer {
+    /*background-color: blue;*/
+    margin-right: 10px;
+}
+
+#canvasContainer {
+    /*background-color: red;*/
+}
+
+#NavNodesCanvasMain {
+    background-color:rgba(20,20,20,0.2);
+}
+
+#buttonContainer {
+    /*background-color: green;*/
+    margin-left: 10px;
+}
+
+#mapContainer {
+    /*background-color: purple;*/
+    width: 100%;
+}
+
+#mapUI {
+    /*background-color: orange;*/
+    text-align: center;
+    display: grid;
+    grid-template-columns: 3fr 3fr 3fr;
+}
+
+.mapUIcol {
+    margin-top: 15px;
+}
+
+.toolButton {
+    display: block;
+    background-color: #00c763;
+    border: 0px;
+    color: white;
+    cursor: pointer;
+    width: 45px;   
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 2px;
+    transition: 0.5s;
+}
+
+.toolButton:hover {
+    background-color: #0c9e55;
+    transition: 0.5s;
+}
+
+._disabled {
+    opacity: 0.5;
+}
+
+.button {
+    display: block; margin: 0 auto;
+    margin-top: 10px;
+    background-color: #00c763;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+    transition: 0.5s;
+}
+
+.button:hover {
+    background-color: #0c9e55;
+}
+
+#deleteNodeButton {
+    background-color: #f45042;
+}
+
+#deleteNodeButton:hover {
+    background-color: #bc453a;
+}
+
+#bottomButtonContainer {
+    display: grid;
+}
+
+#savePrompt {
+    background-color: white;
+    padding: 2px;
+    position: absolute;
+    text-align: left;
+    width: 130px;
+    font-size: 10px;
+}
+
+#modalBlack {
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    z-index: 10000;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+}
+.customModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10001;
+
+    width: 400px;
+    height: 340px;
+
+    margin-top: -250px;
+    margin-left: -200px;
+    border-radius: 15px;
+    background-color: white;
+
+    transition: all 0.5s ease;
+}
+
+.customModal p {
+    text-align: center;
+    margin-top: 10%;   
+}
+
+.customModal img {
+    animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+    0% { -webkit-transform: rotate(360deg);}
+    100% { -webkit-transform: rotate(0deg);}
+}
+
+.center {
+    position: relative;
+    display: inline-block;
+    left: 21%;
+    margin-top: 12%;
+    transform: translate(-50%);
+}
+
+.hidden {
+    display:none;
+    width:0px;
+    height:0px;
+    transition: all 0.3s ease-in-out;
+}

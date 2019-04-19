@@ -1,0 +1,294 @@
+<?php
+require_once("../../config.php");
+
+chdir('../');
+include('../../includes/dbConnect.php');
+include("../php/getLocFromUnitID.php");
+
+$unitID = isset($_GET['unitID']) ? $_GET['unitID'] : false;
+
+$schoolName = isset($_GET['schoolName']) ? $_GET['schoolName'] : false;
+$subjectName = isset($_GET['subjectName']) ? $_GET['subjectName'] : false;
+$levelName = isset($_GET['levelName']) ? $_GET['levelName'] : false;
+$unitName = isset($_GET['unitName']) ? $_GET['unitName'] : false;
+$isTutorial = isset($_GET['isTutorial']) ? $_GET['isTutorial'] : false;
+
+if (!$unitID) {
+    include("../php/checkSchoolNames.php");
+    $ids = checkNameTaken($schoolName, $subjectName, $levelName, $unitName);
+    $unitID = $ids['unit'];
+}
+
+$unitInfo = getLocFromUnitID($unitID);
+
+
+$errList = [];
+$pages = [];
+
+
+$con = new DBConnect();
+$sql = $con->mysqli;
+
+$sqlObj = $sql->prepare("SELECT `name` FROM units WHERE ID = ?");
+$sqlObj->bind_param('s', $unitID);
+$sqlObj->execute();
+$sqlObj->bind_result($unitName);
+$sqlObj->fetch();
+
+$sqlObj = false;
+$sqlObj = $sql->prepare("SELECT refPage, `refSeries`, `refChild`, `refBook` FROM unitPages WHERE unitID = ? ORDER BY `unitPage`");
+$sqlObj->bind_param('s', $unitID);
+$sqlObj->execute();
+$ret = [];
+$result = $sqlObj->get_result();
+/* fetch associative array */
+while ($row = $result->fetch_assoc()) {
+    array_push($ret, $row);
+}
+$result->free();
+
+include('../php/getPageInfoByLoc.php');
+$pageList = [];
+for ($p = 0; $p < count($ret); $p++) {
+    $pageList[$p] = [];
+    $pageList[$p]['page'] = $ret[$p]['refPage'];
+    $sqlObj = false;
+    if ($ret[$p]['refChild'] == null) {
+        // It's a book
+        $pageList[$p]['type'] = "Book";
+        $bookName = $ret[$p]['refBook'];
+        $pageList[$p]['name'] = $bookName;
+        $sqlObj = $sql->prepare("SELECT ID from books where `name` = ?");
+        $sqlObj->bind_param('s', $bookName);
+        $sqlObj->execute();
+        $sqlObj->bind_result($bookID);
+        $sqlObj->fetch();
+        $loc = "../books/$bookID";
+        $xmlName = "mainXML.xml";
+    } else {
+        // It's a series
+        $pageList[$p]['type'] = "Child";
+        $childName = $ret[$p]['refChild'];
+        $pageList[$p]['name'] = $childName;
+        $seriesName = $ret[$p]['refSeries'];
+        $pageList[$p]['seriesName'] = $seriesName;
+        $loc = "../series/$seriesName";
+        $xmlName = "$childName.xml";
+    }
+    $xmlLoc = "$loc/$xmlName";
+    if (file_exists($xmlLoc)) {
+        $pageInfo = getPageInfoByLoc($xmlLoc);
+        $pageList[$p]['height'] = $pageInfo[0]['height'];
+        $pageList[$p]['width'] = $pageInfo[0]['width'];
+        $pageList[$p]['assetLoc'] = $loc;
+        $pageList[$p]['xmlLoc'] = $xmlLoc;
+    } else {
+        array_push($errList, "error: XML $xmlLoc does not exist");
+    }
+}
+
+// Now we have the $pageList variable, which should be enough info to actually make the shit
+// Run a bunch of checks before you modify any xml.
+$pass = true;
+if (count($pageList) > 0) {
+    $unitHeight = $pageList[0]['height'];
+    $unitWidth = $pageList[0]['width'];
+
+    for ($p = 0; $p < count($pageList); $p++) {
+        if ($pageList[$p]['height'] == $unitHeight &&
+                $pageList[$p]['width'] == $unitWidth
+        ) {
+            // $pass = true? unnecessary
+        } else {
+            $pass = false;
+            array_push($errList, "error: Page $p does not conform to unit dimensions and will probably look bad. Make sure all pages in unit are the same height and width.");
+            $p = count($pageList);
+        }
+    }
+} else {
+    $unitWidth = 0;
+    $unitHeight = 0;
+    $pass = false;
+    // array_push($errList, "error: This unit has no pages.");
+}
+
+// Empty XML, replace with just the basics.
+if ($isTutorial) {
+    $unitAssetLoc = "../schools/" . $unitInfo['schoolName'] . "/tutorials" . "/" . $unitInfo['unitName'];
+} else {
+    $unitAssetLoc = "../schools/" .
+            $unitInfo['schoolName'] . "/" .
+            $unitInfo['subjectName'] . "/" .
+            $unitInfo['levelName'] . "/" .
+            $unitInfo['unitName'];
+}
+
+
+$unitXMLLoc = "$unitAssetLoc/MainXML.xml";
+$savedInfo = [];
+$curXML = simplexml_load_file($unitXMLLoc);
+if ($curXML) {
+    $savedInfo['TimeToInterrupt'] = $curXML->Info->TimeToInterrupt;
+    $savedInfo['ReturnPageToPreviousStateOnInterruptions'] = $curXML->Info->ReturnPageToPreviousStateOnInterruptions;
+    $savedInfo['DisallowPageNavigation'] = $curXML->Info->DisallowPageNavigation;
+} else {
+    // defaults
+    $savedInfo['TimeToInterrupt'] = 0;
+    $savedInfo['ReturnPageToPreviousStateOnInterruptions'] = false;
+    $savedInfo['DisallowPageNavigation'] = false;
+}
+$unitName = $unitInfo['unitName'];
+$unitColor = "#0EFE0E"; // hardcoded, bad programmer, bad bad bad
+unlink($unitXMLLoc);
+$xmlBuildStr = "<Project><Info>";
+$xmlBuildStr = $xmlBuildStr . "<PrjName>$unitName</PrjName><PrjNameLong>$unitName</PrjNameLong><AlwaysDoubleWide>true</AlwaysDoubleWide>";
+$xmlBuildStr = $xmlBuildStr . "<BulletColor>$unitColor</BulletColor><PageDisplay>single</PageDisplay>";
+$xmlBuildStr = $xmlBuildStr . "<SinglePageWidth>$unitWidth</SinglePageWidth>";
+$xmlBuildStr = $xmlBuildStr . "<SinglePageHeight>$unitHeight</SinglePageHeight>";
+
+$xmlBuildStr = $xmlBuildStr . "<TimeToInterrupt>" . $savedInfo['TimeToInterrupt'] . "</TimeToInterrupt>";
+$xmlBuildStr = $xmlBuildStr . "<ReturnPageToPreviousStateOnInterruptions>" . $savedInfo['ReturnPageToPreviousStateOnInterruptions'] . "</ReturnPageToPreviousStateOnInterruptions>";
+$xmlBuildStr = $xmlBuildStr . "<DisallowPageNavigation>" . $savedInfo['DisallowPageNavigation'] . "</DisallowPageNavigation>";
+
+$xmlBuildStr = $xmlBuildStr . "</Info><Pages></Pages></Project>";
+file_put_contents($unitXMLLoc, $xmlBuildStr);
+
+if ($pass) {
+    $gifInfoStr = "window.gifInfo = {";
+    $gifsInProject = 0;
+
+    $files = glob("$unitAssetLoc/images/*");
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            unlink($file);
+        }
+    }
+    $files = glob("$unitAssetLoc/audio/*");
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            unlink($file);
+        }
+    }
+
+    for ($p = 0; $p < count($pageList); $p++) {
+        $obj = $pageList[$p];
+        $pullLoc = $obj['xmlLoc'];
+        $pageFromPull = $obj['page'] - 1;
+
+        $pullDoc = new DOMDocument;
+        $pullDoc->loadXML(file_get_contents($pullLoc));
+        $node = $pullDoc->getElementsByTagName("Page")->item($pageFromPull);
+        if ($node) {
+            $putDoc = new DOMDocument;
+            $putDoc->formatOutput = true;
+            $putDoc->loadXML(file_get_contents($unitXMLLoc));
+            $node = $putDoc->importNode($node, true);
+            $putDoc->documentElement->getElementsByTagName("Pages")->item(0)->appendChild($node);
+            file_put_contents($unitXMLLoc, "");
+            file_put_contents($unitXMLLoc, $putDoc->saveXML());
+        } else {
+            array_push($errList, "error: Can't combine page $pageFromPull of book $pullLoc");
+        }
+
+        $pullPageSimple = simplexml_load_file($pullLoc);
+        if ($pullPageSimple->Pages->Page->$pageFromPull) {
+            $pullAssetLoc = $obj['assetLoc'];
+            $objLoc = $pullPageSimple->Pages->Page->$pageFromPull->Objects->Object;
+
+            for ($i = 0; $i < count($objLoc); $i++) {
+                if ($objLoc[$i]->ObjType == "image" || $objLoc[$i]->ObjType == "video") {
+                    $type = $objLoc[$i]->ObjType;
+                    $imgName = $objLoc[$i]->ObjFileName . '.' . $objLoc[$i]->ObjExt;
+                    if ($type == "video") {
+                        $imgName = $objLoc[$i]->ObjName . '.' . $objLoc[$i]->ObjExt;
+                    }
+                    $imgName = str_replace("'", "", $imgName);
+                    if (!is_dir("$unitAssetLoc/$type" . "s")) {
+                        mkdir("$unitAssetLoc/$type" . "s");
+                    }
+                    copy("$pullAssetLoc/$type" . "s/$imgName", "$unitAssetLoc/$type" . "s/$imgName");
+                    if ($objLoc[$i]->ObjExt == "gif") {
+                        if (!is_dir("$unitAssetLoc/images/gifFrames")) {
+                            mkdir("$unitAssetLoc/images/gifFrames");
+                        }
+                        $imgsInGif = 0;
+                        $fileName = $objLoc[$i]->ObjFileName;
+                        $frameCheck = "$pullAssetLoc/images/gifFrames/" . $fileName . "-frame-" . $imgsInGif . ".png";
+
+                        if (file_exists($frameCheck)) {
+                            do {
+                                copy($frameCheck, "$unitAssetLoc/images/gifFrames/" . $fileName . "-frame-" . $imgsInGif . ".png");
+                                $imgsInGif++;
+                                $frameCheck = "$pullAssetLoc/images/gifFrames/" . $fileName . "-frame-" . $imgsInGif . ".png";
+                            } while (file_exists($frameCheck));
+                            // echo $imgsInGif;
+                            $gifInfoStr = $gifInfoStr . "'" . $fileName . "'" . ":{'length':'" . $imgsInGif . "'},";
+                            $gifsInProject++;
+                        }
+                    }
+                }
+            }
+
+            foreach ($pullPageSimple->Pages->Page->$pageFromPull->Links->children() as $link) {
+                foreach ($link->Triggers->children() as $trigger) {
+                    foreach ($trigger->Targets->children() as $target) {
+                        if ($target->Type == "Audio") {
+                            $aud = (string) $target->Destination;
+                            $aud = str_replace("'", "", $aud);
+
+                            $functionCheck1 = explode("?choose(", $aud);
+                            $functionCheck2 = explode("?chooseAndRemove(", $aud);
+                            if (count($functionCheck1) > 1 || count($functionCheck2) > 1) {
+                                // This takes care of ?choose(aud,aud,aud)?
+                                $audStr = (count($functionCheck1) > 1) ? $functionCheck1[1] : $functionCheck2[1];
+                                $audStr = explode(")?", $audStr);
+                                $audStr = $audStr[0];
+                                $audArr = explode(",", $audStr);
+                                for ($a = 0; $a < count($audArr); $a++) {
+                                    copy("$pullAssetLoc/audio/$audArr[$a].wav", "$unitAssetLoc/audio/$audArr[$a].wav");
+                                }
+                            } else {
+                                $audFileLocFullWav = "$pullAssetLoc/audio/$aud.wav";
+                                $audFileLocFullMp3 = "$pullAssetLoc/audio/$aud.mp3";
+                                if (file_exists($audFileLocFullWav)) {
+                                    copy($audFileLocFullWav, "$unitAssetLoc/audio/$aud.wav");
+                                } else if (file_exists($audFileLocFullMp3)) {
+                                    copy($audFileLocFullMp3, "$unitAssetLoc/audio/$aud.mp3");
+                                } else {
+                                    array_push($errList, "error: Missing audio file $aud. Unit may not play correctly. Make sure you are using ONLY mp3's and wav files in uploads");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            array_push($errList, "error: Page $pageFromPull no longer exists in xml file $pullLoc");
+        }
+    }
+
+    if ($gifsInProject > 0) {
+        $gifInfoStr = $gifInfoStr . "};";
+        file_put_contents("$unitAssetLoc/images/gifFrames/gifInfo.js", $gifInfoStr);
+    }
+}
+
+if (count($errList) == 0) {
+// update unit
+    $con = new DBConnect();
+    $sql = $con->mysqli;
+    $obj = $sql->prepare("UPDATE units SET outdated = 0 WHERE ID = ?");
+    $obj->bind_param('s', $unitID);
+    $obj->execute();
+
+    echo "done";
+} else {
+    /*
+      for ($e = 0; $e < count($errList); $e++) {
+      $err = $errList[$e];
+      echo $err . '</br>';
+      }
+     */
+    echo json_encode($errList);
+}
+?>

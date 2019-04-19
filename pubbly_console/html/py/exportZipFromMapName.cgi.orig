@@ -1,0 +1,183 @@
+<<<<<<< HEAD
+#!/Library/Frameworks/Python.framework/Versions/3.7/bin/python3
+=======
+#!/usr/bin/python
+#!C:\Users\Jason Horsley\AppData\Local\Programs\Python\Python37\python
+
+>>>>>>> 93bc6db7d2b521e7a898e36c7f9e74bf3b205cd6
+
+
+<<<<<<< HEAD
+import glob
+from pathlib import Path
+import os
+import shutil
+from shutil import *
+import fileinput
+import strreplace as strr
+
+print("Content-Type: text/html\n\n")
+
+class OfflineBundler:
+    def __init__(self, mn):
+        self.mapName = mn
+        self.errors = []
+        self.initMap = Path('../map/' + self.mapName)
+        self.stagePath = Path('../staging/' + self.mapName)
+        self.entryPoint = ""
+        self.engineNo = open(Path('../pubbly_engine/latest.txt'), 'r').read()
+        self.enginePath = Path('../pubbly_engine/' + self.engineNo)
+        self.sharedPath = Path('../pubbly_engine/shared')
+        self.units = next(os.walk(self.initMap))[1]
+
+    def checkIfEntryPointExists(self):
+        try:
+            self.entryPoint = open(Path('../map/' + self.mapName + "/" + "entryPoint.txt"), "r").read()
+        except:
+            self.errors.append("Fatal: No entry point specified.")
+
+    def copyToStagingArea(self):
+        print ("Copying files to staging area....")
+        shutil.copytree(self.initMap, self.stagePath,
+                            ignore=ignore_patterns("entryPoint.*", "test.py", "*.sh", "*.html", ".DS_Store"))
+        print ("Copy to staging area complete!")
+
+    def checkJSONExistsNewerEngine(self):
+        unitJSON = ""
+
+        # for f in self.stagePath.iterdir():
+        #     print(str(f) + "<br>")
+        #     if ".json" in str(f) and "modified" not in str(f):
+        #         unitJSON = f
+
+        # for paths, dirs, files in os.walk(self.stagePath):
+        #     print (files)
+        #     if ".json" in str(files) and "modified" not in str(files):
+        #          unitJSON = files
+
+        #for i in self.stagePath.glob('**/*.*'):
+        #    print(i.name)
+
+        self.jsonFiles = {}
+
+        for u in self.units:
+            filesToCheck = os.listdir(Path(str(self.stagePath) + "/" + u))
+            for f in filesToCheck:
+                if ".json" in f and "modified" not in f:
+                    unitJSON = Path(str(self.stagePath) + "/" + u + "/" + f)
+                    try:
+                        # Save JSON so we can use it later, important!
+                        self.jsonFiles[u] = unitJSON
+
+                        # Check to see that the version in the filename matches the latest engine
+                        version = (f[f.index("1"):f.index(".json")])
+                        if version != self.engineNo:
+                            self.errors.append("Fatal: Outdated engine (" + version + ") at\n" + self.stagePath + u)
+                    except:
+                        self.errors.append("Fatal: Something went wrong. Missing JSON, maybe?")
+
+                if "MainXML" in f:
+                    unitXML = Path(str(self.stagePath) + "/" + u + "/" + f)
+
+            if not unitJSON:
+                self.errors.append("Fatal: JSON file missing at: " + u)
+            if not unitXML:
+                self.errors.append("Fatal: XML missing at: " + u)
+            if self.isNewer(unitJSON, unitXML):
+                self.errors.append("Warning: JSON outdated at " + u)
+
+    def buildRunHTML(self):
+        for u in self.units:
+            print (str(self.enginePath) + "/run.html")
+            print (self.stagePath)
+
+
+            shutil.copy(str(self.enginePath) + "/run.html", self.stagePath)
+
+            #try:
+            with fileinput.FileInput(self.jsonFiles[u], inplace=True) as file:
+                for line in file:
+                    print(strr.replaceAll(
+                        line, [
+                            ["map\/" + self.mapName + "\/", ""]
+                        ]), end='')
+
+            with open(self.jsonFiles[u], 'r') as jsonFile:
+                jsonData = jsonFile.read()
+
+            with fileinput.FileInput(Path(str(self.stagePath) + "/run.html"), inplace="True") as file:
+                for line in file:
+                    print(strr.replaceAll(
+                        line, [
+                            ["{REL_ROOT}", "."],
+                            ["{ENGINE}", self.engineNo],
+                            ["{PUBBLY_JSON}", jsonData],
+                        ]), end='')
+            #except:
+            #    self.errors.append("Fatal: Constructing run files failed.")
+
+
+            os.rename(Path(str(self.stagePath) + "/run.html"),
+                      Path(str(self.stagePath) + "/" + u + ".html"))
+
+            print("Slashes are stupid\/")
+
+    def copyEngineShared(self):
+        shutil.copytree(self.enginePath, Path(str(self.stagePath) + "/pubbly_engine/" + self.engineNo))
+        shutil.copytree(self.sharedPath, Path(str(self.stagePath) + "/pubbly_engine/shared"))
+
+    def makeIndexFile(self):
+        print(self.entryPoint)
+        shutil.copyfile(Path(str(self.stagePath) + "/" + self.entryPoint + ".html"),
+                        Path(str(self.stagePath) + "/index.html"))
+
+
+    def isNewer(self, new, old):
+        result = os.path.getmtime(new)-os.path.getmtime(old)
+        if (result is 0):
+            self.errors.append("The files were created at the same exact time. Weird.")
+        else:
+            return (result < 0)
+
+    def getErrors(self):
+        if (len(self.errors) is 0):
+            print ("Success! File made at: DO THIS LATER LOL")
+        else:
+            print ("Errors found: ")
+            for e in self.errors:
+                print ("* " + e)
+
+    def doTheThing(self):
+        self.checkIfEntryPointExists()
+        self.copyToStagingArea()
+        self.checkJSONExistsNewerEngine()
+        self.buildRunHTML()
+        self.copyEngineShared()
+        self.makeIndexFile()
+        self.getErrors()
+
+offObj = OfflineBundler("test")
+offObj.doTheThing()
+
+
+
+
+
+
+# Maybe a 5 second wait, then refresh to the download link area?
+# Maybe generate some nice HTML to show the download?
+# Maybe auto download, then refresh back to ../select_map.php or something
+# Or maybe we change this from a http post to a ajax get variable for the map name, and we autodownload after the callback from select_map.js line 175 ish
+'''
+{id: "export_zip", view: "button", label: "Exprt Offline ZIP",
+    disabled: true, on: {
+        onItemClick: function () {
+            ajax_general(...)
+        }
+    }
+},
+'''
+=======
+print("Content-Type: text/html\n")
+print ("done")
+>>>>>>> 93bc6db7d2b521e7a898e36c7f9e74bf3b205cd6

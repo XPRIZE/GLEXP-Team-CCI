@@ -1,0 +1,4 @@
+# Crontab to trigger a weekly wipe of the console's data (not users)
+# Use in sudo crontab -e, not reg (needs sudo to wipe)
+
+59 23 * * Sun python /var/www/py/weekendWipe.py

@@ -1,0 +1,102 @@
+#header {
+    padding-bottom:10px;
+
+    $navIconSideMargin:7;
+    $navIconDimension:21;
+    // Good until 998 - 999 (quad digit page number bad)
+    $gotoWidth:136;
+    font-family: "vag", sans-serif;
+    #title {
+        display:inline-block;
+        vertical-align:middle;
+        /* NO MARGINS cause it messes up the vert middle */
+        margin:0;
+        color:white;
+        font-family: "vag", sans-serif;
+        /*font-size:2em;*/
+        font-size:1.25em;
+        font-weight:800;
+        letter-spacing:2px;
+        max-height:2.2em; // Max two line title
+        /* max width calc 100% - something maybe? */
+        // Errors with variable decs, so just hard code and recalc every time. DAMN YOU NET BEANS
+        // width:calc(100% - ((#{$navIconSideMargin}px * 4) + (#{$navDimension}px * 2) + #{$gotoWidth}px + 12px)); /* 12px? Who the HELL KNOWS */
+        max-width:calc(100% - 150px);
+
+        overflow:hidden;
+    }
+    .navigationUI {
+        overflow:hidden;
+        display:inline-block;
+        vertical-align:middle;
+        float:right;
+
+        .previous, .next {
+            display:inline-block;
+            margin:0 $navIconSideMargin; /* 7 */
+            vertical-align:middle;
+            height:$navIconDimension; /*21*/
+            width:$navIconDimension; /*21*/
+            cursor:hand;
+        }
+        .previous img, .next img {
+            height:$navIconDimension; /*21*/
+            width:$navIconDimension; /*21*/
+            position:absolute;
+            z-index:10;
+            opacity:1;
+        }
+        .previous.disabled img, .next.disabled img,
+        .previous.noTurn img, .next.noTurn img {
+            opacity:0.5;
+        }
+        .next img {
+            /* Flipped to save that extra 1kb of load */
+            -moz-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            filter: FlipH;
+            -ms-filter: "FlipH";
+        }
+        .goto {
+            display:inline-block;
+            p.cover {
+                width:$gotoWidth - 2 * (($navIconDimension + $navIconSideMargin));
+                /*color:#5AACC5;*/
+                color:white;
+                display:inline-block;
+                vertical-align:middle;
+                text-align:center;
+                padding:0;
+                border:0;
+                margin:0;
+                padding:0;
+                background-color:RGBA(0,0,0,0);
+                font-size:1.25em;
+                padding-top:4;
+            }
+            select {
+                width:$gotoWidth + $navIconSideMargin;
+                margin-left:-1 * ($navIconDimension + (1.5 * $navIconSideMargin));
+
+                height:$navIconDimension;
+                margin-top:-1 * $navIconDimension;
+                // 1.5? No idea.
+                position:absolute;
+                cursor:hand;
+                opacity:0;
+            }
+            option {
+                width:100%;
+                color:#5AACC5;
+                font-size:x-large;
+                opacity:100;
+            }
+        }
+        .goto.disabled p.cover {
+            color:grey;
+        }
+
+    }
+}

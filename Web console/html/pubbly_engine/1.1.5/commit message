@@ -1,6 +1,0 @@
-* Fixed no pubbly.ready=true after page turn.
-* Re-fixed canvas flicker on page turn
-* Fixed "Able to change goto drop down before dom click cover.
-* Fixed "link init enabled parsed to string, not boolean" problem, causing "end sequence" trigger after wrong answer page reset.
-* Fixed "Draggables not resetting". No init value for "droppedLoc", not set to init value for reset.
-* Fixed "drop pile", draggable sorting

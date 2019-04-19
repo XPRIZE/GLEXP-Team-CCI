@@ -1,1 +1,0 @@
-<?php $GLOBALS["seriesName"] = "test2"; require("../../php/seriesEdit.php"); ?>

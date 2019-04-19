@@ -1,0 +1,835 @@
+<html>
+   <head>
+		<title>Pubbly</title>
+		<link href="../pubbly_engine/latest/css/main.css" rel="stylesheet" />
+		<link href="../pubbly_engine/latest/css/xprizeAppModifications.css" rel="stylesheet" />
+		<link href="../pubbly_engine/latest/css/supportedFonts.css" rel="stylesheet" />
+		<script src="../pubbly_engine/latest/js/third_party/jquery.min.js"></script>
+		<script src="../pubbly_engine/latest/js/third_party/lzwCompress.js"></script>
+
+		<script src="../pubbly_engine/latest/js/utility/filePathManipulations.js"></script>
+		<script src="../pubbly_engine/latest/js/utility/findDifferenceBetweenTwoArrays.js"></script>
+		<!--<script src="../pubbly_engine/latest/js/utility/mergeObjWithDefaults.js"></script>-->
+		<script src="../pubbly_engine/latest/js/utility/random.js"></script>
+		<script src="../pubbly_engine/latest/js/utility/redrawDependency.js"></script>
+		<script src="../pubbly_engine/latest/js/utility/variableFrameRateInt.js"></script>
+
+		<script src="../pubbly_engine/latest/js/shared/assetListLoader.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/buffer.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/color_codes.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/cursors.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/defaultCallbacks.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/error.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/globals.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/helpers.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/messyHTML.js"></script>
+		<script src="../pubbly_engine/latest/js/shared/progressGraph.js"></script>
+
+		<script src="../pubbly_engine/latest/js/run/countdown.js"></script>
+		<script src="../pubbly_engine/latest/js/run/dom.js"></script>
+		<script src="../pubbly_engine/latest/js/run/domInteractionCover.js"></script>
+		<script src="../pubbly_engine/latest/js/run/drawingTools.js"></script>
+		<script src="../pubbly_engine/latest/js/run/events.js"></script>
+		<script src="../pubbly_engine/latest/js/run/events_cursorInput.js"></script>
+		<script src="../pubbly_engine/latest/js/run/links.js"></script>
+		<script src="../pubbly_engine/latest/js/run/navigationUI.js"></script>
+		<script src="../pubbly_engine/latest/js/run/presetAssets.js"></script>
+		<script src="../pubbly_engine/latest/js/run/sequence.js"></script>
+		<script src="../pubbly_engine/latest/js/run/states.js"></script>
+		<script src="../pubbly_engine/latest/js/run/turns.js"></script>
+		<script src="../pubbly_engine/latest/js/run/urlNav.js"></script>
+		<script src="../pubbly_engine/latest/js/run/workspaces.js"></script>
+		<script src="../pubbly_engine/latest/js/run/_Pubbly.js"></script>
+		<script>
+			// Pre doc ready back catch
+			window.history.pushState('popstateListener', null, window.location.href);
+			window.addEventListener("popstate", function (e) {
+				e.preventDefault();
+			});
+		</script>
+		<script src="../pubbly_engine/latest/js/app/_AppModifications.js"></script>
+		<script src="../pubbly_engine/latest/js/app/analytics.js"></script>
+		<script src="../../cordova.js"></script>
+		<script src="../../js/loginCheck.js"></script>
+		<script src="../../js/readWrite.js"></script>
+
+		<script>
+		 window.json = {
+    "info": {
+        "name": "EQ_INTRO",
+        "height": 641,
+        "width": 1000,
+        "display": "single",
+        "bullet": "#8867AC",
+        "interrupt": false,
+        "saveStates": false,
+        "navigation": false,
+        "snapDrops": true,
+        "lastPageSpread": false,
+        "assetLocationPrefix": "undefined_",
+        "HighlightLinkColor": "128,255,255",
+        "HighlightLinkTransparency": 50,
+        "HighlightLinkTime": 500,
+        "HighlightLinkColorRGBA": "RGBA(128,255,255,0.5)"
+    },
+    "pages": [
+        {
+            "points": {
+                "page points": 0,
+                "changed": [],
+                "init": {
+                    "page points": 0,
+                    "changed": []
+                }
+            },
+            "reloadOnLeave": false,
+            "name": "Page 1",
+            "countdown": 0,
+            "objs": [
+                {
+                    "type": "image",
+                    "name": "Screen Shot 2018-11-12 at 113352 AM",
+                    "layer": 0,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_Screen Shot 2018-11-12 at 11.33.52 AM",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 0,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Screen Shot 2018-11-12 at 11.33.52 AM.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_INTRO-EQ_INTRO\/images\/P_Screen Shot 2018-11-12 at 11.33.52 AM.png"
+                },
+                {
+                    "type": "image",
+                    "name": "Screen Shot 2018-11-12 at 113352 AM 1",
+                    "layer": 1,
+                    "vis": true,
+                    "loc": [
+                        0,
+                        0
+                    ],
+                    "width": 1000,
+                    "height": 641,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_Screen Shot 2018-11-12 at 11.33.52 AM",
+                    "ext": "png",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "init": {
+                        "height": 641,
+                        "width": 1000,
+                        "loc": [
+                            0,
+                            0
+                        ],
+                        "vis": true,
+                        "layer": 1,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_Screen Shot 2018-11-12 at 11.33.52 AM.png",
+                    "relPath": "map\/EpicQuest\/variable-EQ_INTRO-EQ_INTRO\/images\/P_Screen Shot 2018-11-12 at 11.33.52 AM.png"
+                },
+                {
+                    "type": "video",
+                    "name": "INTRO_edits",
+                    "layer": 2,
+                    "vis": true,
+                    "loc": [
+                        -14,
+                        -2
+                    ],
+                    "width": 1004,
+                    "height": 670,
+                    "opacity": 1,
+                    "mobility": "fixed",
+                    "frontDrag": false,
+                    "animations": {},
+                    "fName": "P_INTRO_edits",
+                    "swapFName": false,
+                    "ext": "mp4",
+                    "swapMethod": false,
+                    "swapHeight": false,
+                    "swapWidth": false,
+                    "fileName": "P_INTRO_edits",
+                    "init": {
+                        "height": 670,
+                        "width": 1004,
+                        "loc": [
+                            -14,
+                            -2
+                        ],
+                        "vis": true,
+                        "layer": 2,
+                        "mobility": "fixed",
+                        "opacity": 1
+                    },
+                    "fSrc": "P_INTRO_edits.mp4",
+                    "relPath": "map\/EpicQuest\/variable-EQ_INTRO-EQ_INTRO\/videos\/P_INTRO_edits.mp4"
+                }
+            ],
+            "auds": [],
+            "audKey": {},
+            "links": [
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid0",
+                                        "type": "propertyChange",
+                                        "action": "object",
+                                        "destination": "INTRO_edits",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "destinationType": "object",
+                                        "attribute": "vis",
+                                        "value": true,
+                                        "autoDraw": false
+                                    },
+                                    {
+                                        "id": "tid1",
+                                        "type": "video",
+                                        "action": "play",
+                                        "destination": "INTRO_edits",
+                                        "blocking": true,
+                                        "holds": [
+                                            "videos"
+                                        ]
+                                    },
+                                    {
+                                        "id": "tid2",
+                                        "type": "wait",
+                                        "action": "wait for",
+                                        "destination": 55,
+                                        "blocking": "waits",
+                                        "hold": false
+                                    },
+                                    {
+                                        "id": "tid3",
+                                        "type": "send",
+                                        "action": "click",
+                                        "destination": "TBD_next",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "Play",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 1,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 1
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid4",
+                                        "type": "send",
+                                        "action": "click",
+                                        "destination": "random",
+                                        "blocking": false,
+                                        "hold": false,
+                                        "random": {
+                                            "removeChoice": false,
+                                            "options": [
+                                                "TBD_sylltap_A",
+                                                "TBD_sylltap_B",
+                                                "TBD_sylltap_C",
+                                                "TBD_sylltap_D"
+                                            ],
+                                            "init": {
+                                                "removeChoice": false,
+                                                "options": [
+                                                    "TBD_sylltap_A",
+                                                    "TBD_sylltap_B",
+                                                    "TBD_sylltap_C",
+                                                    "TBD_sylltap_D"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "TBD_next",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 2,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 2
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid5",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T1_SyllTap-EQ_T1_SyllTap"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "TBD_sylltap_A",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 3,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 3
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid6",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T1_SyllTap-EQ_T2_SyllTap"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "TBD_sylltap_B",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 4,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 4
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid7",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T1_SyllTap-EQ_T3_SyllTap"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "TBD_sylltap_C",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 5,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 5
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [
+                            {
+                                "type": "click",
+                                "condition": "click",
+                                "targets": [
+                                    {
+                                        "id": "tid8",
+                                        "type": "navigation",
+                                        "action": "navigate",
+                                        "destination": "browser",
+                                        "blocking": "all",
+                                        "hold": "all",
+                                        "attribute": "window",
+                                        "value": "?engineCode=new&t=m&mn=EpicQuest&nn=variable-EQ_T1_SyllTap-EQ_T4_SyllTap"
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": []
+                    },
+                    "name": "TBD_sylltap_D",
+                    "type": "link",
+                    "drawing": "none",
+                    "poly": [
+                        [
+                            -80,
+                            0
+                        ],
+                        [
+                            -10,
+                            0
+                        ],
+                        [
+                            -10,
+                            70
+                        ],
+                        [
+                            -80,
+                            70
+                        ],
+                        [
+                            -80,
+                            0
+                        ]
+                    ],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 6,
+                    "init": {
+                        "poly": [
+                            [
+                                -80,
+                                0
+                            ],
+                            [
+                                -10,
+                                0
+                            ],
+                            [
+                                -10,
+                                70
+                            ],
+                            [
+                                -80,
+                                70
+                            ],
+                            [
+                                -80,
+                                0
+                            ]
+                        ],
+                        "enabled": true,
+                        "drawing": "none",
+                        "pinned": false,
+                        "layer": 6
+                    }
+                },
+                {
+                    "triggers": {
+                        "clicks": [],
+                        "points": [],
+                        "dragStops": [],
+                        "lineStarts": [],
+                        "lineStops": [],
+                        "countdowns": [],
+                        "openPages": [
+                            {
+                                "type": "openPage",
+                                "condition": "every",
+                                "targets": [
+                                    {
+                                        "id": "tid9",
+                                        "type": "send",
+                                        "action": "click",
+                                        "destination": "Play",
+                                        "blocking": false,
+                                        "hold": false
+                                    }
+                                ],
+                                "run": 0
+                            }
+                        ]
+                    },
+                    "name": "Page",
+                    "type": "link",
+                    "drawing": false,
+                    "poly": [],
+                    "pinned": false,
+                    "enabled": true,
+                    "clickHighlight": false,
+                    "clickHighlightOn": false,
+                    "layer": 7,
+                    "init": {
+                        "poly": [],
+                        "enabled": true,
+                        "drawing": "false",
+                        "pinned": false,
+                        "layer": 7
+                    }
+                }
+            ]
+        }
+    ],
+    "drawingTool": {},
+    "points": {}
+};
+		window.startPage = 0;
+		$(document).ready(function () {
+			document.addEventListener("deviceready", buildPubbly);
+		});
+		function buildPubbly() {
+			window.pubbly = new Pubbly(json, {environment: "app", forceBack: "../../school.html", enginePathPrefix: "../",
+			});
+		};
+		</script>
+
+		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body class="noSelect">
+		<div id="main" class="transformCenterCont">
+			<div class="transformCenter">
+				<div id="pubbly_main">
+				</div>
+			</div>
+		</div>
+   </body>
+</html>

@@ -1,0 +1,66 @@
+#avatar {
+    display: block;
+    margin: auto;
+    height: 100%;
+    margin-top: 2.5px;
+}
+#badgeCont {
+    position:absolute;
+}
+#gameBadgeCover, #levelBadgeCover {
+    position:absolute;
+    height:75px;
+    width:135px;
+    top:7.5px;
+    background-color:RGBA(50,50,50,0.8);
+    border-radius:15px;
+}
+#gameBadgeCover {
+    left:15px;
+}
+.levelBadgeAbsFix {
+    display:inline-block;
+    float: right;
+    height:30px;
+    width:30px;
+    margin:2px 1.875px;
+}
+.gameBadgeAbsFix {
+    display:inline-block;
+    height:15px;
+    width:15px;
+    margin:3px 0px;
+}
+.gameBadge {
+    position:absolute;
+    height:15px;
+    width:15px;
+}
+#levelBadgeCover {
+    right:15px;
+}
+.levelBadge {
+    height:30px;
+    width:30px;
+}
+.level {
+    width: 100%;
+    margin: 0px auto;
+    height: 25px;
+    background-color: #0070bb;
+    border-radius: 12.5px;
+    overflow: hidden;
+    display:inline-block;
+}
+.percentToNext {
+    height: 100%;
+    background-color: #009245;
+}
+h4.levelAt {
+    color: white;
+    text-align: center;
+    margin: 0;
+    font-size: 22px;
+    transform: translate(0%, -100%);
+    margin-top:-3px;
+}

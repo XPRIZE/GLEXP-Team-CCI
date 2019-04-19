@@ -1,0 +1,10 @@
+.hotfixUI .missingAsset {
+  color: red; }
+.hotfixUI .missingAsset.ignored {
+  color: green; }
+.hotfixUI .centerAlign {
+  text-align: center; }
+.hotfixUI .biggerText {
+  font-size: 24px; }
+
+/*# sourceMappingURL=hotfixUI.css.map */

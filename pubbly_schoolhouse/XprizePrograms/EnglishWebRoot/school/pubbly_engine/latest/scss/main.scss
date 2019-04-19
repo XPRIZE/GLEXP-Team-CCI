@@ -1,0 +1,228 @@
+$assetLoc:'../../shared';
+$fontLoc:'../../shared/fonts';
+
+@import '_header';
+@import '_cursors';
+
+@font-face {
+    font-family: "vag";
+    src: url("#{$fontLoc}/vag.oft") format("openstyle");
+    font-family: 'vag';
+    font-style: normal;
+    font-weight: normal;
+    font-size: large;
+    src: local('?'),
+        url("#{$fontLoc}/vag.oft") format("openstyle"),
+        url("#{$fontLoc}/vag.woff") format("woff"),
+        url("#{$fontLoc}/vag.ttf") format("truetype");
+}
+
+body {
+    margin:0;
+}
+
+#main {
+    background-image:url("#{$assetLoc}/logos/pubbly_background_logo.png");
+    background-size:cover;
+    background-width:100%;
+}
+#pubbly_main {
+    padding:15px;
+    border-radius:15px;
+    background-color:RGB(34,34,34);
+	opacity:0;
+
+    /* Header */
+    /* TODO: Alt styling for books < 300 px */
+    @import "header.scss";
+
+    .loader {
+        position:absolute;
+        height:100%;
+        width:100%;
+        background-color:white;
+        z-index:10;
+        top:0;
+        left:0;
+    }
+    #assetVisitorCenter {
+        display:none;
+        * {
+            display:none;
+        }
+    }
+
+    .logo {
+        float:right;
+        content:url("#{$assetLoc}/logos/Pubbly_logo_pwered20px.png");
+        height:20px;
+    }
+
+    /* Canvases */
+    #canvases {
+        overflow:hidden;
+        #cancover {
+            /* For overflow hidden on abs readerren */
+            position:absolute;
+            overflow:hidden;
+            /* height and width set in main.js to whatever is read in xml */
+            .canPlacer {
+                pointer-events:none;
+                position:absolute;
+            }
+            canvas {
+                background-color:white;
+            }
+            .bufferCanvas {
+                display:none;
+                background-color:RGBA(0,0,0,0);
+            }
+
+        }
+    }
+    /* For single page display, all animations are done with CSS (better performance) */
+    #canvases.singlePage {
+        div.previous {
+            margin-left:-100%;
+        }
+        div.current {
+            margin-left:0%;
+        }
+        div.next {
+            margin-left:100%;
+        }
+    }
+    #canvases.composite {
+        canvas {
+            height:100%;
+        }
+        div {
+            overflow:hidden;
+        }
+        div.current {
+            width:100%;
+            margin-left:0%;
+        }
+        div.current.cover {
+            width:50%;
+            margin-left:25%;
+        }
+        div.currentSpreadLeft, div.currentSpreadRight {
+            margin-left:100%;
+        }
+        div.next, div.nextSpreadLeft, div.nextSpreadRight {
+            margin-left:100%;
+        }
+        div.previous, div.previousSpreadLeft, div.previousSpreadRight {
+            margin-left:-100%
+        }
+    }
+
+
+
+    /* Footer */
+    #footer {
+        padding-top:15px;
+    }
+}
+.clearfix {
+    clear:both;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+    supported by Chrome and Opera */
+}
+
+.transformCenterCont {
+    position:relative;
+    height:100%;
+    width:100%;
+    .transformCenter {
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+    }
+}
+
+div#fatal {
+    width:150px;
+    padding:15px;
+    border-radius:15px;
+    margin:auto;
+    margin-top:25px;
+    background-color:RGBA(20,20,20,0.2);
+    * {
+        text-align:center;
+        width:100%;
+    }
+}
+
+
+/* Common bullshit */
+/* Like how to you center things in css? Do you know? You don't you big liar, no on knows */
+
+.tableCenterCont {
+    display:table;
+    height:100%;
+    width:100%;
+    .tableCenter {
+        display:table-cell;
+        text-align:center;
+        vertical-align:middle;
+    }
+}
+.flexCenterCont {
+    display:flex;
+    justify-content:center;
+    height:100%;
+    width:100%;
+    overflow:hidden;
+    .flexCenter {
+        flex:none;
+    }
+}
+
+
+/* Cursor bullshit */
+/* SOMETIMES you have to put a moz in front, and you can't do more than one in jquery. So class to cursor and maybe we use this some other way in da future */
+.cursor-grabbing {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+.cursor-grab {
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+.cursor-cell {
+    cursor: cell;
+}
+.cursor-default {
+    cursor: default;
+}
+.cursor-crosshair {
+    cursor:crosshair;
+}
+.cursor-text {
+    cursor:text;
+}
+.cursor-pointer {
+    cursor:pointer;
+}
+.cursor-no-drop {
+    cursor:no-drop;
+}
+.cursor-wait {
+    cursor:wait;
+}
+.cursor-progress {
+    cursor:progress;
+}
