@@ -88,7 +88,7 @@
         `cordova clean android`
  11. __Build the application from Windows PowerShell using following command__ 
          
-        `cordova build android –verbose`
+        `cordova build android -–verbose`
 
 ### __FAQs__
 1. Source path doesnot exist: res\load_final.png
