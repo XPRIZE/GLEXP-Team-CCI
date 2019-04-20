@@ -68,7 +68,7 @@
          </intent-filter>
          </receiver>
         
-  8. __ Inside *CCIApp\platforms\android\app\src\main\res\xml* folder add *device_admin.xml* file inside *xml* folder with following content__
+  8. __Inside *CCIApp\platforms\android\app\src\main\res\xml* folder add *device_admin.xml* file with the following content__
            
          <device-admin xmlns:android="http://schemas.android.com/apk/res/android">
            <uses-policies>
@@ -92,9 +92,9 @@
 
 ### __FAQs__
 1. Source path doesnot exist: res\load_final.png
-    > Create a folder named res inside main application folder and place load_final.png into res folder and rerun the build command
+    > Create a folder named res inside main application folder and place load_final.png into res folder from EnglishWebRoot\img folder and rerun the build command
 2. app:processDebugResources CCIApp\xml\camera_provider_paths.xml not found
-    > Place camera_provider_paths.xml file into the CCIApp\platforms\android\app\src\main\res\xml folder
+    > Place camera_provider_paths.xml file from CCIApp\node_modules\cordova-plugin-camera\src\android\xml into the CCIApp\platforms\android\app\src\main\res\xml folder
 3. Execution failed because of Java heap space 
     > Increase the Java heap space using following command
     >
