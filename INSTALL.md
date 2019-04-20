@@ -5,7 +5,7 @@
   2. __Navigate to the folder where you want to set up the application repository and use the following command to create a new Cordova project__
          
         `cordova create CCIApp com.example.cciapp CCIAPP`
-  3. __Add android platform using following command__
+  3. __Add Android platform using following command__
          
         `cordova platform add android`
   4. __Add required plugins using following commands__
@@ -91,7 +91,7 @@
         `cordova build android -–verbose`
 
 ### __FAQs__
-1. Source path doesnot exist: res\load_final.png
+1. Source path does not exist: res\load_final.png
     > Create a folder named res inside main application folder and place load_final.png into res folder from EnglishWebRoot\img folder and rerun the build command
 2. app:processDebugResources CCIApp\xml\camera_provider_paths.xml not found
     > Place camera_provider_paths.xml file from CCIApp\node_modules\cordova-plugin-camera\src\android\xml into the CCIApp\platforms\android\app\src\main\res\xml folder
