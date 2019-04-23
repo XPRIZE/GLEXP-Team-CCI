@@ -99,10 +99,10 @@ Once you have created a new program follow the below steps to build your project
 
  1. __Clean the project using following command__
          
-        `cordova clean android`
+        cordova clean android
  2. __Build the application from Windows PowerShell using following command__ 
          
-        `cordova build android -–verbose`
+        cordova build android -–verbose
 
 ### __FAQs__
 1. Source path does not exist: res\load_final.png
