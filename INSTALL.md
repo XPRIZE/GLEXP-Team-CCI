@@ -1,4 +1,7 @@
-### __Installation instructions for CCI project in Windows OS__
+# __Installation instructions for CCI project in Windows OS__
+
+## Adding Content
+
   1. __Download and Install [Node JS](https://nodejs.org/en/). Then install Cordova using following command in cmd__
    
         `npm install -g cordova`
@@ -9,8 +12,6 @@
          
         `cordova platform add android`
   4. __Add required plugins using following commands__
-   
-        `cordova plugin add https://github.com/oddmouse/cordova-plugin-locktask.git`
          
         `cordova plugin add https://github.com/ToniKorin/cordova-plugin-autostart.git`
          
@@ -37,9 +38,13 @@
         `cordova plugin add cordova-plugin-whitelist`
          
         `cordova plugin add cordova-plugin-zip`
+	
+	 `cordova plugin add https://github.com/oddmouse/cordova-plugin-locktask.git`
          
   5. __Add splash screen to *CCIApp\config.xml* file__
-  
+     
+     The CCIApp folder is created after executing the command in Step 2
+   
          <platform name="android">
             <splash density="land-hdpi" src="res/load_final.png" />
             <splash density="land-ldpi" src="res/load_final.png" />
@@ -51,15 +56,20 @@
         	<splash density="port-xhdpi" src="res/load_final.png" />
 			<allow-intent href="market:*" />
          </platform>
+   
+  6. __Paste the contents of *EnglishWebRoot* folder inside *CCIApp\www* folder__
   
-  6. __Add Java class named *MyAdmin* for the locktask plugin inside *CCIApp\platforms\android\app\src\main\java\com\example\CCIApp* folder and add following lines to the class__
+  ## Step up *Device admin* (Optional)
+  Follow the steps below if a device admin is required to setup:
+  
+  1. __Add Java class named *MyAdmin* for the locktask plugin inside *CCIApp\platforms\android\app\src\main\java\com\example\CCIApp* folder and add following lines to the class__
   
          package com.example.CCIApp;
          import android.app.admin.DeviceAdminReceiver; 
          public class MyAdmin extends DeviceAdminReceiver {
           // Some code here if you want but not necessary
          }
-  7. __Add following lines in the *CCIApp\platforms\android\app\src\main\AndroidManifest.xml* file__
+  2. __Add following lines in the *CCIApp\platforms\android\app\src\main\AndroidManifest.xml* file__
        
          <receiver android:label="@string/app_name" android:name="MyAdmin" android:permission="android.permission.BIND_DEVICE_ADMIN">
          <meta-data android:name="android.app.device_admin" android:resource="@xml/device_admin" />
@@ -68,7 +78,7 @@
          </intent-filter>
          </receiver>
         
-  8. __Inside *CCIApp\platforms\android\app\src\main\res\xml* folder add *device_admin.xml* file with the following content__
+  3. __Inside *CCIApp\platforms\android\app\src\main\res\xml* folder add *device_admin.xml* file with the following content__
            
          <device-admin xmlns:android="http://schemas.android.com/apk/res/android">
            <uses-policies>
@@ -82,11 +92,15 @@
              <disable-camera />
            </uses-policies>
          </device-admin>
- 9. __Paste the contents of *EnglishWebRoot* folder inside *CCIApp\www* folder__
- 10. __Clean the project using following command__
+	 
+	 
+## Building
+Once you have created a new program follow the below steps to build your project as an APK:
+
+ 1. __Clean the project using following command__
          
         `cordova clean android`
- 11. __Build the application from Windows PowerShell using following command__ 
+ 2. __Build the application from Windows PowerShell using following command__ 
          
         `cordova build android -–verbose`
 
