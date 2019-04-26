@@ -21,9 +21,9 @@ If you don't want to buy your own server and install our LAMP CMS yourself, you 
 
 * cd /var/www
 * sudo rm -r html
-* sudo chown ubuntu:ubuntu . -R
+* sudo chown $user:$user . -R
 * sudo git clone https://github.com/PubblyDevelopment/pubbly_console.git .
-* cd /var/www/
+* cd /var/www/pubbly_console
 * sudo git submodule update --init --recursive
 > Pasting in putty or similar HTML shells is done with Control - Shift - Insert.
 > To check that the clone worked, navigate to (YourDomain)/phpinfo.php or (YourIP)/phpinfo.php. This will show system information for your server. If it does, PHP is working and the console has been cloned. (Console WILL NOT work without further setup)
@@ -49,6 +49,7 @@ If you don't want to buy your own server and install our LAMP CMS yourself, you 
 * CREATE DATABASE pubbly_console;
 * CREATE USER 'pubbly_console'@'localhost' IDENTIFIED BY 'PutPasswordHere';
 * grant all privileges on pubbly_console.* to 'phpmyadmin'@'localhost';
+* grant all privileges on pubbly_console.* to 'pubbly_console'@'localhost';
 * flush privileges;
 > This creates a new user account and database on your server, to be used exclusively by PHP scripts running via ajax calls. This allows you to have multiple projects on the same server without site contamination risks.
 * USE mysql;
@@ -73,6 +74,7 @@ If you don't want to buy your own server and install our LAMP CMS yourself, you 
 You can test your steps so far by refreshing your Domain name or IP address (not /phpinfo.php). If it resoloves to a console login page, it worked!
 
 > If it didn't work, you can debug by enabling php errors and warnings in the php.ini file you edited above. This will at least show what kind of an error you're getting. It may be a good idea to enable errors/warnings anyway, for bug fixing and your own development.
+> Also make sure that the folders are correclty placed by following the above steps.
 
 ### (Optional) Get python up and running 
 
