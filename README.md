@@ -80,26 +80,29 @@ Once you have the language specific root folder inside a properly structured cor
 
 ### Submission from existing: Xprize console duplication
 
-The second easiest way to modify our existing submission is to duplicate not only our console code base, but all xprize related content as well. First, create a new empty [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) (section "Getting started"). Log into your console, download and unzip the Xprize console content zips to their local folders, and import an associated sql file.
+The second easiest way to modify our existing submission is to duplicate not only our console code base, but all xprize related content as well. First, create a new empty [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) (section "Getting started"). Then, download and concatenate the split zip files hosted at [Pubbly_Console_Content](https://github.com/PubblyDevelopment/pubbly_console_content). There are four split zip files, and one sql import file.  Log into your console, manually upload and unzip the Xprize console content zips to their local folders, and import an associated sql file.
 
 | Type             |                      Zip location                      |   Extract location    |
 |------------------|:------------------------------------------------------:|:---------------------:|
-| Static Exports   |  xprize.pubbly.com/DuplicateConsole/StaticExports.zip  |  /var/www/html/books  |
-| Variable Exports | xprize.pubbly.com/DuplicateConsole/VariableExports.zip | /var/www/html/series  |
-| Stitched Exports | xprize.pubbly.com/DuplicateConsole/StitchedExports.zip | /var/www/html/schools |
-| Mapped Exports   |  xprize.pubbly.com/DuplicateConsole/MappedExports.zip  |   /var/www/html/map   |
-| Content SQL file |     xprize.pubbly.com/DuplicateConsole/Content.sql     |       mysql db        |
+| Static Exports   |        pubbly_console_content/StaticExports.zip        |  /var/www/html/books  |
+| Variable Exports |       pubbly_console_content/VariableExports.zip       | /var/www/html/series  |
+| Stitched Exports |       pubbly_console_content/StitchedExports.zip       | /var/www/html/schools |
+| Mapped Exports   |        pubbly_console_content/MappedExports.zip        |   /var/www/html/map   |
+| Content SQL file |           pubbly_console_content/Content.sql           |       mysql db        |
 
 * Log into your personal console using SSH (EG putty)
 > Add the base sql structure if you haven't already (i.e. finish [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Getting started")
-> Download content zips from our Xprize server to a local folder
+> Download content zips from the [Pubbly_Console_Content](https://github.com/PubblyDevelopment/pubbly_console_content) repo to a local folder
 * cd ~/
 * mkdir tmp
 * cd tmp
-* wget xprize.pubbly.com/DuplicateConsole/StaticExports.zip
-* wget xprize.pubbly.com/DuplicateConsole/VariableExports.zip
-* wget xprize.pubbly.com/DuplicateConsole/StitchedExports.zip
-* wget xprize.pubbly.com/DuplicateConsole/MappedExports.zip
+* git clone https://github.com/PubblyDevelopment/pubbly_console_content
+* cd pubbly_console_content
+> Concatenate the 4 split zip files
+* cat MappedExports.zip.part* > MappedExports.zip
+* cat StitchedExports.zip.part* > StitchedExports.zip
+* cat VariableExports.zip.part* > VariableExports.zip
+* cat StaticExports.zip.part* > StaticExports.zip
 > Unzip content to respective web roots
 * sudo apt-get install unzip
 * sudo unzip StaticExports.zip -d /var/www/html/books
