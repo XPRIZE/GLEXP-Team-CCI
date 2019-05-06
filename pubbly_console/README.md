@@ -1,6 +1,6 @@
 # Pubbly Console
 
-The Pubbly console is what TeamCCI has developed in house and used to create the content for their finalist submission in the Global Learning Xprize
+The Pubbly console is what TeamCCI has developed in-house and used to create the content for their finalist submission in the Global Learning Xprize
 
 ## Getting started
 
@@ -190,7 +190,7 @@ First, create a new School, Subject, Level and Unit with the "New" buttons in ea
 
 Select either a series/child from the Variable Exports drop-down, or a Static Export at the top left of the screen. Click "Add", and it will add each Page of the selected Export to the "Workbench" below. You can add multiple Exports to your workbench.
 
-Select export from your workbench, and you will see a list of pages on the "Workbench Page List" (middle column. You can drag and drop these pages individually to the "Unit Page List" (bottom right). Once you have added the pages you want to stitch together (in the correct order), you can "Save" the unit page list. This will create a new export on the server, made up of the assets and page structure from each targeted page.
+Select export from your workbench, and you will see a list of pages on the "Workbench Page List" (middle column). You can drag and drop these pages individually to the "Unit Page List" (bottom right). Once you have added the pages you want to stitch together (in the correct order), you can "Save" the unit page list. This will create a new export on the server, made up of the assets and page structure from each targeted page.
 
 If any of the sourced pages are updated, the unit will show as "OUTDATED" on the previous page. You can select outdated units and "Update and View", which will re-stitch with all new source pages.
 
@@ -352,7 +352,7 @@ The downloaded zip file should contain a file named "MainXML.xml". It may also c
 
 * Attach the Pubbly engine
 
-For full instructions on how to attach the Pubbly engine to your packet, check out the [Pubbly Engine](https://github.com/PubblyDevelopment/pubbly_engine) repository readme, section "Attaching"
+For full instructions on how to attach the Pubbly engine to your packet, check out the README file in [Pubbly Engine](https://github.com/PubblyDevelopment/pubbly_engine) repository and view "Attaching" section.
 
 ### Creating packets: Variable Exports
 
