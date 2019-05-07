@@ -4,7 +4,7 @@ Cordova project for Swahili and English APK submissions.
 
 ## Getting Started
 
-The product of our Pubbly brand Design tools, Console, and Engine is a web packet. It consists of XML, assets (images, audio files), and a link to Pubbly Engine Javascript. The Javascript interprets the XML, loads the corresponding assets, and runs an HTML5 browser based interactive experience.
+The product of our Pubbly brand Design tools, Console, and Engine is a web packet. It consists of XML, assets (images, audio files), and a link to Pubbly Engine JavaScript. The JavaScript interprets the XML, loads the corresponding assets, and runs an HTML5 browser based interactive experience.
 
 Pubbly Packets can be hosted on a server, launched from a local HTML file, or deployed using Cordova, PhoneGap, Electon, or any number of Android WebView/Chromium based wrappers. Team CCI used Cordova.
 
@@ -27,7 +27,7 @@ Regardless of the content you wish to add, you will first need to create a new "
     * Swipe down from top and put your Android device in file transfer mode
     * In security settings, enable USB debugging
     * In security settings, enable apps from unknown sources.
-> To check that your device is ready, execute "adb devices" for an android device in debug mode.
+> To check that your device is ready, execute "adb devices" for an Android device in debug mode.
 * cordova run android
 
 Ensure that the Cordova boiler plate project has launched on your device. If it has, extract the downloaded map packet to your Cordova web root, and execute a clean build process.
@@ -142,7 +142,7 @@ If you ONLY want your application to be a console map packet, you're in luck. Fi
 |       └── ...
 </pre>
 
-Your Cordova project is now _that map_. To build regularly sized maps, see section "Building normal APK". For larger maps (500mb+), see section "Building large APK".
+Your Cordova project is now _that map_. To build regularly sized maps, see section "Building normal APK". For larger maps (500MB+), see section "Building large APK".
 
 ### Adding content: New program
 
@@ -156,13 +156,13 @@ If you liked our front end, the structure of it, the look and feel, it might be 
 
 If you're dead set on plugging in newly structured content into the existing SchoolHouse front end, if you're absolutely sure that's what you want to do, roll up your sleeves.
 
-Original, the structure of the SchoolHouse Cordova project was to be determined from the Console itself. Each school was to have a grid based system, and each subject was to exist at a certain point in the grid. However, as the deadline approached, too many small changes were required, and so the application was half automated and half manually tweaked. The only way to add new content with a different structure (different NUMBER of levels/lessons, differently named/organized books in the bookshelf) is to use the existing English/Swahili web roots as a "jumping off point", i.e., through manual modification of the FS, the XML and even in some parts the JS.
+Previously, the structure of the SchoolHouse Cordova project had to be determined from the Console itself. Each school was to have a grid based system, and each subject was to exist at a certain point in the grid. However, as the deadline approached, too many small changes were required, and so the application was half automated and half manually tweaked. The only way to add new content with a different structure (different NUMBER of levels/lessons, differently named/organized books in the bookshelf) is to use the existing English/Swahili web roots as a "jumping off point", i.e., through manual modification of the FS, the XML and even in some parts the JS.
 
 The SchoolHouse application structure was developed specifically with our Xprize program in mind. There are a few limited ways to "tweak" it to accommodate new levels, new numbers of units in each level, new subjects, new subject placements in the UI, but if you're doing anything more complicated than not-very-complicated, it might be advisable to treat all Console generated packets as "content", and write your own front end to house it.
 
 Since I can't know for sure what modified school structure you're attempting to squeeze in, these directions will be less steps and more guidelines.
 
-The "school/Math" subject has a Subject/Level/Unit folder structure, as does the "school/Reading/Writing" subject. Both those subjects are described in "school/school.xml", which is loaded in Javascript to create a the subject's respective pages. When a user creates a new account, a duplicate of the school.xml file is made specifically for that user. And as he finishes units in each subject, they are marked as "complete" and given a visual change.
+The "school/Math" subject has a Subject/Level/Unit folder structure, as does the "school/Reading/Writing" subject. Both those subjects are described in "school/school.xml", which is loaded in JavaScript to create a the subject's respective pages. When a user creates a new account, a duplicate of the school.xml file is made specifically for that user. And as he finishes units in each subject, they are marked as "complete" and given a visual change.
 
 If your school needs similarly structured level based subjects, you can make a new school.xml file to reflect the content in your file system. If you want subjects to be default "locked" or "unlocked", edit those values in the XML to fit. Any units not listed in the XML file will not be displayed in the subject specific page. The "row" and "col" values in the two subjects also effect their icon placement on screen.
 
@@ -176,7 +176,7 @@ In retrospect, it would have been much easier to treat the APK as "structure onl
 
 The process of "making it work" involved batch conversion from wav to ogg, and batch resizing of all images based on their XML height and width. It also involved moving all duplicate images (images in multiple packet asset folders (with different names), but essentially the same image 100 times over) to a shared asset folder.
 
-... The way I did that was to write up a temporary Python script that renamed all images to an md5 hash of their image data, and copied (sometimes replaced) them into a shared asset folder. The script requires you to loop through XML and update the image name with the generated hash, then manually edit the Javascript to look for image sources in a sharedAssets folder on load fail. This script actually worked, but due to multiple sequential build processes, my laptop overheated and died. The web root was saved, but the script was not, so you'll have to recreate.
+... The way I did that was to write up a temporary Python script that renamed all images to an md5 hash of their image data, and copied (sometimes replaced) them into a shared asset folder. The script requires you to loop through XML and update the image name with the generated hash, then manually edit the JavaScript to look for image sources in a sharedAssets folder on load fail. This script actually worked, but due to multiple sequential build processes, my laptop overheated and died. The web root was saved, but the script was not, so you'll have to recreate.
 
 ## Building
 
@@ -209,11 +209,11 @@ You can make small APKs with the Pubbly released tools. For instructions, see [P
 
 > Clean the project
 * cordova clean android
-> Build from Powershell
+> Build from PowerShell
 * cordova build android --verbose
 > It will fail, after about 30 minutes per GB. Build again
 * cordova build android --verbose
-> Keep building from Powershell until the failure takes less than 5 minutes.
+> Keep building from PowerShell until the failure takes less than 5 minutes.
 > Run cmd.exe as admin, cd to the project, increase java heap size (to at least twice the size of the schoolHouse/www folder)
 * SET _JAVA_OPTIONS="-Xmx4000m"
 > Build again. 
