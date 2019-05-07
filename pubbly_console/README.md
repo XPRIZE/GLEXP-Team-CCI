@@ -4,7 +4,7 @@ The Pubbly console is what TeamCCI has developed in-house and used to create the
 
 ## Getting started
 
-If you don't want to buy your own server and install our LAMP CMS yourself, you can register at [sandbox.pubbly.com](sandbox.pubbly.com). We are currently hosting this server, and you may upload your own content, but all user-posted files will be wiped on a weekly basis. If you want to host your own personal console repository, the manual installation is not so bad. I will be giving instructions for a clean up-to-date AWS Ubuntu server, with ports open for SSH, SFTP, and HTTP. You can use other servers builds, but this is largely untested/unsupported.
+If you don't want to buy your own server and install our LAMP CMS yourself, you can register at [sandbox.pubbly.com](sandbox.pubbly.com). We are currently hosting this server, and you may upload your own content, but all user-posted files will be wiped on a weekly basis. If you want to host your own personal console repository, the manual installation is not so bad. I will be giving instructions for a clean up-to-date AWS Ubuntu server, with ports open for SSH, SFTP, and HTTP. You can use other server builds, but this is largely untested/unsupported.
 
 ### Install Apache 2.0, MySQL, and PHP 7+
 
@@ -25,7 +25,7 @@ If you don't want to buy your own server and install our LAMP CMS yourself, you 
 * sudo git clone https://github.com/PubblyDevelopment/pubbly_console.git
 * cd /var/www/pubbly_console
 * sudo git submodule update --init --recursive
-> Pasting in PuTTY or similar HTML shells are done with Control - Shift - Insert.
+> Pasting in PuTTY or similar HTML shells is done with Control - Shift - Insert.
 > To check that the clone worked, navigate to (YourDomain)/phpinfo.php or (YourIP)/phpinfo.php. This will show system information for your server. If it does, PHP is working and the console has been cloned. (Console WILL NOT work without further setup)
 
 ### Install PHP plugins 
@@ -54,7 +54,7 @@ If you don't want to buy your own server and install our LAMP CMS yourself, you 
 > This creates a new user account and database on your server, to be used exclusively by PHP scripts running via AJAX calls. This allows you to have multiple projects on the same server without site contamination risks.
 * USE mysql;
 * SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
-> Some SQL queries used for console projects require multiple group by statements, and MySQL has a default "ONLY_FULL_GROUP_BY" set. If you're using other SQL modes for other projects, it is (presently) suffice to remove only the "ONLY_FULL_GROUP_BY" property from the sql_mode string.
+> Some SQL queries used for console projects require multiple _group by_ statements, and MySQL has a default "ONLY_FULL_GROUP_BY" set. If you're using other SQL modes for other projects, it is (presently) sufficient to remove only the "ONLY_FULL_GROUP_BY" property from the sql_mode string.
 * exit;
 * sudo mysql -u root -p pubbly_console < /var/www/sql/FreshBuild.sql
 > This imports the _structure only_ for console servers, which allows Export uploading and management.
@@ -96,9 +96,9 @@ Change permissions on folders accessed via AJAX called php scripts
 
 * cd /var/www/html
 * sudo chmod 755 books series schools map zips deleted* -R
-* sudo chown www-data:ubuntu books series schools map zips deleted* -R
+* sudo chown www-data:$user books series schools map zips deleted* -R
 
-Restart APACHE 2 to update with all custom settings
+Restart Apache 2 to update with all custom settings
 * sudo service apache2 restart
 
 ### FINISH
@@ -109,7 +109,7 @@ This is a "from scratch" build of the console and has no pre-loaded content. To 
 
 ## Adding content
 
-It is entirely possible to create a brand-new program from brand new assets using our tools. This is a large job and will take artists, content creators, and developers. For a full overview of the process, check out [Pubbly](https://github.com/PubblyDevelopment/pubbly) section "Submission from scratch".
+It is entirely possible to create a brand-new program from brand-new assets using our tools. This is a large job and will take artists, content creators, and developers. For a full overview of the process, check out [Pubbly](https://github.com/PubblyDevelopment/pubbly) section "Submission from scratch".
 
 If you would like to instead start with a mirror image of the console TeamCCI used to create Xprize Android applications, checkout [Pubbly](https://github.com/PubblyDevelopment/pubbly) section "Submission from existing: Xprize console duplication"
 
@@ -123,7 +123,7 @@ Once you have a zip, you can upload to two places in the console, Static and Var
 
 ### Adding content: Uploading to Static
 
-A static export is a book that does not need any templating or changes. It is exactly what you see in the Pubbly design tools preview mode.
+A static export is a book that does not need any templating or changes. It is exactly what you see in the Pubbly Design Tools preview mode.
 
 To upload a new static export, 
 
@@ -139,7 +139,7 @@ Static export uploaded. It can be found, viewed, downloaded, re-uploaded and ren
 
 A variable export is a book that needs certain assets to be "swapped out". Variable exports are very useful when creating large amounts of content with a few developers/authors.
 
-First, create a book in the Pubbly design tools with some of the assets set to "variable". Full instructions can be found at [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools), section "Exports: Variable"
+First, create a book in the Pubbly Design Tools with some of the assets set to "variable". Full instructions can be found at [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools), section "Exports: Variable"
 
 Once you have a zip, log into your console
 
@@ -148,7 +148,7 @@ Once you have a zip, log into your console
 * Give your series a name (unique)
 - Optional: Select a folder, or type in a name for a new folder
 * Click "Create new series"
-* Drag drop your Design tools exported Zip 
+* Drag and drop your Design tools exported Zip 
     * (Or click the drop zone and select the zip you wish to upload)
 * Click "Go series"
 
@@ -164,7 +164,7 @@ Once on the swap app, you will see a representation of the "parent" assets in th
 * Give it a name
 * Drag a new asset (image or audio) to the white dropzone in the row you wish to replace
 * It will upload, and the preview to the left will update
-    * If you're swapping an audio file, you should be able to click the large blue button to hear it play)
+    * If you're swapping an audio file, you should be able to click the large blue button to hear it play
 * You can also add placeholder text (if you do not have the asset yet) or Notes (if the asset is wrong)
 * Swapped images will be at the same X-Y center location as the image they replaced.
     * You can toggle between swapping out via "Size" or "Location"
