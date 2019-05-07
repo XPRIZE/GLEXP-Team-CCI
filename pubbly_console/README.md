@@ -92,7 +92,7 @@ Python is not currently critical for console projects, but we may use it in the 
 
 ### Permissions and restarts
 
-Change permissions on folders accessed via AJAX called php scripts
+Change permissions on folders accessed via AJAX called PHP scripts
 
 * cd /var/www/html
 * sudo chmod 755 books series schools map zips deleted* -R
