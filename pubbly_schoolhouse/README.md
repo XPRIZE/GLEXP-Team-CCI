@@ -4,44 +4,44 @@ Cordova project for Swahili and English APK submissions.
 
 ## Getting Started
 
-The product of our Pubbly brand Design tools, Console, and Engine is a web packet. It consists of XML, assets (images, audio files), and a link to Pubbly Engine javascript. The javascript interprets the XML, loads the corresponding assets, and runs an HTML5 browser based interactive experience.
+The product of our Pubbly brand Design tools, Console, and Engine is a web packet. It consists of XML, assets (images, audio files), and a link to Pubbly Engine Javascript. The Javascript interprets the XML, loads the corresponding assets, and runs an HTML5 browser based interactive experience.
 
-Pubbly Packets can be hosted on a server, launched from a local html file, or deployed using Cordova, PhoneGap, Electon, or any number of Android WebView/Chromium based wrappers. Team CCI used Cordova.
+Pubbly Packets can be hosted on a server, launched from a local HTML file, or deployed using Cordova, PhoneGap, Electon, or any number of Android WebView/Chromium based wrappers. Team CCI used Cordova.
 
-So before you go any further, install the cordova CLI. [Installing cordova](https://cordova.apache.org/docs/en/latest/guide/cli/#installing-the-cordova-cli)
+So before you go any further, install the Cordova CLI. [Installing Cordova](https://cordova.apache.org/docs/en/latest/guide/cli/#installing-the-cordova-cli)
 
 ### Adding content
 
-All pubbly related content is a webpage, which can run locally, on a web server, or in a cordova wrapped APK. Each packed can be exported directly from the [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools), created and downloaded from a [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console), or manually added from the English/Swahili content root folders, found inside XprizePrograms folder.
+All Pubbly related content is a webpage, which can run locally, on a web server, or in a Cordova wrapped APK. Each packet can be exported directly from the [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools), created and downloaded from a [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console), or manually added from the English/Swahili content root folders, found inside XprizePrograms folder.
 
 ### Adding content: Cordova boilerplate project
 
-Regardless of the content you wish to add, you will first need to create a new "empty" cordova project. 
+Regardless of the content you wish to add, you will first need to create a new "empty" Cordova project. 
 
 * cordova create myProgram com.myCompany.myProgram myProgram
 * cd myProgram
 * cordova add platform android 
 * Connect an android tablet for USB debugging
     * Buy a USB-C data transfer cable
-    * Connect an android device
-    * Swipe down from top and put your android device in file transfer mode
+    * Connect an Android device
+    * Swipe down from top and put your Android device in file transfer mode
     * In security settings, enable USB debugging
     * In security settings, enable apps from unknown sources.
 > To check that your device is ready, execute "adb devices" for an android device in debug mode.
 * cordova run android
 
-Ensure that the cordova boiler plate project has launched on your device. If it has, extract the downloaded map packet to your cordova web root, and execute a clean build process.
+Ensure that the Cordova boiler plate project has launched on your device. If it has, extract the downloaded map packet to your Cordova web root, and execute a clean build process.
 
 * cordova clean android
 * cordova build android
 
-> Check your device. The APK should have installed and launched. If it didn't, check to make sure your device is in file transfer mode, with ADB debugging enabled, and allows applications from unknowns sources. You can also manually file transfer the generated APK to a tablet. The cordova APK's path is given at the end of the build process in your terminal window. Copy that APK to your tablet, and manually install.
+> Check your device. The APK should have installed and launched. If it didn't, check to make sure your device is in file transfer mode, with ADB debugging enabled, and allows applications from unknowns sources. You can also manually file transfer the generated APK to a tablet. The Cordova APK's path is given at the end of the build process in your terminal window. Copy that APK to your tablet, and manually install.
 
-You now have a working cordova project.
+You now have a working Cordova project.
 
-To add content from existing ready-to-biuld folders, use TeamCCI's English/Swahili web roots, section "Adding content: Xprize web roots"
+To add content from existing ready-to-build folders, use TeamCCI's English/Swahili web roots, section "Adding content: Xprize web roots"
 
-To add new content from a custom pubbly console generated map, see section "Adding content: Console Map packet"
+To add new content from a custom Pubbly console generated map, see section "Adding content: Console Map packet"
 
 To make a brand new submission, with different levels in each subject, or with a different number of subjects entirely, see "Adding content: New program"
 
@@ -50,16 +50,16 @@ To make a brand new submission, with different levels in each subject, or with a
 The following are instructions for how to create a copy of our Xprize submission's APK.
 
 First create your Cordova boiler plate project. You can use whatever program name/owner you want, but TeamCCI used
-"cordova create schoolHouse com.cci.schoolHouse SchoolHouse". For general instructions, see section "Adding content: Cordova boilerplate project". After boilerplate steps, your CLI should generate an APK, although it is just a "this works" page. You can verify this APK on any android tablet.
+"cordova create schoolHouse com.cci.schoolHouse SchoolHouse". For general instructions, see section "Adding content: Cordova boilerplate project". After boilerplate steps, your CLI should generate an APK, although it is just a "this works" page. You can verify this APK on any Android tablet.
 
 * Choose which language you wish to build 
     * For English, use folder "pubbly_schoolhouse/XpirizePrograms/EnglishWebRoot"
     * For Swahili, use folder "pubbly_schoolhouse/XpirizePrograms/SwahiliWebRoot"
-* Empty the contents of your cordova's www folder
+* Empty the contents of your Cordova's www folder
     * rm -r {YourCordovaProject}/www/*
 * Copy the contents of your selected language folder (EnglishWebRoot) into your boilerplate www folder
     * cp pubbly_schoolhouse/XpirizePrograms/EnglishWebRoot/* {YourCordovaProject}/www/
-Your cordova project should look something like this
+Your Cordova project should look something like this
 
 <pre>
 .  
@@ -75,7 +75,7 @@ Your cordova project should look something like this
 |       └── ...
 </pre>
 
-And the following plugins. [Adding cordova plugins](https://cordova.apache.org/docs/en/3.0.0/guide/cli/index.html#add-features)
+And the following plugins. [Adding Cordova plugins](https://cordova.apache.org/docs/en/3.0.0/guide/cli/index.html#add-features)
 
 * cordova-plugin-autostart
 * cordova-plugin-battery-status
@@ -94,8 +94,8 @@ And the following plugins. [Adding cordova plugins](https://cordova.apache.org/d
 For locked full screen (Kiosk mode), install
 
 * com.oddmouse.plugins.locktask
-
-Follow his github instructions for how to create an admin receiver java class. [Instructions](https://github.com/oddmouse/cordova-plugin-locktask). Name said java receiver class "MyAdmin"
+  
+(Optional) Follow this GitHub instructions for how to create an admin receiver Java class. [Instructions](https://github.com/oddmouse/cordova-plugin-locktask). Name said Java receiver class as "MyAdmin"
 
 Add splash screen of your choosing to the config.xml
 
@@ -117,12 +117,12 @@ Because each language package is rather large, a simple "cordova build" command 
 
 ### Adding content: Console Map packet
 
-* Create pubbly console - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Getting started"
+* Create Pubbly console - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Getting started"
 * Create map nodes from Design Tools - [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools) section "Exports: Maps"
 * Assemble map on Console - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Assembling content: Mapping"
 * Download map packet - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Creating packets: Mapped Exports"
 
-Create a new project and add the android platform if you haven't already
+Create a new project and add the Android platform if you haven't already
 
 If you ONLY want your application to be a console map packet, you're in luck. First, create and download a map from your console server. You can also build the Epic Quest map, a piece of our final Xprize submission, as it's own stand alone program.
 
@@ -142,7 +142,7 @@ If you ONLY want your application to be a console map packet, you're in luck. Fi
 |       └── ...
 </pre>
 
-Your cordova project is now _that map_. To build regularly sized maps, see section "Building normal APK". For larger maps (500mb+), see section "Building large APK".
+Your Cordova project is now _that map_. To build regularly sized maps, see section "Building normal APK". For larger maps (500mb+), see section "Building large APK".
 
 ### Adding content: New program
 
@@ -156,9 +156,9 @@ If you liked our front end, the structure of it, the look and feel, it might be 
 
 If you're dead set on plugging in newly structured content into the existing SchoolHouse front end, if you're absolutely sure that's what you want to do, roll up your sleeves.
 
-Original, the structure of the School House cordova project was to be determined from the Console itself. Each school was to have a grid based system, and each subject was to exist at a certain point in the grid. However, as the deadline approached, too many small changes were required, and so the application was half automated and half manually tweaked. The only way to add new content with a different structure (different NUMBER of levels/lessons, differently named/organized books in the bookshelf) is to use the existing English/Swahili web roots as a "jumping off point", i.e., through manual modification of the FS, the XML and even in some parts the JS.
+Original, the structure of the SchoolHouse Cordova project was to be determined from the Console itself. Each school was to have a grid based system, and each subject was to exist at a certain point in the grid. However, as the deadline approached, too many small changes were required, and so the application was half automated and half manually tweaked. The only way to add new content with a different structure (different NUMBER of levels/lessons, differently named/organized books in the bookshelf) is to use the existing English/Swahili web roots as a "jumping off point", i.e., through manual modification of the FS, the XML and even in some parts the JS.
 
-The School House application structure was developed specifically with our Xprize program in mind. There are a few limited ways to "tweak" it to accommodate new levels, new numbers of units in each level, new subjects, new subject placements in the UI, but if you're doing anything more complicated than not-very-complicated, it might be advisable to treat all Console generated packets as "content", and write your own front end to house it.
+The SchoolHouse application structure was developed specifically with our Xprize program in mind. There are a few limited ways to "tweak" it to accommodate new levels, new numbers of units in each level, new subjects, new subject placements in the UI, but if you're doing anything more complicated than not-very-complicated, it might be advisable to treat all Console generated packets as "content", and write your own front end to house it.
 
 Since I can't know for sure what modified school structure you're attempting to squeeze in, these directions will be less steps and more guidelines.
 
@@ -166,23 +166,23 @@ The "school/Math" subject has a Subject/Level/Unit folder structure, as does the
 
 If your school needs similarly structured level based subjects, you can make a new school.xml file to reflect the content in your file system. If you want subjects to be default "locked" or "unlocked", edit those values in the XML to fit. Any units not listed in the XML file will not be displayed in the subject specific page. The "row" and "col" values in the two subjects also effect their icon placement on screen.
 
-Our xprize submission has three other areas of content, two of which are listed in the xml. Tutorials (which are not subject or level related) and Books (which acted as a free form bookshelf). Both tutorials and books have hardcoded icon placement. The tutorials are at the top left, in a custom expand/collapse widget. And the bookshelf is behind the icon in the top right, which launches it's own non-tracked page (books.html).
+Our Xprize submission has three other areas of content, two of which are listed in the xml. Tutorials (which are not subject or level related) and Books (which acted as a free form bookshelf). Both tutorials and books have hardcoded icon placement. The tutorials are at the top left, in a custom expand/collapse widget. And the bookshelf is behind the icon in the top right, which launches it's own non-tracked page (books.html).
 
 If your school wants to keep these two "floating" content areas intact, feel free to replace their school.xml entries with your own.
 
-The final "floating" subject, added in the final update of our xprize submission, was the "Epic Quest". Epic Quest was a stand alone map packet. Unlike the Math and Reading subjects, it is not made up of Levels and Units that need to be visited sequentially, but instead interconnected map nodes, which all smartly link to each other. As such, it's representation in the school.xml is quite superficial. The regular functionality of clicking a subject is to refresh to "subject.html?NAME_OF_SUBJECT". However, the Epic Quest's click functionality was shamelessly hard coded in file js/viewSchool.js, line 382, to refresh to "school/Epic Quest/index.html". 
+The final "floating" subject, added in the final update of our Xprize submission, was the "Epic Quest". Epic Quest was a stand alone map packet. Unlike the Math and Reading subjects, it is not made up of Levels and Units that need to be visited sequentially, but instead interconnected map nodes, which all smartly link to each other. As such, it's representation in the school.xml is quite superficial. The regular functionality of clicking a subject is to refresh to "subject.html?NAME_OF_SUBJECT". However, the Epic Quest's click functionality was shamelessly hard coded in file js/viewSchool.js, line 382, to refresh to "school/Epic Quest/index.html". 
 
 In retrospect, it would have been much easier to treat the APK as "structure only", and have each "pubbly package" download after the APK was installed on a tablet. Originally, we thought the Xprize end product, the deliverable, was to be _just_ an apk, and we therefore needed everything to be packaged together (for mass install without internet). Once we found out it was to be delivered as system image files, and once we figured out how to create system image files directly from a tablet, it was too late to restructure, and we just "made it work".
 
 The process of "making it work" involved batch conversion from wav to ogg, and batch resizing of all images based on their XML height and width. It also involved moving all duplicate images (images in multiple packet asset folders (with different names), but essentially the same image 100 times over) to a shared asset folder.
 
-... The way I did that was to write up a temporary python script that renamed all images to an md5 hash of their image data, and copied (sometimes replaced) them into a shared asset folder. The script requires you to loop through XML and update the image name with the generated hash, then manually edit the javascript to look for image sources in a sharedAssets folder on load fail. This script actually worked, but due to multiple sequential build processes, my laptop overheated and died. The web root was saved, but the script was not, so you'll have to recreate.
+... The way I did that was to write up a temporary Python script that renamed all images to an md5 hash of their image data, and copied (sometimes replaced) them into a shared asset folder. The script requires you to loop through XML and update the image name with the generated hash, then manually edit the Javascript to look for image sources in a sharedAssets folder on load fail. This script actually worked, but due to multiple sequential build processes, my laptop overheated and died. The web root was saved, but the script was not, so you'll have to recreate.
 
 ## Building
 
 Once you have either added our Xprize content folders, or created a new program of your own, it's time to build your project as an APK.
 
-It should be noted, cordova also builds to iOS, kindle, and your mothers toaster. We have not tested any of these options, however our Pubbly Engine does work on Safari on apple devices when hosted on remote servers, so it _may work just fine_, no promises.
+It should be noted, Cordova also builds to iOS, kindle, and your mothers toaster. We have not tested any of these options, however our Pubbly Engine does work on Safari on apple devices when hosted on remote servers, so it _may work just fine_, no promises.
 
 ### Building: Normal APK
 
@@ -203,17 +203,17 @@ If your cordova web root is excessively large, see section "Building large APK" 
 
 ### Building: Large APK
 
-Cordova was not designed with larger APKs in mind. Our original Xprize submission was under 1GB, but it quickly grew enormous. While it is possible to build APKs of +4GB size with cordova, it does take patience, luck, a computer with at least 8GB of ram, and a lot of time. 
+Cordova was not designed with larger APKs in mind. Our original Xprize submission was under 1GB, but it quickly grew enormous. While it is possible to build APKs of +4GB size with cordova, it does take patience, luck, a computer with at least 8GB of RAM and a lot of time. 
 
-You can make small APKs with the pubbly released tools. For instructions, see [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Creating packets: Mapped Exports".
+You can make small APKs with the Pubbly released tools. For instructions, see [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Creating packets: Mapped Exports".
 
-> clean the project
+> Clean the project
 * cordova clean android
-> Build from powershell
+> Build from Powershell
 * cordova build android --verbose
-> It WILL fail, after about 30 minutes per gb. Build again
+> It will fail, after about 30 minutes per GB. Build again
 * cordova build android --verbose
-> Keep building from powershell until the failure takes less than 5 minutes.
+> Keep building from Powershell until the failure takes less than 5 minutes.
 > Run cmd.exe as admin, cd to the project, increase java heap size (to at least twice the size of the schoolHouse/www folder)
 * SET _JAVA_OPTIONS="-Xmx4000m"
 > Build again. 
@@ -238,7 +238,7 @@ First, flash your desired Android operating system. Our submission was only test
 * Find desired Pixel C OS from [developers.google.com](https://developers.google.com/android/images)
 * Download and unzip images
 * Install ADB and FastBoot on your machine
-* Flash stock Android 7 roms
+* Flash stock Android 7 ROM
 > If fastboot is too old, you can manually extract and flash each image to it's partition with
     * sudo fastboot flash system system.img
 > Reboot the device with
@@ -260,7 +260,7 @@ First, flash your desired Android operating system. Our submission was only test
 * Tap Google search bar at top of homescreen. "Close" Help build a better keyboard prompt.
 * Go to 6 dots (bottom homescreen), and "Settings". From within settings...
 * Screen lock -> None
-> Xprize field tests posted regular analytic data to a local network FTP, so we set up regular wifi autoconnected based on their specific credentials.
+> Xprize field tests posted regular analytic data to a local network FTP, so we set up regular Wifi autoconnected based on their specific credentials.
 * Wifi -> Add Network -> Manually fill out WE WORK Wifi Credentials
 
     * SSID: XPRIZE
@@ -279,7 +279,7 @@ First, flash your desired Android operating system. Our submission was only test
 #### Installing APK: ACTUALLY installing APK
 
 * Connect Pixel C to computer
-> IF computer does not FIND Pixel C, download the entire Android studio to reinstall some USB drivers.
+> If computer does not find Pixel C, download the entire Android studio to reinstall some USB drivers.
 * Swipe down from top, change android "charge this device" to "transfer files"
 * Allow USB debugging
 * Transfer APK from computer to device
@@ -294,11 +294,11 @@ Because the application is teaching children who don't know how to read yet, it 
 
 * Launch SchoolHouse from homescreen
 * A prompt will say "Screen is pinned...", select "No thanks"
-* In app, take a User profile pic and accept "Allow access to photos, files..." prompt
+* In app, take a user profile pic and accept "Allow access to photos, files..." prompt
 * Accept "Allow Camera to access device location" prompt
 * Go to book shelf, middle book, Kwa Nini Viboko... (hippo book) or another book with a Record target
 * Press record button and accept the "Allow SchoolHouse to record" prompt
-* Use the Square button to close the app
+* Use the square button to close the app
 > All permissions have been accepted for new users.
 
 #### Installing APK: Delete data you created to dismiss permissions.
