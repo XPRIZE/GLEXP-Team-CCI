@@ -8,9 +8,9 @@ If you don't want to buy your own server and install our LAMP CMS yourself, you 
 
 ### Install Apache 2.0, MySQL, and PHP 7+
 
-* Buy or rent an Ubuntu server (I use AWS, but have previously self-hosted).
-* (Optional) Associate a domain or alias for easy group usage.
-* SSH into the server (I prefer PuTTY).
+* Buy or rent an Ubuntu server (I use AWS, but have previously self-hosted)
+* (Optional) Associate a domain or alias for easy group usage
+* SSH into the server (I prefer PuTTY)
 * sudo apt-get upgrade
 * sudo apt-get update
 * sudo apt install tasksel
@@ -209,19 +209,19 @@ Add content to your map from either of the three export types (Stitched, Variabl
 * Select the type of export you want
 * Select the export from the hierarchy (Stitched: School/Subject/Level), (Variable: Folder/Series), (Static: Folder)
 * Double click to add to your map
-* Page will refresh and a new "node" will be visible on the main area of your map.
-* Move the export around the grey area to change its location.
+* Page will refresh and a new "node" will be visible on the main area of your map
+* Move the export around the grey area to change its location
 
 Upload a cover image to this node, so you know what it is.
 
 * Select the node from the grey map area (will have a red border once selected)
 * The bottom left node will update with the selected node name
 * Click the cover (currently empty) and select a png on your desktop
-* The page will refresh with new "cover image" in place.
+* The page will refresh with new "cover image" in place
 
 Upload, add and position multiple nodes to your map. Once your map is loaded with content, determine which links go to which nodes
 
-* Click a node on the map.
+* Click a node on the map
 * All links with To Be Determined targets will load into the middle dropdown
 * Select the target you wish to "determine"
 * Shift select another node on the map
