@@ -95,7 +95,7 @@ For locked full screen (Kiosk mode), install
 
 * com.oddmouse.plugins.locktask
   
-(Optional) Follow this GitHub instructions for how to create an admin receiver Java class. [Instructions](https://github.com/oddmouse/cordova-plugin-locktask). Name said Java receiver class as "MyAdmin"
+(Optional) Follow [this](https://github.com/oddmouse/cordova-plugin-locktask) instructions on how to create an admin receiver Java class. Name said Java receiver class as "MyAdmin"
 
 Add splash screen of your choosing to the config.xml
 
