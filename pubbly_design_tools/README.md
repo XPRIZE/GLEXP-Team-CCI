@@ -29,9 +29,9 @@ There are four main types of "Exports".
 * Stitched exports: Created from above two exports on console CMS. Collection of pages from number of different sources
 * Map exports: Multiple interconnected exports tied together with URL links, downloaded as a fully connected package (for APK, offline, or serverside deployment).
 
-Every export has as associated XML file. If you plug that XML file into the Pubbly Engine, it can run online, offline, or wrapped in a cordova created APK. Instructions for how to do that are at [Pubbly Engine](https://github.com/PubblyDevelopment/pubbly_engine) section building from xml.
+Every export has as associated XML file. If you plug that XML file into the Pubbly Engine, it can run online, offline, or wrapped in a cordova created APK. Instructions for how to do that are at [Pubbly Engine](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_engine) section building from xml.
 
-For a more project friendly approach, use a pubbly console. To build a console from scratch, follow instructions at [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Getting Started". This will allow you complete control over the environment.
+For a more project friendly approach, use a pubbly console. To build a console from scratch, follow instructions at [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console) section "Getting Started". This will allow you complete control over the environment.
 
 To "try out" an existing console, register on [sandbox.pubbly.com](sandbox.pubbly.com). It is hosted by us, and although you can upload, all content is wiped on a weekly basis.
 
@@ -46,7 +46,7 @@ Static exports are books that require no changes from their preview mode. What y
 * Select "Static Exports"
 * Create a new static export, and upload your exported zip.
 
-For instructions on Creating and Managing Static exports with the console, see [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Adding content: Uploading to Static"
+For instructions on Creating and Managing Static exports with the console, see [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console) section "Adding content: Uploading to Static"
 
 ### Exports: Variable
 
@@ -62,7 +62,7 @@ Variable exports are books that need to be templated and mass produced. As an ex
 * Create children based off that variable export
 * Swap assets to create a series of templated content.
 
-For instructions on Creating and Managing Variable exports with the console, see [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Adding content: Uploading to Variable"
+For instructions on Creating and Managing Variable exports with the console, see [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console) section "Adding content: Uploading to Variable"
 
 ### Exports: Stitched
 
@@ -70,7 +70,7 @@ Stitched exports are frankenstein books, created from multiple different pages o
 
 Stitched exports are not _created_ in the design tools. The design tools _can_ create the Static and Variable exports which eventually get sourced to Stitched exports on the console.
 
-For instructions on how to assemble a stitch with the console, see [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Assembling content: Stitching"
+For instructions on how to assemble a stitch with the console, see [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console) section "Assembling content: Stitching"
 
 ### Exports: Maps
 
@@ -91,4 +91,4 @@ Maps are multiple different exports (Static, Variable, or Stitched) that link to
 * Upload your project to a pubbly console
     * You can upload this project as a Static or Variable, and you may also create a Stitched export from it.
 
-For instructions on how to assemble a map from the console, see [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Assembling content: Mapping"
+For instructions on how to assemble a map from the console, see [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console) section "Assembling content: Mapping"
