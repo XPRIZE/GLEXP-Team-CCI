@@ -4,7 +4,7 @@ Cordova project for Swahili and English APK submissions.
 
 ## Getting Started
 
-The product of our Pubbly brand Design tools, Console, and Engine is a web packet. It consists of XML, assets (images, audio files), and a link to Pubbly Engine JavaScript. The JavaScript interprets the XML, loads the corresponding assets, and runs an HTML5 browser based interactive experience.
+The product of our Pubbly brand Design Tools, Console, and Engine is a web packet. It consists of XML, assets (images, audio files), and a link to Pubbly Engine JavaScript. The JavaScript interprets the XML, loads the corresponding assets, and runs an HTML5 browser based interactive experience.
 
 Pubbly Packets can be hosted on a server, launched from a local HTML file, or deployed using Cordova, PhoneGap, Electon, or any number of Android WebView/Chromium based wrappers. Team CCI used Cordova.
 
@@ -39,15 +39,15 @@ Ensure that the Cordova boiler plate project has launched on your device. If it 
 
 You now have a working Cordova project.
 
-To add content from existing ready-to-build folders, use TeamCCI's English/Swahili web roots, section "Adding content: Xprize web roots"
+To add content from existing ready-to-build folders, use TeamCCI's English/Swahili web roots, section "Adding content: XPRIZE web roots"
 
-To add new content from a custom Pubbly console generated map, see section "Adding content: Console Map packet"
+To add new content from a custom Pubbly Console generated map, see section "Adding content: Console Map packet"
 
 To make a brand new submission, with different levels in each subject, or with a different number of subjects entirely, see "Adding content: New program"
 
-### Adding content: Xprize web roots
+### Adding content: XPRIZE web roots
 
-The following are instructions for how to create a copy of our Xprize submission's APK.
+The following are instructions for how to create a copy of our XPRIZE submission's APK.
 
 First create your Cordova boiler plate project. You can use whatever program name/owner you want, but TeamCCI used
 "cordova create schoolHouse com.cci.schoolHouse SchoolHouse". For general instructions, see section "Adding content: Cordova boilerplate project". After boilerplate steps, your CLI should generate an APK, although it is just a "this works" page. You can verify this APK on any Android tablet.
@@ -117,14 +117,14 @@ Because each language package is rather large, a simple "cordova build" command 
 
 ### Adding content: Console Map packet
 
-* Create Pubbly console - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Getting started"
+* Create Pubbly Console - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Getting started"
 * Create map nodes from Design Tools - [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools) section "Exports: Maps"
 * Assemble map on Console - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Assembling content: Mapping"
 * Download map packet - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Creating packets: Mapped Exports"
 
 Create a new project and add the Android platform if you haven't already
 
-If you ONLY want your application to be a console map packet, you're in luck. First, create and download a map from your console server. You can also build the Epic Quest map, a piece of our final Xprize submission, as it's own stand alone program.
+If you ONLY want your application to be a console map packet, you're in luck. First, create and download a map from your console server. You can also build the Epic Quest map, a piece of our final XPRIZE submission, as it's own stand alone program.
 
 * Find the map packet previously downloaded in your downloads folder
 * Create a cordova boilerplate project (section "Adding content: Cordova boilerplate project")
@@ -158,7 +158,7 @@ If you're dead set on plugging in newly structured content into the existing Sch
 
 Previously, the structure of the SchoolHouse Cordova project had to be determined from the Console itself. Each school was to have a grid based system, and each subject was to exist at a certain point in the grid. However, as the deadline approached, too many small changes were required, and so the application was half automated and half manually tweaked. The only way to add new content with a different structure (different NUMBER of levels/lessons, differently named/organized books in the bookshelf) is to use the existing English/Swahili web roots as a "jumping off point", i.e., through manual modification of the FS, the XML and even in some parts the JS.
 
-The SchoolHouse application structure was developed specifically with our Xprize program in mind. There are a few limited ways to "tweak" it to accommodate new levels, new numbers of units in each level, new subjects, new subject placements in the UI, but if you're doing anything more complicated than not-very-complicated, it might be advisable to treat all Console generated packets as "content", and write your own front end to house it.
+The SchoolHouse application structure was developed specifically with our XPRIZE program in mind. There are a few limited ways to "tweak" it to accommodate new levels, new numbers of units in each level, new subjects, new subject placements in the UI, but if you're doing anything more complicated than not-very-complicated, it might be advisable to treat all Console generated packets as "content", and write your own front end to house it.
 
 Since I can't know for sure what modified school structure you're attempting to squeeze in, these directions will be less steps and more guidelines.
 
@@ -166,13 +166,13 @@ The "school/Math" subject has a Subject/Level/Unit folder structure, as does the
 
 If your school needs similarly structured level based subjects, you can make a new school.xml file to reflect the content in your file system. If you want subjects to be default "locked" or "unlocked", edit those values in the XML to fit. Any units not listed in the XML file will not be displayed in the subject specific page. The "row" and "col" values in the two subjects also effect their icon placement on screen.
 
-Our Xprize submission has three other areas of content, two of which are listed in the xml. Tutorials (which are not subject or level related) and Books (which acted as a free form bookshelf). Both tutorials and books have hardcoded icon placement. The tutorials are at the top left, in a custom expand/collapse widget. And the bookshelf is behind the icon in the top right, which launches it's own non-tracked page (books.html).
+Our XPRIZE submission has three other areas of content, two of which are listed in the xml. Tutorials (which are not subject or level related) and Books (which acted as a free form bookshelf). Both tutorials and books have hardcoded icon placement. The tutorials are at the top left, in a custom expand/collapse widget. And the bookshelf is behind the icon in the top right, which launches it's own non-tracked page (books.html).
 
 If your school wants to keep these two "floating" content areas intact, feel free to replace their school.xml entries with your own.
 
-The final "floating" subject, added in the final update of our Xprize submission, was the "Epic Quest". Epic Quest was a stand alone map packet. Unlike the Math and Reading subjects, it is not made up of Levels and Units that need to be visited sequentially, but instead interconnected map nodes, which all smartly link to each other. As such, it's representation in the school.xml is quite superficial. The regular functionality of clicking a subject is to refresh to "subject.html?NAME_OF_SUBJECT". However, the Epic Quest's click functionality was shamelessly hard coded in file js/viewSchool.js, line 382, to refresh to "school/Epic Quest/index.html". 
+The final "floating" subject, added in the final update of our XPRIZE submission, was the "Epic Quest". Epic Quest was a stand alone map packet. Unlike the Math and Reading subjects, it is not made up of Levels and Units that need to be visited sequentially, but instead interconnected map nodes, which all smartly link to each other. As such, it's representation in the school.xml is quite superficial. The regular functionality of clicking a subject is to refresh to "subject.html?NAME_OF_SUBJECT". However, the Epic Quest's click functionality was shamelessly hard coded in file js/viewSchool.js, line 382, to refresh to "school/Epic Quest/index.html". 
 
-In retrospect, it would have been much easier to treat the APK as "structure only", and have each "pubbly package" download after the APK was installed on a tablet. Originally, we thought the Xprize end product, the deliverable, was to be _just_ an apk, and we therefore needed everything to be packaged together (for mass install without internet). Once we found out it was to be delivered as system image files, and once we figured out how to create system image files directly from a tablet, it was too late to restructure, and we just "made it work".
+In retrospect, it would have been much easier to treat the APK as "structure only", and have each "pubbly package" download after the APK was installed on a tablet. Originally, we thought the XPRIZE end product, the deliverable, was to be _just_ an apk, and we therefore needed everything to be packaged together (for mass install without internet). Once we found out it was to be delivered as system image files, and once we figured out how to create system image files directly from a tablet, it was too late to restructure, and we just "made it work".
 
 The process of "making it work" involved batch conversion from wav to ogg, and batch resizing of all images based on their XML height and width. It also involved moving all duplicate images (images in multiple packet asset folders (with different names), but essentially the same image 100 times over) to a shared asset folder.
 
@@ -180,7 +180,7 @@ The process of "making it work" involved batch conversion from wav to ogg, and b
 
 ## Building
 
-Once you have either added our Xprize content folders, or created a new program of your own, it's time to build your project as an APK.
+Once you have either added our XPRIZE content folders, or created a new program of your own, it's time to build your project as an APK.
 
 It should be noted, Cordova also builds to iOS, kindle, and your mothers toaster. We have not tested any of these options, however our Pubbly Engine does work on Safari on apple devices when hosted on remote servers, so it _may work just fine_, no promises.
 
@@ -203,7 +203,7 @@ If your cordova web root is excessively large, see section "Building large APK" 
 
 ### Building: Large APK
 
-Cordova was not designed with larger APKs in mind. Our original Xprize submission was under 1GB, but it quickly grew enormous. While it is possible to build APKs of +4GB size with cordova, it does take patience, luck, a computer with at least 8GB of RAM and a lot of time. 
+Cordova was not designed with larger APKs in mind. Our original XPRIZE submission was under 1GB, but it quickly grew enormous. While it is possible to build APKs of +4GB size with cordova, it does take patience, luck, a computer with at least 8GB of RAM and a lot of time. 
 
 You can make small APKs with the Pubbly released tools. For instructions, see [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Creating packets: Mapped Exports".
 
@@ -260,7 +260,7 @@ First, flash your desired Android operating system. Our submission was only test
 * Tap Google search bar at top of homescreen. "Close" Help build a better keyboard prompt.
 * Go to 6 dots (bottom homescreen), and "Settings". From within settings...
 * Screen lock -> None
-> Xprize field tests posted regular analytic data to a local network FTP, so we set up regular Wifi autoconnected based on their specific credentials.
+> XPRIZE field tests posted regular analytic data to a local network FTP, so we set up regular Wifi autoconnected based on their specific credentials.
 * Wifi -> Add Network -> Manually fill out WE WORK Wifi Credentials
 
     * SSID: XPRIZE
@@ -388,8 +388,8 @@ The tablet is now FULLY installed, and you can create TWRP system images
     * Mount TWRP to local
     * Manually move backup from SD card to desired location
 
-That folder of images is the entire Xprize submission.
+That folder of images is the entire XPRIZE submission.
 
 ## Deploying
 
-The deploy process is equally complicated, and we wrote both Bash and Shell scripts to automate the headache. For more detailed instructions, checkout [Pubbly Submission Installation](https://github.com/PubblyDevelopment/pubbly_submission_installation)
+The deploy process is equally complicated, and we wrote both Bash and Shell scripts to automate the headache. For more detailed instructions, check out [Pubbly Submission Installation](https://github.com/PubblyDevelopment/pubbly_submission_installation)
