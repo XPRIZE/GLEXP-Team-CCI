@@ -1,5 +1,7 @@
 # Pubbly SchoolHouse
 
+Last updated: May 9, 2019
+
 Cordova project for Swahili and English APK submissions.
 
 ## Getting Started
@@ -279,7 +281,7 @@ First, flash your desired Android operating system. Our submission was only test
 #### Installing APK: ACTUALLY installing APK
 
 * Connect Pixel C to computer
-> If computer does not find Pixel C, download the entire Android studio to reinstall some USB drivers.
+> If computer does not find Pixel C, download the entire Android Studio to reinstall some USB drivers.
 * Swipe down from top, change android "charge this device" to "transfer files"
 * Allow USB debugging
 * Transfer APK from computer to device
