@@ -1,6 +1,8 @@
 # Pubbly Console
 
-The Pubbly console is what TeamCCI has developed in-house and used to create the content for their finalist submission in the Global Learning Xprize
+Last updated: May 9, 2019
+
+The Pubbly console is what TeamCCI developed in-house and used to create the content for their finalist submission in the Global Learning XPRIZE
 
 ## Getting started
 
@@ -40,7 +42,7 @@ If you don't want to buy your own server and install our LAMP CMS yourself, you 
 * find upload_max_filesize
 * change to "200M"
 * Write and quite
-> The Pubbly Design Tools exports used in the Xprize were usually large in size, about 5MB per page.
+> The Pubbly Design Tools exports used in the XPRIZE were usually large in size, about 5MB per page.
 
 ### Import our database structure, using your own password (PutPasswordHere)
 
@@ -105,21 +107,21 @@ Restart Apache 2 to update with all custom settings
 
 Your server is now ready. I strongly advise that you change the root password to something secure, that you disallow the following of system indexes and other smart software people things.
 
-This is a "from scratch" build of the console and has no pre-loaded content. To create and upload your own new content, see section "Adding content". You can also create a mirror image of TeamCCI's xprize console. For full instructions, see [Pubbly](https://github.com/PubblyDevelopment/pubbly) section "Submission from existing content". For convenience sake, I have also included a copy of the server specific "Adding content: Preloading Xprize content" steps below.
+This is a "from scratch" build of the console and has no pre-loaded content. To create and upload your own new content, see section "Adding content". You can also create a mirror image of TeamCCI's XPRIZE console. For full instructions, see [Pubbly](https://github.com/PubblyDevelopment/pubbly) section "Submission from existing content". For convenience sake, I have also included a copy of the server specific "Adding content: Preloading Xprize content" steps below.
 
 ## Adding content
 
-It is entirely possible to create a brand-new program from brand-new assets using our tools. This is a large job and will take artists, content creators, and developers. For a full overview of the process, check out [Pubbly](https://github.com/PubblyDevelopment/pubbly) section "Submission from scratch".
+It is entirely possible to create a brand new program from brand new assets using our tools. This is a large job and will take artists, content creators, and developers. For a full overview of the process, check out [Pubbly](https://github.com/PubblyDevelopment/pubbly) section "Submission from scratch".
 
-If you would like to instead start with a mirror image of the console TeamCCI used to create Xprize Android applications, checkout [Pubbly](https://github.com/PubblyDevelopment/pubbly) section "Submission from existing: Xprize console duplication"
+If you would like to instead start with a mirror image of the console TeamCCI used to create XPRIZE Android applications, check out [Pubbly](https://github.com/PubblyDevelopment/pubbly) section "Submission from existing: Xprize console duplication"
 
 You can upload new content to either scratch consoles or Xprize dupe console in the same way.
 
 ### Adding content: Design Tools Export
 
-To upload content to the Pubbly console, first author and export a zip from the design tools. Full instructions can be found at [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools) section "Authoring books" and "Exports"
+To upload content to the Pubbly console, first author and export a zip from the Design Tools. Full instructions can be found at [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools) section "Authoring books" and "Exports"
 
-Once you have a zip, you can upload to two places in the console, Static and Variable exports. A list of all Design Tools exported zips used to create our Xprize Console can be found at [Pubbly Xprize Original Exports](https://github.com/PubblyDevelopment/pubbly_xprize_original_exports)
+Once you have a zip, you can upload to two places in the console, Static and Variable exports. A list of all zips exported from the Design Tools that was used to create our XPRIZE Console can be found at [Pubbly Xprize Original Exports](https://github.com/PubblyDevelopment/pubbly_xprize_original_exports)
 
 ### Adding content: Uploading to Static
 
@@ -148,7 +150,7 @@ Once you have a zip, log into your console
 * Give your series a name (unique)
 - Optional: Select a folder, or type in a name for a new folder
 * Click "Create new series"
-* Drag and drop your Design tools exported Zip 
+* Drag and drop your Design Tools exported Zip
     * (Or click the drop zone and select the zip you wish to upload)
 * Click "Go series"
 
@@ -174,7 +176,7 @@ Once on the swap app, you will see a representation of the "parent" assets in th
 
 You can preview the new child book (with swapped assets) with the "View" button. You can set its progress with the "progress" dropdown. And once finished, you can lock edits with the "lock" button (although anyone else can unlock).
 
-Any children created and swaps done will persist (when able), even if you re-upload a modified Variable Export. This allows you to fix small issues with the Export within the design tools, without erasing swaps.
+Any children created and swaps done will persist (when able), even if you re-upload a modified Variable Export. This allows you to fix small issues with the Export within the Design Tools, without erasing swaps.
 
 ## Assembling content
 
@@ -184,7 +186,7 @@ The Pubbly console can also create new content from existing uploads. "Stitched 
 
 Stitched exports are held in a preset 4-tier hierarchy. The actual export itself is a "Unit". Multiple "Units" make up a "Level", multiple "Levels" make up a "Subject", and multiple "Subjects" make up a "School".
 
-> The reason for the 4-tier structure was that our original Xprize application was going to be a single "School", made up of 2 subjects (Reading/Math), each with 4 Levels and with 10-25 Units. However, as the project progressed, we quickly added more "throw in" areas to the application, such as a bookshelf, a set of "how to use" tutorials, and eventually, a mapped-out adventure game. Although the structure is no longer a perfect fit, content creators have mentioned it is still a helpful organizational tool, so we've kept it in.
+> The reason for the 4-tier structure was that our original XPRIZE application was going to be a single "School", made up of 2 subjects (Reading/Math), each with 4 Levels and with 10-25 Units. However, as the project progressed, we quickly added more "throw in" areas to the application, such as a bookshelf, a set of "how to use" tutorials, and eventually, a mapped-out adventure game. Although the structure is no longer a perfect fit, content creators have mentioned it is still a helpful organizational tool, so we've kept it in.
 
 First, create a new School, Subject, Level and Unit with the "New" buttons in each tier's row. Select the unit (either with the drop down, or from the list on the right), and click "Edit". This will take you to another webpage, where you can assemble.
 
@@ -194,7 +196,7 @@ Select export from your workbench, and you will see a list of pages on the "Work
 
 If any of the sourced pages are updated, the unit will show as "OUTDATED" on the previous page. You can select outdated units and "Update and View", which will re-stitch with all new source pages.
 
-> This proved specifically handy for commonly referenced Static pages. In the Xprize program, many of the units ended with a celebratory screen, full of cheers and stars. That screen was a single page, sourced by almost every unit. If any updates needed to be made to the celebratory end page, the source Static Export could be downloaded, modified, and re-uploaded. Reliant units could be updated in mass (with the Update all unit's button).
+> This proved specifically handy for commonly referenced Static pages. In the XPRIZE program, many of the units ended with a celebratory screen, full of cheers and stars. That screen was a single page, sourced by almost every unit. If any updates needed to be made to the celebratory end page, the source Static Export could be downloaded, modified, and re-uploaded. Reliant units could be updated in mass (with the Update all unit's button).
 
 ### Assembling content: Mapping
 
