@@ -1,6 +1,6 @@
 # Pubbly SchoolHouse
 
-Last updated: May 9, 2019
+Last updated: May 10, 2019
 
 Cordova project for Swahili and English APK submissions.
 
@@ -14,7 +14,7 @@ So before you go any further, install the Cordova CLI. [Installing Cordova](http
 
 ### Adding content
 
-All Pubbly related content is a webpage, which can run locally, on a web server, or in a Cordova wrapped APK. Each packet can be exported directly from the [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools), created and downloaded from a [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console), or manually added from the English/Swahili content root folders, found inside XprizePrograms folder.
+All Pubbly related content is a webpage, which can run locally, on a web server, or in a Cordova wrapped APK. Each packet can be exported directly from the [Pubbly Design Tools](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_design_tools), created and downloaded from a [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console), or manually added from the English/Swahili content root folders, found inside XprizePrograms folder.
 
 ### Adding content: Cordova boilerplate project
 
@@ -119,10 +119,10 @@ Because each language package is rather large, a simple "cordova build" command 
 
 ### Adding content: Console Map packet
 
-* Create Pubbly Console - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Getting started"
-* Create map nodes from Design Tools - [Pubbly Design Tools](https://github.com/PubblyDevelopment/pubbly_design_tools) section "Exports: Maps"
-* Assemble map on Console - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Assembling content: Mapping"
-* Download map packet - [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Creating packets: Mapped Exports"
+* Create Pubbly Console - [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console) section "Getting started"
+* Create map nodes from Design Tools - [Pubbly Design Tools](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_design_tools) section "Exports: Maps"
+* Assemble map on Console - [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console) section "Assembling content: Mapping"
+* Download map packet - [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console) section "Creating packets: Mapped Exports"
 
 Create a new project and add the Android platform if you haven't already
 
@@ -207,7 +207,7 @@ If your cordova web root is excessively large, see section "Building large APK" 
 
 Cordova was not designed with larger APKs in mind. Our original XPRIZE submission was under 1GB, but it quickly grew enormous. While it is possible to build APKs of +4GB size with cordova, it does take patience, luck, a computer with at least 8GB of RAM and a lot of time. 
 
-You can make small APKs with the Pubbly released tools. For instructions, see [Pubbly Console](https://github.com/PubblyDevelopment/pubbly_console) section "Creating packets: Mapped Exports".
+You can make small APKs with the Pubbly released tools. For instructions, see [Pubbly Console](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console) section "Creating packets: Mapped Exports".
 
 > Clean the project
 * cordova clean android
@@ -394,4 +394,4 @@ That folder of images is the entire XPRIZE submission.
 
 ## Deploying
 
-The deploy process is equally complicated, and we wrote both Bash and Shell scripts to automate the headache. For more detailed instructions, check out [Pubbly Submission Installation](https://github.com/PubblyDevelopment/pubbly_submission_installation)
+The deploy process is equally complicated, and we wrote both Bash and Shell scripts to automate the headache. For more detailed instructions, check out [Pubbly Submission Installation](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_submission_installation)
