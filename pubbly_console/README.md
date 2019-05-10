@@ -24,7 +24,7 @@ If you don't want to buy your own server and install our LAMP CMS yourself, you 
 * cd /var/www
 * sudo rm -r html
 * sudo chown $user:$user . -R
-* sudo git clone https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_console.git
+* sudo git clone https://github.com/XPRIZE/GLEXP-Team-CCI.git
 * cd /var/www/pubbly_console
 * sudo git submodule update --init --recursive
 > Pasting in PuTTY or similar HTML shells is done with Control - Shift - Insert.
@@ -107,6 +107,7 @@ Restart Apache 2 to update with all custom settings
 
 Your server is now ready. I strongly advise that you change the root password to something secure, that you disallow the following of system indexes and other smart software people things.
 
+
 This is a "from scratch" build of the console and has no pre-loaded content. To create and upload your own new content, see section "Adding content". You can also create a mirror image of TeamCCI's XPRIZE console. For full instructions, see [Pubbly](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master) section "Submission from existing content". For convenience sake, I have also included a copy of the server specific "Adding content: Preloading Xprize content" steps below.
 
 ## Adding content
@@ -115,6 +116,8 @@ It is entirely possible to create a brand new program from brand new assets usin
 
 If you would like to instead start with a mirror image of the console TeamCCI used to create XPRIZE Android applications, check out [Pubbly](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master) section "Submission from existing: Xprize console duplication"
 
+This is a "from scratch" build of the console, and has no pre-loaded content. To create and upload your own new content, see section "Adding content". You can also create a mirror image of TeamCCI's xprize console. For full instructions, see [Pubbly](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly) section "Submission from existing content". For convenience sake, I have also included a copy of the server specific "Adding content: Preloading Xprize content" steps below.
+
 You can upload new content to either scratch consoles or Xprize dupe console in the same way.
 
 ### Adding content: Design Tools Export
@@ -122,6 +125,7 @@ You can upload new content to either scratch consoles or Xprize dupe console in 
 To upload content to the Pubbly console, first author and export a zip from the Design Tools. Full instructions can be found at [Pubbly Design Tools](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_design_tools) section "Authoring books" and "Exports"
 
 Once you have a zip, you can upload to two places in the console, Static and Variable exports. A list of all zips exported from the Design Tools that was used to create our XPRIZE Console can be found at [Pubbly Xprize Original Exports](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_xprize_original_exports)
+
 
 ### Adding content: Uploading to Static
 
@@ -366,6 +370,7 @@ We never needed to do specifically this, so the instructions are a little raw, b
 * Download folder "audio", "images", "videos" along with every XML file to your desktop folder ~/tmp
 * Clone the [Pubbly Engine](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_engine) repository to your local
 > The Pubbly Engine is the required JS and CSS to take the XML and assets of a console based Export and create an interactive web page (for deployment via Cordova APK wrapper, hosted server, or offline hand-to-hand zips).
+
 * From the Pubbly Engine repository on your local, copy and paste 
     - pubbly_engine/assets to ~/tmp/pubbly_engine/assets
     - pubbly_engine/css to ~/tmp/pubbly_engine/css
@@ -412,6 +417,7 @@ Still possible with SFTP or SSH access to the server. Real quick instructions, S
 To deploy a packet, first create and download the packet to your local machine. (Steps in section Creating Packets). If you wish to deploy as an offline zip, to be viewed from a desktop browser, email it to whoever you want to have it, tell them to extract and open the index.html file. If you wish to deploy as a hosted webpage, extract to a web-accessible folder on your server.
 
 If you wish to distribute as a Cordova APK, see [Pubbly SchoolHouse](https://github.com/XPRIZE/GLEXP-Team-CCI/tree/master/pubbly_schoolhouse) section Adding content: Console Map packet.
+
 
 ### Deploying a Pubbly SchoolHouse
 
