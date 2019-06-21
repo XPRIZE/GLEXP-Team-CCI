@@ -185,3 +185,8 @@ Wallis Muraca: Junior Developer
 Curriculum Concepts International (CCI)
 
 PUBBLY Creative Team
+
+
+# Questions?
+
+Do you have questions about the code, content or data? Please reach out to the [Global Learning XPRIZE Community](http://community.xprize.org/learning).
