@@ -2,6 +2,16 @@
 
 Pubbly is a collection of software projects used to create Team CCI's winning submission to the Global Learning Xprize.
 
+## Install
+
+To download and install the Android application, go to https://github.com/XPRIZE/GLEXP-Team-CCI/releases/tag/1.0 and select one of the following two files:
+ * English: `English3rdUpdate.apk`
+ * Swahili: `Swahili3rdUpdate.apk`
+
+## Build
+
+For instructions on how to compile the source code, see "Submission from existing content" below.
+
 ## Overview
 
 Pubbly is comprised is four major (and one minor) software projects, each in it's own repository, each with a specific README.
@@ -187,6 +197,6 @@ Curriculum Concepts International (CCI)
 PUBBLY Creative Team
 
 
-# Questions?
+## Questions?
 
 Do you have questions about the code, content or data? Please reach out to the [Global Learning XPRIZE Community](http://community.xprize.org/learning).
